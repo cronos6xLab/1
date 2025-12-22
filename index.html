@@ -1238,7 +1238,7 @@
             maxDistance: 6,
             minOrderForDelivery: 50.00,
             deliveryZones: [
-                { maxDistance: 15, name: "Zona de entrega", rateMultiplier: 1 }
+                { maxDistance: 6, name: "Zona de entrega", rateMultiplier: 1 }
             ]
         };
 
@@ -1868,8 +1868,8 @@
                 calculatedCost = Math.round(calculatedCost * 100) / 100;
                 
                 // Establecer un mínimo de envío de $30
-                if (calculatedCost < 30 && calculatedCost > 0) {
-                    calculatedCost = 30;
+                if (calculatedCost < 0 && calculatedCost > 0) {
+                    calculatedCost = 0;
                 }
                 
                 // Envío gratis para pedidos grandes
