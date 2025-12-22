@@ -33,9 +33,6 @@
             color: white;
             padding: 20px 0;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
             position: relative;
         }
 
@@ -64,7 +61,6 @@
             gap: 15px;
         }
 
-        /* ESTILOS MEJORADOS PARA EL LOGO */
         .logo-img {
             height: 70px;
             width: auto;
@@ -83,16 +79,40 @@
             color: white;
         }
 
-        .cart-icon {
-            position: relative;
+        /* ICONO FLOTANTE DEL CARRITO */
+        .floating-cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
             cursor: pointer;
+            background-color: #8B4513;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .floating-cart-icon:hover {
+            background-color: #A0522D;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(139, 69, 19, 0.6);
+        }
+
+        .floating-cart-icon i {
             font-size: 1.8rem;
         }
 
-        .cart-count {
+        .floating-cart-count {
             position: absolute;
-            top: -10px;
-            right: -10px;
+            top: -5px;
+            right: -5px;
             background-color: #e74c3c;
             color: white;
             border-radius: 50%;
@@ -103,18 +123,39 @@
             align-items: center;
             font-size: 0.9rem;
             font-weight: bold;
+            border: 2px solid white;
+        }
+
+        /* Para pantallas pequeñas, ajustar posición */
+        @media (max-width: 768px) {
+            .floating-cart-icon {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .floating-cart-icon i {
+                font-size: 1.5rem;
+            }
+            
+            .floating-cart-count {
+                width: 20px;
+                height: 20px;
+                font-size: 0.8rem;
+            }
         }
 
         .main-content {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 350px;
             gap: 30px;
             margin: 30px 0;
         }
 
-        @media (min-width: 992px) {
+        @media (max-width: 992px) {
             .main-content {
-                grid-template-columns: 1fr 400px;
+                grid-template-columns: 1fr;
             }
         }
 
@@ -233,28 +274,13 @@
             background-color: #A0522D;
         }
 
-        /* CARRO FIJO - MODIFICADO PARA QUE SEA SIEMPRE VISIBLE */
         .cart-section {
             background-color: white;
             border-radius: 10px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
-            border: 1px solid #e0d3c6;
             height: fit-content;
-            position: sticky;
-            top: 100px;
-            z-index: 100;
-            max-height: 80vh;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 991px) {
-            .cart-section {
-                position: relative;
-                top: 0;
-                max-height: none;
-            }
+            border: 1px solid #e0d3c6;
         }
 
         .cart-items {
@@ -492,7 +518,6 @@
             border: 2px solid #8B4513;
         }
 
-        /* ESTILOS MEJORADOS PARA EL LOGO EN EL MODAL */
         .modal-logo {
             height: 80px;
             width: auto;
@@ -543,7 +568,6 @@
             gap: 10px;
         }
 
-        /* ESTILOS MEJORADOS PARA EL LOGO EN EL FOOTER */
         .footer-logo {
             height: 60px;
             width: auto;
@@ -936,6 +960,12 @@
     </style>
 </head>
 <body>
+    <!-- ICONO FLOTANTE DEL CARRITO -->
+    <div class="floating-cart-icon" id="floatingCartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="floating-cart-count" id="floatingCartCount">0</div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -943,10 +973,6 @@
                 <div class="logo-container">
                     <img src="https://via.placeholder.com/150x70/8B4513/FFFFFF?text=TU+LOGO" alt="Logo de Tamales" class="logo-img">
                     <h1 class="logo-text">______</h1>
-                </div>
-                <div class="cart-icon" id="cartIcon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <div class="cart-count" id="cartCount">0</div>
                 </div>
             </div>
         </div>
@@ -977,7 +1003,7 @@
                 </div>
             </section>
 
-            <!-- Sección del carrito - AHORA ESTÁ FIJO EN PANTALLA -->
+            <!-- Sección del carrito -->
             <section class="cart-section">
                 <h2 class="section-title">Tu Pedido</h2>
                 
@@ -1122,9 +1148,9 @@
                     <label>Método de Pago *</label>
                     <div class="payment-methods">
                         <div class="payment-method" id="cashMethod">
-                            <input type="radio" id="cash" name="paymentMethod" value="cash" style="display: none;">
+                            <input type="radio" id="carrito" name="paymentMethod" value="cash" style="display: none;">
                             <i class="fas fa-money-bill-wave"></i>
-                            <label for="cash">Efectivo</label>
+                            <label for="carrito">Efectivo</label>
                         </div>
                         <div class="payment-method" id="cardMethod">
                             <input type="radio" id="card" name="paymentMethod" value="card" style="display: none;">
@@ -1209,8 +1235,8 @@
             baseRate: 0.00,
             perKmRate: 10.00,
             freeDeliveryThreshold: 50000.00,
-            maxDistance: 15,
-            minOrderForDelivery: 100.00,
+            maxDistance: 6,
+            minOrderForDelivery: 50.00,
             deliveryZones: [
                 { maxDistance: 15, name: "Zona de entrega", rateMultiplier: 1 }
             ]
@@ -1534,9 +1560,21 @@
                 document.getElementById('confirmationModal').style.display = 'none';
             });
             
-            // Mostrar/ocultar carrito al hacer clic en el icono
-            document.getElementById('cartIcon').addEventListener('click', function() {
-                document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
+            // ICONO FLOTANTE: Desplazar al carrito
+            document.getElementById('floatingCartIcon').addEventListener('click', function() {
+                const cartSection = document.querySelector('.cart-section');
+                if (cartSection) {
+                    cartSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Efecto visual de feedback
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                }
             });
         });
 
@@ -1939,14 +1977,15 @@
         // Actualizar visualización del carrito
         function updateCartDisplay() {
             const cartItemsContainer = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
             const subtotalElement = document.getElementById('subtotal');
             const shippingCostElement = document.getElementById('shippingCost');
             const totalElement = document.getElementById('total');
             
+            // Actualizar icono flotante
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
+            document.getElementById('floatingCartCount').textContent = totalItems;
             
+            // Actualizar carrito principal
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const total = subtotal + currentShippingCost;
             
@@ -2024,7 +2063,7 @@
             if (method === 'cash') {
                 document.getElementById('cashMethod').classList.add('selected');
                 document.getElementById('cashDetails').classList.add('active');
-                document.getElementById('cash').checked = true;
+                document.getElementById('carrito').checked = true;
                 calculateChange();
             } else {
                 document.getElementById('cardMethod').classList.add('selected');
