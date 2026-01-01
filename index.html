@@ -1,27 +1,45 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Juego del Impostor</title>
+    <title>Juego del Impostor Pro</title>
     <style>
+        /* ================= VARIABLES Y TEMAS ================= */
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
             --bg-color: #f0f2f5;
             --card-bg: #ffffff;
-            --text-dark: #2d3748;
+            --text-main: #2d3748;
             --text-muted: #718096;
-            --danger-color: #e53e3e;
-            --success-color: #38a169;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --input-bg: #ffffff;
+            --input-border: #e2e8f0;
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --modal-bg: rgba(45, 55, 72, 0.9);
+            --reveal-btn-bg: #ffffff;
+            --reveal-btn-hover: #f8fafc;
         }
 
+        [data-theme="dark"] {
+            --primary-gradient: linear-gradient(135deg, #7f9cf5 0%, #a78bfa 100%); /* Tonos más pasteles para dark mode */
+            --bg-color: #1a202c;
+            --card-bg: #2d3748;
+            --text-main: #f7fafc;
+            --text-muted: #a0aec0;
+            --input-bg: #4a5568;
+            --input-border: #4a5568;
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.5);
+            --modal-bg: rgba(0, 0, 0, 0.9);
+            --reveal-btn-bg: #4a5568;
+            --reveal-btn-hover: #2d3748;
+        }
+
+        /* ================= ESTILOS GENERALES ================= */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-dark);
+            color: var(--text-main);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -29,6 +47,7 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -40,6 +59,7 @@
             box-shadow: var(--shadow-lg);
             text-align: center;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         h1 {
@@ -47,32 +67,84 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 2.2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             font-weight: 800;
         }
 
-        h2 { color: var(--text-dark); }
-        
+        h2 { color: var(--text-main); font-weight: 700; margin-bottom: 1rem; }
         .hidden { display: none !important; }
 
-        /* Formulario */
-        .form-group { margin-bottom: 1.5rem; text-align: left; }
-        label { display: block; margin-bottom: 0.8rem; font-weight: 600; color: var(--text-dark); }
+        /* ================= BOTÓN DARK MODE ================= */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--input-border);
+            color: var(--text-main);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            z-index: 50;
+        }
+        .theme-toggle:hover { transform: scale(1.1); }
 
-        input[type="number"], input[type="text"] {
+        /* ================= FORMULARIOS ================= */
+        .form-group { margin-bottom: 1.2rem; text-align: left; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-main); }
+        
+        .hint { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+        input[type="number"], input[type="text"], select {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #e2e8f0;
+            background: var(--input-bg);
+            color: var(--text-main);
+            border: 2px solid var(--input-border);
             border-radius: 1rem;
             box-sizing: border-box;
             font-size: 1.1rem;
-            transition: border-color 0.3s;
             outline: none;
+            transition: border-color 0.3s;
         }
-
         input:focus { border-color: #764ba2; }
 
-        /* Botones modernos */
+        /* Radio Buttons Custom */
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+        .radio-option input { opacity: 0; position: absolute; width: 0; }
+        .radio-option label {
+            display: block;
+            padding: 0.8rem;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .radio-option input:checked + label {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        /* ================= BOTONES ================= */
         button.main-btn {
             background: var(--primary-gradient);
             color: white;
@@ -82,164 +154,141 @@
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
             width: 100%;
             margin-top: 1rem;
-            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
+        button.main-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(102, 126, 234, 0.5); }
+        button.main-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        button.secondary-btn { background: #718096; box-shadow: none; margin-top: 10px; }
+        button.accent-btn { background: var(--secondary-gradient); color: #fff; }
 
-        button.main-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 10px rgba(102, 126, 234, 0.3);
-        }
-
-        button.main-btn:active:not(:disabled) { transform: translateY(0); }
-
-        button.secondary-btn {
-            background: #cbd5e0; color: var(--text-dark);
-        }
-
-        /* Lista de Jugadores */
-        .player-list {
-            max-height: 400px;
-            overflow-y: auto;
-            margin: 1.5rem 0;
-            padding: 0.5rem;
-        }
-
+        /* ================= LISTA JUGADORES ================= */
+        .player-list { max-height: 400px; overflow-y: auto; margin: 1.5rem 0; padding: 0.2rem; }
         .player-input-item {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-            align-items: center;
-            background: #f8fafc;
-            padding: 0.5rem;
-            border-radius: 1rem;
+            display: flex; gap: 10px; margin-bottom: 10px; align-items: center;
+            background: var(--reveal-btn-bg); padding: 0.5rem; border-radius: 1rem;
         }
-
-        .player-input-item span { font-weight: bold; color: var(--text-muted); }
-
-        /* Botones de revelar */
         .reveal-btn {
-            background: white;
-            color: var(--text-dark);
-            border: 2px solid #e2e8f0;
-            padding: 1rem;
-            border-radius: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: var(--reveal-btn-bg); color: var(--text-main);
+            border: 2px solid var(--input-border);
+            padding: 1rem; border-radius: 1rem; font-size: 1rem; font-weight: 600;
+            cursor: pointer; width: 100%; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.2s;
         }
+        .reveal-btn:hover:not(:disabled) { border-color: #764ba2; background: var(--reveal-btn-hover); }
+        .reveal-btn:disabled { opacity: 0.6; cursor: not-allowed; text-decoration: line-through; }
 
-        .reveal-btn:hover:not(:disabled) {
-            border-color: #764ba2;
-            background: #f8fafc;
-        }
-
-        .reveal-btn:disabled {
-            background: #edf2f7;
-            color: #a0aec0;
-            border-color: #edf2f7;
-            cursor: not-allowed;
-        }
-
-        /* Modal */
+        /* ================= MODAL & CARDS ================= */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(45, 55, 72, 0.9); /* Fondo más oscuro moderno */
-            backdrop-filter: blur(5px);
+            background: var(--modal-bg); backdrop-filter: blur(5px);
             display: flex; justify-content: center; align-items: center;
-            z-index: 100;
-            padding: 20px;
+            z-index: 100; padding: 20px;
         }
-
         .modal {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 2rem;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--card-bg); padding: 2.5rem; border-radius: 2rem;
+            width: 100%; max-width: 400px; text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: popUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--text-main);
         }
+        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .role-card {
-            padding: 2rem;
-            border-radius: 1.5rem;
-            margin-bottom: 2rem;
-            color: white;
-        }
-
-        .impostor-card {
-            background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
-        }
+        .role-card { padding: 2rem; border-radius: 1.5rem; margin-bottom: 2rem; color: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2); }
+        .impostor-card { background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); }
+        .civil-card { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .word-box { background: rgba(255,255,255,0.25); font-size: 2.2rem; font-weight: 800; margin: 1rem 0; padding: 1rem; border-radius: 1rem; }
         
-        .civil-card {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        /* ================= TIMER & GAME SCREEN ================= */
+        .timer-display {
+            font-size: 4rem; font-weight: 800; font-variant-numeric: tabular-nums;
+            margin: 2rem 0; color: var(--text-main);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        .timer-finished { color: #e53e3e; animation: shake 0.5s; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
 
-        .role-title {
-            font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        .role-desc { font-size: 1.1rem; opacity: 0.9; }
-
-        .word-box {
-            background: rgba(255,255,255,0.2);
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            border-radius: 1rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .instruction-text { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .rounds-display { font-size: 1.5rem; margin: 2rem 0; padding: 2rem; border: 2px dashed var(--input-border); border-radius: 1rem; }
 
     </style>
 </head>
 <body>
 
+    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Cambiar tema">🌙</button>
+
     <div class="container" id="setup-screen">
         <h1>🕵️‍♂️ El Impostor</h1>
+        
         <div class="form-group">
-            <label for="num-players">👥 Total de jugadores (3-20)</label>
-            <input type="number" id="num-players" value="4" min="3" max="20" inputmode="numeric">
+            <label>👥 Configuración Jugadores</label>
+            <div style="display: flex; gap: 10px;">
+                <div style="flex:1;">
+                    <span class="hint">Jugadores</span>
+                    <input type="number" id="num-players" value="4" min="3" max="20" placeholder="Total">
+                </div>
+                <div style="flex:1;">
+                    <span class="hint">Impostores</span>
+                    <input type="number" id="num-impostors" value="1" min="1" max="19" placeholder="Impostores">
+                </div>
+            </div>
         </div>
+
         <div class="form-group">
-            <label for="num-impostors">😈 Cantidad de impostores</label>
-            <input type="number" id="num-impostors" value="1" min="1" max="19" inputmode="numeric">
+            <label>⏱️ Modo de Juego</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="mode-timer" name="gameMode" value="timer" checked onchange="toggleModeInputs()">
+                    <label for="mode-timer">Temporizador</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="mode-rounds" name="gameMode" value="rounds" onchange="toggleModeInputs()">
+                    <label for="mode-rounds">Rondas</label>
+                </div>
+            </div>
+
+            <div id="input-timer-container">
+                <span class="hint">Duración del debate (minutos)</span>
+                <input type="number" id="game-minutes" value="5" min="1" max="60">
+            </div>
+
+            <div id="input-rounds-container" class="hidden">
+                <span class="hint">Cantidad de preguntas/rondas</span>
+                <input type="number" id="game-rounds" value="2" min="1" max="10">
+            </div>
         </div>
+
         <button class="main-btn" onclick="setupPlayers()">Continuar 👉</button>
     </div>
 
-    <div class="container hidden" id="game-screen">
-        <h2 id="game-title">Nombres de los jugadores</h2>
-        
+    <div class="container hidden" id="names-screen">
+        <h2>🏷️ Nombres</h2>
         <div id="player-inputs" class="player-list"></div>
-        
-        <div id="setup-actions">
-             <p class="instruction-text">Personalicen sus nombres antes de empezar.</p>
-            <button class="main-btn" onclick="assignRoles()">🎲 Asignar roles y palabra</button>
-        </div>
+        <p class="hint">Pueden editar los nombres si desean.</p>
+        <button class="main-btn" onclick="assignRoles()">🎲 Repartir Roles</button>
+    </div>
 
-        <div id="reveal-actions" class="hidden">
-            <p class="instruction-text" style="font-size: 1.1rem;">📱 Pasen el dispositivo. Cada jugador debe ver su rol en secreto.</p>
-            <div id="reveal-buttons" class="player-list"></div>
-            <button class="main-btn secondary-btn" onclick="restartGame()">🔄 Reiniciar Juego</button>
-        </div>
+    <div class="container hidden" id="reveal-screen">
+        <h2>🤫 Identidad Secreta</h2>
+        <p class="hint">Pasa el dispositivo. Cada jugador debe ver su rol en secreto.</p>
+        
+        <div id="reveal-buttons" class="player-list"></div>
+        
+        <button id="btn-start-debate" class="main-btn accent-btn hidden" onclick="startDebate()">🔥 Comenzar Debate</button>
+    </div>
+
+    <div class="container hidden" id="active-game-screen">
+        <h2 id="active-mode-title">💬 Fase de Debate</h2>
+        
+        <div id="active-content">
+            </div>
+
+        <p class="hint">Debatan, pregunten y descubran quién miente.</p>
+
+        <button class="main-btn secondary-btn" onclick="restartGame()">🔄 Nuevo Juego</button>
     </div>
 
     <div id="modal-overlay" class="modal-overlay hidden">
@@ -250,36 +299,69 @@
     </div>
 
     <script>
-        // ================= DICCIONARIO =================
+        // ================= DATOS =================
         const diccionario = {
-            "Lugares": ["Playa", "Escuela", "Hospital", "Aeropuerto", "Cine", "Supermercado", "Biblioteca", "Gimnasio", "Hotel", "Restaurante", "Parque", "Museo", "Estadio", "Iglesia", "Estación de tren", "Plaza", "Cafetería", "Tienda", "Oficina", "Casa", "Farmacia", "Banco", "Zoológico"],
-            "Objetos": ["Celular", "Llaves", "Mochila", "Sillón", "Mesa", "Zapatillas", "Botella", "Reloj", "Auriculares", "Cuaderno", "Lámpara", "Ventana", "Puerta", "Silla", "Computadora", "Televisor", "Bicicleta", "Sombrero", "Paraguas", "Espejo", "Cama", "Cepillo de dientes"],
-            "Comidas": ["Pizza", "Empanadas", "Asado", "Sushi", "Hamburguesa", "Helado", "Ensalada", "Milanesas", "Pan", "Tacos", "Pasta", "Arroz", "Pollo", "Pescado", "Frutas", "Verduras", "Chocolate", "Café", "Té", "Agua", "Huevo frito", "Papas fritas"],
-            "Animales": ["Perro", "Gato", "Caballo", "Elefante", "Tiburón", "Águila", "León", "Pingüino", "Mono", "Delfín", "Conejo", "Oso", "Cebra", "Jirafa", "Rana", "Araña", "Mariposa", "Pájaro", "Tortuga", "Cocodrilo", "Vaca", "Cerdo", "Tigre"],
-            "Profesiones": ["Médico", "Docente", "Periodista", "Abogado", "Arquitecto", "Programador", "Cocinero", "Actor", "Piloto", "Diseñador", "Ingeniero", "Enfermero", "Bombero", "Policía", "Cantante", "Escritor", "Científico", "Veterinario", "Electricista", "Carpintero", "Dentista"],
-            "Acciones": ["Correr", "Dormir", "Cocinar", "Estudiar", "Viajar", "Bailar", "Comprar", "Nadar", "Limpiar", "Escribir", "Leer", "Conducir", "Saltar", "Cantar", "Dibujar", "Pintar", "Jugar", "Trabajar", "Descansar", "Pensar", "Reír", "Llorar"],
-            "Cultura Pop": ["Harry Potter", "Star Wars", "Avengers", "El Señor de los Anillos", "Batman", "Superman", "Spiderman", "Friends", "Los Simpson", "Breaking Bad", "Game of Thrones", "Stranger Things", "La Casa de Papel", "El juego del calamar", "Minecraft", "Fortnite", "Pokémon", "Mario Bros", "Barbie", "Messi"],
-            "Emociones": ["Alegría", "Miedo", "Vergüenza", "Ansiedad", "Euforia", "Tranquilidad", "Celos", "Nostalgia", "Enojo", "Tristeza", "Sorpresa", "Amor", "Odio", "Cariño", "Desesperación", "Felicidad", "Desilusión", "Esperanza", "Culpa", "Orgullo"],
-            "Transporte": ["Colectivo", "Tren", "Avión", "Auto", "Moto", "Bicicleta", "Barco", "Submarino", "Helicóptero", "Camión", "Autobús", "Subte/Metro", "Tranvía", "Monopatín", "Skate", "Motocicleta", "Camioneta", "Taxi", "Uber", "Crucero"],
-            "Naturaleza/Clima": ["Lluvia", "Viento", "Calor", "Frío", "Nieve", "Tormenta", "Sol", "Nublado", "Niebla", "Humedad", "Sequía", "Huracán", "Tornado", "Montaña", "Río", "Mar", "Bosque", "Desierto", "Volcán", "Arcoíris"],
-            "Deportes": ["Fútbol", "Tenis", "Básquet", "Vóley", "Natación", "Atletismo", "Gimnasia", "Boxeo", "Rugby", "Béisbol", "Hockey", "Golf", "Ciclismo", "Esquí", "Surf", "Patinaje", "Karate", "Judo", "Taekwondo", "Ping Pong"],
-            "Instrumentos": ["Guitarra", "Piano", "Batería", "Violín", "Flauta", "Trompeta", "Saxofón", "Bajo", "Ukelele", "Acordeón", "Arpa", "Clarinete", "Trombón", "Xilófono", "Armónica", "Tambor", "Microfono", "Teclado"]
+            "Lugares": ["Playa", "Escuela", "Hospital", "Aeropuerto", "Cine", "Supermercado", "Gimnasio", "Hotel", "Restaurante", "Parque", "Museo", "Iglesia", "Cementerio", "Zoologico", "Circo"],
+            "Objetos": ["Celular", "Llaves", "Mochila", "Sillón", "Zapatillas", "Reloj", "Auriculares", "Lámpara", "Computadora", "Bicicleta", "Paraguas", "Espejo", "Cama", "Cepillo de dientes", "Papel Higiénico"],
+            "Comidas": ["Pizza", "Empanadas", "Asado", "Sushi", "Hamburguesa", "Helado", "Ensalada", "Pan", "Tacos", "Pasta", "Pollo", "Chocolate", "Huevo frito", "Papas fritas", "Sopa"],
+            "Animales": ["Perro", "Gato", "Caballo", "Elefante", "Tiburón", "León", "Pingüino", "Mono", "Delfín", "Conejo", "Jirafa", "Araña", "Mariposa", "Tortuga", "Cocodrilo", "Serpiente"],
+            "Profesiones": ["Médico", "Maestro", "Abogado", "Arquitecto", "Programador", "Cocinero", "Actor", "Piloto", "Bombero", "Policía", "Cantante", "Científico", "Astronauta", "Mecánico", "Payaso"],
+            "Transporte": ["Colectivo/Bus", "Tren", "Avión", "Auto", "Moto", "Bicicleta", "Barco", "Submarino", "Helicóptero", "Camión", "Metro", "Monopatín", "Taxi", "Globo Aerostático", "Caballo"],
+            "Instrumentos": ["Guitarra", "Piano", "Batería", "Violín", "Flauta", "Trompeta", "Saxofón", "Ukelele", "Acordeón", "Arpa", "Maracas", "Triángulo", "Bajo", "Armónica"],
+            "Hogar": ["Cocina", "Baño", "Dormitorio", "Sótano", "Ático", "Jardín", "Garaje", "Balcón", "Techo", "Pasillo", "Comedor", "Sala de estar"]
         };
 
-        // ================= ESTADO DEL JUEGO =================
+        // Estado del juego
         let players = [];
         let secretWord = "";
         let secretCategory = "";
         let currentImpostors = [];
-        let currentPlayerViewing = null; // Índice del jugador que está viendo el modal actualmente
+        let currentPlayerViewing = null;
+        let rolesSeenCount = 0;
+        let gameConfig = { mode: 'timer', value: 5 }; // Default
+        let timerInterval = null;
 
-        // ================= FUNCIONES =================
+        // ================= LÓGICA UI =================
+        
+        // Dark Mode
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('theme-btn');
+            const current = html.getAttribute('data-theme');
+            
+            if (current === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                btn.innerText = '☀️';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                btn.innerText = '🌙';
+            }
+        }
+
+        // Toggle Inputs Setup
+        function toggleModeInputs() {
+            const isTimer = document.getElementById('mode-timer').checked;
+            if (isTimer) {
+                document.getElementById('input-timer-container').classList.remove('hidden');
+                document.getElementById('input-rounds-container').classList.add('hidden');
+            } else {
+                document.getElementById('input-timer-container').classList.add('hidden');
+                document.getElementById('input-rounds-container').classList.remove('hidden');
+            }
+        }
+
+        // ================= PASO 1: SETUP NOMBRES =================
         function setupPlayers() {
             const num = parseInt(document.getElementById('num-players').value);
             const imps = parseInt(document.getElementById('num-impostors').value);
+            
+            // Guardar configuración de modo
+            const isTimer = document.getElementById('mode-timer').checked;
+            gameConfig.mode = isTimer ? 'timer' : 'rounds';
+            gameConfig.value = parseInt(document.getElementById(isTimer ? 'game-minutes' : 'game-rounds').value);
 
             if (isNaN(num) || isNaN(imps) || num < 3 || imps < 1 || imps >= num) {
-                alert("⚠️ Configuración inválida.\n- Mínimo 3 jugadores.\n- Al menos 1 impostor y siempre menos que el total de jugadores.");
+                alert("⚠️ Error en configuración:\n- Mínimo 3 jugadores.\n- Impostores debe ser menor al total de jugadores.");
                 return;
             }
 
@@ -288,20 +370,16 @@
             for (let i = 1; i <= num; i++) {
                 container.innerHTML += `
                     <div class="player-input-item">
-                        <span>#${i}</span>
+                        <span style="font-weight:bold; min-width:20px;">${i}.</span>
                         <input type="text" value="Jugador ${i}" id="pname-${i-1}" placeholder="Nombre">
                     </div>`;
             }
 
-            transitionToScreen('game-screen');
-            document.getElementById('setup-actions').classList.remove('hidden');
-            document.getElementById('player-inputs').classList.remove('hidden');
-            document.getElementById('reveal-actions').classList.add('hidden');
-            document.getElementById('game-title').innerText = "Nombres de los jugadores";
+            transitionToScreen('setup-screen', 'names-screen');
         }
 
+        // ================= PASO 2: ASIGNAR ROLES =================
         function assignRoles() {
-            // 1. Obtener nombres
             const num = parseInt(document.getElementById('num-players').value);
             players = [];
             for (let i = 0; i < num; i++) {
@@ -309,14 +387,13 @@
                 players.push(nameInput || `Jugador ${i+1}`);
             }
 
-            // 2. Elegir palabra y categoría
+            // Lógica Juego
             const categorias = Object.keys(diccionario);
             secretCategory = categorias[Math.floor(Math.random() * categorias.length)];
             const palabras = diccionario[secretCategory];
             secretWord = palabras[Math.floor(Math.random() * palabras.length)];
-            console.log(`Debug: La palabra es ${secretWord} (${secretCategory})`);
-
-            // 3. Elegir impostores
+            
+            // Impostores
             const numImps = parseInt(document.getElementById('num-impostors').value);
             currentImpostors = [];
             while(currentImpostors.length < numImps) {
@@ -324,101 +401,166 @@
                 if(!currentImpostors.includes(r)) currentImpostors.push(r);
             }
 
-            renderRevealButtons();
-        }
-
-        function renderRevealButtons() {
-            document.getElementById('game-title').innerText = "🤫 Roles Asignados";
-            document.getElementById('setup-actions').classList.add('hidden');
-            document.getElementById('player-inputs').classList.add('hidden');
-            
+            // Preparar pantalla revelar
+            rolesSeenCount = 0;
             const revealContainer = document.getElementById('reveal-buttons');
             revealContainer.innerHTML = "";
-            
             players.forEach((name, index) => {
-                // Creamos el botón con un estado inicial no visto
                 revealContainer.innerHTML += `
                     <button class="reveal-btn" id="btn-reveal-${index}" onclick="showRole(${index})">
-                        <span>👤 Ver rol de <strong>${name}</strong></span>
-                        <span>👉</span>
+                        <span>👤 Rol de <strong>${name}</strong></span>
+                        <span>👁️</span>
                     </button>`;
             });
-
-            document.getElementById('reveal-actions').classList.remove('hidden');
+            
+            document.getElementById('btn-start-debate').classList.add('hidden');
+            transitionToScreen('names-screen', 'reveal-screen');
         }
 
+        // ================= PASO 3: MOSTRAR ROLES =================
         function showRole(index) {
             const btn = document.getElementById(`btn-reveal-${index}`);
-            
-            // SEGURIDAD: Si el botón está deshabilitado, no hacer nada.
             if (btn.disabled) return;
 
-            currentPlayerViewing = index; // Guardamos quién está mirando
+            currentPlayerViewing = index;
             const modal = document.getElementById('modal-overlay');
             const content = document.getElementById('modal-content');
             const isImpostor = currentImpostors.includes(index);
             const playerName = players[index];
 
+            let htmlContent = "";
             if(isImpostor) {
-                content.innerHTML = `
+                htmlContent = `
                     <div class="role-card impostor-card">
-                        <div class="role-title">😈 ERES IMPOSTOR</div>
-                        <div class="role-desc">No conoces la palabra secreta.</div>
-                        <div class="word-box" style="font-size: 1.5rem;">???</div>
-                        <p>La categoría es: <strong>${secretCategory}</strong></p>
-                        <p>Tu misión: Fingir que sabes la palabra, escuchar las pistas de los civiles y tratar de adivinarla sin ser descubierto.</p>
-                    </div>
-                    <p class="instruction-text">${playerName}, memoriza esto y cierra.</p>
-                `;
+                        <h2>😈 ERES IMPOSTOR</h2>
+                        <p>Categoría: <strong>${secretCategory}</strong></p>
+                        <div class="word-box">???</div>
+                        <p style="font-size:0.9rem">Finge saber la palabra y confunde a los demás.</p>
+                    </div>`;
             } else {
-                content.innerHTML = `
+                htmlContent = `
                     <div class="role-card civil-card">
-                        <div class="role-title">😇 ERES CIVIL</div>
-                        <div class="role-desc">Tú conoces la palabra secreta:</div>
+                        <h2>😇 ERES CIVIL</h2>
+                        <p>Categoría: <strong>${secretCategory}</strong></p>
                         <div class="word-box">${secretWord}</div>
-                         <p>La categoría es: <strong>${secretCategory}</strong></p>
-                        <p>Tu misión: Dar pistas sutiles para que otros civiles te reconozcan, ¡pero cuidado con ser muy obvio o el impostor adivinará!</p>
-                    </div>
-                    <p class="instruction-text">${playerName}, memoriza esto y cierra.</p>
-                `;
+                        <p style="font-size:0.9rem">Da pistas sutiles para no revelar la palabra al impostor.</p>
+                    </div>`;
             }
-
+            htmlContent += `<p><strong>${playerName}</strong>, memoriza y cierra.</p>`;
+            
+            content.innerHTML = htmlContent;
             modal.classList.remove('hidden');
         }
 
         function closeModal() {
             document.getElementById('modal-overlay').classList.add('hidden');
-
-            // SEGURIDAD CRÍTICA: Deshabilitar el botón del jugador que acaba de cerrar el modal
             if (currentPlayerViewing !== null) {
                 const btn = document.getElementById(`btn-reveal-${currentPlayerViewing}`);
-                btn.disabled = true; // Deshabilitar físicamente
-                btn.innerHTML = `<span>👤 ${players[currentPlayerViewing]} (Rol visto)</span> <span>✅</span>`; // Cambiar texto e icono
-                currentPlayerViewing = null; // Resetear variable
+                btn.disabled = true;
+                btn.innerHTML = `<span>👤 ${players[currentPlayerViewing]}</span> <span>✅ Listo</span>`;
+                currentPlayerViewing = null;
+                rolesSeenCount++;
+
+                // Verificar si todos vieron
+                if(rolesSeenCount >= players.length) {
+                    document.getElementById('btn-start-debate').classList.remove('hidden');
+                }
             }
         }
 
-        function restartGame() {
-            if(confirm("¿Seguro que quieres reiniciar el juego? Se perderán los roles actuales.")) {
-                transitionToScreen('setup-screen');
-            }
-        }
-
-        // Helper para transiciones suaves
-        function transitionToScreen(screenId) {
-            document.getElementById('setup-screen').classList.add('hidden');
-            document.getElementById('game-screen').classList.add('hidden');
+        // ================= PASO 4: FASE DEBATE (JUEGO ACTIVO) =================
+        function startDebate() {
+            transitionToScreen('reveal-screen', 'active-game-screen');
+            const content = document.getElementById('active-content');
             
-            const target = document.getElementById(screenId);
-            target.classList.remove('hidden');
-            target.style.opacity = 0;
-            target.style.transform = 'translateY(20px)';
+            if (gameConfig.mode === 'timer') {
+                document.getElementById('active-mode-title').innerText = "⏱️ Tiempo Restante";
+                content.innerHTML = `<div id="timer-val" class="timer-display">00:00</div>
+                                     <button class="main-btn" id="timer-control" onclick="toggleTimer()">Pausar</button>`;
+                startTimer(gameConfig.value * 60);
+            } else {
+                document.getElementById('active-mode-title').innerText = "🗣️ Rondas de Preguntas";
+                content.innerHTML = `
+                    <div class="rounds-display">
+                        <p>Jueguen <strong>${gameConfig.value}</strong> rondas completas.</p>
+                        <p style="font-size:0.9rem; color:var(--text-muted)">Empieza el jugador que fue el último en ver su rol (o elijan al azar).</p>
+                    </div>`;
+            }
+        }
+
+        // Lógica del Temporizador
+        let timeRemaining = 0;
+        let isPaused = false;
+
+        function startTimer(seconds) {
+            timeRemaining = seconds;
+            updateTimerDisplay();
+            isPaused = false;
+            
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                if(!isPaused) {
+                    timeRemaining--;
+                    updateTimerDisplay();
+                    if(timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        document.getElementById('timer-val').classList.add('timer-finished');
+                        document.getElementById('timer-val').innerText = "00:00";
+                        alert("⏰ ¡Tiempo terminado! ¡A votar!");
+                    }
+                }
+            }, 1000);
+        }
+
+        function toggleTimer() {
+            isPaused = !isPaused;
+            const btn = document.getElementById('timer-control');
+            btn.innerText = isPaused ? "Reanudar" : "Pausar";
+            btn.style.background = isPaused ? "var(--secondary-gradient)" : "var(--primary-gradient)";
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeRemaining / 60);
+            const s = timeRemaining % 60;
+            document.getElementById('timer-val').innerText = 
+                `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        // ================= UTILIDADES =================
+        function restartGame() {
+            if(confirm("¿Reiniciar juego?")) {
+                if (timerInterval) clearInterval(timerInterval);
+                document.getElementById('active-game-screen').classList.add('hidden');
+                document.getElementById('setup-screen').classList.remove('hidden');
+                
+                // Animación reset
+                document.getElementById('setup-screen').style.opacity = 0;
+                setTimeout(() => document.getElementById('setup-screen').style.opacity = 1, 100);
+            }
+        }
+
+        function transitionToScreen(fromId, toId) {
+            const fromEl = document.getElementById(fromId);
+            const toEl = document.getElementById(toId);
+            
+            fromEl.style.opacity = 0;
+            fromEl.style.transform = 'translateY(-20px)';
             
             setTimeout(() => {
-                 target.style.transition = 'all 0.3s ease';
-                 target.style.opacity = 1;
-                 target.style.transform = 'translateY(0)';
-            }, 50);
+                fromEl.classList.add('hidden');
+                fromEl.style.transform = 'none'; // reset
+                
+                toEl.classList.remove('hidden');
+                toEl.style.opacity = 0;
+                toEl.style.transform = 'translateY(20px)';
+                
+                // Force reflow
+                void toEl.offsetWidth;
+                
+                toEl.style.opacity = 1;
+                toEl.style.transform = 'translateY(0)';
+            }, 300);
         }
     </script>
 </body>
