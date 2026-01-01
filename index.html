@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -82,6 +82,8 @@
             transition: all 0.3s ease;
             position: relative;
             border: 1px solid rgba(209,213,219,0.9);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         html[data-theme="dark"] .container {
             background: linear-gradient(145deg, rgba(15,23,42,0.97), rgba(17,24,39,0.98));
@@ -165,6 +167,45 @@
         input:focus {
             border-color: var(--accent-cyan);
             box-shadow: 0 0 0 2px rgba(34,211,238,0.3);
+        }
+
+        /* ================= CHECKBOXES CATEGORÍAS ================= */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+
+        .checkbox-item {
+            position: relative;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-item label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + label {
+            border-color: var(--accent-purple);
+            background: radial-gradient(circle at top, rgba(139,92,246,0.2), var(--input-bg));
+            color: var(--accent-cyan);
+            box-shadow: 0 0 18px rgba(139,92,246,0.4);
         }
 
         /* Radio Buttons Custom */
@@ -450,10 +491,23 @@
             background: rgba(15,23,42,0.8);
         }
 
-        /* Botón de regresar al menú principal */
         .back-menu-btn {
             margin-top: 0.75rem;
             background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+
+        .selected-categories {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background: rgba(249,250,251,0.9);
+            border-radius: 1rem;
+            border: 1px dashed var(--input-border);
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        html[data-theme="dark"] .selected-categories {
+            background: rgba(15,23,42,0.85);
+            border-color: #1f2937;
         }
     </style>
 </head>
@@ -503,6 +557,73 @@
         </div>
 
         <button class="main-btn" onclick="setupPlayers()">Continuar 👉</button>
+    </div>
+
+    <div class="container hidden" id="categories-screen">
+        <h2>🎬 Selecciona Categorías</h2>
+        <p class="hint">Elige una o combina varias categorías para el juego.</p>
+
+        <div class="categories-grid">
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-lugares" onchange="updateSelectedCategories()">
+                <label for="cat-lugares">🏖️ Lugares</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-objetos" onchange="updateSelectedCategories()">
+                <label for="cat-objetos">📱 Objetos</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-comidas" onchange="updateSelectedCategories()">
+                <label for="cat-comidas">🍕 Comidas</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-animales" onchange="updateSelectedCategories()">
+                <label for="cat-animales">🐶 Animales</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-profesiones" onchange="updateSelectedCategories()">
+                <label for="cat-profesiones">👨‍⚕️ Profesiones</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-transporte" onchange="updateSelectedCategories()">
+                <label for="cat-transporte">🚗 Transporte</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-instrumentos" onchange="updateSelectedCategories()">
+                <label for="cat-instrumentos">🎸 Instrumentos</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-hogar" onchange="updateSelectedCategories()">
+                <label for="cat-hogar">🏠 Hogar</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-peliculas" onchange="updateSelectedCategories()">
+                <label for="cat-peliculas">🎬 Películas</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-anime" onchange="updateSelectedCategories()">
+                <label for="cat-anime">🎌 Anime</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-bandas" onchange="updateSelectedCategories()">
+                <label for="cat-bandas">🎵 Bandas</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-disney" onchange="updateSelectedCategories()">
+                <label for="cat-disney">✨ Disney</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-deportes" onchange="updateSelectedCategories()">
+                <label for="cat-deportes">⚽ Deportes</label>
+            </div>
+        </div>
+
+        <div class="selected-categories">
+            <strong>Seleccionadas:</strong> <span id="selected-count">0</span>
+        </div>
+
+        <button class="main-btn" onclick="proceedWithCategories()">Siguiente ✓</button>
+        <button class="main-btn secondary-btn back-menu-btn" onclick="goToMainMenu()">🏠 Volver al menú principal</button>
     </div>
 
     <div class="container hidden" id="names-screen">
@@ -560,7 +681,11 @@
             "Profesiones": ["Médico", "Maestro", "Abogado", "Arquitecto", "Programador", "Cocinero", "Actor", "Piloto", "Bombero", "Policía", "Cantante", "Científico", "Astronauta", "Mecánico", "Payaso"],
             "Transporte": ["Colectivo/Bus", "Tren", "Avión", "Auto", "Moto", "Bicicleta", "Barco", "Submarino", "Helicóptero", "Camión", "Metro", "Monopatín", "Taxi", "Globo Aerostático", "Caballo"],
             "Instrumentos": ["Guitarra", "Piano", "Batería", "Violín", "Flauta", "Trompeta", "Saxofón", "Ukelele", "Acordeón", "Arpa", "Maracas", "Triángulo", "Bajo", "Armónica"],
-            "Hogar": ["Cocina", "Baño", "Dormitorio", "Sótano", "Ático", "Jardín", "Garaje", "Balcón", "Techo", "Pasillo", "Comedor", "Sala de estar"]
+            "Hogar": ["Cocina", "Baño", "Dormitorio", "Sótano", "Ático", "Jardín", "Garaje", "Balcón", "Techo", "Pasillo", "Comedor", "Sala de estar"],
+            "Películas": ["Avatar", "Titanic", "Inception", "Interstellar", "Matrix", "Gladiador", "Pulp Fiction", "Forrest Gump", "Jaws", "Jurassic Park", "El Señor de los Anillos", "Star Wars"],
+            "Anime": ["Naruto", "One Piece", "Dragon Ball", "My Hero Academia", "Death Note", "Attack on Titan", "Tokyo Ghoul", "Steins;Gate", "Demon Slayer", "Jujutsu Kaisen"],
+            "Bandas": ["The Beatles", "Queen", "Pink Floyd", "Led Zeppelin", "The Rolling Stones", "Metallica", "AC/DC", "Guns N' Roses", "Red Hot Chili Peppers", "Coldplay"],
+            "Disney": ["Mickey Mouse", "Aladdin", "Frozen", "Rapunzel", "Bella", "Simba", "Elsa", "Cruella", "Maléfica", "Ariel"]
         };
 
         // Estado del juego
@@ -572,6 +697,7 @@
         let rolesSeenCount = 0;
         let gameConfig = { mode: 'timer', value: 5 };
         let timerInterval = null;
+        let selectedCategories = [];
 
         // ================= MODO DÍA / NOCHE =================
         function toggleTheme() {
@@ -596,7 +722,7 @@
             }
         }
 
-        // ================= PASO 1: SETUP NOMBRES =================
+        // ================= PASO 1: SETUP NÚMEROS =================
         function setupPlayers() {
             const num = parseInt(document.getElementById('num-players').value);
             const imps = parseInt(document.getElementById('num-impostors').value);
@@ -610,6 +736,34 @@
                 return;
             }
 
+            // Resetear checkboxes y mostrar pantalla de categorías
+            document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => cb.checked = false);
+            selectedCategories = [];
+            updateSelectedCategories();
+
+            transitionToScreen('setup-screen', 'categories-screen');
+        }
+
+        // ================= CATEGORÍAS =================
+        function updateSelectedCategories() {
+            const checkboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]:checked');
+            selectedCategories = [];
+            checkboxes.forEach(cb => {
+                const label = document.querySelector(`label[for="${cb.id}"]`);
+                const catName = cb.id.replace('cat-', '').charAt(0).toUpperCase() + cb.id.replace('cat-', '').slice(1);
+                selectedCategories.push(catName);
+            });
+            document.getElementById('selected-count').textContent = selectedCategories.length;
+        }
+
+        function proceedWithCategories() {
+            if (selectedCategories.length === 0) {
+                alert("⚠️ Por favor, selecciona al menos una categoría.");
+                return;
+            }
+
+            // Mostrar pantalla de nombres
+            const num = parseInt(document.getElementById('num-players').value);
             const container = document.getElementById('player-inputs');
             container.innerHTML = "";
             players = [];
@@ -626,7 +780,7 @@
             }
 
             updateRoulette();
-            transitionToScreen('setup-screen', 'names-screen');
+            transitionToScreen('categories-screen', 'names-screen');
         }
 
         // Mantener nombres sincronizados en el array players
@@ -700,10 +854,11 @@
             }
             updateRoulette();
 
-            const categorias = Object.keys(diccionario);
-            secretCategory = categorias[Math.floor(Math.random() * categorias.length)];
-            const palabras = diccionario[secretCategory];
-            secretWord = palabras[Math.floor(Math.random() * palabras.length)];
+            // Elegir palabra de categorías seleccionadas
+            const randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
+            secretCategory = randomCategory;
+            const palabras = diccionario[secretCategory] || [];
+            secretWord = palabras.length > 0 ? palabras[Math.floor(Math.random() * palabras.length)] : "Palabra";
             
             const numImps = parseInt(document.getElementById('num-impostors').value);
             currentImpostors = [];
@@ -817,9 +972,9 @@
                         document.getElementById('timer-val').classList.add('timer-finished');
                         document.getElementById('timer-val').innerText = "00:00";
 
-                        // Vibrar el dispositivo compatible al terminar el tiempo
+                        // Vibrar el dispositivo
                         if ("vibrate" in navigator) {
-                            navigator.vibrate([300, 150, 300]); // patrón corto de alerta[web:94][web:96]
+                            navigator.vibrate([300, 150, 300]);
                         }
 
                         alert("⏰ ¡Tiempo terminado! ¡A votar!");
@@ -866,26 +1021,24 @@
             }
         }
 
-        // Volver al menú principal (config inicial), permitiendo cambiar número de jugadores
         function goToMainMenu() {
             if (timerInterval) clearInterval(timerInterval);
 
-            // Oculta todas las pantallas
             document.getElementById('names-screen').classList.add('hidden');
             document.getElementById('reveal-screen').classList.add('hidden');
             document.getElementById('active-game-screen').classList.add('hidden');
+            document.getElementById('categories-screen').classList.add('hidden');
 
-            // Limpia elementos de ronda, pero no toca inputs de setup
             currentImpostors = [];
             secretWord = "";
             secretCategory = "";
             rolesSeenCount = 0;
+            selectedCategories = [];
 
             document.getElementById('reveal-buttons').innerHTML = "";
             document.getElementById('roulette-winner').textContent = "";
             document.getElementById('btn-start-debate').classList.add('hidden');
 
-            // Muestra menú principal
             document.getElementById('setup-screen').classList.remove('hidden');
             document.getElementById('setup-screen').style.opacity = 0;
             setTimeout(() => {
