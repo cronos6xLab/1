@@ -673,6 +673,11 @@
         </div>
     </div>
 
+    <!-- Elemento de audio para la alarma -->
+    <audio id="alarm-sound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+    </audio>
+
     <script>
         // ================= DATOS =================
         const diccionario = {
@@ -963,6 +968,45 @@
         let timeRemaining = 0;
         let isPaused = false;
 
+        // Crear y configurar el sonido de alarma
+        function createAlarmSound() {
+            try {
+                // Crear contexto de audio
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Configurar el sonido de alarma
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.5);
+                
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                
+                // Reproducir durante 3 segundos
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 3);
+                
+                // Limpiar recursos
+                setTimeout(() => {
+                    oscillator.disconnect();
+                    gainNode.disconnect();
+                }, 3000);
+            } catch (e) {
+                console.log("No se pudo crear el sonido de alarma:", e);
+                // Fallback: intentar reproducir un sonido de audio estándar
+                const audioElement = document.getElementById('alarm-sound');
+                if (audioElement) {
+                    audioElement.currentTime = 0;
+                    audioElement.play().catch(e => console.log("Error reproduciendo audio:", e));
+                }
+            }
+        }
+
         function startTimer(seconds) {
             timeRemaining = seconds;
             updateTimerDisplay();
@@ -979,12 +1023,18 @@
                         document.getElementById('timer-val').classList.add('timer-finished');
                         document.getElementById('timer-val').innerText = "00:00";
 
+                        // Reproducir sonido de alarma
+                        createAlarmSound();
+
                         // Vibrar el dispositivo
                         if ("vibrate" in navigator) {
-                            navigator.vibrate([300, 150, 300]);
+                            navigator.vibrate([300, 150, 300, 150, 300]);
                         }
 
-                        alert("⏰ ¡Tiempo terminado! ¡A votar!");
+                        // Mostrar alerta visual
+                        setTimeout(() => {
+                            alert("⏰ ¡Tiempo terminado! ¡A votar!");
+                        }, 500);
                     }
                 }
             }, 1000);
@@ -1054,4 +1104,3 @@
     </script>
 </body>
 </html>
-​​​​​​​​​​​​​​​​
