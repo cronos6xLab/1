@@ -7,8 +7,33 @@
     <style>
         /* ================= VARIABLES Y TEMAS ================= */
         :root {
-            --bg-color: #050816;              /* Fondo espacial muy oscuro */
-            --card-bg: #0b1020;               /* Cartas un poco más claras */
+            /* Tema base (light por defecto) */
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --input-bg: #ffffff;
+            --input-border: #e5e7eb;
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.15);
+            --modal-bg: rgba(15,23,42,0.75);
+
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 50%, #22c1c3 100%);
+            --secondary-gradient: linear-gradient(135deg, #f97316 0%, #facc15 100%);
+            --accent-pink: #ec4899;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-green: #22c55e;
+            --accent-yellow: #facc15;
+
+            --reveal-btn-bg: #f9fafb;
+            --reveal-btn-hover: #e5e7eb;
+            --reveal-btn-border: #e5e7eb;
+        }
+
+        /* Tema oscuro tipo sci‑fi neón (igual al arte) */
+        html[data-theme="dark"] {
+            --bg-color: #050816;
+            --card-bg: #0b1020;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
             --input-bg: #111827;
@@ -16,7 +41,6 @@
             --shadow-lg: 0 20px 40px rgba(0,0,0,0.75);
             --modal-bg: rgba(5, 8, 22, 0.96);
 
-            /* Neones inspirados en el arte sci‑fi neón usado en interfaces futuristas.[web:7][web:18] */
             --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 50%, #36d399 100%);
             --secondary-gradient: linear-gradient(135deg, #f97316 0%, #facc15 100%);
             --accent-pink: #ec4899;
@@ -30,14 +54,10 @@
             --reveal-btn-border: #1f2937;
         }
 
-        [data-theme="dark"] {
-            --bg-color: #050816;
-        }
-
         /* ================= ESTILOS GENERALES ================= */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: radial-gradient(circle at top, #1d2545 0, #050816 45%, #000 100%);
+            background: radial-gradient(circle at top, #e5e7eb 0, var(--bg-color) 55%);
             color: var(--text-main);
             margin: 0;
             display: flex;
@@ -46,22 +66,27 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        html[data-theme="dark"] body {
+            background: radial-gradient(circle at top, #1d2545 0, #050816 45%, #000 100%);
         }
 
         .container {
             width: 100%;
             max-width: 480px;
-            background: linear-gradient(145deg, rgba(15,23,42,0.97), rgba(17,24,39,0.98));
+            background: linear-gradient(145deg, rgba(255,255,255,0.97), rgba(243,244,246,0.98));
             padding: 2.5rem;
             border-radius: 1.75rem;
-            box-shadow:
-                0 0 25px rgba(139, 92, 246, 0.35),
-                0 0 45px rgba(34, 211, 238, 0.25);
+            box-shadow: var(--shadow-lg);
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
-            border: 1px solid rgba(55,65,81,0.8);
+            border: 1px solid rgba(209,213,219,0.9);
+        }
+        html[data-theme="dark"] .container {
+            background: linear-gradient(145deg, rgba(15,23,42,0.97), rgba(17,24,39,0.98));
+            border-color: rgba(55,65,81,0.8);
         }
 
         h1 {
@@ -72,6 +97,11 @@
             margin-bottom: 1.5rem;
             font-weight: 800;
             letter-spacing: 0.06em;
+            text-shadow:
+                0 0 10px rgba(139,92,246,0.35),
+                0 0 18px rgba(34,211,238,0.35);
+        }
+        html[data-theme="dark"] h1 {
             text-shadow:
                 0 0 10px rgba(139,92,246,0.8),
                 0 0 18px rgba(34,211,238,0.7);
@@ -85,9 +115,9 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: radial-gradient(circle at top, #111827, #020617);
-            border: 2px solid #1f2937;
-            color: var(--text-main);
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            color: #111827;
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -96,13 +126,19 @@
             justify-content: center;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 0 12px rgba(139,92,246,0.7);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
             z-index: 50;
+        }
+        html[data-theme="dark"] .theme-toggle {
+            background: radial-gradient(circle at top, #111827, #020617);
+            border-color: #1f2937;
+            color: #f9fafb;
+            box-shadow: 0 0 12px rgba(139,92,246,0.7);
         }
         .theme-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 18px rgba(34,211,238,0.8);
+            box-shadow: 0 0 18px rgba(34,211,238,0.5);
         }
 
         /* ================= FORMULARIOS ================= */
@@ -114,22 +150,22 @@
         input[type="number"], input[type="text"], select {
             width: 100%;
             padding: 1rem;
-            background: rgba(15,23,42,0.9);
-            color: #e5e7eb;
-            border: 1px solid #1f2937;
+            background: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--input-border);
             border-radius: 999px;
             box-sizing: border-box;
             font-size: 1.1rem;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
-            box-shadow: inset 0 0 0 1px rgba(15,23,42,0.8);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+            box-shadow: inset 0 0 0 1px rgba(15,23,42,0.02);
         }
-        input::placeholder { color: #6b7280; }
+        input::placeholder { color: #9ca3af; }
+        html[data-theme="dark"] input::placeholder { color: #6b7280; }
 
         input:focus {
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 2px rgba(34,211,238,0.4);
-            background: rgba(15,23,42,1);
+            box-shadow: 0 0 0 2px rgba(34,211,238,0.3);
         }
 
         /* Radio Buttons Custom */
@@ -146,20 +182,20 @@
         .radio-option label {
             display: block;
             padding: 0.8rem;
-            background: rgba(15,23,42,0.9);
-            border: 1px solid #1f2937;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
             border-radius: 999px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s;
             text-align: center;
-            color: #e5e7eb;
+            color: var(--text-main);
         }
         .radio-option input:checked + label {
             border-color: var(--accent-purple);
-            background: radial-gradient(circle at top, rgba(139,92,246,0.4), rgba(15,23,42,0.95));
+            background: radial-gradient(circle at top, rgba(139,92,246,0.15), var(--input-bg));
             color: var(--accent-cyan);
-            box-shadow: 0 0 18px rgba(139,92,246,0.7);
+            box-shadow: 0 0 18px rgba(139,92,246,0.35);
         }
 
         /* ================= BOTONES ================= */
@@ -176,21 +212,24 @@
             width: 100%;
             margin-top: 1rem;
             box-shadow:
-                0 0 20px rgba(34,211,238,0.7),
-                0 0 40px rgba(139,92,246,0.7);
+                0 0 20px rgba(34,211,238,0.35),
+                0 0 40px rgba(139,92,246,0.35);
         }
         button.main-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            filter: brightness(1.1);
+            filter: brightness(1.05);
         }
         button.main-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
         
         button.secondary-btn {
-            background: linear-gradient(135deg, #374151, #111827);
+            background: linear-gradient(135deg, #6b7280, #4b5563);
             box-shadow: none;
             margin-top: 10px;
         }
-        button.accent-btn { background: var(--secondary-gradient); color: #0b1020; }
+        html[data-theme="dark"] button.secondary-btn {
+            background: linear-gradient(135deg, #374151, #111827);
+        }
+        button.accent-btn { background: var(--secondary-gradient); color: #111827; }
 
         /* ================= LISTA JUGADORES ================= */
         .player-list {
@@ -204,10 +243,10 @@
             gap: 10px;
             margin-bottom: 10px;
             align-items: center;
-            background: rgba(15,23,42,0.85);
+            background: var(--reveal-btn-bg);
             padding: 0.5rem 0.8rem;
             border-radius: 999px;
-            border: 1px solid rgba(55,65,81,0.9);
+            border: 1px solid var(--reveal-btn-border);
         }
         .player-input-item span {
             color: var(--accent-cyan);
@@ -215,7 +254,7 @@
 
         .reveal-btn {
             background: var(--reveal-btn-bg);
-            color: #e5e7eb;
+            color: var(--text-main);
             border: 1px solid var(--reveal-btn-border);
             padding: 1rem;
             border-radius: 1rem;
@@ -232,7 +271,7 @@
         .reveal-btn:hover:not(:disabled) {
             border-color: var(--accent-cyan);
             background: var(--reveal-btn-hover);
-            box-shadow: 0 0 20px rgba(34,211,238,0.6);
+            box-shadow: 0 0 20px rgba(34,211,238,0.25);
         }
         .reveal-btn:disabled {
             opacity: 0.6;
@@ -255,16 +294,21 @@
             padding: 20px;
         }
         .modal {
-            background: radial-gradient(circle at top, #111827, #020617);
+            background: radial-gradient(circle at top, #ffffff, #e5e7eb);
             padding: 2.5rem;
             border-radius: 2rem;
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
             animation: popUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             color: var(--text-main);
-            border: 1px solid rgba(55,65,81,0.9);
+            border: 1px solid rgba(209,213,219,0.9);
+        }
+        html[data-theme="dark"] .modal {
+            background: radial-gradient(circle at top, #111827, #020617);
+            border-color: rgba(55,65,81,0.9);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         }
         @keyframes popUp {
             from { transform: scale(0.9); opacity: 0; }
@@ -276,7 +320,7 @@
             border-radius: 1.5rem;
             margin-bottom: 2rem;
             color: white;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
             position: relative;
             overflow: hidden;
         }
@@ -292,23 +336,26 @@
 
         .impostor-card {
             background: radial-gradient(circle at top, #f97316 0, #e11d48 40%, #4c0519 100%);
-            box-shadow: 0 0 25px rgba(248,113,113,0.8);
+            box-shadow: 0 0 25px rgba(248,113,113,0.6);
         }
 
         .civil-card {
             background: radial-gradient(circle at top, #22c55e 0, #22d3ee 40%, #022c22 100%);
-            box-shadow: 0 0 25px rgba(34,211,238,0.8);
+            box-shadow: 0 0 25px rgba(34,211,238,0.6);
         }
 
         .word-box {
-            background: rgba(15,23,42,0.5);
+            background: rgba(15,23,42,0.05);
             font-size: 2.2rem;
             font-weight: 800;
             margin: 1rem 0;
             padding: 1rem;
             border-radius: 1rem;
             border: 1px solid rgba(148,163,184,0.6);
-            text-shadow: 0 0 12px rgba(34,211,238,0.8);
+            text-shadow: 0 0 6px rgba(34,211,238,0.55);
+        }
+        html[data-theme="dark"] .word-box {
+            background: rgba(15,23,42,0.5);
         }
         
         /* ================= TIMER & GAME SCREEN ================= */
@@ -318,6 +365,11 @@
             font-variant-numeric: tabular-nums;
             margin: 2rem 0;
             color: var(--accent-cyan);
+            text-shadow:
+                0 0 12px rgba(34,211,238,0.5),
+                0 0 22px rgba(139,92,246,0.35);
+        }
+        html[data-theme="dark"] .timer-display {
             text-shadow:
                 0 0 12px rgba(34,211,238,0.9),
                 0 0 22px rgba(139,92,246,0.7);
@@ -337,8 +389,11 @@
             font-size: 1.5rem;
             margin: 2rem 0;
             padding: 2rem;
-            border: 2px dashed rgba(55,65,81,0.9);
+            border: 2px dashed var(--input-border);
             border-radius: 1rem;
+            background: rgba(249,250,251,0.9);
+        }
+        html[data-theme="dark"] .rounds-display {
             background: rgba(15,23,42,0.8);
         }
 
@@ -346,7 +401,7 @@
 </head>
 <body>
 
-    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Cambiar tema">☀️</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Cambiar tema">🌙</button>
 
     <div class="container" id="setup-screen">
         <h1>🕵️‍♂️ El Impostor</h1>
@@ -449,24 +504,18 @@
         let gameConfig = { mode: 'timer', value: 5 }; // Default
         let timerInterval = null;
 
-        // ================= LÓGICA UI =================
-        
-        // Dark Mode (solo alterna acento visual, ya estás en tema oscuro por defecto)
+        // ================= MODO DÍA / NOCHE =================
         function toggleTheme() {
             const html = document.documentElement;
             const btn = document.getElementById('theme-btn');
-            const current = html.getAttribute('data-theme');
-            
-            if (current === 'light') {
-                html.setAttribute('data-theme', 'dark');
-                btn.innerText = '☀️';
-            } else {
-                html.setAttribute('data-theme', 'light');
-                btn.innerText = '🌙';
-            }
+            const current = html.getAttribute('data-theme') || 'light';
+            const next = current === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', next);
+            btn.innerText = next === 'light' ? '🌙' : '☀️';
         }
 
-        // Toggle Inputs Setup
+        // ================= LÓGICA UI =================
         function toggleModeInputs() {
             const isTimer = document.getElementById('mode-timer').checked;
             if (isTimer) {
@@ -483,7 +532,6 @@
             const num = parseInt(document.getElementById('num-players').value);
             const imps = parseInt(document.getElementById('num-impostors').value);
             
-            // Guardar configuración de modo
             const isTimer = document.getElementById('mode-timer').checked;
             gameConfig.mode = isTimer ? 'timer' : 'rounds';
             gameConfig.value = parseInt(document.getElementById(isTimer ? 'game-minutes' : 'game-rounds').value);
@@ -515,13 +563,11 @@
                 players.push(nameInput || `Jugador ${i+1}`);
             }
 
-            // Lógica Juego
             const categorias = Object.keys(diccionario);
             secretCategory = categorias[Math.floor(Math.random() * categorias.length)];
             const palabras = diccionario[secretCategory];
             secretWord = palabras[Math.floor(Math.random() * palabras.length)];
             
-            // Impostores
             const numImps = parseInt(document.getElementById('num-impostors').value);
             currentImpostors = [];
             while(currentImpostors.length < numImps) {
@@ -529,7 +575,6 @@
                 if(!currentImpostors.includes(r)) currentImpostors.push(r);
             }
 
-            // Preparar pantalla revelar
             rolesSeenCount = 0;
             const revealContainer = document.getElementById('reveal-buttons');
             revealContainer.innerHTML = "";
@@ -589,14 +634,13 @@
                 currentPlayerViewing = null;
                 rolesSeenCount++;
 
-                // Verificar si todos vieron
                 if(rolesSeenCount >= players.length) {
                     document.getElementById('btn-start-debate').classList.remove('hidden');
                 }
             }
         }
 
-        // ================= PASO 4: FASE DEBATE (JUEGO ACTIVO) =================
+        // ================= PASO 4: FASE DEBATE =================
         function startDebate() {
             transitionToScreen('reveal-screen', 'active-game-screen');
             const content = document.getElementById('active-content');
@@ -616,7 +660,7 @@
             }
         }
 
-        // Lógica del Temporizador
+        // ================= TEMPORIZADOR =================
         let timeRemaining = 0;
         let isPaused = false;
 
@@ -662,7 +706,6 @@
                 document.getElementById('active-game-screen').classList.add('hidden');
                 document.getElementById('setup-screen').classList.remove('hidden');
                 
-                // Animación reset
                 document.getElementById('setup-screen').style.opacity = 0;
                 setTimeout(() => document.getElementById('setup-screen').style.opacity = 1, 100);
             }
@@ -677,13 +720,12 @@
             
             setTimeout(() => {
                 fromEl.classList.add('hidden');
-                fromEl.style.transform = 'none'; // reset
+                fromEl.style.transform = 'none';
                 
                 toEl.classList.remove('hidden');
                 toEl.style.opacity = 0;
                 toEl.style.transform = 'translateY(20px)';
                 
-                // Force reflow
                 void toEl.offsetWidth;
                 
                 toEl.style.opacity = 1;
