@@ -79,7 +79,7 @@
             border-radius: 1.75rem;
             box-shadow: var(--shadow-lg);
             text-align: center;
-            transition: all 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
             position: relative;
             border: 1px solid rgba(209,213,219,0.9);
             max-height: 90vh;
@@ -94,6 +94,7 @@
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 2.4rem;
             margin-bottom: 1.5rem;
             font-weight: 800;
@@ -343,6 +344,7 @@
             box-shadow:
                 0 0 18px rgba(139,92,246,0.45),
                 0 0 28px rgba(34,211,238,0.35);
+            transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .roulette-segment {
             position: absolute;
@@ -682,10 +684,11 @@
             "Transporte": ["Colectivo/Bus", "Tren", "Avión", "Auto", "Moto", "Bicicleta", "Barco", "Submarino", "Helicóptero", "Camión", "Metro", "Monopatín", "Taxi", "Globo Aerostático", "Caballo"],
             "Instrumentos": ["Guitarra", "Piano", "Batería", "Violín", "Flauta", "Trompeta", "Saxofón", "Ukelele", "Acordeón", "Arpa", "Maracas", "Triángulo", "Bajo", "Armónica"],
             "Hogar": ["Cocina", "Baño", "Dormitorio", "Sótano", "Ático", "Jardín", "Garaje", "Balcón", "Techo", "Pasillo", "Comedor", "Sala de estar"],
-            "Películas": [“Titanic”, “Avatar”, “The Godfather”, “Star Wars”, “The Avengers”, “Jurassic Park”, “The Dark Knight”, “Inception”, “Forrest Gump”, “Pulp Fiction”, “The Matrix”, “Gladiator”, “The Shawshank Redemption”, “Schindler’s List”, “Lord of the Rings”, “Harry Potter”, “Spider-Man”, “Batman”, “Superman”, “Iron Man”, “Captain America”, “Thor”, “Hulk”, “Black Widow”, “Hawkeye”, “Black Panther”, “Doctor Strange”, “Ant-Man”, “Guardians of the Galaxy”, “Star-Lord”, “Gamora”, “Drax”, “Rocket”, “Groot”, “Thanos”, “Infinity Stones”, “Wakanda”, “Asgard”, “Vibranium”, “Mjolnir”, “Arc Reactor”, “Web Shooter”, “Batmobile”, “Bat Signal”, “Gotham City”, “Metropolis”, “Krypton”, “Daily Planet”, “Wayne Manor”, “Stark Tower”, “S.H.I.E.L.D.”, “Hydra”, “Chitauri”, “Luke Skywalker”, “Darth Vader”, “Princess Leia”, “Han Solo”, “Chewbacca”, “Obi-Wan Kenobi”, “Yoda”, “Anakin Skywalker”, “Padme Amidala”, “Rey”, “Kylo Ren”, “Finn”, “Poe Dameron”, “BB-8”, “R2-D2”, “C-3PO”, “Millennium Falcon”, “Death Star”, “Lightsaber”, “The Force”, “Jedi”, “Sith”, “Stormtrooper”, “Empire”, “Rebellion”, “First Order”, “Mandalorian”, “Baby Yoda”, “Grogu”, “Boba Fett”, “Frodo”, “Gandalf”, “Aragorn”, “Legolas”, “Gimli”, “Samwise”, “Merry”, “Pippin”, “Boromir”, “Gollum”, “Sauron”, “Saruman”, “Bilbo”, “Thorin”, “Smaug”, “Middle Earth”, “Mordor”, “Shire”, “Rivendell”, “Gondor”, “Rohan”, “One Ring”, “Mount Doom”, “Isengard”, “Harry”, “Hermione”, “Ron”, “Dumbledore”, “Voldemort”, “Snape”, “Hagrid”, “Sirius”, “Lupin”, “McGonagall”, “Dobby”, “Draco”, “Bellatrix”, “Neville”, “Luna”, “Ginny”, “Fred”, “George”, “Hogwarts”, “Gryffindor”, “Slytherin”, “Hufflepuff”, “Ravenclaw”, “Quidditch”, “Horcrux”, “Patronus”, “Expelliarmus”, “Avada Kedavra”, “Marauder’s Map”, “Deathly Hallows”, “Neo”, “Morpheus”, “Trinity”, “Agent Smith”, “Oracle”, “Architect”, “Zion”, “Red Pill”, “Blue Pill”, “Bullet Time”, “Jack Dawson”, “Rose DeWitt”, “Cal Hockley”, “Molly Brown”, “Captain Smith”, “Iceberg”, “Southampton”, “Atlantic Ocean”, “Heart of the Ocean”, “Jurassic World”, “Owen Grady”, “Claire Dearing”, “Ian Malcolm”, “Alan Grant”, “Ellie Sattler”, “John Hammond”, “Velociraptor”, “T-Rex”, “Indominus Rex”, “Mosasaurus”, “Pteranodon”, “Brachiosaurus”, “Dilophosaurus”, “Isla Nublar”, “Isla Sorna”, “InGen”, “James Bond”, “M”, “Q”, “Moneypenny”, “Blofeld”, “Spectre”, “MI6”, “Aston Martin”, “Martini”, “Skyfall”, “Casino Royale”, “Rocky”, “Apollo Creed”, “Adrian”, “Paulie”, “Mickey”, “Ivan Drago”, “Clubber Lang”, “Philadelphia”, “Boxing Ring”, “Training Montage”, “Indiana Jones”, “Marion Ravenwood”, “Short Round”, “Sallah”, “Henry Jones”, “Ark of the Covenant”, “Holy Grail”, “Crystal Skull”, “Whip”, “Fedora”, “Raiders”, “Temple of Doom”, “Last Crusade”, “Kingdom”, “Rambo”, “John McClane”, “Ethan Hunt”, “Jason Bourne”, “Jack Sparrow”, “Will Turner”, “Elizabeth Swann”, “Davy Jones”, “Black Pearl”, “Flying Dutchman”, “Pirates of the Caribbean”, “Barbossa”, “Kraken”, “Tortuga”, “Port Royal”, “Compass”, “Cursed Gold”, “Mermaid”, “Fountain of Youth”, “Terminator”, “Sarah Connor”, “John Connor”, “Skynet”, “T-800”, “T-1000”, “Cyberdyne”, “Judgment Day”, “Time Travel”, “Resistance”, “Marty McFly”, “Doc Brown”, “DeLorean”, “Back to the Future”, “Hill Valley”, “Flux Capacitor”, “1985”, “1955”, “2015”, “Biff Tannen”, “Lorraine”, “George McFly”, “Ellen Ripley”, “Xenomorph”, “Facehugger”, “Chestburster”, “Alien Queen”, “Nostromo”, “Weyland-Yutani”, “Space”, “LV-426”, “Predator”, “Dutch”, “Yautja”, “Jungle”, “Cloaking Device”, “Shoulder Cannon”, “Tony Montana”, “Scarface”, “Miami”, “Cocaine”, “Little Friend”, “Chainsaw”, “Mansion”],
-            "Anime": [“Naruto”, “One Piece”, “Dragon Ball”, “Attack on Titan”, “Death Note”, “Bleach”, “My Hero Academia”, “Demon Slayer”, “Fullmetal Alchemist”, “Hunter x Hunter”, “Sword Art Online”, “Tokyo Ghoul”, “Cowboy Bebop”, “Neon Genesis Evangelion”, “Code Geass”, “Steins Gate”, “One Punch Man”, “Mob Psycho 100”, “Jujutsu Kaisen”, “Chainsaw Man”, “Spy x Family”, “Haikyu”, “Kuroko no Basket”, “Slam Dunk”, “Volleyball”, “Basketball”, “Soccer”, “Inazuma Eleven”, “Captain Tsubasa”, “Eyeshield 21”, “Hajime no Ippo”, “Boxing”, “Pokemon”, “Digimon”, “Yu-Gi-Oh”, “Beyblade”, “Bakugan”, “Doraemon”, “Crayon Shin-chan”, “Detective Conan”, “Luffy”, “Zoro”, “Sanji”, “Nami”, “Chopper”, “Robin”, “Franky”, “Brook”, “Usopp”, “Goku”, “Vegeta”, “Gohan”, “Piccolo”, “Frieza”, “Cell”, “Buu”, “Trunks”, “Goten”, “Sasuke”, “Sakura”, “Kakashi”, “Itachi”, “Madara”, “Obito”, “Pain”, “Jiraiya”, “Tsunade”, “Orochimaru”, “Gaara”, “Rock Lee”, “Neji”, “Hinata”, “Shikamaru”, “Saitama”, “Genos”, “Tanjiro”, “Nezuko”, “Zenitsu”, “Inosuke”, “Giyu”, “Shinobu”, “Rengoku”, “Tengen”, “Muzan”, “Eren”, “Mikasa”, “Armin”, “Levi”, “Erwin”, “Hange”, “Reiner”, “Annie”, “Titan”, “Colossal”, “Armored”, “Female Titan”, “Beast Titan”, “Attack Titan”, “Founding Titan”, “Light Yagami”, “L”, “Ryuk”, “Misa”, “Near”, “Mello”, “Shinigami”, “Ichigo”, “Rukia”, “Renji”, “Byakuya”, “Aizen”, “Hollow”, “Zanpakuto”, “Bankai”, “Shikai”, “Soul Society”, “Hueco Mundo”, “Espada”, “Edward Elric”, “Alphonse Elric”, “Roy Mustang”, “Winry”, “Homunculus”, “Philosopher’s Stone”, “Alchemy”, “Transmutation”, “Equivalent Exchange”, “Amestris”, “Ishval”, “Gon”, “Killua”, “Kurapika”, “Leorio”, “Hisoka”, “Chrollo”, “Phantom Troupe”, “Chimera Ant”, “Nen”, “Hunter License”, “Greed Island”, “Yorknew City”, “Heavens Arena”, “Kirito”, “Asuna”, “Klein”, “Sinon”, “Yui”, “Aincrad”, “ALfheim”, “Gun Gale Online”, “Virtual Reality”, “VRMMORPG”, “Kaneki”, “Touka”, “Hide”, “Ghoul”, “CCG”, “Kagune”, “Quinque”, “Anteiku”, “Aogiri Tree”, “One-Eyed King”, “Spike”, “Faye”, “Jet”, “Ed”, “Ein”, “Bebop”, “Bounty Hunter”, “Mars”, “Red Dragon”, “Vicious”, “Shinji”, “Rei”, “Asuka”, “Misato”, “Gendo”, “EVA”, “Angel”, “NERV”, “Third Impact”, “Instrumentality”, “Lelouch”, “C.C.”, “Suzaku”, “Kallen”, “Geass”, “Britannia”, “Zero”, “Black Knights”, “Knightmare”, “Code”, “Okabe”, “Kurisu”, “Mayuri”, “Daru”, “Suzuha”, “Time Machine”, “CERN”, “Divergence”, “Reading Steiner”, “World Line”, “Deku”, “All Might”, “Bakugo”, “Todoroki”, “Uraraka”, “Iida”, “Quirk”, “One For All”, “All For One”, “Plus Ultra”, “UA Academy”, “League of Villains”, “Shigaraki”, “Dabi”, “Toga”, “Twice”, “Yuji”, “Megumi”, “Nobara”, “Gojo”, “Sukuna”, “Cursed Energy”, “Domain Expansion”, “Jujutsu Sorcerer”, “Cursed Spirit”, “Denji”, “Power”, “Aki”, “Makima”, “Pochita”, “Devil”, “Devil Hunter”, “Chainsaw Devil”, “Gun Devil”],
-            "Bandas": [“The Beatles”, “Queen”, “Led Zeppelin”, “Pink Floyd”, “The Rolling Stones”, “Nirvana”, “Metallica”, “AC/DC”, “Guns N’ Roses”, “U2”, “Coldplay”, “Radiohead”, “The Doors”, “The Who”, “Aerosmith”, “Kiss”, “Bon Jovi”, “Def Leppard”, “Journey”, “Foreigner”, “Boston”, “Toto”, “Chicago”, “Eagles”, “Fleetwood Mac”, “The Beach Boys”, “The Kinks”, “The Byrds”, “Creedence Clearwater Revival”, “Lynyrd Skynyrd”, “Van Halen”, “ZZ Top”, “Cheap Trick”, “REO Speedwagon”, “Styx”, “Kansas”, “Rush”, “Yes”, “Genesis”, “Jethro Tull”, “King Crimson”, “Emerson Lake and Palmer”, “Deep Purple”, “Black Sabbath”, “Iron Maiden”, “Judas Priest”, “Motörhead”, “Megadeth”, “Slayer”, “Anthrax”, “Pantera”, “Sepultura”, “Tool”, “System of a Down”, “Rage Against the Machine”, “Linkin Park”, “Korn”, “Limp Bizkit”, “Slipknot”, “Disturbed”, “Godsmack”, “Breaking Benjamin”, “Three Days Grace”, “Shinedown”, “Avenged Sevenfold”, “Bullet for My Valentine”, “Trivium”, “Lamb of God”, “Mastodon”, “Gojira”, “Opeth”, “Dream Theater”, “Symphony X”, “Queensrÿche”, “Fates Warning”, “Pearl Jam”, “Soundgarden”, “Alice in Chains”, “Stone Temple Pilots”, “Temple of the Dog”, “Mad Season”, “Screaming Trees”, “Mudhoney”, “Green Day”, “Blink-182”, “Sum 41”, “Good Charlotte”, “Simple Plan”, “New Found Glory”, “Yellowcard”, “Fall Out Boy”, “Panic! at the Disco”, “My Chemical Romance”, “Paramore”, “Taking Back Sunday”, “Brand New”, “Dashboard Confessional”, “The Used”, “Senses Fail”, “Hawthorne Heights”, “Red Hot Chili Peppers”, “Foo Fighters”, “Incubus”, “311”, “Sublime”, “No Doubt”, “The Offspring”, “Bad Religion”, “NOFX”, “Pennywise”, “Social Distortion”, “Rancid”, “The Clash”, “Sex Pistols”, “Ramones”, “Dead Kennedys”, “Black Flag”, “Minor Threat”, “Fugazi”, “Pixies”, “Sonic Youth”, “Dinosaur Jr”, “Pavement”, “The Smiths”, “Joy Division”, “New Order”, “The Cure”, “Depeche Mode”, “Duran Duran”, “Simple Minds”, “INXS”, “Tears for Fears”, “A-ha”, “Wham!”, “Culture Club”, “Spandau Ballet”, “Dire Straits”, “The Police”, “Talking Heads”, “Blondie”, “The Pretenders”, “Heart”, “Pat Benatar”, “Joan Jett”, “The Runaways”, “Devo”, “Oasis”, “Blur”, “Pulp”, “Suede”, “The Verve”, “Stone Roses”, “Happy Mondays”, “Primal Scream”, “Muse”, “Arctic Monkeys”, “The Strokes”, “The White Stripes”, “The Black Keys”, “Kings of Leon”, “The Killers”, “Franz Ferdinand”, “Interpol”, “Yeah Yeah Yeahs”, “TV on the Radio”, “Vampire Weekend”, “MGMT”, “Tame Impala”, “Foster the People”, “Imagine Dragons”, “OneRepublic”, “Maroon 5”, “Train”, “The Script”, “The Fray”, “Snow Patrol”, “Keane”, “Travis”, “Stereophonics”, “Manic Street Preachers”, “R.E.M.”, “The Cranberries”, “Garbage”, “Evanescence”, “Within Temptation”, “Nightwish”, “Epica”, “Lacuna Coil”, “Arch Enemy”, “In Flames”, “Dark Tranquillity”, “At the Gates”, “Amon Amarth”, “Children of Bodom”, “Dimmu Borgir”, “Cradle of Filth”, “Emperor”, “Mayhem”, “Burzum”, “Darkthrone”, “Immortal”, “Bathory”, “Venom”, “Mercyful Fate”, “King Diamond”, “Celtic Frost”, “Morbid Angel”, “Cannibal Corpse”, “Death”, “Obituary”, “Deicide”, “Carcass”, “Napalm Death”, “Entombed”, “Dismember”, “Autopsy”, “Suffocation”, “Dying Fetus”, “Cryptopsy”, “Nile”, “Behemoth”, “Belphegor”, “Gorgoroth”, “Watain”, “Rotting Christ”, “Septicflesh”, “Moonspell”, “Paradise Lost”, “My Dying Bride”, “Anathema”, “Katatonia”, “Draconian”, “Swallow the Sun”, “Insomnium”, “Omnium Gatherum”, “Amorphis”, “Sentenced”, “HIM”, “The 69 Eyes”, “Type O Negative”, “Danzig”, “Misfits”, “Samhain”, “AFI”, “Alkaline Trio”, “The Bouncing Souls”, “Dropkick Murphys”, “Flogging Molly”, “Against Me!”, “Rise Against”, “Anti-Flag”, “Refused”, “At the Drive-In”, “The Mars Volta”, “Coheed and Cambria”, “Circa Survive”, “Thrice”, “Glassjaw”, “Thursday”, “Converge”, “The Dillinger Escape Plan”, “Protest the Hero”, “Between the Buried and Me”, “Animals as Leaders”, “Periphery”, “TesseracT”, “Meshuggah”, “Gojira”, “Deftones”, “Chevelle”, “Sevendust”, “Mudvayne”, “Static-X”, “Powerman 5000”, “Rob Zombie”, “White Zombie”, “Ministry”, “Nine Inch Nails”, “Rammstein”, “Kmfdm”, “Skinny Puppy”],
-            "Disney": [“Mickey Mouse”, “Minnie Mouse”, “Donald Duck”, “Goofy”, “Pluto”, “Daisy Duck”, “Chip”, “Dale”, “Pete”, “Clarabelle”, “Horace Horsecollar”, “Oswald”, “The Lion King”, “Simba”, “Mufasa”, “Scar”, “Nala”, “Timon”, “Pumbaa”, “Rafiki”, “Zazu”, “Sarabi”, “Shenzi”, “Banzai”, “Ed”, “Frozen”, “Elsa”, “Anna”, “Olaf”, “Kristoff”, “Sven”, “Hans”, “Arendelle”, “Let It Go”, “Moana”, “Maui”, “Te Fiti”, “Te Ka”, “Hei Hei”, “Tamatoa”, “Motunui”, “Aladdin”, “Jasmine”, “Genie”, “Jafar”, “Iago”, “Abu”, “Rajah”, “Magic Carpet”, “Agrabah”, “Cave of Wonders”, “Beauty and the Beast”, “Belle”, “Beast”, “Gaston”, “LeFou”, “Lumiere”, “Cogsworth”, “Mrs Potts”, “Chip Potts”, “Maurice”, “Enchanted Rose”, “The Little Mermaid”, “Ariel”, “Prince Eric”, “Ursula”, “Flounder”, “Sebastian”, “King Triton”, “Scuttle”, “Atlantica”, “Part of Your World”, “Cinderella”, “Prince Charming”, “Fairy Godmother”, “Lady Tremaine”, “Anastasia”, “Drizella”, “Lucifer”, “Gus”, “Jaq”, “Glass Slipper”, “Snow White”, “Seven Dwarfs”, “Doc”, “Grumpy”, “Happy”, “Sleepy”, “Bashful”, “Sneezy”, “Dopey”, “Evil Queen”, “Magic Mirror”, “Sleeping Beauty”, “Aurora”, “Prince Phillip”, “Maleficent”, “Flora”, “Fauna”, “Merryweather”, “King Stefan”, “King Hubert”, “Diablo”, “Tangled”, “Rapunzel”, “Flynn Rider”, “Mother Gothel”, “Pascal”, “Maximus”, “Corona”, “Lanterns”, “Frying Pan”, “Mulan”, “Li Shang”, “Mushu”, “Cri-Kee”, “Shan Yu”, “Fa Zhou”, “Grandmother Fa”, “Emperor”, “Khan”, “Pocahontas”, “John Smith”, “Meeko”, “Flit”, “Percy”, “Governor Ratcliffe”, “Nakoma”, “Kocoum”, “Chief Powhatan”, “Colors of the Wind”, “Hercules”, “Megara”, “Phil”, “Hades”, “Pegasus”, “Zeus”, “Hera”, “Mount Olympus”, “Titans”, “Toy Story”, “Woody”, “Buzz Lightyear”, “Jessie”, “Rex”, “Hamm”, “Slinky Dog”, “Mr Potato Head”, “Mrs Potato Head”, “Bullseye”, “Lotso”, “Andy”, “Bonnie”, “Sid”, “Finding Nemo”, “Marlin”, “Dory”, “Nemo”, “Bruce”, “Crush”, “Squirt”, “Gill”, “Bloat”, “Peach”, “Nigel”, “Monsters Inc”, “Sulley”, “Mike Wazowski”, “Boo”, “Randall”, “Celia”, “Roz”, “Waternoose”, “The Incredibles”, “Mr Incredible”, “Elastigirl”, “Violet”, “Dash”, “Jack-Jack”, “Frozone”, “Syndrome”, “Edna Mode”, “Underminer”, “Cars”, “Lightning McQueen”, “Mater”, “Sally”, “Doc Hudson”, “Luigi”, “Guido”, “Ramone”, “Flo”, “Radiator Springs”, “Up”, “Carl Fredricksen”, “Russell”, “Dug”, “Kevin”, “Charles Muntz”, “Paradise Falls”, “WALL-E”, “EVE”, “AUTO”, “Captain”, “Ratatouille”, “Remy”, “Linguini”, “Colette”, “Gusteau”, “Anton Ego”, “Skinner”, “Emile”, “Django”, “Inside Out”, “Joy”, “Sadness”, “Anger”, “Fear”, “Disgust”, “Riley”, “Bing Bong”, “Coco”, “Miguel”, “Hector”, “Ernesto”, “Mama Imelda”, “Dante”, “Land of the Dead”, “Remember Me”, “Zootopia”, “Judy Hopps”, “Nick Wilde”, “Chief Bogo”, “Clawhauser”, “Flash”, “Mr Big”, “Bellwether”, “Gazelle”, “Big Hero 6”, “Hiro”, “Baymax”, “Tadashi”, “Go Go”, “Wasabi”, “Honey Lemon”, “Fred”, “San Fransokyo”, “Wreck-It Ralph”, “Vanellope”, “Fix-It Felix”, “Sergeant Calhoun”, “King Candy”, “Sugar Rush”, “Encanto”, “Mirabel”, “Isabela”, “Luisa”, “Bruno”, “Abuela Alma”, “Casita”, “Madrigal”, “We Don’t Talk About Bruno”]
+            "Peliculas": ["Titanic", "Avatar", "The Godfather", "Star Wars", "The Avengers", "Jurassic Park", "The Dark Knight", "Inception", "Forrest Gump", "Pulp Fiction", "The Matrix", "Gladiator", "The Shawshank Redemption", "Schindler's List", "Lord of the Rings", "Harry Potter", "Spider-Man", "Batman", "Superman", "Iron Man"],
+            "Anime": ["Naruto", "One Piece", "Dragon Ball", "Attack on Titan", "Death Note", "Bleach", "My Hero Academia", "Demon Slayer", "Fullmetal Alchemist", "Hunter x Hunter", "Sword Art Online", "Tokyo Ghoul", "Cowboy Bebop", "Neon Genesis Evangelion", "Code Geass", "Steins Gate", "One Punch Man", "Mob Psycho 100", "Jujutsu Kaisen", "Chainsaw Man"],
+            "Bandas": ["The Beatles", "Queen", "Led Zeppelin", "Pink Floyd", "The Rolling Stones", "Nirvana", "Metallica", "AC/DC", "Guns N' Roses", "U2", "Coldplay", "Radiohead", "The Doors", "The Who", "Aerosmith", "Kiss", "Bon Jovi", "Def Leppard", "Journey", "Foreigner"],
+            "Disney": ["Mickey Mouse", "Minnie Mouse", "Donald Duck", "Frozen", "Elsa", "Anna", "Olaf", "Moana", "Maui", "Aladdin", "Jasmine", "Genie", "Beauty and the Beast", "Belle", "Beast", "The Little Mermaid", "Ariel", "Cinderella", "Snow White", "Sleeping Beauty"],
+            "Deportes": ["Fútbol", "Básquetbol", "Tenis", "Natación", "Atletismo", "Ciclismo", "Boxeo", "Golf", "Voleibol", "Rugby", "Béisbol", "Hockey", "Ski", "Snowboard", "Surf"]
         };
 
         // Estado del juego
@@ -749,7 +752,6 @@
             const checkboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]:checked');
             selectedCategories = [];
             checkboxes.forEach(cb => {
-                const label = document.querySelector(`label[for="${cb.id}"]`);
                 const catName = cb.id.replace('cat-', '').charAt(0).toUpperCase() + cb.id.replace('cat-', '').slice(1);
                 selectedCategories.push(catName);
             });
@@ -833,13 +835,18 @@
             const winnerIndex = Math.floor(Math.random() * activePlayers.length);
             const anglePerSegment = 360 / activePlayers.length;
             const targetAngle = 360 * 5 + (360 - (winnerIndex * anglePerSegment + anglePerSegment / 2));
-            wheel.style.transition = "transform 3s cubic-bezier(0.16, 1, 0.3, 1)";
+
             wheel.style.transform = `rotate(${targetAngle}deg)`;
 
             setTimeout(() => {
                 rouletteSpinning = false;
-                wheel.style.transition = "none";
                 wheel.style.transform = `rotate(${(360 - (winnerIndex * anglePerSegment + anglePerSegment / 2)) % 360}deg)`;
+                wheel.style.transition = "none";
+                
+                setTimeout(() => {
+                    wheel.style.transition = "transform 3s cubic-bezier(0.16, 1, 0.3, 1)";
+                }, 50);
+                
                 winnerLabel.textContent = `Empieza: ${activePlayers[winnerIndex]} 🎤`;
             }, 3000);
         }
@@ -1013,11 +1020,6 @@
                 document.getElementById('reveal-buttons').innerHTML = "";
                 document.getElementById('roulette-winner').textContent = "";
                 document.getElementById('btn-start-debate').classList.add('hidden');
-
-                document.getElementById('names-screen').style.opacity = 0;
-                setTimeout(() => {
-                    document.getElementById('names-screen').style.opacity = 1;
-                }, 100);
             }
         }
 
@@ -1040,33 +1042,16 @@
             document.getElementById('btn-start-debate').classList.add('hidden');
 
             document.getElementById('setup-screen').classList.remove('hidden');
-            document.getElementById('setup-screen').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('setup-screen').style.opacity = 1;
-            }, 100);
         }
 
         function transitionToScreen(fromId, toId) {
             const fromEl = document.getElementById(fromId);
             const toEl = document.getElementById(toId);
             
-            fromEl.style.opacity = 0;
-            fromEl.style.transform = 'translateY(-20px)';
-            
-            setTimeout(() => {
-                fromEl.classList.add('hidden');
-                fromEl.style.transform = 'none';
-                
-                toEl.classList.remove('hidden');
-                toEl.style.opacity = 0;
-                toEl.style.transform = 'translateY(20px)';
-                
-                void toEl.offsetWidth;
-                
-                toEl.style.opacity = 1;
-                toEl.style.transform = 'translateY(0)';
-            }, 300);
+            fromEl.classList.add('hidden');
+            toEl.classList.remove('hidden');
         }
     </script>
 </body>
 </html>
+​​​​​​​​​​​​​​​​
