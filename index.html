@@ -450,6 +450,11 @@
             background: rgba(15,23,42,0.8);
         }
 
+        /* Botón de regresar al menú principal */
+        .back-menu-btn {
+            margin-top: 0.75rem;
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
     </style>
 </head>
 <body>
@@ -506,6 +511,7 @@
         <p class="hint">Pueden editar los nombres si desean. Se guardarán mientras estén en esta pestaña.</p>
 
         <button class="main-btn" onclick="assignRoles()">🎲 Repartir Roles</button>
+        <button class="main-btn secondary-btn back-menu-btn" onclick="goToMainMenu()">🏠 Volver al menú principal</button>
     </div>
 
     <div class="container hidden" id="reveal-screen">
@@ -523,6 +529,7 @@
         </div>
         
         <button id="btn-start-debate" class="main-btn accent-btn hidden" onclick="startDebate()">🔥 Comenzar Debate</button>
+        <button class="main-btn secondary-btn back-menu-btn" onclick="goToMainMenu()">🏠 Volver al menú principal</button>
     </div>
 
     <div class="container hidden" id="active-game-screen">
@@ -533,6 +540,7 @@
         <p class="hint">Debatan, pregunten y descubran quién miente.</p>
 
         <button class="main-btn secondary-btn" onclick="restartGame()">🔄 Nuevo Juego</button>
+        <button class="main-btn secondary-btn back-menu-btn" onclick="goToMainMenu()">🏠 Volver al menú principal</button>
     </div>
 
     <div id="modal-overlay" class="modal-overlay hidden">
@@ -808,6 +816,12 @@
                         clearInterval(timerInterval);
                         document.getElementById('timer-val').classList.add('timer-finished');
                         document.getElementById('timer-val').innerText = "00:00";
+
+                        // Vibrar el dispositivo compatible al terminar el tiempo
+                        if ("vibrate" in navigator) {
+                            navigator.vibrate([300, 150, 300]); // patrón corto de alerta[web:94][web:96]
+                        }
+
                         alert("⏰ ¡Tiempo terminado! ¡A votar!");
                     }
                 }
@@ -833,11 +847,9 @@
             if (confirm("¿Reiniciar juego?")) {
                 if (timerInterval) clearInterval(timerInterval);
 
-                // Oculta juego activo, muestra pantalla de nombres (se mantienen inputs y players)
                 document.getElementById('active-game-screen').classList.add('hidden');
                 document.getElementById('names-screen').classList.remove('hidden');
 
-                // Reset lógico de ronda, pero sin borrar nombres
                 currentImpostors = [];
                 secretWord = "";
                 secretCategory = "";
@@ -852,6 +864,33 @@
                     document.getElementById('names-screen').style.opacity = 1;
                 }, 100);
             }
+        }
+
+        // Volver al menú principal (config inicial), permitiendo cambiar número de jugadores
+        function goToMainMenu() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            // Oculta todas las pantallas
+            document.getElementById('names-screen').classList.add('hidden');
+            document.getElementById('reveal-screen').classList.add('hidden');
+            document.getElementById('active-game-screen').classList.add('hidden');
+
+            // Limpia elementos de ronda, pero no toca inputs de setup
+            currentImpostors = [];
+            secretWord = "";
+            secretCategory = "";
+            rolesSeenCount = 0;
+
+            document.getElementById('reveal-buttons').innerHTML = "";
+            document.getElementById('roulette-winner').textContent = "";
+            document.getElementById('btn-start-debate').classList.add('hidden');
+
+            // Muestra menú principal
+            document.getElementById('setup-screen').classList.remove('hidden');
+            document.getElementById('setup-screen').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('setup-screen').style.opacity = 1;
+            }, 100);
         }
 
         function transitionToScreen(fromId, toId) {
