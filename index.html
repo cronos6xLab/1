@@ -30,7 +30,6 @@
             --reveal-btn-border: #e5e7eb;
         }
 
-        /* Tema oscuro tipo sci‑fi neón (igual al arte) */
         html[data-theme="dark"] {
             --bg-color: #050816;
             --card-bg: #0b1020;
@@ -233,9 +232,9 @@
 
         /* ================= LISTA JUGADORES ================= */
         .player-list {
-            max-height: 400px;
+            max-height: 260px;
             overflow-y: auto;
-            margin: 1.5rem 0;
+            margin: 1.5rem 0 0.7rem;
             padding: 0.2rem;
         }
         .player-input-item {
@@ -278,6 +277,60 @@
             cursor: not-allowed;
             text-decoration: line-through;
             box-shadow: none;
+        }
+
+        /* ================= RULETA ================= */
+        .roulette-container {
+            margin-top: 1.2rem;
+            padding: 1.2rem;
+            border-radius: 1.25rem;
+            border: 1px dashed var(--input-border);
+            background: rgba(249,250,251,0.9);
+        }
+        html[data-theme="dark"] .roulette-container {
+            background: rgba(15,23,42,0.85);
+        }
+
+        .roulette-wheel {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 0.8rem;
+            border: 4px solid rgba(148,163,184,0.9);
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 0 18px rgba(139,92,246,0.45),
+                0 0 28px rgba(34,211,238,0.35);
+        }
+        .roulette-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0% 0%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0.2rem;
+        }
+        .roulette-pointer {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 16px solid #facc15;
+            margin: 0 auto 0.4rem;
+        }
+        .roulette-winner {
+            margin-top: 0.4rem;
+            font-size: 0.95rem;
+            color: var(--accent-yellow);
+            font-weight: 700;
         }
 
         /* ================= MODAL & CARDS ================= */
@@ -450,7 +503,16 @@
     <div class="container hidden" id="names-screen">
         <h2>🏷️ Nombres</h2>
         <div id="player-inputs" class="player-list"></div>
-        <p class="hint">Pueden editar los nombres si desean.</p>
+        <p class="hint">Pueden editar los nombres si desean. Se guardarán mientras estén en esta pestaña.</p>
+
+        <!-- RULETA DE QUIÉN EMPIEZA -->
+        <div class="roulette-container">
+            <div class="roulette-pointer"></div>
+            <div class="roulette-wheel" id="roulette-wheel"></div>
+            <button class="main-btn accent-btn" style="margin-top:0.3rem;" onclick="spinRoulette()">🎡 Girar para elegir quién empieza</button>
+            <div class="roulette-winner" id="roulette-winner"></div>
+        </div>
+
         <button class="main-btn" onclick="assignRoles()">🎲 Repartir Roles</button>
     </div>
 
@@ -466,8 +528,7 @@
     <div class="container hidden" id="active-game-screen">
         <h2 id="active-mode-title">💬 Fase de Debate</h2>
         
-        <div id="active-content">
-        </div>
+        <div id="active-content"></div>
 
         <p class="hint">Debatan, pregunten y descubran quién miente.</p>
 
@@ -501,7 +562,7 @@
         let currentImpostors = [];
         let currentPlayerViewing = null;
         let rolesSeenCount = 0;
-        let gameConfig = { mode: 'timer', value: 5 }; // Default
+        let gameConfig = { mode: 'timer', value: 5 };
         let timerInterval = null;
 
         // ================= MODO DÍA / NOCHE =================
@@ -515,7 +576,7 @@
             btn.innerText = next === 'light' ? '🌙' : '☀️';
         }
 
-        // ================= LÓGICA UI =================
+        // ================= INPUTS SETUP =================
         function toggleModeInputs() {
             const isTimer = document.getElementById('mode-timer').checked;
             if (isTimer) {
@@ -543,25 +604,94 @@
 
             const container = document.getElementById('player-inputs');
             container.innerHTML = "";
+            players = [];
+
             for (let i = 1; i <= num; i++) {
+                const id = `pname-${i-1}`;
+                players.push(`Jugador ${i}`);
+
                 container.innerHTML += `
                     <div class="player-input-item">
                         <span style="font-weight:bold; min-width:20px;">${i}.</span>
-                        <input type="text" value="Jugador ${i}" id="pname-${i-1}" placeholder="Nombre">
+                        <input type="text" value="Jugador ${i}" id="${id}" placeholder="Nombre" oninput="handleNameChange(${i-1})">
                     </div>`;
             }
 
+            updateRoulette(); // inicializar ruleta con jugadores por defecto
             transitionToScreen('setup-screen', 'names-screen');
+        }
+
+        // Mantener nombres sincronizados en el array players
+        function handleNameChange(index) {
+            const input = document.getElementById(`pname-${index}`);
+            const value = (input.value || "").trim();
+            players[index] = value || `Jugador ${index + 1}`;
+            updateRoulette();
+        }
+
+        // ================= RULETA DE JUGADORES =================
+        const rouletteColors = ['#8b5cf6', '#22d3ee', '#36d399', '#f97316', '#ec4899', '#0ea5e9'];
+
+        function updateRoulette() {
+            const wheel = document.getElementById('roulette-wheel');
+            if (!wheel) return;
+
+            wheel.innerHTML = "";
+
+            const activePlayers = players.filter(name => name && name.trim().length > 0);
+            const count = activePlayers.length;
+            if (count === 0) return;
+
+            const angleStep = 360 / count;
+
+            activePlayers.forEach((name, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'roulette-segment';
+                segment.style.transform = `rotate(${angleStep * index}deg) skewY(${90 - angleStep}deg)`;
+                segment.style.background = rouletteColors[index % rouletteColors.length];
+                segment.innerHTML = `<span style="transform: skewY(${-(90 - angleStep)}deg) rotate(${-angleStep/2}deg); display:block; width:100%; padding:0 4px;">${name}</span>`;
+                wheel.appendChild(segment);
+            });
+        }
+
+        let rouletteSpinning = false;
+
+        function spinRoulette() {
+            if (rouletteSpinning) return;
+
+            const activePlayers = players.filter(name => name && name.trim().length > 0);
+            if (activePlayers.length === 0) {
+                alert("Primero ingresa al menos un nombre.");
+                return;
+            }
+
+            rouletteSpinning = true;
+            const wheel = document.getElementById('roulette-wheel');
+            const winnerLabel = document.getElementById('roulette-winner');
+
+            const winnerIndex = Math.floor(Math.random() * activePlayers.length);
+            const anglePerSegment = 360 / activePlayers.length;
+            const targetAngle = 360 * 5 + (360 - (winnerIndex * anglePerSegment + anglePerSegment / 2)); // 5 vueltas + centro del segmento
+            wheel.style.transition = "transform 3s cubic-bezier(0.16, 1, 0.3, 1)";
+            wheel.style.transform = `rotate(${targetAngle}deg)`;
+
+            setTimeout(() => {
+                rouletteSpinning = false;
+                wheel.style.transition = "none";
+                wheel.style.transform = `rotate(${(360 - (winnerIndex * anglePerSegment + anglePerSegment / 2)) % 360}deg)`;
+                winnerLabel.textContent = `Empieza: ${activePlayers[winnerIndex]} 🎤`;
+            }, 3000);
         }
 
         // ================= PASO 2: ASIGNAR ROLES =================
         function assignRoles() {
-            const num = parseInt(document.getElementById('num-players').value);
+            const numInputs = document.querySelectorAll('[id^="pname-"]').length;
             players = [];
-            for (let i = 0; i < num; i++) {
-                let nameInput = document.getElementById(`pname-${i}`).value.trim();
+            for (let i = 0; i < numInputs; i++) {
+                const nameInput = document.getElementById(`pname-${i}`).value.trim();
                 players.push(nameInput || `Jugador ${i+1}`);
             }
+            updateRoulette(); // por si cambiaron algo antes de repartir
 
             const categorias = Object.keys(diccionario);
             secretCategory = categorias[Math.floor(Math.random() * categorias.length)];
@@ -571,7 +701,7 @@
             const numImps = parseInt(document.getElementById('num-impostors').value);
             currentImpostors = [];
             while(currentImpostors.length < numImps) {
-                let r = Math.floor(Math.random() * num);
+                let r = Math.floor(Math.random() * players.length);
                 if(!currentImpostors.includes(r)) currentImpostors.push(r);
             }
 
@@ -655,7 +785,7 @@
                 content.innerHTML = `
                     <div class="rounds-display">
                         <p>Jueguen <strong>${gameConfig.value}</strong> rondas completas.</p>
-                        <p style="font-size:0.9rem; color:var(--text-muted)">Empieza el jugador que fue el último en ver su rol (o elijan al azar).</p>
+                        <p style="font-size:0.9rem; color:var(--text-muted)">Empieza el jugador que salió en la ruleta o elijan al azar.</p>
                     </div>`;
             }
         }
