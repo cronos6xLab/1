@@ -3,1017 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego del Impostor - Adivina la Palabra</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Juego del Impostor</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --danger: #ef4444;
+            --success: #22c55e;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #f1f1f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 20px;
         }
-        
+
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
+            width: 90%;
+            max-width: 500px;
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        h1 { color: var(--primary); margin-bottom: 1.5rem; }
         
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        .hidden { display: none !important; }
+
+        /* Formulario inicial */
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
         }
-        
-        .game-description {
-            max-width: 800px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-            color: #b0b0b0;
-        }
-        
-        .game-area {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-        }
-        
-        .panel {
-            background: rgba(30, 30, 46, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .panel-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #4cc9f0;
-            border-bottom: 2px solid #4361ee;
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .panel-title i {
-            color: #4361ee;
-        }
-        
-        .config-section {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        
-        .config-item {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        label {
-            font-weight: 600;
-            color: #a5b4fc;
-        }
-        
-        input[type="number"] {
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
+
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
             font-size: 1rem;
         }
-        
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #4361ee;
-            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
+
         button {
-            padding: 14px 24px;
+            background: var(--primary);
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 1rem;
         }
-        
-        .primary-btn {
-            background: linear-gradient(to right, #4361ee, #3a0ca3);
-            color: white;
-            flex: 2;
-        }
-        
-        .primary-btn:hover {
-            background: linear-gradient(to right, #3a56d4, #2d0a8a);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-        }
-        
-        .secondary-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            flex: 1;
-        }
-        
-        .secondary-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .word-display {
-            font-size: 2.5rem;
-            letter-spacing: 10px;
-            text-align: center;
-            margin: 30px 0;
-            font-weight: 700;
-            color: #f72585;
-            text-shadow: 0 0 10px rgba(247, 37, 133, 0.3);
-            min-height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .game-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .info-box {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border-left: 4px solid #4361ee;
-        }
-        
-        .info-label {
-            font-size: 0.9rem;
-            color: #a5b4fc;
-            margin-bottom: 5px;
-        }
-        
-        .info-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #4cc9f0;
-        }
-        
-        .players-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .player-card {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .player-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .player-card.crewmate {
-            border-color: #4cc9f0;
-        }
-        
-        .player-card.impostor {
-            border-color: #f72585;
-        }
-        
-        .player-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        
-        .player-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .player-role {
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        
-        .role-crewmate {
-            background-color: rgba(76, 201, 240, 0.2);
-            color: #4cc9f0;
-        }
-        
-        .role-impostor {
-            background-color: rgba(247, 37, 133, 0.2);
-            color: #f72585;
-        }
-        
-        .game-controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        .letter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin: 25px 0;
-            max-height: 200px;
+
+        button:hover { background: var(--primary-dark); }
+
+        /* Lista de Jugadores */
+        .player-list {
+            max-height: 300px;
             overflow-y: auto;
-            padding: 10px;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border: 1px solid #eee;
+            border-radius: 0.5rem;
         }
-        
-        .letter-btn {
-            width: 45px;
-            height: 45px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            background: rgba(67, 97, 238, 0.3);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+
+        .player-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            align-items: center;
         }
-        
-        .letter-btn:hover:not(:disabled) {
-            background: rgba(67, 97, 238, 0.7);
-            transform: scale(1.05);
-        }
-        
-        .letter-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        
-        .letter-btn.correct {
-            background-color: rgba(72, 187, 120, 0.7);
-        }
-        
-        .letter-btn.incorrect {
-            background-color: rgba(239, 68, 68, 0.7);
-        }
-        
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: 600;
-            display: none;
-        }
-        
-        .message.show {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        .message.success {
-            background-color: rgba(72, 187, 120, 0.2);
-            border: 1px solid rgba(72, 187, 120, 0.5);
-            color: #48bb78;
-        }
-        
-        .message.error {
-            background-color: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            color: #ef4444;
-        }
-        
-        .message.info {
-            background-color: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            color: #3b82f6;
-        }
-        
-        .game-status {
-            font-size: 1.2rem;
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-        
-        .dictionary-info {
+
+        .player-item input { flex-grow: 1; }
+
+        .reveal-btn {
+            background: #e2e8f0;
+            color: var(--text);
+            margin-top: 5px;
             font-size: 0.9rem;
-            color: #a5b4fc;
-            margin-top: 10px;
-            text-align: center;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .reveal-btn.seen {
+            background: #cbd5e1;
+            opacity: 0.6;
+            text-decoration: line-through;
         }
-        
-        @media (max-width: 768px) {
-            .game-area {
-                flex-direction: column;
-            }
-            
-            .panel {
-                min-width: 100%;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .word-display {
-                font-size: 1.8rem;
-                letter-spacing: 6px;
-            }
-            
-            .game-controls {
-                flex-direction: column;
-            }
-            
-            .button-group {
-                flex-direction: column;
-            }
+
+        /* Modal de Rol */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
         }
+
+        .modal {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 80%;
+            max-width: 350px;
+            animation: pop 0.3s ease-out;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .role-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+        .word-box {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 2px dashed var(--primary);
+            border-radius: 0.5rem;
+        }
+
+        .impostor-theme { color: var(--danger); }
+        .civil-theme { color: var(--success); }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-user-secret"></i> Juego del Impostor</h1>
-            <p class="game-description">
-                Un juego de adivinanza de palabras donde algunos jugadores son impostores que conocen la palabra secreta 
-                y deben engañar a los demás sin ser descubiertos. Configura el número de jugadores e impostores, luego 
-                intenta adivinar la palabra letra por letra.
-            </p>
-        </header>
+
+    <div class="container" id="setup-screen">
+        <h1>🕵️ Juego del Impostor</h1>
+        <div class="form-group">
+            <label>Cantidad de jugadores (3-20):</label>
+            <input type="number" id="num-players" value="3" min="3" max="20">
+        </div>
+        <div class="form-group">
+            <label>Cantidad de impostores:</label>
+            <input type="number" id="num-impostors" value="1" min="1" max="19">
+        </div>
+        <button onclick="setupPlayers()">Siguiente</button>
+    </div>
+
+    <div class="container hidden" id="game-screen">
+        <h2 id="game-title">Configurar Jugadores</h2>
+        <div id="player-inputs" class="player-list"></div>
         
-        <div class="game-area">
-            <!-- Panel de configuración -->
-            <div class="panel">
-                <h2 class="panel-title"><i class="fas fa-cogs"></i> Configuración del Juego</h2>
-                
-                <div class="config-section">
-                    <div class="config-item">
-                        <label for="playerCount">Número de Jugadores</label>
-                        <input type="number" id="playerCount" min="2" max="10" value="5">
-                    </div>
-                    
-                    <div class="config-item">
-                        <label for="impostorCount">Número de Impostores</label>
-                        <input type="number" id="impostorCount" min="1" max="3" value="1">
-                        <small class="dictionary-info">Máximo 3 impostores para mantener el equilibrio del juego</small>
-                    </div>
-                    
-                    <div class="config-item">
-                        <label for="wordCategory">Categoría de Palabras</label>
-                        <select id="wordCategory" style="padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 1rem;">
-                            <option value="all">Todas las categorías</option>
-                            <option value="technology">Tecnología</option>
-                            <option value="science">Ciencia</option>
-                            <option value="geography">Geografía</option>
-                            <option value="food">Comida</option>
-                            <option value="animals">Animales</option>
-                        </select>
-                    </div>
-                    
-                    <div class="button-group">
-                        <button id="startGame" class="primary-btn">
-                            <i class="fas fa-play"></i> Iniciar Juego
-                        </button>
-                        <button id="resetGame" class="secondary-btn">
-                            <i class="fas fa-redo"></i> Reiniciar
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="dictionary-info">
-                    <i class="fas fa-book"></i> Diccionario con 120+ palabras disponibles
-                </div>
-            </div>
-            
-            <!-- Panel de juego -->
-            <div class="panel">
-                <h2 class="panel-title"><i class="fas fa-gamepad"></i> Juego en Curso</h2>
-                
-                <div class="game-info">
-                    <div class="info-box">
-                        <div class="info-label">Palabra</div>
-                        <div class="info-value" id="wordLength">-</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">Intentos Restantes</div>
-                        <div class="info-value" id="attemptsLeft">10</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">Letras Usadas</div>
-                        <div class="info-value" id="usedLetters">0</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">Turno</div>
-                        <div class="info-value" id="currentTurn">1</div>
-                    </div>
-                </div>
-                
-                <div class="word-display" id="wordDisplay">
-                    - - - - -
-                </div>
-                
-                <div class="message" id="gameMessage"></div>
-                
-                <div class="game-status" id="gameStatus">
-                    Configura el juego y haz clic en "Iniciar Juego"
-                </div>
-                
-                <div class="letter-buttons" id="letterButtons">
-                    <!-- Botones de letras se generarán automáticamente -->
-                </div>
-                
-                <div class="game-controls">
-                    <button id="solveWord" class="secondary-btn" disabled>
-                        <i class="fas fa-key"></i> Resolver Palabra
-                    </button>
-                    <button id="nextTurn" class="primary-btn" disabled>
-                        <i class="fas fa-forward"></i> Siguiente Turno
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Panel de jugadores -->
-            <div class="panel">
-                <h2 class="panel-title"><i class="fas fa-users"></i> Jugadores</h2>
-                
-                <div class="players-container" id="playersContainer">
-                    <!-- Las tarjetas de jugadores se generarán automáticamente -->
-                    <div class="player-card">
-                        <div class="player-icon"><i class="fas fa-user"></i></div>
-                        <div class="player-name">Jugador 1</div>
-                        <div class="player-role role-crewmate">Tripulante</div>
-                    </div>
-                </div>
-                
-                <div class="game-status" style="margin-top: 20px;">
-                    <div id="impostorHint"></div>
-                </div>
-            </div>
+        <div id="setup-actions">
+            <button onclick="assignRoles()">Asignar roles y palabra</button>
+        </div>
+
+        <div id="reveal-actions" class="hidden">
+            <p>Pasen el dispositivo para que cada uno vea su rol:</p>
+            <div id="reveal-buttons" class="player-list"></div>
+            <button onclick="restartGame()" style="background: #64748b;">Reiniciar Juego</button>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <div id="modal-content"></div>
+            <button onclick="closeModal()">Entendido, cerrar</button>
         </div>
     </div>
 
     <script>
-        // Diccionario completo de palabras por categoría
-        const wordDictionary = {
-            all: [
-                "ELECTRICIDAD", "COMPUTADORA", "LABORATORIO", "UNIVERSIDAD", "RESTAURANTE",
-                "TELEVISION", "BICICLETA", "AVENTURA", "MISTERIO", "FELICIDAD",
-                "OCEANO", "MONTANA", "VOLCAN", "DESIERTO", "JUNGLA",
-                "ELEFANTE", "CANGREJO", "MARIPOSA", "DELFINES", "CANGURO",
-                "CHOCOLATE", "HELADERIA", "PASTELITO", "HAMBURGUESA", "ESPAGUETI",
-                "ASTRONAUTA", "GALAXIA", "PLANETARIO", "ESTRELLAS", "SATELITE",
-                "LIBRERIA", "BIBLIOTECA", "ENCICLOPEDIA", "DICCIONARIO", "REVISTA"
-            ],
-            technology: [
-                "ALGORITMO", "INTERNET", "ROBOTICA", "PROGRAMACION", "TECNOLOGIA",
-                "COMPUTADORA", "SISTEMA", "APLICACION", "DISPOSITIVO", "ELECTRONICA",
-                "INTELIGENCIA", "ARTIFICIAL", "REALIDAD", "VIRTUAL", "HACKER",
-                "SOFTWARE", "HARDWARE", "DATOS", "INFORMACION", "CODIGO"
-            ],
-            science: [
-                "BIOLOGIA", "QUIMICA", "FISICA", "ASTRONOMIA", "GEOLOGIA",
-                "ECOLOGIA", "GENETICA", "EVOLUCION", "MICROSCOPIO", "LABORATORIO",
-                "EXPERIMENTO", "INVESTIGACION", "CIENTIFICO", "HIPOTESIS", "TEORIA",
-                "MOLECULA", "ATOMO", "CELULA", "ORGANISMO", "ESPECIE"
-            ],
-            geography: [
-                "CONTINENTE", "OCEANO", "MONTANA", "VOLCAN", "DESIERTO",
-                "JUNGLA", "SABANA", "GLACIAR", "ISLA", "PENINSULA",
-                "ARCHIPIELAGO", "RIO", "LAGO", "CASCADA", "VALLE",
-                "PLANICIE", "MESETA", "CORDILLERA", "ECUADOR", "HEMISFERIO"
-            ],
-            food: [
-                "CHOCOLATE", "HAMBURGUESA", "PIZZERIA", "ESPAGUETI", "ENSALADA",
-                "SANDWICH", "HELADERIA", "PASTELITO", "GALLETA", "BOCADILLO",
-                "RESTAURANTE", "COCINA", "RECETA", "INGREDIENTE", "SABOR",
-                "DULCE", "SALADO", "PICANTE", "AGRIDULCE", "NUTRITIVO"
-            ],
-            animals: [
-                "ELEFANTE", "CANGREJO", "MARIPOSA", "DELFINES", "CANGURO",
-                "LEOPARDO", "JIRAFA", "HIPOPOTAMO", "RINOCERONTE", "COCODRILO",
-                "PINGUINO", "ARMADILLO", "ORNITORRINCO", "CAMELLO", "SERPIENTE",
-                "ARANA", "ESCORPION", "TIBURON", "BALLENA", "PULPO"
-            ]
+        const diccionario = {
+            "Lugares": ["Playa", "Escuela", "Hospital", "Aeropuerto", "Cine", "Supermercado", "Biblioteca", "Gimnasio", "Hotel", "Restaurante", "Parque", "Museo", "Estadio", "Iglesia", "Estación de tren", "Plaza", "Cafetería", "Tienda", "Oficina", "Casa"],
+            "Objetos cotidianos": ["Celular", "Llaves", "Mochila", "Sillón", "Mesa", "Zapatillas", "Botella", "Reloj", "Auriculares", "Cuaderno", "Lámpara", "Ventana", "Puerta", "Silla", "Computadora", "Televisor", "Bicicleta", "Sombrero", "Paraguas", "Espejo"],
+            "Comidas": ["Pizza", "Empanadas", "Asado", "Sushi", "Hamburguesa", "Helado", "Ensalada", "Milanesas", "Pan", "Tacos", "Pasta", "Arroz", "Pollo", "Pescado", "Frutas", "Verduras", "Dulce", "Café", "Té", "Agua"],
+            "Animales": ["Perro", "Gato", "Caballo", "Elefante", "Tiburón", "Águila", "León", "Pingüino", "Mono", "Delfín", "Conejo", "Oso", "Cebra", "Jirafa", "Rana", "Araña", "Mariposa", "Pájaro", "Tortuga", "Cocodrilo"],
+            "Profesiones": ["Médico", "Docente", "Periodista", "Abogado", "Arquitecto", "Programador", "Cocinero", "Actor", "Piloto", "Diseñador", "Ingeniero", "Enfermero", "Bombero", "Policía", "Cantante", "Escritor", "Científico", "Veterinario", "Electricista", "Carpintero"],
+            "Acciones": ["Correr", "Dormir", "Cocinar", "Estudiar", "Viajar", "Bailar", "Comprar", "Nadar", "Limpiar", "Escribir", "Leer", "Conducir", "Saltar", "Cantar", "Dibujar", "Pintar", "Jugar", "Trabajar", "Descansar", "Pensar"],
+            "Películas y series": ["Titanic", "Harry Potter", "Stranger Things", "Star Wars", "El Señor de los Anillos", "Matrix", "Friends", "Los Simpson", "Breaking Bad", "Game of Thrones", "The Office", "La Casa de Papel", "El juego del calamar", "Vikingos", "The Mandalorian", "The Witcher", "Suits", "Dark", "Money Heist"],
+            "Emociones": ["Alegría", "Miedo", "Vergüenza", "Ansiedad", "Euforia", "Tranquilidad", "Celos", "Nostalgia", "Enojo", "Tristeza", "Sorpresa", "Amor", "Odio", "Cariño", "Desesperación", "Felicidad", "Desilusión", "Esperanza", "Culpa", "Orgullo"],
+            "Transporte": ["Colectivo", "Tren", "Avión", "Auto", "Moto", "Bicicleta", "Barco", "Submarino", "Helicóptero", "Camión", "Autobús", "Metro", "Tranvía", "Patín", "Skate", "Motocicleta", "Camioneta", "Taxi", "Uber", "Ferry"],
+            "Climas": ["Lluvia", "Viento", "Calor", "Frío", "Nieve", "Tormenta", "Sol", "Nublado", "Niebla", "Humedad", "Sequía", "Huracán", "Tornado", "Temperatura", "Presión", "Cielo", "Atmósfera", "Estación", "Verano", "Invierno"],
+            "Deportes": ["Fútbol", "Tenis", "Básquet", "Vóleibol", "Natación", "Atletismo", "Gimnasia", "Boxeo", "Fútbol americano", "Rugby", "Béisbol", "Hockey", "Golf", "Ciclismo", "Esquí", "Surf", "Patinaje", "Karate", "Judo", "Taekwondo"],
+            "Bebidas": ["Café", "Mate", "Té", "Agua", "Refresco", "Cerveza", "Vino", "Jugo", "Licuado", "Smoothie", "Leche", "Chocolate", "Whisky", "Ron", "Tequila", "Vodka", "Gin", "Cóctel", "Café con leche", "Agua mineral"]
         };
 
-        // Variables del juego
-        let currentWord = "";
-        let hiddenWord = [];
-        let gameStarted = false;
-        let attemptsLeft = 10;
-        let usedLetters = new Set();
-        let correctLetters = new Set();
         let players = [];
-        let impostors = [];
-        let currentPlayerIndex = 0;
-        let totalPlayers = 5;
-        let totalImpostors = 1;
-        let selectedCategory = "all";
-        let gameOver = false;
-        
-        // Elementos del DOM
-        const wordDisplay = document.getElementById('wordDisplay');
-        const attemptsLeftElement = document.getElementById('attemptsLeft');
-        const usedLettersElement = document.getElementById('usedLetters');
-        const currentTurnElement = document.getElementById('currentTurn');
-        const wordLengthElement = document.getElementById('wordLength');
-        const playersContainer = document.getElementById('playersContainer');
-        const letterButtonsContainer = document.getElementById('letterButtons');
-        const gameMessage = document.getElementById('gameMessage');
-        const gameStatus = document.getElementById('gameStatus');
-        const impostorHint = document.getElementById('impostorHint');
-        const startGameButton = document.getElementById('startGame');
-        const resetGameButton = document.getElementById('resetGame');
-        const solveWordButton = document.getElementById('solveWord');
-        const nextTurnButton = document.getElementById('nextTurn');
-        const playerCountInput = document.getElementById('playerCount');
-        const impostorCountInput = document.getElementById('impostorCount');
-        const wordCategorySelect = document.getElementById('wordCategory');
-        
-        // Inicializar el juego
-        function initGame() {
-            // Obtener configuración
-            totalPlayers = parseInt(playerCountInput.value);
-            totalImpostors = parseInt(impostorCountInput.value);
-            selectedCategory = wordCategorySelect.value;
-            
-            // Validar configuración
-            if (totalImpostors >= totalPlayers) {
-                totalImpostors = Math.min(3, totalPlayers - 1);
-                impostorCountInput.value = totalImpostors;
-                showMessage("Demasiados impostores! Se ajustó a " + totalImpostors, "error");
+        let secretWord = "";
+        let currentImpostors = [];
+
+        function setupPlayers() {
+            const num = parseInt(document.getElementById('num-players').value);
+            const imps = parseInt(document.getElementById('num-impostors').value);
+
+            if (num < 3 || imps < 1 || imps >= num) {
+                alert("Verifica la cantidad de jugadores e impostores.");
+                return;
             }
-            
-            if (totalImpostors > 3) {
-                totalImpostors = 3;
-                impostorCountInput.value = 3;
-                showMessage("Máximo 3 impostores permitidos", "error");
+
+            const container = document.getElementById('player-inputs');
+            container.innerHTML = "";
+            for (let i = 1; i <= num; i++) {
+                container.innerHTML += `
+                    <div class="player-item">
+                        <span>${i}.</span>
+                        <input type="text" value="Jugador ${i}" id="pname-${i-1}">
+                    </div>`;
             }
-            
-            // Seleccionar palabra aleatoria
-            const categoryWords = wordDictionary[selectedCategory];
-            currentWord = categoryWords[Math.floor(Math.random() * categoryWords.length)];
-            
-            // Inicializar variables del juego
-            hiddenWord = Array(currentWord.length).fill('_');
-            attemptsLeft = 10;
-            usedLetters.clear();
-            correctLetters.clear();
-            currentPlayerIndex = 0;
-            gameOver = false;
-            
-            // Crear jugadores
+
+            document.getElementById('setup-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+        }
+
+        function assignRoles() {
+            // Obtener nombres actualizados
+            const num = parseInt(document.getElementById('num-players').value);
             players = [];
-            for (let i = 1; i <= totalPlayers; i++) {
-                players.push({
-                    id: i,
-                    name: `Jugador ${i}`,
-                    role: 'crewmate',
-                    score: 0
-                });
+            for (let i = 0; i < num; i++) {
+                players.push(document.getElementById(`pname-${i}`).value || `Jugador ${i+1}`);
             }
-            
-            // Seleccionar impostores aleatorios
-            impostors = [];
-            const impostorIndices = [];
-            while (impostorIndices.length < totalImpostors) {
-                const randomIndex = Math.floor(Math.random() * totalPlayers);
-                if (!impostorIndices.includes(randomIndex)) {
-                    impostorIndices.push(randomIndex);
-                }
+
+            // Elegir palabra
+            const categorias = Object.keys(diccionario);
+            const catAleatoria = categorias[Math.floor(Math.random() * categorias.length)];
+            const palabras = diccionario[catAleatoria];
+            secretWord = palabras[Math.floor(Math.random() * palabras.length)];
+
+            // Elegir impostores
+            const numImps = parseInt(document.getElementById('num-impostors').value);
+            currentImpostors = [];
+            while(currentImpostors.length < numImps) {
+                let r = Math.floor(Math.random() * num);
+                if(!currentImpostors.includes(r)) currentImpostors.push(r);
             }
+
+            renderRevealButtons();
+        }
+
+        function renderRevealButtons() {
+            document.getElementById('game-title').innerText = "¡Roles Asignados!";
+            document.getElementById('setup-actions').classList.add('hidden');
+            document.getElementById('player-inputs').classList.add('hidden');
             
-            // Asignar roles de impostor
-            impostorIndices.forEach(index => {
-                players[index].role = 'impostor';
-                impostors.push(players[index]);
+            const revealContainer = document.getElementById('reveal-buttons');
+            revealContainer.innerHTML = "";
+            
+            players.forEach((name, index) => {
+                revealContainer.innerHTML += `
+                    <button class="reveal-btn" id="btn-reveal-${index}" onclick="showRole(${index})">
+                        Mostrar rol a ${name}
+                    </button>`;
             });
-            
-            // Actualizar UI
-            updateGameDisplay();
-            updatePlayersDisplay();
-            createLetterButtons();
-            updateGameStatus();
-            
-            // Habilitar/deshabilitar botones
-            startGameButton.disabled = true;
-            solveWordButton.disabled = false;
-            nextTurnButton.disabled = false;
-            
-            // Mostrar mensaje de inicio
-            showMessage(`¡Juego iniciado! La palabra tiene ${currentWord.length} letras. Los impostores ya conocen la palabra.`, "info");
-            gameStarted = true;
+
+            document.getElementById('reveal-actions').classList.remove('hidden');
         }
-        
-        // Actualizar la visualización de la palabra
-        function updateGameDisplay() {
-            wordDisplay.textContent = hiddenWord.join(' ');
-            attemptsLeftElement.textContent = attemptsLeft;
-            usedLettersElement.textContent = usedLetters.size;
-            currentTurnElement.textContent = currentPlayerIndex + 1;
-            wordLengthElement.textContent = currentWord.length;
-            
-            // Verificar si el juego terminó
-            checkGameEnd();
-        }
-        
-        // Actualizar la visualización de jugadores
-        function updatePlayersDisplay() {
-            playersContainer.innerHTML = '';
-            
-            players.forEach((player, index) => {
-                const playerCard = document.createElement('div');
-                playerCard.className = `player-card ${player.role}`;
-                
-                // Resaltar jugador actual
-                if (index === currentPlayerIndex) {
-                    playerCard.style.boxShadow = '0 0 15px rgba(76, 201, 240, 0.7)';
-                }
-                
-                // Elegir ícono según rol
-                const icon = player.role === 'impostor' ? 'fa-user-secret' : 'fa-user';
-                const roleText = player.role === 'impostor' ? 'Impostor' : 'Tripulante';
-                const roleClass = player.role === 'impostor' ? 'role-impostor' : 'role-crewmate';
-                
-                playerCard.innerHTML = `
-                    <div class="player-icon"><i class="fas ${icon}"></i></div>
-                    <div class="player-name">${player.name}</div>
-                    <div class="player-role ${roleClass}">${roleText}</div>
+
+        function showRole(index) {
+            const modal = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            const isImpostor = currentImpostors.includes(index);
+
+            if(isImpostor) {
+                content.innerHTML = `
+                    <div class="role-title impostor-theme">ERES EL IMPOSTOR 😈</div>
+                    <p>No conoces la palabra secreta.</p>
+                    <p>Tu objetivo es pasar desapercibido y descubrir de qué están hablando.</p>
                 `;
-                
-                playersContainer.appendChild(playerCard);
-            });
-            
-            // Mostrar pista para impostores
-            if (gameStarted && !gameOver) {
-                const currentPlayer = players[currentPlayerIndex];
-                if (currentPlayer.role === 'impostor') {
-                    impostorHint.innerHTML = `
-                        <strong>¡Eres el impostor!</strong> La palabra es: <span style="color:#f72585">${currentWord}</span>.
-                        Intenta engañar a los demás sin ser descubierto.
-                    `;
-                } else {
-                    impostorHint.innerHTML = `
-                        <strong>Eres un tripulante.</strong> Intenta adivinar la palabra. 
-                        ${totalImpostors > 1 ? `Hay ${totalImpostors} impostores entre los jugadores.` : 'Hay 1 impostor entre los jugadores.'}
-                    `;
-                }
             } else {
-                impostorHint.innerHTML = '';
-            }
-        }
-        
-        // Crear botones para cada letra del alfabeto
-        function createLetterButtons() {
-            letterButtonsContainer.innerHTML = '';
-            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            
-            for (let letter of alphabet) {
-                const button = document.createElement('button');
-                button.className = 'letter-btn';
-                button.textContent = letter;
-                button.dataset.letter = letter;
-                
-                // Marcar letras ya usadas
-                if (usedLetters.has(letter)) {
-                    button.disabled = true;
-                    if (correctLetters.has(letter)) {
-                        button.classList.add('correct');
-                    } else {
-                        button.classList.add('incorrect');
-                    }
-                }
-                
-                button.addEventListener('click', () => guessLetter(letter));
-                letterButtonsContainer.appendChild(button);
-            }
-        }
-        
-        // Procesar intento de adivinar una letra
-        function guessLetter(letter) {
-            if (gameOver || usedLetters.has(letter)) return;
-            
-            const currentPlayer = players[currentPlayerIndex];
-            usedLetters.add(letter);
-            
-            // Verificar si la letra está en la palabra
-            if (currentWord.includes(letter)) {
-                // Letra correcta
-                correctLetters.add(letter);
-                
-                // Revelar letra en la palabra oculta
-                for (let i = 0; i < currentWord.length; i++) {
-                    if (currentWord[i] === letter) {
-                        hiddenWord[i] = letter;
-                    }
-                }
-                
-                // Añadir puntos al jugador si no es impostor
-                if (currentPlayer.role === 'crewmate') {
-                    currentPlayer.score += 10;
-                    showMessage(`${currentPlayer.name} (Tripulante) adivinó la letra "${letter}"`, "success");
-                } else {
-                    // El impostor puede elegir si revelar o no que conoce la letra
-                    // En este caso, siempre revelamos que la adivinó para no levantar sospechas
-                    showMessage(`${currentPlayer.name} adivinó la letra "${letter}"`, "success");
-                }
-            } else {
-                // Letra incorrecta
-                attemptsLeft--;
-                
-                // Añadir puntos al impostor si el jugador es tripulante
-                if (currentPlayer.role === 'crewmate') {
-                    showMessage(`${currentPlayer.name} (Tripulante) intentó la letra "${letter}" pero no está en la palabra`, "error");
-                    
-                    // Los impostores ganan puntos cuando los tripulantes fallan
-                    impostors.forEach(impostor => {
-                        impostor.score += 5;
-                    });
-                } else {
-                    // El impostor falla a propósito para no levantar sospechas
-                    showMessage(`${currentPlayer.name} intentó la letra "${letter}" pero no está en la palabra`, "error");
-                }
-            }
-            
-            // Actualizar UI
-            updateGameDisplay();
-            createLetterButtons();
-            updatePlayersDisplay();
-            
-            // Pasar al siguiente turno si no se acabó el juego
-            if (!gameOver) {
-                nextTurn();
-            }
-        }
-        
-        // Pasar al siguiente turno
-        function nextTurn() {
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-            updatePlayersDisplay();
-            updateGameStatus();
-        }
-        
-        // Verificar si el juego ha terminado
-        function checkGameEnd() {
-            // Verificar si se adivinó la palabra completa
-            if (!hiddenWord.includes('_')) {
-                gameOver = true;
-                gameStatus.innerHTML = `
-                    <h3 style="color:#48bb78">¡Victoria de los Tripulantes!</h3>
-                    <p>La palabra era: <strong style="color:#f72585">${currentWord}</strong></p>
-                    <p>Los tripulantes han adivinado la palabra correctamente.</p>
+                content.innerHTML = `
+                    <div class="role-title civil-theme">ERES CIVIL 👤</div>
+                    <p>Tú conoces la palabra secreta:</p>
+                    <div class="word-box">${secretWord}</div>
+                    <p>Da pistas sutiles para encontrar a otros civiles sin que el impostor sepa cuál es la palabra.</p>
                 `;
-                
-                // Mostrar roles al final del juego
-                revealRoles();
-                showMessage("¡Los tripulantes han ganado! Han adivinado la palabra.", "success");
-                return true;
             }
-            
-            // Verificar si se agotaron los intentos
-            if (attemptsLeft <= 0) {
-                gameOver = true;
-                gameStatus.innerHTML = `
-                    <h3 style="color:#ef4444">¡Victoria de los Impostores!</h3>
-                    <p>La palabra era: <strong style="color:#f72585">${currentWord}</strong></p>
-                    <p>Los tripulantes se han quedado sin intentos.</p>
-                `;
-                
-                // Mostrar roles al final del juego
-                revealRoles();
-                showMessage("¡Los impostores han ganado! Los tripulantes se quedaron sin intentos.", "error");
-                return true;
-            }
-            
-            return false;
+
+            document.getElementById(`btn-reveal-${index}`).classList.add('seen');
+            modal.classList.remove('hidden');
         }
-        
-        // Revelar los roles al final del juego
-        function revealRoles() {
-            playersContainer.innerHTML = '';
-            
-            players.forEach((player, index) => {
-                const playerCard = document.createElement('div');
-                playerCard.className = `player-card ${player.role}`;
-                
-                const icon = player.role === 'impostor' ? 'fa-user-secret' : 'fa-user';
-                const roleText = player.role === 'impostor' ? 'Impostor' : 'Tripulante';
-                const roleClass = player.role === 'impostor' ? 'role-impostor' : 'role-crewmate';
-                
-                playerCard.innerHTML = `
-                    <div class="player-icon"><i class="fas ${icon}"></i></div>
-                    <div class="player-name">${player.name}</div>
-                    <div class="player-role ${roleClass}">${roleText}</div>
-                    <div style="margin-top: 8px; font-size: 0.9rem;">Puntos: ${player.score}</div>
-                `;
-                
-                playersContainer.appendChild(playerCard);
-            });
-            
-            // Deshabilitar botones
-            solveWordButton.disabled = true;
-            nextTurnButton.disabled = true;
-            startGameButton.disabled = false;
-            
-            // Mostrar pista de impostores vacía
-            impostorHint.innerHTML = '';
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.add('hidden');
         }
-        
-        // Actualizar el estado del juego
-        function updateGameStatus() {
-            if (!gameStarted) return;
-            
-            const currentPlayer = players[currentPlayerIndex];
-            const roleText = currentPlayer.role === 'impostor' ? 'Impostor' : 'Tripulante';
-            
-            gameStatus.textContent = `Turno de ${currentPlayer.name} (${roleText})`;
+
+        function restartGame() {
+            document.getElementById('setup-screen').classList.remove('hidden');
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('reveal-actions').classList.add('hidden');
+            document.getElementById('setup-actions').classList.remove('hidden');
+            document.getElementById('player-inputs').classList.remove('hidden');
+            document.getElementById('game-title').innerText = "Configurar Jugadores";
         }
-        
-        // Mostrar mensaje en el juego
-        function showMessage(text, type) {
-            gameMessage.textContent = text;
-            gameMessage.className = `message show ${type}`;
-            
-            // Ocultar mensaje después de 3 segundos
-            setTimeout(() => {
-                gameMessage.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Resolver la palabra completa
-        function solveWord() {
-            if (gameOver) return;
-            
-            const currentPlayer = players[currentPlayerIndex];
-            const isImpostor = currentPlayer.role === 'impostor';
-            
-            // Pedir al usuario que ingrese la palabra
-            const guess = prompt(`${currentPlayer.name}, ingresa la palabra completa:`);
-            
-            if (!guess) return;
-            
-            const normalizedGuess = guess.toUpperCase().trim();
-            
-            // Verificar si la palabra es correcta
-            if (normalizedGuess === currentWord) {
-                // Palabra correcta
-                if (!isImpostor) {
-                    // Tripulante adivinó correctamente
-                    currentPlayer.score += 50;
-                    hiddenWord = currentWord.split('');
-                    gameOver = true;
-                    
-                    gameStatus.innerHTML = `
-                        <h3 style="color:#48bb78">¡Victoria de los Tripulantes!</h3>
-                        <p>${currentPlayer.name} ha adivinado la palabra correctamente: <strong style="color:#f72585">${currentWord}</strong></p>
-                    `;
-                    
-                    showMessage(`¡${currentPlayer.name} ha adivinado la palabra correctamente!`, "success");
-                } else {
-                    // Impostor adivinó correctamente (traición)
-                    currentPlayer.score += 100;
-                    hiddenWord = currentWord.split('');
-                    gameOver = true;
-                    
-                    gameStatus.innerHTML = `
-                        <h3 style="color:#ef4444">¡Traición!</h3>
-                        <p>${currentPlayer.name} (Impostor) ha revelado la palabra: <strong style="color:#f72585">${currentWord}</strong></p>
-                        <p>Los impostores ganan por traición.</p>
-                    `;
-                    
-                    showMessage(`¡${currentPlayer.name} (Impostor) ha revelado la palabra!`, "error");
-                }
-                
-                updateGameDisplay();
-                revealRoles();
-            } else {
-                // Palabra incorrecta
-                attemptsLeft -= 2; // Penalización mayor por fallar la palabra completa
-                
-                if (!isImpostor) {
-                    showMessage(`${currentPlayer.name} (Tripulante) intentó resolver pero falló. Pérdida de 2 intentos.`, "error");
-                    
-                    // Los impostores ganan puntos cuando los tripulantes fallan
-                    impostors.forEach(impostor => {
-                        impostor.score += 15;
-                    });
-                } else {
-                    // El impostor falla a propósito
-                    showMessage(`${currentPlayer.name} intentó resolver pero falló. Pérdida de 2 intentos.`, "error");
-                }
-                
-                updateGameDisplay();
-                nextTurn();
-            }
-        }
-        
-        // Reiniciar el juego
-        function resetGame() {
-            gameStarted = false;
-            gameOver = false;
-            
-            // Restablecer UI
-            wordDisplay.textContent = "- - - - -";
-            attemptsLeftElement.textContent = "10";
-            usedLettersElement.textContent = "0";
-            currentTurnElement.textContent = "1";
-            wordLengthElement.textContent = "-";
-            gameStatus.textContent = "Configura el juego y haz clic en 'Iniciar Juego'";
-            impostorHint.innerHTML = "";
-            gameMessage.className = "message";
-            
-            // Limpiar contenedores
-            playersContainer.innerHTML = `
-                <div class="player-card">
-                    <div class="player-icon"><i class="fas fa-user"></i></div>
-                    <div class="player-name">Jugador 1</div>
-                    <div class="player-role role-crewmate">Tripulante</div>
-                </div>
-            `;
-            
-            letterButtonsContainer.innerHTML = "";
-            
-            // Habilitar/deshabilitar botones
-            startGameButton.disabled = false;
-            solveWordButton.disabled = true;
-            nextTurnButton.disabled = true;
-            
-            showMessage("Juego reiniciado. Configura y haz clic en 'Iniciar Juego'", "info");
-        }
-        
-        // Event Listeners
-        startGameButton.addEventListener('click', initGame);
-        resetGameButton.addEventListener('click', resetGame);
-        solveWordButton.addEventListener('click', solveWord);
-        nextTurnButton.addEventListener('click', nextTurn);
-        
-        // Validar el número de impostores al cambiar el número de jugadores
-        playerCountInput.addEventListener('change', function() {
-            const maxImpostors = Math.min(3, parseInt(this.value) - 1);
-            impostorCountInput.max = maxImpostors;
-            
-            if (parseInt(impostorCountInput.value) > maxImpostors) {
-                impostorCountInput.value = maxImpostors;
-            }
-        });
-        
-        // Inicializar UI
-        createLetterButtons();
-        updatePlayersDisplay();
     </script>
 </body>
 </html>
