@@ -239,6 +239,54 @@
             box-shadow: 0 0 18px rgba(139,92,246,0.35);
         }
 
+        /* ================= ÁREA DE TEXTO PERSONALIZADO ================= */
+        .custom-words-container {
+            margin-top: 1rem;
+            padding: 1.2rem;
+            border-radius: 1.25rem;
+            border: 2px dashed var(--accent-purple);
+            background: rgba(139,92,246,0.05);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            background: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--input-border);
+            border-radius: 1rem;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            line-height: 1.4;
+        }
+
+        textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 2px rgba(34,211,238,0.3);
+        }
+
+        textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .custom-info {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
         /* ================= BOTONES ================= */
         button.main-btn {
             background: var(--primary-gradient);
@@ -618,6 +666,21 @@
                 <input type="checkbox" id="cat-deportes" onchange="updateSelectedCategories()">
                 <label for="cat-deportes">⚽ Deportes</label>
             </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="cat-personalizado" onchange="toggleCustomWords()">
+                <label for="cat-personalizado">🎨 Personalizado</label>
+            </div>
+        </div>
+
+        <!-- Contenedor para palabras personalizadas -->
+        <div id="custom-words-container" class="custom-words-container hidden">
+            <label for="custom-words-input">✏️ Ingresa tus palabras personalizadas</label>
+            <textarea 
+                id="custom-words-input" 
+                placeholder="Escribe tus palabras aquí, separadas por comas. Ejemplo: Pizza, Cine, Futbol, Guitarra, Playa"
+                oninput="updateCustomWords()"
+            ></textarea>
+            <p class="custom-info">Las palabras ingresadas aquí se agregarán como una categoría adicional "Personalizado"</p>
         </div>
 
         <div class="selected-categories">
@@ -706,6 +769,7 @@
         let gameConfig = { mode: 'timer', value: 5 };
         let timerInterval = null;
         let selectedCategories = [];
+        let customWords = [];
 
         // ================= MODO DÍA / NOCHE =================
         function toggleTheme() {
@@ -730,6 +794,36 @@
             }
         }
 
+        // ================= CATEGORÍA PERSONALIZADA =================
+        function toggleCustomWords() {
+            const customCheckbox = document.getElementById('cat-personalizado');
+            const customContainer = document.getElementById('custom-words-container');
+            
+            if (customCheckbox.checked) {
+                customContainer.classList.remove('hidden');
+                updateSelectedCategories();
+            } else {
+                customContainer.classList.add('hidden');
+                document.getElementById('custom-words-input').value = "";
+                customWords = [];
+                updateSelectedCategories();
+            }
+        }
+
+        function updateCustomWords() {
+            const textarea = document.getElementById('custom-words-input');
+            const wordsText = textarea.value.trim();
+            
+            if (wordsText) {
+                // Separar por comas, limpiar espacios y filtrar elementos vacíos
+                customWords = wordsText.split(',')
+                    .map(word => word.trim())
+                    .filter(word => word.length > 0);
+            } else {
+                customWords = [];
+            }
+        }
+
         // ================= PASO 1: SETUP NÚMEROS =================
         function setupPlayers() {
             const num = parseInt(document.getElementById('num-players').value);
@@ -747,6 +841,9 @@
             // Resetear checkboxes y mostrar pantalla de categorías
             document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => cb.checked = false);
             selectedCategories = [];
+            customWords = [];
+            document.getElementById('custom-words-input').value = "";
+            document.getElementById('custom-words-container').classList.add('hidden');
             updateSelectedCategories();
 
             transitionToScreen('setup-screen', 'categories-screen');
@@ -766,6 +863,13 @@
         function proceedWithCategories() {
             if (selectedCategories.length === 0) {
                 alert("⚠️ Por favor, selecciona al menos una categoría.");
+                return;
+            }
+
+            // Verificar si se seleccionó personalizado pero no se ingresaron palabras
+            const customCheckbox = document.getElementById('cat-personalizado');
+            if (customCheckbox.checked && customWords.length === 0) {
+                alert("⚠️ Has seleccionado 'Personalizado' pero no has ingresado palabras.\n\nPor favor, escribe algunas palabras separadas por comas o deselecciona la categoría personalizada.");
                 return;
             }
 
@@ -866,10 +970,33 @@
             }
             updateRoulette();
 
-            // Elegir palabra de categorías seleccionadas
-            const randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
+            // Crear diccionario temporal que incluya las categorías seleccionadas
+            const tempDictionary = {};
+            
+            // Agregar categorías seleccionadas del diccionario original
+            selectedCategories.forEach(category => {
+                if (category !== "Personalizado" && diccionario[category]) {
+                    tempDictionary[category] = diccionario[category];
+                }
+            });
+
+            // Agregar categoría personalizada si está seleccionada
+            const customCheckbox = document.getElementById('cat-personalizado');
+            if (customCheckbox.checked && customWords.length > 0) {
+                tempDictionary["Personalizado"] = customWords;
+            }
+
+            // Verificar que haya al menos una categoría con palabras
+            const availableCategories = Object.keys(tempDictionary);
+            if (availableCategories.length === 0) {
+                alert("Error: No hay categorías válidas con palabras disponibles.");
+                return;
+            }
+
+            // Elegir categoría aleatoria del diccionario temporal
+            const randomCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
             secretCategory = randomCategory;
-            const palabras = diccionario[secretCategory] || [];
+            const palabras = tempDictionary[secretCategory] || [];
             secretWord = palabras.length > 0 ? palabras[Math.floor(Math.random() * palabras.length)] : "Palabra";
             
             const numImps = parseInt(document.getElementById('num-impostors').value);
@@ -1086,10 +1213,13 @@
             secretCategory = "";
             rolesSeenCount = 0;
             selectedCategories = [];
+            customWords = [];
 
             document.getElementById('reveal-buttons').innerHTML = "";
             document.getElementById('roulette-winner').textContent = "";
             document.getElementById('btn-start-debate').classList.add('hidden');
+            document.getElementById('custom-words-input').value = "";
+            document.getElementById('custom-words-container').classList.add('hidden');
 
             document.getElementById('setup-screen').classList.remove('hidden');
         }
@@ -1101,6 +1231,12 @@
             fromEl.classList.add('hidden');
             toEl.classList.remove('hidden');
         }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Asegurarse de que el contenedor personalizado esté oculto al inicio
+            document.getElementById('custom-words-container').classList.add('hidden');
+        });
     </script>
 </body>
 </html>
