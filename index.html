@@ -112,6 +112,48 @@
         h2 { color: var(--text-main); font-weight: 700; margin-bottom: 1rem; }
         .hidden { display: none !important; }
 
+        /* ================= INSTRUCCIONES ================= */
+        .instructions-box {
+            background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(34,211,238,0.1));
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 1rem;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .instructions-box h3 {
+            color: var(--accent-purple);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .instructions-box ul {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .instructions-box li {
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+        }
+
+        .section-help {
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            background: rgba(34,211,238,0.1);
+            padding: 0.8rem;
+            border-radius: 0.8rem;
+            margin-bottom: 1.2rem;
+            border-left: 3px solid var(--accent-cyan);
+        }
+
         /* ================= BOTÓN DARK MODE ================= */
         .theme-toggle {
             position: absolute;
@@ -568,15 +610,28 @@
     <div class="container" id="setup-screen">
         <h1>🕵️‍♂️ El Impostor</h1>
         
+        <div class="instructions-box">
+            <h3>📚 ¿Cómo jugar?</h3>
+            <p>En este juego, hay <strong>civiles</strong> que conocen una palabra secreta y <strong>impostores</strong> que no la conocen.</p>
+            <ul>
+                <li>Los civiles deben dar pistas sobre la palabra sin revelarla directamente</li>
+                <li>Los impostores deben fingir que conocen la palabra</li>
+                <li>Al final, todos votan para descubrir quién es el impostor</li>
+            </ul>
+        </div>
+        
         <div class="form-group">
             <label>👥 Configuración Jugadores</label>
+            <div class="section-help">
+                💡 Recomendación: 4-8 jugadores. Al menos 1 impostor por cada 4 jugadores funciona mejor.
+            </div>
             <div style="display: flex; gap: 10px;">
                 <div style="flex:1;">
-                    <span class="hint">Jugadores</span>
+                    <span class="hint">Total de jugadores</span>
                     <input type="number" id="num-players" value="4" min="3" max="20" placeholder="Total">
                 </div>
                 <div style="flex:1;">
-                    <span class="hint">Impostores</span>
+                    <span class="hint">Cantidad de impostores</span>
                     <input type="number" id="num-impostors" value="1" min="1" max="19" placeholder="Impostores">
                 </div>
             </div>
@@ -584,6 +639,9 @@
 
         <div class="form-group">
             <label>⏱️ Modo de Juego</label>
+            <div class="section-help">
+                ⏰ Elige si quieres jugar con tiempo limitado o con un número fijo de rondas.
+            </div>
             <div class="radio-group">
                 <div class="radio-option">
                     <input type="radio" id="mode-timer" name="gameMode" value="timer" checked onchange="toggleModeInputs()">
@@ -611,7 +669,9 @@
 
     <div class="container hidden" id="categories-screen">
         <h2>🎬 Selecciona Categorías</h2>
-        <p class="hint">Elige una o combina varias categorías para el juego.</p>
+        <div class="section-help">
+            🎯 Selecciona una o varias categorías. La palabra secreta será elegida aleatoriamente de las categorías seleccionadas.
+        </div>
 
         <div class="categories-grid">
             <div class="checkbox-item">
@@ -674,17 +734,19 @@
 
         <!-- Contenedor para palabras personalizadas -->
         <div id="custom-words-container" class="custom-words-container hidden">
-            <label for="custom-words-input">✏️ Ingresa tus palabras personalizadas</label>
+            <div class="section-help">
+                ✏️ Escribe tus propias palabras separadas por comas. Estas se agregarán como una categoría adicional.
+            </div>
             <textarea 
                 id="custom-words-input" 
-                placeholder="Escribe tus palabras aquí, separadas por comas. Ejemplo: Pizza, Cine, Futbol, Guitarra, Playa"
+                placeholder="Ejemplo: Pizza, Cine, Futbol, Guitarra, Playa, Netflix, Café, Montaña"
                 oninput="updateCustomWords()"
             ></textarea>
-            <p class="custom-info">Las palabras ingresadas aquí se agregarán como una categoría adicional "Personalizado"</p>
+            <p class="custom-info">Mínimo 3 palabras recomendado. Cuantas más palabras, más variado será el juego.</p>
         </div>
 
         <div class="selected-categories">
-            <strong>Seleccionadas:</strong> <span id="selected-count">0</span>
+            <strong>Categorías seleccionadas:</strong> <span id="selected-count">0</span>
         </div>
 
         <button class="main-btn" onclick="proceedWithCategories()">Siguiente ✓</button>
@@ -692,22 +754,32 @@
     </div>
 
     <div class="container hidden" id="names-screen">
-        <h2>🏷️ Nombres</h2>
+        <h2>🏷️ Nombres de los Jugadores</h2>
+        <div class="section-help">
+            👤 Escribe el nombre de cada jugador. Puedes usar nombres reales o apodos. 
+            Los nombres se usarán durante todo el juego.
+        </div>
         <div id="player-inputs" class="player-list"></div>
-        <p class="hint">Pueden editar los nombres si desean. Se guardarán mientras estén en esta pestaña.</p>
 
-        <button class="main-btn" onclick="assignRoles()">🎲 Repartir Roles</button>
+        <button class="main-btn" onclick="assignRoles()">🎲 Asignar Roles</button>
         <button class="main-btn secondary-btn back-menu-btn" onclick="goToMainMenu()">🏠 Volver al menú principal</button>
     </div>
 
     <div class="container hidden" id="reveal-screen">
-        <h2>🤫 Identidad Secreta</h2>
-        <p class="hint">Pasa el dispositivo. Cada jugador debe ver su rol en secreto.</p>
+        <h2>🤫 Revelación de Roles</h2>
+        <div class="section-help">
+            🔒 Pasa el dispositivo a cada jugador <strong>uno por uno</strong>. 
+            Cada jugador debe presionar su botón para ver su rol en <strong>secreto</strong>.
+            No dejes que los demás vean tu pantalla.
+        </div>
         
         <div id="reveal-buttons" class="player-list"></div>
 
         <!-- RULETA DESPUÉS DE REPARTIR ROLES -->
         <div class="roulette-container">
+            <div class="section-help">
+                🎡 Después de que todos vean sus roles, gira la ruleta para elegir quién empieza el debate.
+            </div>
             <div class="roulette-pointer"></div>
             <div class="roulette-wheel" id="roulette-wheel"></div>
             <button class="main-btn accent-btn" style="margin-top:0.3rem;" onclick="spinRoulette()">🎡 Girar para elegir quién empieza</button>
@@ -723,7 +795,22 @@
         
         <div id="active-content"></div>
 
-        <p class="hint">Debatan, pregunten y descubran quién miente.</p>
+        <div class="instructions-box">
+            <h3>🎮 Instrucciones del Debate</h3>
+            <p><strong>Para los CIVILES:</strong></p>
+            <ul>
+                <li>Da pistas sobre la palabra sin decirla directamente</li>
+                <li>Escucha atentamente a los demás para detectar al impostor</li>
+                <li>Pregunta a otros jugadores sobre la palabra</li>
+            </ul>
+            <p><strong>Para el IMPOSTOR:</strong></p>
+            <ul>
+                <li>Finge que conoces la palabra</li>
+                <li>Da pistas vagas o copia el estilo de los civiles</li>
+                <li>No te pongas nervioso cuando te pregunten</li>
+            </ul>
+            <p><strong>Al final del tiempo/rondas:</strong> Voten quién creen que es el impostor.</p>
+        </div>
 
         <button class="main-btn secondary-btn" onclick="restartGame()">🔄 Nuevo Juego</button>
         <button class="main-btn secondary-btn back-menu-btn" onclick="goToMainMenu()">🏠 Volver al menú principal</button>
@@ -834,7 +921,7 @@
             gameConfig.value = parseInt(document.getElementById(isTimer ? 'game-minutes' : 'game-rounds').value);
 
             if (isNaN(num) || isNaN(imps) || num < 3 || imps < 1 || imps >= num) {
-                alert("⚠️ Error en configuración:\n- Mínimo 3 jugadores.\n- Impostores debe ser menor al total de jugadores.");
+                alert("⚠️ Error en configuración:\n- Mínimo 3 jugadores.\n- Debe haber al menos 1 impostor y al menos 2 civiles.\n- Los impostores deben ser menos que el total de jugadores.");
                 return;
             }
 
@@ -886,7 +973,7 @@
                 container.innerHTML += `
                     <div class="player-input-item">
                         <span style="font-weight:bold; min-width:20px;">${i}.</span>
-                        <input type="text" value="Jugador ${i}" id="${id}" placeholder="Nombre" oninput="handleNameChange(${i-1})">
+                        <input type="text" value="Jugador ${i}" id="${id}" placeholder="Nombre del jugador" oninput="handleNameChange(${i-1})">
                     </div>`;
             }
 
@@ -956,7 +1043,7 @@
                     wheel.style.transition = "transform 3s cubic-bezier(0.16, 1, 0.3, 1)";
                 }, 50);
                 
-                winnerLabel.textContent = `Empieza: ${activePlayers[winnerIndex]} 🎤`;
+                winnerLabel.textContent = `¡${activePlayers[winnerIndex]} empieza el debate! 🎤`;
             }, 3000);
         }
 
@@ -1012,8 +1099,8 @@
             players.forEach((name, index) => {
                 revealContainer.innerHTML += `
                     <button class="reveal-btn" id="btn-reveal-${index}" onclick="showRole(${index})">
-                        <span>👤 Rol de <strong>${name}</strong></span>
-                        <span>👁️</span>
+                        <span>👤 <strong>${name}</strong> - Ver rol secreto</span>
+                        <span>👁️ Ver</span>
                     </button>`;
             });
             
@@ -1037,20 +1124,32 @@
             if(isImpostor) {
                 htmlContent = `
                     <div class="role-card impostor-card">
-                        <h2>😈 ERES IMPOSTOR</h2>
+                        <h2>😈 ¡ERES EL IMPOSTOR!</h2>
                         <div class="word-box">???</div>
-                        <p style="font-size:0.9rem">No sabes la categoría ni la palabra.<br>Escucha atentamente para no ser descubierto.</p>
+                        <p><strong>Instrucciones:</strong></p>
+                        <ul style="text-align:left; font-size:0.9rem">
+                            <li>No sabes la palabra secreta</li>
+                            <li>Finge que conoces la palabra</li>
+                            <li>Da pistas vagas y observa a los civiles</li>
+                            <li>No te pongas nervioso cuando te pregunten</li>
+                        </ul>
                     </div>`;
             } else {
                 htmlContent = `
                     <div class="role-card civil-card">
-                        <h2>😇 ERES CIVIL</h2>
-                        <p>Categoría: <strong>${secretCategory}</strong></p>
+                        <h2>😇 ¡ERES CIVIL!</h2>
+                        <p><strong>Categoría:</strong> ${secretCategory}</p>
                         <div class="word-box">${secretWord}</div>
-                        <p style="font-size:0.9rem">Da pistas sutiles para no revelar la palabra al impostor.</p>
+                        <p><strong>Instrucciones:</strong></p>
+                        <ul style="text-align:left; font-size:0.9rem">
+                            <li>Conoces la palabra secreta</li>
+                            <li>Da pistas sutiles sin revelarla</li>
+                            <li>Observa quién podría ser el impostor</li>
+                            <li>Pregunta a otros jugadores sobre la palabra</li>
+                        </ul>
                     </div>`;
             }
-            htmlContent += `<p><strong>${playerName}</strong>, memoriza y cierra.</p>`;
+            htmlContent += `<p><strong>${playerName}</strong>, memoriza tu rol y cierra esta ventana.</p>`;
             
             content.innerHTML = htmlContent;
             modal.classList.remove('hidden');
@@ -1077,16 +1176,23 @@
             const content = document.getElementById('active-content');
             
             if (gameConfig.mode === 'timer') {
-                document.getElementById('active-mode-title').innerText = "⏱️ Tiempo Restante";
-                content.innerHTML = `<div id="timer-val" class="timer-display">00:00</div>
-                                     <button class="main-btn" id="timer-control" onclick="toggleTimer()">Pausar</button>`;
+                document.getElementById('active-mode-title').innerText = "⏱️ Debate - Tiempo Restante";
+                content.innerHTML = `<div class="section-help">
+                    ⏰ Tienes ${gameConfig.value} minutos para debatir. Cuando el tiempo termine, voten quién es el impostor.
+                </div>
+                <div id="timer-val" class="timer-display">00:00</div>
+                <button class="main-btn" id="timer-control" onclick="toggleTimer()">⏸️ Pausar</button>`;
                 startTimer(gameConfig.value * 60);
             } else {
-                document.getElementById('active-mode-title').innerText = "🗣️ Rondas de Preguntas";
+                document.getElementById('active-mode-title').innerText = "🗣️ Debate - Rondas de Preguntas";
                 content.innerHTML = `
+                    <div class="section-help">
+                    🔄 Jueguen ${gameConfig.value} rondas completas. En cada ronda, cada jugador debe hacer una pregunta o dar una pista.
+                    </div>
                     <div class="rounds-display">
-                        <p>Jueguen <strong>${gameConfig.value}</strong> rondas completas.</p>
+                        <p><strong>Rondas a jugar:</strong> ${gameConfig.value}</p>
                         <p style="font-size:0.9rem; color:var(--text-muted)">Empieza el jugador que salió en la ruleta o elijan al azar.</p>
+                        <p style="font-size:0.9rem; color:var(--accent-cyan)">💡 Sugerencia: Lleven la cuenta de las rondas en papel o mentalmente.</p>
                     </div>`;
             }
         }
@@ -1160,7 +1266,7 @@
 
                         // Mostrar alerta visual
                         setTimeout(() => {
-                            alert("⏰ ¡Tiempo terminado! ¡A votar!");
+                            alert("⏰ ¡Tiempo terminado! ¡Es hora de votar!\n\nDiscutan rápidamente y voten quién creen que es el impostor.");
                         }, 500);
                     }
                 }
@@ -1170,7 +1276,7 @@
         function toggleTimer() {
             isPaused = !isPaused;
             const btn = document.getElementById('timer-control');
-            btn.innerText = isPaused ? "Reanudar" : "Pausar";
+            btn.innerText = isPaused ? "▶️ Reanudar" : "⏸️ Pausar";
             btn.style.background = isPaused ? "var(--secondary-gradient)" : "var(--primary-gradient)";
         }
 
@@ -1183,11 +1289,11 @@
 
         // ================= UTILIDADES =================
         function restartGame() {
-            if (confirm("¿Reiniciar juego?")) {
+            if (confirm("¿Reiniciar juego con los mismos jugadores?")) {
                 if (timerInterval) clearInterval(timerInterval);
 
                 document.getElementById('active-game-screen').classList.add('hidden');
-                document.getElementById('names-screen').classList.remove('hidden');
+                document.getElementById('reveal-screen').classList.remove('hidden');
 
                 currentImpostors = [];
                 secretWord = "";
@@ -1197,11 +1303,17 @@
                 document.getElementById('reveal-buttons').innerHTML = "";
                 document.getElementById('roulette-winner').textContent = "";
                 document.getElementById('btn-start-debate').classList.add('hidden');
+                
+                assignRoles();
             }
         }
 
         function goToMainMenu() {
             if (timerInterval) clearInterval(timerInterval);
+            
+            if (!confirm("¿Volver al menú principal? Se perderá el progreso actual.")) {
+                return;
+            }
 
             document.getElementById('names-screen').classList.add('hidden');
             document.getElementById('reveal-screen').classList.add('hidden');
@@ -1236,6 +1348,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Asegurarse de que el contenedor personalizado esté oculto al inicio
             document.getElementById('custom-words-container').classList.add('hidden');
+            
+            // Mostrar instrucciones iniciales
+            console.log("Bienvenido al Juego del Impostor Pro");
         });
     </script>
 </body>
