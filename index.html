@@ -228,17 +228,78 @@
             margin-bottom: 1.5rem;
         }
         
-        .info-icon {
+        /* INFO ICON - TOOLTIPS MEJORADOS */
+        .info-icon-wrapper {
+            position: relative;
             display: inline-block;
-            background: rgba(56, 189, 248, 0.2);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            text-align: center;
             margin-left: 5px;
-            font-size: 0.8rem;
+        }
+        
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: rgba(56, 189, 248, 0.2);
+            border: 1px solid var(--accent-color);
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            font-weight: bold;
+            font-style: italic;
             cursor: help;
+            transition: all 0.2s ease;
+        }
+        
+        .info-icon:hover {
+            background: rgba(56, 189, 248, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .info-icon-tooltip {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 41, 59, 0.95);
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            font-size: 0.8rem;
+            width: max-content;
+            max-width: 250px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            white-space: pre-line;
+            line-height: 1.4;
+        }
+        
+        .info-icon-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(30, 41, 59, 0.95) transparent transparent transparent;
+        }
+        
+        .info-icon-wrapper:hover .info-icon-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Ajustes para labels con info-icon */
+        label {
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
@@ -266,21 +327,45 @@
 
         <div style="display: flex; gap: 15px;">
             <div class="input-group" style="flex:1">
-                <label>Jugadores <span class="info-icon" title="Mínimo 3 jugadores"></span></label>
+                <label>
+                    Jugadores 
+                    <div class="info-icon-wrapper">
+                        <span class="info-icon">i</span>
+                        <div class="info-icon-tooltip">Mínimo 3 jugadores</div>
+                    </div>
+                </label>
                 <input type="number" id="num-players" value="4" min="3">
             </div>
             <div class="input-group" style="flex:1">
-                <label>Impostores <span class="info-icon" title="Debe haber más jugadores que impostores"></span></label>
+                <label>
+                    Impostores 
+                    <div class="info-icon-wrapper">
+                        <span class="info-icon">i</span>
+                        <div class="info-icon-tooltip">Debe haber más jugadores que impostores</div>
+                    </div>
+                </label>
                 <input type="number" id="num-impostors" value="1" min="1">
             </div>
         </div>
         <div class="input-group">
-            <label>Tiempo (minutos) <span class="info-icon" title="Duración del debate"></span></label>
+            <label>
+                Tiempo (minutos) 
+                <div class="info-icon-wrapper">
+                    <span class="info-icon">i</span>
+                    <div class="info-icon-tooltip">Duración del debate</div>
+                </div>
+            </label>
             <input type="number" id="game-time" value="5" min="1">
         </div>
         
         <div class="input-group">
-            <label>Sonido de Alerta ⏰ <span class="info-icon" title="Sonará cuando termine el tiempo"></span></label>
+            <label>
+                Sonido de Alerta ⏰ 
+                <div class="info-icon-wrapper">
+                    <span class="info-icon">i</span>
+                    <div class="info-icon-tooltip">Sonará cuando termine el tiempo o en los últimos 3 segundos</div>
+                </div>
+            </label>
             <select id="alarm-sound">
                 <option value="none">Sin sonido</option>
                 <option value="beep">Beep Clásico</option>
@@ -335,7 +420,13 @@
         </div>
 
         <div id="custom-area" class="hidden">
-            <label style="margin-bottom: 5px;">Tus palabras (separadas por coma): <span class="info-icon" title="Ejemplo: Casa, Perro, Pizza, Película">i</span></label>
+            <label>
+                Tus palabras (separadas por coma): 
+                <div class="info-icon-wrapper">
+                    <span class="info-icon">i</span>
+                    <div class="info-icon-tooltip">Ejemplo: Casa, Perro, Pizza, Película</div>
+                </div>
+            </label>
             <textarea id="custom-words" rows="3" placeholder="Ej: Mi Casa, La Oficina, El Jefe, Mi Perro..."></textarea>
         </div>
 
@@ -930,22 +1021,10 @@
             // Actualizar cuando cambie el selector de sonido
             document.getElementById('alarm-sound').addEventListener('change', updateSelectedSoundName);
             
-            // Añadir tooltips a los iconos de información
-            document.querySelectorAll('.info-icon').forEach(icon => {
-                icon.addEventListener('mouseenter', function() {
-                    const title = this.getAttribute('title');
-                    if (title) {
-                        // Podríamos mostrar un tooltip más elegante aquí si queremos
-                        // Por ahora usamos el title nativo
-                    }
-                });
-            });
-            
-            // Añadir un botón de "Tutorial rápido" en la primera pantalla
+            // Añadir un mensaje inicial para nuevos jugadores
             const setupScreen = document.getElementById('screen-setup');
             const firstHelpBtn = setupScreen.querySelector('.help-btn');
             if (firstHelpBtn) {
-                // Añadir un mensaje inicial para nuevos jugadores
                 const welcomeMsg = document.createElement('div');
                 welcomeMsg.innerHTML = `
                     <p style="margin-top: 10px; font-size: 0.9rem; color: var(--accent-color);">
