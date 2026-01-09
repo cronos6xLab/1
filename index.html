@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Juego del Impostor Ultra</title>
+    <title>Juego del Impostor Ultimate</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,313 +11,237 @@
 
     <style>
         /* ==========================================================================
-           ZONA DE PERSONALIZACIÓN (EDITA AQUÍ TUS COLORES E IMÁGENES)
+           👇 ZONA DE PERSONALIZACIÓN PARA EL DESARROLLADOR (TÚ) 👇
            ========================================================================== */
         :root {
-            /* 1. IMAGEN DE FONDO (Si quieres una fija, pon la URL dentro de las comillas) */
-            /* Ejemplo: url('https://mi-sitio.com/fondo.jpg'); */
-            --custom-bg-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5980?q=80&w=2072&auto=format&fit=crop');
+            /* 1. IMAGEN DE FONDO: 
+               Cambia la URL de abajo por la de tu imagen. 
+               Puede ser un link de internet o una ruta local (ej: 'img/fondo.jpg') */
+            --bg-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
 
-            /* 2. COLORES PRINCIPALES */
-            --primary-color: #6366f1;       /* Color botones principales (Indigo) */
-            --accent-color: #06b6d4;        /* Color de acento (Cyan) */
-            --danger-color: #ef4444;        /* Color para el impostor */
-            --safe-color: #10b981;          /* Color para los civiles */
-            
-            /* 3. VARIABLES DE SISTEMA (No es necesario tocar mucho aquí) */
-            --font-heading: 'Poppins', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            
-            --glass-bg: rgba(255, 255, 255, 0.05);
+            /* 2. COLORES DE LA APP */
+            --primary-color: #8b5cf6;       /* Color principal (Violeta) */
+            --accent-color: #38bdf8;        /* Color de acento (Azul cielo) */
+            --impostor-color: #ef4444;      /* Rojo para el impostor */
+            --civil-color: #10b981;         /* Verde para civiles */
+
+            /* --- NO TOCAR DESDE AQUÍ SI NO SABES CSS --- */
+            --glass-bg: rgba(30, 41, 59, 0.7); /* Fondo semitransparente de los paneles */
             --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-color: #ffffff;
+            --font-main: 'Inter', sans-serif;
+            --font-title: 'Poppins', sans-serif;
         }
 
-        /* Tema Claro (Opcional, si el usuario cambia el switch) */
-        html[data-theme="light"] {
-            --text-main: #1e293b;
-            --text-muted: #475569;
-            --glass-bg: rgba(255, 255, 255, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        }
-
-        /* ================= ESTILOS BASE ================= */
+        /* ================= ESTILOS GENERALES ================= */
         body {
-            font-family: var(--font-body);
-            color: var(--text-main);
+            font-family: var(--font-main);
+            color: var(--text-color);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px;
             box-sizing: border-box;
             
-            /* FONDO CON IMAGEN Y SUPERPOSICIÓN OSCURA */
-            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), var(--custom-bg-image);
+            /* Configuración del Fondo */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), var(--bg-image);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: background 0.5s ease;
         }
 
-        /* ================= CONTENEDOR TIPO GLASSMORPHISM ================= */
+        /* Contenedor tipo "Cristal" */
         .container {
             width: 100%;
-            max-width: 500px;
-            
-            /* EFECTO VIDRIO */
+            max-width: 480px;
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            
-            padding: 2rem;
             border-radius: 24px;
+            padding: 2rem;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s ease-out;
             position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.5s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         h1, h2 {
-            font-family: var(--font-heading);
-            margin: 0 0 1.5rem 0;
-            background: linear-gradient(135deg, #fff 0%, var(--accent-color) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            font-family: var(--font-title);
+            margin: 0 0 1rem 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
+        h1 { font-size: 2.5rem; background: linear-gradient(to right, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        h1 { font-size: 2.8rem; letter-spacing: -1px; }
-        h2 { font-size: 2rem; }
-
-        html[data-theme="light"] h1, html[data-theme="light"] h2 {
-            background: linear-gradient(135deg, #1e293b 0%, var(--primary-color) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
         .hidden { display: none !important; }
 
-        /* ================= INPUTS PERSONALIZADOS ================= */
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
+        /* ================= FORMULARIOS E INPUTS ================= */
+        .input-group { margin-bottom: 1.2rem; text-align: left; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; }
 
-        label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        input[type="number"], input[type="text"], textarea {
+        input, textarea {
             width: 100%;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
+            padding: 12px;
             border-radius: 12px;
-            color: var(--text-main);
-            font-family: var(--font-body);
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-family: inherit;
             font-size: 1rem;
             box-sizing: border-box;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
-        
-        html[data-theme="light"] input[type="number"], 
-        html[data-theme="light"] input[type="text"],
-        html[data-theme="light"] textarea {
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid #cbd5e1;
-            color: #1e293b;
-        }
-
         input:focus, textarea:focus {
             outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15);
-            background: rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
         }
 
-        /* ================= BOTONES MODERNOS ================= */
+        /* Grid de Categorías */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .cat-option input { display: none; }
+        .cat-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .cat-option input:checked + label {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+            font-weight: bold;
+            transform: scale(1.02);
+        }
+
+        /* ================= BOTONES ================= */
         .btn {
-            background: linear-gradient(135deg, var(--primary-color), #818cf8);
+            background: linear-gradient(135deg, var(--primary-color), #7c3aed);
             color: white;
             border: none;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
+            padding: 16px;
             width: 100%;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: none;
             margin-top: 10px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn:active { transform: scale(0.98); }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--glass-border);
-            box-shadow: none;
-            color: var(--text-muted);
-        }
-        .btn-secondary:hover {
+        /* Botones de Revelar (Lista de jugadores) */
+        .reveal-item {
             background: rgba(255,255,255,0.05);
-            color: var(--text-main);
-            border-color: var(--text-main);
-        }
-
-        .btn-reveal {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            text-align: left;
-            margin-bottom: 10px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s;
         }
-        .btn-reveal:hover { background: rgba(255,255,255,0.08); }
+        .reveal-item:hover { background: rgba(255,255,255,0.1); }
+        .reveal-item:disabled { opacity: 0.5; cursor: default; }
 
-        /* ================= TARJETAS DE ROL ================= */
+        /* ================= MODAL Y TARJETAS DE ROL (CORREGIDO) ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); /* Fondo casi negro sólido */
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
         .role-card {
-            padding: 2rem;
-            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            border-radius: 30px;
             color: white;
-            margin-bottom: 1.5rem;
+            text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .role-impostor {
-            background: linear-gradient(135deg, #7f1d1d, var(--danger-color));
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-        }
-        
-        .role-civil {
-            background: linear-gradient(135deg, #064e3b, var(--safe-color));
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            z-index: 1001;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .secret-word {
+        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Estilos específicos para Impostor y Civil */
+        .is-impostor {
+            background: linear-gradient(135deg, #7f1d1d, var(--impostor-color));
+            border: 2px solid #fca5a5;
+        }
+        .is-civil {
+            background: linear-gradient(135deg, #064e3b, var(--civil-color));
+            border: 2px solid #6ee7b7;
+        }
+
+        .secret-word-display {
             background: rgba(0,0,0,0.3);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 2rem;
-            font-weight: 900;
-            margin: 15px 0;
-            letter-spacing: 2px;
-        }
-
-        /* ================= CHECKBOXES ================= */
-        .grid-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .option-card {
-            position: relative;
-        }
-
-        .option-card input { display: none; }
-
-        .option-card label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin: 0;
-            text-transform: none;
-            letter-spacing: 0;
-        }
-
-        .option-card input:checked + label {
-            background: rgba(6, 182, 212, 0.15);
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        /* ================= THEME TOGGLE ================= */
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        /* ================= PERSONALIZACIÓN DE USUARIO (UI) ================= */
-        .customizer-box {
-            background: rgba(0,0,0,0.2);
             padding: 15px;
             border-radius: 15px;
-            margin-bottom: 20px;
-            border: 1px dashed var(--glass-border);
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 20px 0;
+            border: 1px dashed rgba(255,255,255,0.5);
+        }
+
+        /* ================= PANTALLA DE JUEGO ================= */
+        .timer {
+            font-size: 4rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
     </style>
 </head>
 <body>
 
-    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-
     <div class="container" id="screen-setup">
-        <div style="font-size: 3rem; margin-bottom: 10px;">🕵️</div> 
-        <h1>El Impostor</h1>
+        <h1>🕵️‍♂️ El Impostor</h1>
+        <p style="color: #cbd5e1; margin-bottom: 2rem;">Configura tu partida</p>
 
-        <div class="customizer-box">
-            <label>🎨 Personaliza tu App</label>
-            <input type="text" id="bg-url-input" placeholder="Pega URL de imagen de fondo..." onchange="updateBackgroundFromInput()">
-            <p style="font-size: 0.7rem; color: var(--text-muted); margin-top:5px;">Pega un link de imagen y presiona Enter para ver la magia.</p>
-        </div>
-
-        <div class="grid-options" style="margin-bottom: 10px;">
-            <div class="input-group">
+        <div style="display: flex; gap: 15px;">
+            <div class="input-group" style="flex:1">
                 <label>Jugadores</label>
                 <input type="number" id="num-players" value="4" min="3">
             </div>
-            <div class="input-group">
+            <div class="input-group" style="flex:1">
                 <label>Impostores</label>
                 <input type="number" id="num-impostors" value="1" min="1">
             </div>
@@ -325,273 +249,291 @@
 
         <div class="input-group">
             <label>Tiempo de Debate (min)</label>
-            <input type="number" id="game-minutes" value="5" min="1">
+            <input type="number" id="game-time" value="5" min="1">
         </div>
 
-        <button class="btn" onclick="goToCategories()">Continuar</button>
+        <button class="btn" onclick="validateSetup()">Continuar 👉</button>
     </div>
 
     <div class="container hidden" id="screen-categories">
-        <h2>Elige el Tema</h2>
-        <p style="color: var(--text-muted); margin-bottom: 20px;">Selecciona de qué hablarán los civiles.</p>
-        
-        <div class="grid-options">
-            <div class="option-card"><input type="checkbox" id="cat-lugares"><label for="cat-lugares">✈️ Lugares</label></div>
-            <div class="option-card"><input type="checkbox" id="cat-comidas"><label for="cat-comidas">🍕 Comidas</label></div>
-            <div class="option-card"><input type="checkbox" id="cat-animales"><label for="cat-animales">🦁 Animales</label></div>
-            <div class="option-card"><input type="checkbox" id="cat-peliculas"><label for="cat-peliculas">🎬 Películas</label></div>
-            <div class="option-card"><input type="checkbox" id="cat-objetos"><label for="cat-objetos">📱 Objetos</label></div>
-            <div class="option-card"><input type="checkbox" id="cat-profesiones"><label for="cat-profesiones">👨‍⚕️ Profesiones</label></div>
+        <h2>📂 Selecciona Categorías</h2>
+        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1.5rem;">Debes elegir al menos una.</p>
+
+        <div class="categories-grid">
+            <div class="cat-option"><input type="checkbox" id="cat-Lugares"><label for="cat-Lugares">✈️ Lugares</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Comidas"><label for="cat-Comidas">🍕 Comidas</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Animales"><label for="cat-Animales">🦁 Animales</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Peliculas"><label for="cat-Peliculas">🎬 Películas</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Objetos"><label for="cat-Objetos">📱 Objetos</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Profesiones"><label for="cat-Profesiones">👨‍⚕️ Profesiones</label></div>
         </div>
 
-        <div class="input-group">
-            <label>¿Tema propio? (Opcional)</label>
-            <textarea id="custom-words" rows="2" placeholder="Ej: Batman, Superman, Flash..."></textarea>
+        <div class="input-group" style="margin-top: 20px;">
+            <label>Palabras Personalizadas (Opcional)</label>
+            <textarea id="custom-words" rows="2" placeholder="Separa con comas: Batman, Superman, Flash..."></textarea>
         </div>
 
-        <button class="btn" onclick="goToNames()">Siguiente</button>
-        <button class="btn btn-secondary" onclick="showScreen('screen-setup')">Volver</button>
+        <button class="btn" onclick="validateCategories()">Siguiente ✓</button>
+        <button class="btn btn-secondary" onclick="showScreen('screen-setup')">Atrás</button>
     </div>
 
     <div class="container hidden" id="screen-names">
-        <h2>¿Quiénes juegan?</h2>
-        <div id="names-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;"></div>
-        <button class="btn" onclick="assignRoles()">Repartir Roles</button>
+        <h2>📝 Nombres</h2>
+        <div id="names-list" style="max-height: 50vh; overflow-y: auto; margin-bottom: 20px;">
+            </div>
+        <button class="btn" onclick="startGameLogic()">Asignar Roles 🎲</button>
+        <button class="btn btn-secondary" onclick="showScreen('screen-categories')">Atrás</button>
     </div>
 
     <div class="container hidden" id="screen-reveal">
-        <h2>Pasa el móvil 📱</h2>
-        <p style="color: var(--accent-color);">Que nadie vea tu pantalla.</p>
-        <div id="reveal-list"></div>
-        <button id="btn-start-game" class="btn hidden" onclick="startGame()">Comenzar Debate 🔥</button>
+        <h2>🤫 Identidad Secreta</h2>
+        <p style="color: var(--accent-color); margin-bottom: 20px;">Pasa el dispositivo al jugador correspondiente.</p>
+        
+        <div id="reveal-list">
+            </div>
+
+        <button id="btn-begin-debate" class="btn hidden" onclick="startDebate()">🔥 Comenzar el Juego</button>
     </div>
 
     <div class="container hidden" id="screen-game">
-        <h2>Tiempo Restante</h2>
-        <div id="timer-display" style="font-size: 4.5rem; font-weight: 900; font-variant-numeric: tabular-nums; margin: 20px 0;">00:00</div>
+        <h2>⏳ Debate en curso</h2>
+        <div id="timer-display" class="timer">00:00</div>
         
-        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
-            <p style="margin:0; font-size: 0.9rem; color: var(--text-muted);">Jugador inicial:</p>
-            <strong id="first-player" style="font-size: 1.2rem; color: var(--accent-color);">Calculando...</strong>
+        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+            <p style="margin:0; font-size:0.9rem; color:#cbd5e1">Jugador que inicia:</p>
+            <strong id="starter-player" style="font-size:1.2rem; color:var(--accent-color)">---</strong>
         </div>
 
-        <button class="btn" onclick="toggleTimer()" id="btn-timer">Pausar</button>
-        <button class="btn btn-secondary" onclick="location.reload()">Nuevo Juego</button>
+        <button class="btn" id="btn-pause" onclick="togglePause()">Pausar</button>
+        <button class="btn btn-secondary" onclick="resetGame()">Terminar / Nuevo Juego</button>
     </div>
 
-    <div id="role-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:200; display:flex; justify-content:center; align-items:center; padding: 20px; box-sizing: border-box;">
-        <div class="container" style="max-width: 400px; animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-            <div id="role-content"></div>
-            <button class="btn" onclick="closeRoleModal()">Entendido, cerrar 🔒</button>
+    <div id="role-modal" class="modal-overlay hidden">
         </div>
-    </div>
 
     <script>
-        /* ================= LÓGICA DEL JUEGO ================= */
-        const data = {
-            "Lugares": ["Playa", "Cine", "Hospital", "Escuela", "Gimnasio", "Cementerio", "Aeropuerto"],
-            "Comidas": ["Pizza", "Sushi", "Tacos", "Hamburguesa", "Helado", "Chocolate", "Paella"],
-            "Animales": ["León", "Pingüino", "Elefante", "Jirafa", "Delfín", "Perro", "Gato"],
-            "Peliculas": ["Titanic", "Avengers", "Star Wars", "Harry Potter", "Avatar", "El Padrino"],
-            "Objetos": ["Celular", "Reloj", "Llaves", "Zapatos", "Lámpara", "Computadora"],
-            "Profesiones": ["Doctor", "Policía", "Bombero", "Maestro", "Astronauta", "Actor"]
+        // ================= BASE DE DATOS =================
+        const database = {
+            "Lugares": ["Playa", "Escuela", "Hospital", "Aeropuerto", "Cine", "Gimnasio", "Cementerio", "Banco", "Restaurante", "Museo"],
+            "Comidas": ["Pizza", "Sushi", "Hamburguesa", "Tacos", "Helado", "Chocolate", "Ensalada", "Paella", "Huevo Frito", "Sopa"],
+            "Animales": ["Perro", "Gato", "León", "Elefante", "Tiburón", "Águila", "Serpiente", "Pingüino", "Jirafa", "Mono"],
+            "Peliculas": ["Titanic", "Avatar", "Star Wars", "Harry Potter", "El Rey León", "Avengers", "Matrix", "Jurassic Park", "Batman"],
+            "Objetos": ["Celular", "Llaves", "Reloj", "Zapatos", "Lámpara", "Computadora", "Bicicleta", "Gafas", "Mochila"],
+            "Profesiones": ["Médico", "Policía", "Bombero", "Maestro", "Astronauta", "Cocinero", "Abogado", "Mecánico", "Actor"]
         };
 
+        // Estado del Juego
         let players = [];
-        let impostorsIndices = [];
-        let currentSecretWord = "";
-        let currentCategory = "";
-        let rolesSeen = 0;
-        let timerInterval;
-        let timeLeft;
-        let isPaused = false;
+        let gameData = {
+            impostorIndices: [],
+            secretWord: "",
+            category: "",
+            timeLeft: 0,
+            timerInterval: null,
+            paused: false
+        };
+        let rolesViewed = 0;
 
-        // --- PERSONALIZACIÓN ---
-        function updateBackgroundFromInput() {
-            const url = document.getElementById('bg-url-input').value;
-            if(url) {
-                document.documentElement.style.setProperty('--custom-bg-image', `url('${url}')`);
-            }
-        }
+        // ================= NAVEGACIÓN Y VALIDACIÓN =================
 
-        function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-        }
-
-        // --- NAVEGACIÓN ---
-        function showScreen(id) {
+        function showScreen(screenId) {
             document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
         }
 
-        function goToCategories() {
+        function validateSetup() {
+            const numP = parseInt(document.getElementById('num-players').value);
+            const numI = parseInt(document.getElementById('num-impostors').value);
+            
+            if (numP < 3) return alert("Mínimo 3 jugadores.");
+            if (numI >= numP) return alert("Debe haber más jugadores que impostores.");
+            
             showScreen('screen-categories');
         }
 
-        function goToNames() {
-            const num = parseInt(document.getElementById('num-players').value);
-            const list = document.getElementById('names-list');
-            list.innerHTML = '';
-            
-            for(let i=0; i<num; i++) {
-                list.innerHTML += `
-                    <div class="input-group" style="margin-bottom: 10px;">
-                        <input type="text" placeholder="Nombre Jugador ${i+1}" id="pname-${i}">
-                    </div>`;
+        function validateCategories() {
+            // Validar que se haya seleccionado ALGO
+            const checkboxes = document.querySelectorAll('.categories-grid input:checked');
+            const customText = document.getElementById('custom-words').value.trim();
+
+            if (checkboxes.length === 0 && customText === "") {
+                alert("⚠️ ¡ERROR!\nDebes seleccionar al menos una categoría o escribir palabras personalizadas para poder continuar.");
+                return;
             }
+
+            generateNameInputs();
             showScreen('screen-names');
         }
 
-        // --- LÓGICA CORE ---
-        function assignRoles() {
+        function generateNameInputs() {
+            const num = parseInt(document.getElementById('num-players').value);
+            const container = document.getElementById('names-list');
+            container.innerHTML = "";
+
+            for(let i=0; i<num; i++) {
+                container.innerHTML += `
+                <div class="input-group" style="margin-bottom:10px;">
+                    <input type="text" id="pname-${i}" placeholder="Nombre Jugador ${i+1}" value="Jugador ${i+1}">
+                </div>`;
+            }
+        }
+
+        // ================= LÓGICA DEL JUEGO =================
+
+        function startGameLogic() {
             // 1. Recoger Nombres
+            const num = parseInt(document.getElementById('num-players').value);
             players = [];
-            const inputs = document.querySelectorAll('[id^="pname-"]');
-            inputs.forEach((inp, idx) => players.push(inp.value.trim() || `Jugador ${idx+1}`));
+            for(let i=0; i<num; i++) {
+                let name = document.getElementById(`pname-${i}`).value.trim();
+                if(!name) name = `Jugador ${i+1}`;
+                players.push(name);
+            }
 
-            // 2. Elegir Palabra
-            let pool = [];
-            document.querySelectorAll('#screen-categories input:checked').forEach(cb => {
-                const cat = cb.id.replace('cat-', '');
-                const key = cat.charAt(0).toUpperCase() + cat.slice(1);
-                pool = pool.concat(data[key] || []);
+            // 2. Construir bolsa de palabras
+            let wordPool = [];
+            // De checkboxes
+            document.querySelectorAll('.categories-grid input:checked').forEach(cb => {
+                const key = cb.id.replace('cat-', '');
+                if(database[key]) wordPool = wordPool.concat(database[key]);
             });
-
-            const customText = document.getElementById('custom-words').value;
+            // De texto personalizado
+            const customText = document.getElementById('custom-words').value.trim();
             if(customText) {
-                const customs = customText.split(',').map(s => s.trim()).filter(s => s);
-                pool = pool.concat(customs);
+                const customs = customText.split(',').map(w => w.trim()).filter(w => w.length > 0);
+                wordPool = wordPool.concat(customs);
             }
 
-            if(pool.length === 0) { alert("¡Selecciona al menos una categoría!"); return; }
+            // Seleccionar palabra secreta
+            if(wordPool.length === 0) { 
+                alert("Error técnico: No hay palabras. Reinicia."); return; 
+            }
+            gameData.secretWord = wordPool[Math.floor(Math.random() * wordPool.length)];
 
-            currentSecretWord = pool[Math.floor(Math.random() * pool.length)];
-            
-            // 3. Elegir Impostores
-            const numImps = parseInt(document.getElementById('num-impostors').value);
-            impostorsIndices = [];
-            while(impostorsIndices.length < numImps) {
-                let r = Math.floor(Math.random() * players.length);
-                if(!impostorsIndices.includes(r)) impostorsIndices.push(r);
+            // 3. Asignar Impostores
+            const numImpostors = parseInt(document.getElementById('num-impostors').value);
+            gameData.impostorIndices = [];
+            while(gameData.impostorIndices.length < numImpostors) {
+                let r = Math.floor(Math.random() * num);
+                if(!gameData.impostorIndices.includes(r)) gameData.impostorIndices.push(r);
             }
 
-            // 4. Preparar Pantalla Revelación
-            const revealList = document.getElementById('reveal-list');
-            revealList.innerHTML = '';
-            rolesSeen = 0;
+            // 4. Preparar pantalla de revelación
+            rolesViewed = 0;
+            const list = document.getElementById('reveal-list');
+            list.innerHTML = "";
             
-            players.forEach((p, i) => {
-                revealList.innerHTML += `
-                    <button class="btn btn-reveal" id="btn-rev-${i}" onclick="showRole(${i})">
-                        <span>👤 ${p}</span>
-                        <span style="font-size:0.8rem; color:var(--accent-color)">VER ROL</span>
-                    </button>`;
+            players.forEach((player, index) => {
+                const btn = document.createElement('button');
+                btn.className = "reveal-item";
+                btn.id = `btn-reveal-${index}`;
+                btn.innerHTML = `<span>👤 ${player}</span> <span>👁️ Ver Rol</span>`;
+                btn.onclick = () => openRoleModal(index);
+                list.appendChild(btn);
             });
 
-            document.getElementById('btn-start-game').classList.add('hidden');
+            document.getElementById('btn-begin-debate').classList.add('hidden');
             showScreen('screen-reveal');
         }
 
-        function showRole(idx) {
-            const btn = document.getElementById(`btn-rev-${idx}`);
-            if(btn.disabled) return;
+        // ================= MODAL Y REVELACIÓN =================
 
-            const isImp = impostorsIndices.includes(idx);
-            const content = document.getElementById('role-content');
+        function openRoleModal(playerIndex) {
+            const modal = document.getElementById('role-modal');
+            const isImpostor = gameData.impostorIndices.includes(playerIndex);
+            const playerName = players[playerIndex];
+
+            let html = "";
             
-            if(isImp) {
-                content.innerHTML = `
-                    <div class="role-card role-impostor">
-                        <h1>🤫 IMPOSTOR</h1>
-                        <p>No sabes la palabra.</p>
-                        <div class="secret-word">???</div>
-                        <p>Miente y finge que sabes de qué hablan.</p>
-                    </div>`;
+            if(isImpostor) {
+                html = `
+                <div class="role-card is-impostor">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 10px;">🤫 ERES IMPOSTOR</h1>
+                    <p style="font-size: 1.1rem;">Tu misión: Engañar a todos.</p>
+                    <div class="secret-word-display">???</div>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">No conoces la palabra. Escucha y finge.</p>
+                    <button class="btn" style="background: rgba(0,0,0,0.3); border:1px solid white; margin-top: 20px;" onclick="closeRoleModal(${playerIndex})">Entendido, cerrar</button>
+                </div>`;
             } else {
-                content.innerHTML = `
-                    <div class="role-card role-civil">
-                        <h1>😇 CIVIL</h1>
-                        <p>La palabra secreta es:</p>
-                        <div class="secret-word">${currentSecretWord}</div>
-                        <p>Da pistas sutiles para que el impostor no adivine.</p>
-                    </div>`;
+                html = `
+                <div class="role-card is-civil">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 10px;">😇 ERES CIVIL</h1>
+                    <p style="font-size: 1.1rem;">La palabra secreta es:</p>
+                    <div class="secret-word-display">${gameData.secretWord}</div>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Da pistas sutiles. Encuentra al impostor.</p>
+                    <button class="btn" style="background: rgba(0,0,0,0.3); border:1px solid white; margin-top: 20px;" onclick="closeRoleModal(${playerIndex})">Entendido, cerrar</button>
+                </div>`;
             }
 
-            // Marcar como visto
-            btn.dataset.idx = idx;
-            document.getElementById('role-modal').classList.remove('hidden');
+            modal.innerHTML = html;
+            modal.classList.remove('hidden');
         }
 
-        function closeRoleModal() {
+        function closeRoleModal(index) {
             document.getElementById('role-modal').classList.add('hidden');
             
-            // Deshabilitar botón del jugador actual (lógica simplificada)
-            const openBtn = document.querySelector('.btn-reveal:not(:disabled)[data-clicked="true"]'); 
-            // Esto requiere saber qué botón abrió. Usaremos una variable global temporal mejor.
-        }
-        
-        // Corrección para el cierre del modal
-        let currentViewingIdx = -1;
-        const originalShowRole = showRole;
-        showRole = function(idx) {
-            currentViewingIdx = idx;
-            originalShowRole(idx);
-        }
-
-        const originalClose = closeRoleModal;
-        closeRoleModal = function() {
-            document.getElementById('role-modal').classList.add('hidden');
-            if(currentViewingIdx !== -1) {
-                const btn = document.getElementById(`btn-rev-${currentViewingIdx}`);
-                btn.disabled = true;
-                btn.style.opacity = "0.5";
-                btn.innerHTML = `<span>${players[currentViewingIdx]}</span> <span>✅ LISTO</span>`;
-                rolesSeen++;
-                currentViewingIdx = -1;
-
-                if(rolesSeen === players.length) {
-                    document.getElementById('btn-start-game').classList.remove('hidden');
-                }
+            // Desactivar botón
+            const btn = document.getElementById(`btn-reveal-${index}`);
+            btn.disabled = true;
+            btn.innerHTML = `<span>${players[index]}</span> <span>✅ Listo</span>`;
+            
+            rolesViewed++;
+            if(rolesViewed >= players.length) {
+                document.getElementById('btn-begin-debate').classList.remove('hidden');
             }
         }
 
-        function startGame() {
+        // ================= JUEGO Y TIMER =================
+
+        function startDebate() {
             showScreen('screen-game');
+            
             // Elegir quién empieza
             const starter = players[Math.floor(Math.random() * players.length)];
-            document.getElementById('first-player').innerText = starter + " empieza hablando";
-            
-            // Timer
-            const mins = parseInt(document.getElementById('game-minutes').value);
-            timeLeft = mins * 60;
+            document.getElementById('starter-player').innerText = starter;
+
+            // Iniciar Timer
+            const minutes = parseInt(document.getElementById('game-time').value);
+            gameData.timeLeft = minutes * 60;
+            gameData.paused = false;
             updateTimerDisplay();
-            isPaused = false;
+
+            if(gameData.timerInterval) clearInterval(gameData.timerInterval);
             
-            if(timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                if(!isPaused) {
-                    timeLeft--;
+            gameData.timerInterval = setInterval(() => {
+                if(!gameData.paused) {
+                    gameData.timeLeft--;
                     updateTimerDisplay();
-                    if(timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        document.getElementById('timer-display').style.color = "var(--danger-color)";
-                        alert("⏰ ¡TIEMPO TERMINADO! A VOTAR.");
+                    
+                    if(gameData.timeLeft <= 0) {
+                        clearInterval(gameData.timerInterval);
+                        document.getElementById('timer-display').style.color = "#ef4444";
+                        document.getElementById('timer-display').innerText = "00:00";
+                        alert("⏰ ¡TIEMPO TERMINADO!\nEs hora de votar quién es el impostor.");
                     }
                 }
             }, 1000);
         }
 
-        function toggleTimer() {
-            isPaused = !isPaused;
-            document.getElementById('btn-timer').innerText = isPaused ? "Reanudar" : "Pausar";
+        function updateTimerDisplay() {
+            const m = Math.floor(gameData.timeLeft / 60).toString().padStart(2, '0');
+            const s = (gameData.timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer-display').innerText = `${m}:${s}`;
         }
 
-        function updateTimerDisplay() {
-            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-            const s = (timeLeft % 60).toString().padStart(2, '0');
-            document.getElementById('timer-display').innerText = `${m}:${s}`;
+        function togglePause() {
+            gameData.paused = !gameData.paused;
+            const btn = document.getElementById('btn-pause');
+            btn.innerText = gameData.paused ? "Reanudar" : "Pausar";
+            btn.style.background = gameData.paused ? "transparent" : "";
+            btn.style.border = gameData.paused ? "1px solid white" : "";
+        }
+
+        function resetGame() {
+            if(confirm("¿Seguro que quieres salir al menú principal?")) {
+                clearInterval(gameData.timerInterval);
+                location.reload(); // Manera más segura de limpiar todo
+            }
         }
     </script>
 </body>
