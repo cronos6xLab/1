@@ -40,6 +40,7 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            -webkit-tap-highlight-color: transparent; /* Mejorar experiencia táctil */
         }
 
         .container {
@@ -73,6 +74,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             background: rgba(0,0,0,0.4); color: white;
             font-family: inherit; font-size: 1rem; box-sizing: border-box;
+            -webkit-appearance: none; /* Para iOS */
         }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); background: rgba(0,0,0,0.6); }
 
@@ -84,6 +86,7 @@
             padding: 12px; background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; font-weight: 500;
+            -webkit-tap-highlight-color: rgba(56, 189, 248, 0.2);
         }
         .cat-option input:checked + label {
             background: var(--primary-color); border-color: var(--primary-color);
@@ -107,6 +110,8 @@
             color: white; border: none; padding: 15px; width: 100%;
             border-radius: 50px; font-size: 1.1rem; font-weight: 700;
             cursor: pointer; margin-top: 1rem; box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+            -webkit-tap-highlight-color: rgba(139, 92, 246, 0.3);
+            transition: transform 0.1s;
         }
         .btn:active { transform: scale(0.98); }
         .btn-secondary { background: transparent; border: 2px solid rgba(255,255,255,0.2); box-shadow: none; margin-top: 10px; }
@@ -124,6 +129,7 @@
             padding: 15px; border-radius: 15px; display: flex;
             justify-content: space-between; align-items: center;
             cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+            -webkit-tap-highlight-color: rgba(56, 189, 248, 0.2);
         }
         .reveal-item:hover { background: rgba(255,255,255,0.1); }
         .reveal-item:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -180,9 +186,10 @@
             justify-content: center;
             margin-left: 10px;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: rgba(56, 189, 248, 0.3);
         }
         
-        .help-btn:hover {
+        .help-btn:hover, .help-btn:active {
             background: rgba(56, 189, 248, 0.3);
             transform: scale(1.1);
         }
@@ -228,11 +235,12 @@
             margin-bottom: 1.5rem;
         }
         
-        /* INFO ICON - TOOLTIPS MEJORADOS */
+        /* INFO ICON - TOOLTIPS MEJORADOS PARA iOS */
         .info-icon-wrapper {
             position: relative;
             display: inline-block;
             margin-left: 5px;
+            cursor: pointer;
         }
         
         .info-icon {
@@ -248,11 +256,14 @@
             font-size: 0.75rem;
             font-weight: bold;
             font-style: italic;
-            cursor: help;
+            cursor: pointer;
             transition: all 0.2s ease;
+            -webkit-tap-highlight-color: rgba(56, 189, 248, 0.3);
+            user-select: none;
+            -webkit-user-select: none;
         }
         
-        .info-icon:hover {
+        .info-icon:hover, .info-icon:active {
             background: rgba(56, 189, 248, 0.3);
             transform: scale(1.1);
         }
@@ -278,6 +289,7 @@
             transition: opacity 0.3s, visibility 0.3s;
             white-space: pre-line;
             line-height: 1.4;
+            pointer-events: none; /* Evita que interfiera con los toques */
         }
         
         .info-icon-tooltip::after {
@@ -291,15 +303,60 @@
             border-color: rgba(30, 41, 59, 0.95) transparent transparent transparent;
         }
         
-        .info-icon-wrapper:hover .info-icon-tooltip {
+        /* SOLUCIÓN PARA iOS - Mostrar tooltip al tocar */
+        .info-icon-wrapper.show-tooltip .info-icon-tooltip,
+        .info-icon-tooltip.visible {
             visibility: visible;
             opacity: 1;
+        }
+        
+        /* Para desktop mantener hover */
+        @media (hover: hover) and (pointer: fine) {
+            .info-icon-wrapper:hover .info-icon-tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
         }
         
         /* Ajustes para labels con info-icon */
         label {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Mejoras para dispositivos táctiles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 14px;
+                font-size: 1rem;
+            }
+            
+            .info-icon {
+                width: 22px;
+                height: 22px;
+                font-size: 0.8rem;
+            }
+            
+            .info-icon-tooltip {
+                font-size: 0.75rem;
+                max-width: 200px;
+            }
+        }
+        
+        /* Prevenir zoom en inputs en iOS */
+        @media screen and (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px; /* Evita zoom automático en iOS */
+            }
         }
     </style>
 </head>
@@ -329,7 +386,7 @@
             <div class="input-group" style="flex:1">
                 <label>
                     Jugadores 
-                    <div class="info-icon-wrapper">
+                    <div class="info-icon-wrapper" onclick="toggleTooltip(this)" ontouchstart="toggleTooltip(this)">
                         <span class="info-icon">i</span>
                         <div class="info-icon-tooltip">Mínimo 3 jugadores</div>
                     </div>
@@ -339,7 +396,7 @@
             <div class="input-group" style="flex:1">
                 <label>
                     Impostores 
-                    <div class="info-icon-wrapper">
+                    <div class="info-icon-wrapper" onclick="toggleTooltip(this)" ontouchstart="toggleTooltip(this)">
                         <span class="info-icon">i</span>
                         <div class="info-icon-tooltip">Debe haber más jugadores que impostores</div>
                     </div>
@@ -350,7 +407,7 @@
         <div class="input-group">
             <label>
                 Tiempo (minutos) 
-                <div class="info-icon-wrapper">
+                <div class="info-icon-wrapper" onclick="toggleTooltip(this)" ontouchstart="toggleTooltip(this)">
                     <span class="info-icon">i</span>
                     <div class="info-icon-tooltip">Duración del debate</div>
                 </div>
@@ -361,7 +418,7 @@
         <div class="input-group">
             <label>
                 Sonido de Alerta ⏰ 
-                <div class="info-icon-wrapper">
+                <div class="info-icon-wrapper" onclick="toggleTooltip(this)" ontouchstart="toggleTooltip(this)">
                     <span class="info-icon">i</span>
                     <div class="info-icon-tooltip">Sonará cuando termine el tiempo o en los últimos 3 segundos</div>
                 </div>
@@ -422,7 +479,7 @@
         <div id="custom-area" class="hidden">
             <label>
                 Tus palabras (separadas por coma): 
-                <div class="info-icon-wrapper">
+                <div class="info-icon-wrapper" onclick="toggleTooltip(this)" ontouchstart="toggleTooltip(this)">
                     <span class="info-icon">i</span>
                     <div class="info-icon-tooltip">Ejemplo: Casa, Perro, Pizza, Película</div>
                 </div>
@@ -569,6 +626,46 @@
         let rolesViewed = 0;
         let audioContext = null;
         let helpOpen = null; // Para controlar qué ayuda está abierta
+        let activeTooltip = null; // Para controlar qué tooltip está activo
+
+        // ================= FUNCIONES PARA TOOLTIPS EN iOS =================
+        function toggleTooltip(element) {
+            // Cerrar tooltip activo si hay uno diferente
+            if (activeTooltip && activeTooltip !== element) {
+                activeTooltip.classList.remove('show-tooltip');
+            }
+            
+            // Alternar el tooltip actual
+            element.classList.toggle('show-tooltip');
+            
+            // Actualizar el tooltip activo
+            if (element.classList.contains('show-tooltip')) {
+                activeTooltip = element;
+            } else {
+                activeTooltip = null;
+            }
+            
+            // Cerrar tooltip después de 3 segundos en móviles
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    if (element.classList.contains('show-tooltip')) {
+                        element.classList.remove('show-tooltip');
+                        activeTooltip = null;
+                    }
+                }, 3000);
+            }
+            
+            // Prevenir el comportamiento por defecto
+            return false;
+        }
+
+        // Cerrar tooltips al tocar fuera
+        function closeAllTooltips(event) {
+            if (activeTooltip && !activeTooltip.contains(event.target)) {
+                activeTooltip.classList.remove('show-tooltip');
+                activeTooltip = null;
+            }
+        }
 
         // ================= FUNCIONES DE AYUDA =================
         function toggleHelp(helpId) {
@@ -779,6 +876,11 @@
         
         function showScreen(id) {
             closeAllHelp(); // Cerramos todas las ayudas al cambiar de pantalla
+            // Cerramos tooltips activos
+            if (activeTooltip) {
+                activeTooltip.classList.remove('show-tooltip');
+                activeTooltip = null;
+            }
             document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         }
@@ -1021,6 +1123,10 @@
             // Actualizar cuando cambie el selector de sonido
             document.getElementById('alarm-sound').addEventListener('change', updateSelectedSoundName);
             
+            // Cerrar tooltips al hacer clic/tocar fuera
+            document.addEventListener('click', closeAllTooltips);
+            document.addEventListener('touchstart', closeAllTooltips);
+            
             // Añadir un mensaje inicial para nuevos jugadores
             const setupScreen = document.getElementById('screen-setup');
             const firstHelpBtn = setupScreen.querySelector('.help-btn');
@@ -1032,6 +1138,13 @@
                     </p>
                 `;
                 setupScreen.insertBefore(welcomeMsg, setupScreen.querySelector('.input-group'));
+            }
+            
+            // Detectar si es iOS para ajustes específicos
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS) {
+                document.body.classList.add('ios-device');
+                console.log("Dispositivo iOS detectado - Tooltips optimizados");
             }
         });
     </script>
