@@ -164,31 +164,123 @@
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.1);
         }
+        
+        /* TUTORIAL / AYUDA */
+        .help-btn {
+            background: rgba(56, 189, 248, 0.2);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .help-btn:hover {
+            background: rgba(56, 189, 248, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .help-section {
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .help-section h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .help-section ul, .help-section ol {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+        
+        .help-section li {
+            margin-bottom: 5px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-icon {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            margin-left: 5px;
+            font-size: 0.8rem;
+            cursor: help;
+        }
     </style>
 </head>
 <body>
 
     <div class="container" id="screen-setup">
-        <h1>🕵️‍♂️ El Impostor</h1>
+        <div class="section-header">
+            <h1>🕵️‍♂️ El Impostor</h1>
+            <button class="help-btn" onclick="toggleHelp('setup-help')">?</button>
+        </div>
+        
+        <div id="setup-help" class="help-section hidden">
+            <h3>📋 Configuración Básica</h3>
+            <p>Aquí configuras los parámetros básicos del juego:</p>
+            <ul>
+                <li><strong>Jugadores:</strong> Número total de participantes (mínimo 3)</li>
+                <li><strong>Impostores:</strong> Cuántos jugadores serán impostores (debe ser menor al número de jugadores)</li>
+                <li><strong>Tiempo:</strong> Duración del debate en minutos</li>
+                <li><strong>Sonido de Alerta:</strong> Elige el sonido que sonará cuando termine el tiempo</li>
+            </ul>
+            <p>💡 <strong>Consejo:</strong> Para grupos grandes (6+ jugadores), considera agregar más impostores.</p>
+        </div>
+        
         <p style="color: #cbd5e1; margin-bottom: 1.5rem;">Configuración Inicial</p>
 
         <div style="display: flex; gap: 15px;">
             <div class="input-group" style="flex:1">
-                <label>Jugadores</label>
+                <label>Jugadores <span class="info-icon" title="Mínimo 3 jugadores">i</span></label>
                 <input type="number" id="num-players" value="4" min="3">
             </div>
             <div class="input-group" style="flex:1">
-                <label>Impostores</label>
+                <label>Impostores <span class="info-icon" title="Debe haber más jugadores que impostores">i</span></label>
                 <input type="number" id="num-impostors" value="1" min="1">
             </div>
         </div>
         <div class="input-group">
-            <label>Tiempo (minutos)</label>
+            <label>Tiempo (minutos) <span class="info-icon" title="Duración del debate">i</span></label>
             <input type="number" id="game-time" value="5" min="1">
         </div>
         
         <div class="input-group">
-            <label>Sonido de Alerta ⏰</label>
+            <label>Sonido de Alerta ⏰ <span class="info-icon" title="Sonará cuando termine el tiempo">i</span></label>
             <select id="alarm-sound">
                 <option value="none">Sin sonido</option>
                 <option value="beep">Beep Clásico</option>
@@ -208,7 +300,22 @@
     </div>
 
     <div class="container hidden" id="screen-categories">
-        <h2>📂 Elige Temas</h2>
+        <div class="section-header">
+            <h2>📂 Elige Temas</h2>
+            <button class="help-btn" onclick="toggleHelp('categories-help')">?</button>
+        </div>
+        
+        <div id="categories-help" class="help-section hidden">
+            <h3>🎯 Selección de Categorías</h3>
+            <p>Selecciona una o varias categorías para generar la palabra secreta:</p>
+            <ul>
+                <li><strong>Categorías predefinidas:</strong> Contienen listas de palabras temáticas</li>
+                <li><strong>Personalizado:</strong> Escribe tus propias palabras separadas por comas</li>
+            </ul>
+            <p>💡 <strong>Consejo:</strong> Cuantas más categorías selecciones, más variadas serán las palabras.</p>
+            <p>⚠️ <strong>Nota:</strong> Al menos una categoría debe estar seleccionada para continuar.</p>
+        </div>
+        
         <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1rem;">Selecciona uno o varios.</p>
 
         <div class="categories-grid">
@@ -228,7 +335,7 @@
         </div>
 
         <div id="custom-area" class="hidden">
-            <label style="margin-bottom: 5px;">Tus palabras (separadas por coma):</label>
+            <label style="margin-bottom: 5px;">Tus palabras (separadas por coma): <span class="info-icon" title="Ejemplo: Casa, Perro, Pizza, Película">i</span></label>
             <textarea id="custom-words" rows="3" placeholder="Ej: Mi Casa, La Oficina, El Jefe, Mi Perro..."></textarea>
         </div>
 
@@ -237,7 +344,22 @@
     </div>
 
     <div class="container hidden" id="screen-names">
-        <h2>📝 Jugadores</h2>
+        <div class="section-header">
+            <h2>📝 Jugadores</h2>
+            <button class="help-btn" onclick="toggleHelp('names-help')">?</button>
+        </div>
+        
+        <div id="names-help" class="help-section hidden">
+            <h3>👥 Asignación de Nombres</h3>
+            <p>Asigna un nombre único a cada jugador para identificarlos durante el juego:</p>
+            <ul>
+                <li>Puedes usar nombres reales o apodos</li>
+                <li>Los nombres se guardan automáticamente mientras juegas</li>
+                <li>Si cambias el número de jugadores, se reiniciarán los nombres</li>
+            </ul>
+            <p>💡 <strong>Consejo:</strong> Usa nombres distintivos para evitar confusiones durante el debate.</p>
+        </div>
+        
         <p style="font-size: 0.8rem; opacity: 0.7;">Asigna un nombre a cada jugador</p>
         
         <div id="names-list" style="max-height: 50vh; overflow-y: auto; margin-bottom: 20px; padding-right: 5px;">
@@ -248,14 +370,71 @@
     </div>
 
     <div class="container hidden" id="screen-reveal">
-        <h2>🤫 Identidad Secreta</h2>
+        <div class="section-header">
+            <h2>🤫 Identidad Secreta</h2>
+            <button class="help-btn" onclick="toggleHelp('reveal-help')">?</button>
+        </div>
+        
+        <div id="reveal-help" class="help-section hidden">
+            <h3>🕵️‍♂️ Revelación de Roles</h3>
+            <p>En esta fase, cada jugador verá su rol en privado:</p>
+            <ol>
+                <li><strong>Civiles:</strong> Verán la palabra secreta y deben hacer preguntas sobre ella</li>
+                <li><strong>Impostores:</strong> NO verán la palabra y deben engañar a los demás</li>
+            </ol>
+            <p><strong>Instrucciones:</strong></p>
+            <ul>
+                <li>Pasa el dispositivo a cada jugador en orden</li>
+                <li>Cada jugador presiona su nombre para ver su rol</li>
+                <li>No reveles tu rol a los demás jugadores</li>
+                <li>Cuando todos hayan visto su rol, comienza el debate</li>
+            </ul>
+            <p>⚠️ <strong>Importante:</strong> Los impostores deben fingir que conocen la palabra.</p>
+        </div>
+        
         <p style="color: var(--accent-color);">Pasa el dispositivo al jugador indicado.</p>
         <div id="reveal-list"></div>
         <button id="btn-begin-debate" class="btn hidden" onclick="startDebate()">🔥 Empezar Juego</button>
     </div>
 
     <div class="container hidden" id="screen-game">
-        <h2>⏳ Debate</h2>
+        <div class="section-header">
+            <h2>⏳ Debate</h2>
+            <button class="help-btn" onclick="toggleHelp('game-help')">?</button>
+        </div>
+        
+        <div id="game-help" class="help-section hidden">
+            <h3>🗣️ Cómo Jugar</h3>
+            <p><strong>Objetivo del juego:</strong></p>
+            <ul>
+                <li><strong>Civiles:</strong> Descubrir quiénes son los impostores antes de que se acabe el tiempo</li>
+                <li><strong>Impostores:</strong> Engañar a los civiles sin ser descubiertos</li>
+            </ul>
+            
+            <p><strong>Dinámica del debate:</strong></p>
+            <ol>
+                <li>El jugador indicado comienza haciendo una pregunta sobre la palabra secreta</li>
+                <li>Continúa la discusión en sentido horario</li>
+                <li>Los civiles deben hacer preguntas específicas sobre la palabra</li>
+                <li>Los impostores deben responder sin revelar que no conocen la palabra</li>
+                <li>Cuando el tiempo termine, se vota quiénes son los impostores</li>
+            </ol>
+            
+            <p>💡 <strong>Consejos para civiles:</strong></p>
+            <ul>
+                <li>Haz preguntas específicas, no generales</li>
+                <li>Observa las reacciones y contradicciones</li>
+                <li>Colabora con otros civiles para descubrir impostores</li>
+            </ul>
+            
+            <p>💡 <strong>Consejos para impostores:</strong></p>
+            <ul>
+                <li>Escucha atentamente las respuestas de los civiles</li>
+                <li>Da respuestas vagas pero plausibles</li>
+                <li>Acusa a otros jugadores para desviar sospechas</li>
+            </ul>
+        </div>
+        
         <div id="timer-display" class="timer">00:00</div>
         
         <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
@@ -298,6 +477,38 @@
         };
         let rolesViewed = 0;
         let audioContext = null;
+        let helpOpen = null; // Para controlar qué ayuda está abierta
+
+        // ================= FUNCIONES DE AYUDA =================
+        function toggleHelp(helpId) {
+            const helpElement = document.getElementById(helpId);
+            
+            // Si ya hay una ayuda abierta diferente, la cerramos
+            if (helpOpen && helpOpen !== helpElement) {
+                helpOpen.classList.add('hidden');
+            }
+            
+            // Alternamos la visibilidad de la ayuda solicitada
+            helpElement.classList.toggle('hidden');
+            
+            // Actualizamos qué ayuda está abierta
+            if (helpElement.classList.contains('hidden')) {
+                helpOpen = null;
+            } else {
+                helpOpen = helpElement;
+                
+                // Desplazar suavemente a la ayuda si es necesario
+                helpElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Cerramos todas las ayudas al cambiar de pantalla
+        function closeAllHelp() {
+            if (helpOpen) {
+                helpOpen.classList.add('hidden');
+                helpOpen = null;
+            }
+        }
 
         // ================= SONIDOS =================
         const alarmSounds = {
@@ -476,6 +687,7 @@
         // ================= NAVEGACIÓN =================
         
         function showScreen(id) {
+            closeAllHelp(); // Cerramos todas las ayudas al cambiar de pantalla
             document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         }
@@ -592,7 +804,7 @@
                 const btn = document.createElement('button');
                 btn.className = "reveal-item";
                 btn.id = `btn-rev-${idx}`;
-                btn.innerHTML = `<span>👤 ${name}</span> <span>👁️ Ver</span>`;
+                btn.innerHTML = `<span>👤 ${name}</span> <span>👁️ Ver Rol</span>`;
                 btn.onclick = () => showRoleModal(idx);
                 list.appendChild(btn);
             });
@@ -611,15 +823,18 @@
                 <div class="role-card is-impostor">
                     <h1 style="font-size:2rem;">🤫 ERES EL IMPOSTOR</h1>
                     <div class="secret-word-display">???</div>
-                    <p>Finge que sabes la palabra.</p>
+                    <p>No conoces la palabra secreta. Finge que sí la sabes y responde como si la conocieras.</p>
+                    <p style="font-size:0.9rem; margin-top:15px;"><strong>Estrategia:</strong> Escucha a los civiles y da respuestas vagas pero creíbles.</p>
                     <button class="btn" onclick="hideRoleModal(${idx})">Entendido</button>
                 </div>`;
             } else {
                 content = `
                 <div class="role-card is-civil">
                     <h1 style="font-size:2rem;">😇 ERES CIVIL</h1>
-                    <p>La palabra es:</p>
+                    <p>La palabra secreta es:</p>
                     <div class="secret-word-display">${gameData.secretWord}</div>
+                    <p>Debes hacer preguntas sobre esta palabra sin revelarla directamente.</p>
+                    <p style="font-size:0.9rem; margin-top:15px;"><strong>Estrategia:</strong> Haz preguntas específicas para descubrir a los impostores.</p>
                     <button class="btn" onclick="hideRoleModal(${idx})">Entendido</button>
                 </div>`;
             }
@@ -631,7 +846,7 @@
             document.getElementById('role-modal').classList.add('hidden');
             const btn = document.getElementById(`btn-rev-${idx}`);
             btn.disabled = true;
-            btn.innerHTML = `<span>👤 ${savedPlayerNames[idx]}</span> <span>✅ Listo</span>`;
+            btn.innerHTML = `<span>👤 ${savedPlayerNames[idx]}</span> <span>✅ Rol Visto</span>`;
             
             rolesViewed++;
             if(rolesViewed >= gameConfig.players) {
@@ -666,7 +881,7 @@
                     if(gameData.timeLeft <= 0) {
                         clearInterval(gameData.timerInterval);
                         playAlarmSound(); // Reproducir sonido de alarma
-                        alert("¡Tiempo terminado!");
+                        alert("¡Tiempo terminado!\n\nEs hora de votar. Discutan y decidan quiénes creen que son los impostores.");
                     } else if (gameData.timeLeft <= 3) {
                         // Reproducir sonido para los últimos 3 segundos
                         playAlarmSound();
@@ -714,6 +929,31 @@
             
             // Actualizar cuando cambie el selector de sonido
             document.getElementById('alarm-sound').addEventListener('change', updateSelectedSoundName);
+            
+            // Añadir tooltips a los iconos de información
+            document.querySelectorAll('.info-icon').forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    const title = this.getAttribute('title');
+                    if (title) {
+                        // Podríamos mostrar un tooltip más elegante aquí si queremos
+                        // Por ahora usamos el title nativo
+                    }
+                });
+            });
+            
+            // Añadir un botón de "Tutorial rápido" en la primera pantalla
+            const setupScreen = document.getElementById('screen-setup');
+            const firstHelpBtn = setupScreen.querySelector('.help-btn');
+            if (firstHelpBtn) {
+                // Añadir un mensaje inicial para nuevos jugadores
+                const welcomeMsg = document.createElement('div');
+                welcomeMsg.innerHTML = `
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--accent-color);">
+                        ¿Es tu primera vez? Presiona el botón <span style="border: 1px solid var(--accent-color); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center;">?</span> en cada sección para obtener ayuda.
+                    </p>
+                `;
+                setupScreen.insertBefore(welcomeMsg, setupScreen.querySelector('.input-group'));
+            }
         });
     </script>
 </body>
