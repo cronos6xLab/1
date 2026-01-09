@@ -68,13 +68,13 @@
         .input-group { margin-bottom: 1.2rem; text-align: left; }
         label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.85rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; }
 
-        input, textarea {
+        input, select, textarea {
             width: 100%; padding: 12px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.2);
             background: rgba(0,0,0,0.4); color: white;
             font-family: inherit; font-size: 1rem; box-sizing: border-box;
         }
-        input:focus, textarea:focus { outline: none; border-color: var(--primary-color); background: rgba(0,0,0,0.6); }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); background: rgba(0,0,0,0.6); }
 
         /* GRID CATEGORÍAS */
         .categories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
@@ -111,6 +111,12 @@
         .btn:active { transform: scale(0.98); }
         .btn-secondary { background: transparent; border: 2px solid rgba(255,255,255,0.2); box-shadow: none; margin-top: 10px; }
         .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4); }
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            width: auto;
+            margin: 5px;
+        }
 
         /* LISTA JUGADORES */
         .reveal-item {
@@ -146,6 +152,18 @@
         }
 
         .timer { font-size: 3.5rem; font-weight: 800; font-variant-numeric: tabular-nums; margin: 15px 0; }
+        
+        /* SONIDO ALERTA */
+        .sound-preview {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
     </style>
 </head>
 <body>
@@ -167,6 +185,23 @@
         <div class="input-group">
             <label>Tiempo (minutos)</label>
             <input type="number" id="game-time" value="5" min="1">
+        </div>
+        
+        <div class="input-group">
+            <label>Sonido de Alerta ⏰</label>
+            <select id="alarm-sound">
+                <option value="none">Sin sonido</option>
+                <option value="beep">Beep Clásico</option>
+                <option value="bell">Campana</option>
+                <option value="digital">Digital</option>
+                <option value="alarm">Alarma de Emergencia</option>
+                <option value="chime">Campanilla</option>
+                <option value="buzzer">Buzzer</option>
+            </select>
+            <div class="sound-preview">
+                <span id="selected-sound-name">Sin sonido</span>
+                <button class="btn btn-small" onclick="testAlarmSound()">Probar Sonido</button>
+            </div>
         </div>
 
         <button class="btn" onclick="goToCategories(true)">Continuar 👉</button>
@@ -258,9 +293,185 @@
             secretWord: "",
             timeLeft: 0,
             timerInterval: null,
-            paused: false
+            paused: false,
+            alarmSound: "none"
         };
         let rolesViewed = 0;
+        let audioContext = null;
+
+        // ================= SONIDOS =================
+        const alarmSounds = {
+            none: { name: "Sin sonido", play: () => {} },
+            beep: { 
+                name: "Beep Clásico",
+                play: () => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 800;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                }
+            },
+            bell: {
+                name: "Campana",
+                play: () => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 600;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 1);
+                }
+            },
+            digital: {
+                name: "Digital",
+                play: () => {
+                    for(let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            oscillator.frequency.value = 1000;
+                            oscillator.type = 'square';
+                            
+                            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + 0.1);
+                        }, i * 200);
+                    }
+                }
+            },
+            alarm: {
+                name: "Alarma de Emergencia",
+                play: () => {
+                    const oscillator1 = audioContext.createOscillator();
+                    const oscillator2 = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator1.connect(gainNode);
+                    oscillator2.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator1.frequency.value = 800;
+                    oscillator2.frequency.value = 600;
+                    oscillator1.type = 'sawtooth';
+                    oscillator2.type = 'sawtooth';
+                    
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                    
+                    oscillator1.start(audioContext.currentTime);
+                    oscillator2.start(audioContext.currentTime);
+                    oscillator1.stop(audioContext.currentTime + 1);
+                    oscillator2.stop(audioContext.currentTime + 1);
+                }
+            },
+            chime: {
+                name: "Campanilla",
+                play: () => {
+                    const frequencies = [523.25, 659.25, 783.99]; // Do, Mi, Sol
+                    
+                    frequencies.forEach((freq, i) => {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            oscillator.frequency.value = freq;
+                            oscillator.type = 'triangle';
+                            
+                            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + 0.3);
+                        }, i * 150);
+                    });
+                }
+            },
+            buzzer: {
+                name: "Buzzer",
+                play: () => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 200;
+                    oscillator.type = 'square';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.8);
+                }
+            }
+        };
+
+        // Función para inicializar AudioContext
+        function initAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Función para probar el sonido de alarma
+        function testAlarmSound() {
+            initAudioContext();
+            const soundSelect = document.getElementById('alarm-sound');
+            const soundType = soundSelect.value;
+            
+            if (soundType !== 'none') {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                alarmSounds[soundType].play();
+            }
+        }
+
+        // Función para reproducir la alarma del temporizador
+        function playAlarmSound() {
+            if (gameData.alarmSound !== 'none') {
+                initAudioContext();
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                alarmSounds[gameData.alarmSound].play();
+            }
+        }
+
+        // Actualizar nombre del sonido seleccionado
+        function updateSelectedSoundName() {
+            const soundSelect = document.getElementById('alarm-sound');
+            const soundType = soundSelect.value;
+            document.getElementById('selected-sound-name').textContent = alarmSounds[soundType].name;
+        }
 
         // ================= NAVEGACIÓN =================
         
@@ -283,6 +494,7 @@
                 const p = parseInt(document.getElementById('num-players').value);
                 const i = parseInt(document.getElementById('num-impostors').value);
                 const t = parseInt(document.getElementById('game-time').value);
+                const soundType = document.getElementById('alarm-sound').value;
 
                 if (p < 3) return alert("Mínimo 3 jugadores.");
                 if (i >= p) return alert("Debe haber más jugadores que impostores.");
@@ -295,6 +507,7 @@
                 }
 
                 gameConfig = { players: p, impostors: i, time: t };
+                gameData.alarmSound = soundType;
             }
             showScreen('screen-categories');
         }
@@ -452,7 +665,11 @@
                     updateTimer();
                     if(gameData.timeLeft <= 0) {
                         clearInterval(gameData.timerInterval);
+                        playAlarmSound(); // Reproducir sonido de alarma
                         alert("¡Tiempo terminado!");
+                    } else if (gameData.timeLeft <= 3) {
+                        // Reproducir sonido para los últimos 3 segundos
+                        playAlarmSound();
                     }
                 }
             }, 1000);
@@ -490,6 +707,14 @@
             }
         }
 
+        // ================= INICIALIZACIÓN =================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar nombre del sonido al cargar
+            updateSelectedSoundName();
+            
+            // Actualizar cuando cambie el selector de sonido
+            document.getElementById('alarm-sound').addEventListener('change', updateSelectedSoundName);
+        });
     </script>
 </body>
 </html>
