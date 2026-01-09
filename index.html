@@ -10,30 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* ==========================================================================
-           👇 ZONA DE PERSONALIZACIÓN PARA EL DESARROLLADOR (TÚ) 👇
-           ========================================================================== */
         :root {
-            /* 1. IMAGEN DE FONDO: 
-               Cambia la URL de abajo por la de tu imagen. 
-               Puede ser un link de internet o una ruta local (ej: 'img/fondo.jpg') */
+            /* PERSONALIZACIÓN */
             --bg-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
-
-            /* 2. COLORES DE LA APP */
-            --primary-color: #8b5cf6;       /* Color principal (Violeta) */
-            --accent-color: #38bdf8;        /* Color de acento (Azul cielo) */
-            --impostor-color: #ef4444;      /* Rojo para el impostor */
-            --civil-color: #10b981;         /* Verde para civiles */
-
-            /* --- NO TOCAR DESDE AQUÍ SI NO SABES CSS --- */
-            --glass-bg: rgba(30, 41, 59, 0.7); /* Fondo semitransparente de los paneles */
+            --primary-color: #8b5cf6;
+            --accent-color: #38bdf8;
+            --impostor-color: #ef4444;
+            --civil-color: #10b981;
+            
+            /* ESTILOS BASE */
+            --glass-bg: rgba(30, 41, 59, 0.85);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-color: #ffffff;
             --font-main: 'Inter', sans-serif;
             --font-title: 'Poppins', sans-serif;
         }
 
-        /* ================= ESTILOS GENERALES ================= */
         body {
             font-family: var(--font-main);
             color: var(--text-color);
@@ -44,18 +36,15 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            
-            /* Configuración del Fondo */
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), var(--bg-image);
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), var(--bg-image);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
-        /* Contenedor tipo "Cristal" */
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -64,177 +53,106 @@
             padding: 2rem;
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: slideUp 0.4s ease-out;
             position: relative;
+            animation: fadeIn 0.4s ease-out;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        h1, h2 {
-            font-family: var(--font-title);
-            margin: 0 0 1rem 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        h1 { font-size: 2.5rem; background: linear-gradient(to right, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1, h2 { font-family: var(--font-title); margin: 0 0 1rem 0; }
+        h1 { font-size: 2.2rem; background: linear-gradient(to right, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .hidden { display: none !important; }
 
-        /* ================= FORMULARIOS E INPUTS ================= */
+        /* INPUTS */
         .input-group { margin-bottom: 1.2rem; text-align: left; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.85rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; }
 
         input, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
+            width: 100%; padding: 12px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.3);
-            color: white;
-            font-family: inherit;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: 0.3s;
+            background: rgba(0,0,0,0.4); color: white;
+            font-family: inherit; font-size: 1rem; box-sizing: border-box;
         }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background: rgba(0,0,0,0.5);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
-        }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary-color); background: rgba(0,0,0,0.6); }
 
-        /* Grid de Categorías */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        /* GRID CATEGORÍAS */
+        .categories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .cat-option input { display: none; }
         .cat-option label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            padding: 12px; background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
+            border-radius: 12px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; font-weight: 500;
         }
         .cat-option input:checked + label {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-            font-weight: bold;
-            transform: scale(1.02);
+            background: var(--primary-color); border-color: var(--primary-color);
+            font-weight: bold; transform: scale(1.02);
         }
 
-        /* ================= BOTONES ================= */
+        /* ÁREA PERSONALIZADA (Oculta por defecto) */
+        #custom-area {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border: 1px dashed var(--accent-color);
+            animation: expand 0.3s ease-out;
+        }
+        @keyframes expand { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* BOTONES */
         .btn {
             background: linear-gradient(135deg, var(--primary-color), #7c3aed);
-            color: white;
-            border: none;
-            padding: 16px;
-            width: 100%;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 1rem;
-            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
-            transition: transform 0.2s;
+            color: white; border: none; padding: 15px; width: 100%;
+            border-radius: 50px; font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; margin-top: 1rem; box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
         }
         .btn:active { transform: scale(0.98); }
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: none;
-            margin-top: 10px;
-        }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255,255,255,0.2); box-shadow: none; margin-top: 10px; }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4); }
 
-        /* Botones de Revelar (Lista de jugadores) */
+        /* LISTA JUGADORES */
         .reveal-item {
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.2s;
+            background: rgba(255,255,255,0.05); margin-bottom: 10px;
+            padding: 15px; border-radius: 15px; display: flex;
+            justify-content: space-between; align-items: center;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
         }
         .reveal-item:hover { background: rgba(255,255,255,0.1); }
-        .reveal-item:disabled { opacity: 0.5; cursor: default; }
+        .reveal-item:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* ================= MODAL Y TARJETAS DE ROL (CORREGIDO) ================= */
+        /* MODAL ROL */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); /* Fondo casi negro sólido */
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; z-index: 2000;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
         }
-
         .role-card {
-            width: 100%;
-            max-width: 400px;
-            padding: 2.5rem;
-            border-radius: 30px;
-            color: white;
-            text-align: center;
-            position: relative;
-            z-index: 1001;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            width: 100%; max-width: 400px; padding: 2rem;
+            border-radius: 24px; text-align: center;
             animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        /* Estilos específicos para Impostor y Civil */
-        .is-impostor {
-            background: linear-gradient(135deg, #7f1d1d, var(--impostor-color));
-            border: 2px solid #fca5a5;
-        }
-        .is-civil {
-            background: linear-gradient(135deg, #064e3b, var(--civil-color));
-            border: 2px solid #6ee7b7;
-        }
-
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .is-impostor { background: linear-gradient(135deg, #7f1d1d, #ef4444); border: 2px solid #fca5a5; }
+        .is-civil { background: linear-gradient(135deg, #064e3b, #10b981); border: 2px solid #6ee7b7; }
+        
         .secret-word-display {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 15px;
-            font-size: 2rem;
-            font-weight: 900;
-            margin: 20px 0;
-            border: 1px dashed rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px;
+            font-size: 1.8rem; font-weight: 900; margin: 20px 0;
+            border: 1px dashed rgba(255,255,255,0.5); word-break: break-word;
         }
 
-        /* ================= PANTALLA DE JUEGO ================= */
-        .timer {
-            font-size: 4rem;
-            font-weight: 800;
-            font-variant-numeric: tabular-nums;
-            margin: 20px 0;
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
+        .timer { font-size: 3.5rem; font-weight: 800; font-variant-numeric: tabular-nums; margin: 15px 0; }
     </style>
 </head>
 <body>
 
     <div class="container" id="screen-setup">
         <h1>🕵️‍♂️ El Impostor</h1>
-        <p style="color: #cbd5e1; margin-bottom: 2rem;">Configura tu partida</p>
+        <p style="color: #cbd5e1; margin-bottom: 1.5rem;">Configuración Inicial</p>
 
         <div style="display: flex; gap: 15px;">
             <div class="input-group" style="flex:1">
@@ -246,189 +164,223 @@
                 <input type="number" id="num-impostors" value="1" min="1">
             </div>
         </div>
-
         <div class="input-group">
-            <label>Tiempo de Debate (min)</label>
+            <label>Tiempo (minutos)</label>
             <input type="number" id="game-time" value="5" min="1">
         </div>
 
-        <button class="btn" onclick="validateSetup()">Continuar 👉</button>
+        <button class="btn" onclick="goToCategories(true)">Continuar 👉</button>
     </div>
 
     <div class="container hidden" id="screen-categories">
-        <h2>📂 Selecciona Categorías</h2>
-        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1.5rem;">Debes elegir al menos una.</p>
+        <h2>📂 Elige Temas</h2>
+        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1rem;">Selecciona uno o varios.</p>
 
         <div class="categories-grid">
+            <div class="cat-option"><input type="checkbox" id="cat-Variado" checked><label for="cat-Variado">🎲 Variado</label></div>
             <div class="cat-option"><input type="checkbox" id="cat-Lugares"><label for="cat-Lugares">✈️ Lugares</label></div>
             <div class="cat-option"><input type="checkbox" id="cat-Comidas"><label for="cat-Comidas">🍕 Comidas</label></div>
             <div class="cat-option"><input type="checkbox" id="cat-Animales"><label for="cat-Animales">🦁 Animales</label></div>
             <div class="cat-option"><input type="checkbox" id="cat-Peliculas"><label for="cat-Peliculas">🎬 Películas</label></div>
-            <div class="cat-option"><input type="checkbox" id="cat-Objetos"><label for="cat-Objetos">📱 Objetos</label></div>
-            <div class="cat-option"><input type="checkbox" id="cat-Profesiones"><label for="cat-Profesiones">👨‍⚕️ Profesiones</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Deportes"><label for="cat-Deportes">⚽ Deportes</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Anime"><label for="cat-Anime">🎌 Anime</label></div>
+            <div class="cat-option"><input type="checkbox" id="cat-Videojuegos"><label for="cat-Videojuegos">🎮 Juegos</label></div>
+            
+            <div class="cat-option" style="grid-column: span 2;">
+                <input type="checkbox" id="cat-Personalizado" onchange="toggleCustomArea()">
+                <label for="cat-Personalizado">✏️ Personalizado (Escribir mis palabras)</label>
+            </div>
         </div>
 
-        <div class="input-group" style="margin-top: 20px;">
-            <label>Palabras Personalizadas (Opcional)</label>
-            <textarea id="custom-words" rows="2" placeholder="Separa con comas: Batman, Superman, Flash..."></textarea>
+        <div id="custom-area" class="hidden">
+            <label style="margin-bottom: 5px;">Tus palabras (separadas por coma):</label>
+            <textarea id="custom-words" rows="3" placeholder="Ej: Mi Casa, La Oficina, El Jefe, Mi Perro..."></textarea>
         </div>
 
-        <button class="btn" onclick="validateCategories()">Siguiente ✓</button>
-        <button class="btn btn-secondary" onclick="showScreen('screen-setup')">Atrás</button>
+        <button class="btn" onclick="goToNames()">Siguiente</button>
+        <button class="btn btn-secondary" onclick="fullReset()">🔙 Menú Principal</button>
     </div>
 
     <div class="container hidden" id="screen-names">
-        <h2>📝 Nombres</h2>
-        <div id="names-list" style="max-height: 50vh; overflow-y: auto; margin-bottom: 20px;">
+        <h2>📝 Jugadores</h2>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Asigna un nombre a cada jugador</p>
+        
+        <div id="names-list" style="max-height: 50vh; overflow-y: auto; margin-bottom: 20px; padding-right: 5px;">
             </div>
-        <button class="btn" onclick="startGameLogic()">Asignar Roles 🎲</button>
+
+        <button class="btn" onclick="assignRoles()">Repartir Roles 🎲</button>
         <button class="btn btn-secondary" onclick="showScreen('screen-categories')">Atrás</button>
     </div>
 
     <div class="container hidden" id="screen-reveal">
         <h2>🤫 Identidad Secreta</h2>
-        <p style="color: var(--accent-color); margin-bottom: 20px;">Pasa el dispositivo al jugador correspondiente.</p>
-        
-        <div id="reveal-list">
-            </div>
-
-        <button id="btn-begin-debate" class="btn hidden" onclick="startDebate()">🔥 Comenzar el Juego</button>
+        <p style="color: var(--accent-color);">Pasa el dispositivo al jugador indicado.</p>
+        <div id="reveal-list"></div>
+        <button id="btn-begin-debate" class="btn hidden" onclick="startDebate()">🔥 Empezar Juego</button>
     </div>
 
     <div class="container hidden" id="screen-game">
-        <h2>⏳ Debate en curso</h2>
+        <h2>⏳ Debate</h2>
         <div id="timer-display" class="timer">00:00</div>
         
         <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
-            <p style="margin:0; font-size:0.9rem; color:#cbd5e1">Jugador que inicia:</p>
-            <strong id="starter-player" style="font-size:1.2rem; color:var(--accent-color)">---</strong>
+            <p style="margin:0; font-size:0.9rem; color:#cbd5e1">Empieza preguntando:</p>
+            <strong id="starter-player" style="font-size:1.4rem; color:var(--accent-color); display:block; margin-top:5px;">---</strong>
         </div>
 
         <button class="btn" id="btn-pause" onclick="togglePause()">Pausar</button>
-        <button class="btn btn-secondary" onclick="resetGame()">Terminar / Nuevo Juego</button>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <button class="btn btn-secondary" onclick="softReset()">🔄 Nueva Partida</button>
+            <button class="btn btn-secondary btn-danger" onclick="fullReset()">🏠 Menú Principal</button>
+        </div>
     </div>
 
-    <div id="role-modal" class="modal-overlay hidden">
-        </div>
+    <div id="role-modal" class="modal-overlay hidden"></div>
 
     <script>
-        // ================= BASE DE DATOS =================
+        // ================= DATOS =================
         const database = {
-            "Lugares": ["Playa", "Escuela", "Hospital", "Aeropuerto", "Cine", "Gimnasio", "Cementerio", "Banco", "Restaurante", "Museo"],
-            "Comidas": ["Pizza", "Sushi", "Hamburguesa", "Tacos", "Helado", "Chocolate", "Ensalada", "Paella", "Huevo Frito", "Sopa"],
-            "Animales": ["Perro", "Gato", "León", "Elefante", "Tiburón", "Águila", "Serpiente", "Pingüino", "Jirafa", "Mono"],
-            "Peliculas": ["Titanic", "Avatar", "Star Wars", "Harry Potter", "El Rey León", "Avengers", "Matrix", "Jurassic Park", "Batman"],
-            "Objetos": ["Celular", "Llaves", "Reloj", "Zapatos", "Lámpara", "Computadora", "Bicicleta", "Gafas", "Mochila"],
-            "Profesiones": ["Médico", "Policía", "Bombero", "Maestro", "Astronauta", "Cocinero", "Abogado", "Mecánico", "Actor"]
+            "Variado": ["Playa", "Escuela", "Hospital", "Pizza", "Perro", "Titanic", "Fútbol", "Mario Bros", "Goku", "Batman", "Cine", "Avión"],
+            "Lugares": ["Playa", "Escuela", "Hospital", "Aeropuerto", "Cine", "Gimnasio", "Cementerio", "Banco", "Restaurante", "Museo", "Prisión", "Iglesia", "Supermercado"],
+            "Comidas": ["Pizza", "Sushi", "Hamburguesa", "Tacos", "Helado", "Chocolate", "Ensalada", "Paella", "Huevo Frito", "Sopa", "Hot Dog", "Pastel"],
+            "Animales": ["Perro", "Gato", "León", "Elefante", "Tiburón", "Águila", "Serpiente", "Pingüino", "Jirafa", "Mono", "Delfín", "Oso"],
+            "Peliculas": ["Titanic", "Avatar", "Star Wars", "Harry Potter", "El Rey León", "Avengers", "Matrix", "Jurassic Park", "Batman", "Shrek", "Coco", "Joker"],
+            "Deportes": ["Fútbol", "Baloncesto", "Tenis", "Natación", "Boxeo", "Voleibol", "Béisbol", "Golf", "Atletismo", "Rugby", "F1"],
+            "Anime": ["Dragon Ball", "Naruto", "One Piece", "Attack on Titan", "Demon Slayer", "Pokemon", "Death Note", "Sailor Moon", "Evangelion", "Totoro"],
+            "Videojuegos": ["Mario Bros", "Minecraft", "Fortnite", "GTA", "Zelda", "Call of Duty", "FIFA", "Pac-Man", "Among Us", "Tetris", "Sonic"]
         };
 
-        // Estado del Juego
-        let players = [];
+        // Estado Global
+        let savedPlayerNames = []; // Aquí guardamos los nombres entre partidas
+        let gameConfig = { players: 4, impostors: 1, time: 5 };
         let gameData = {
             impostorIndices: [],
             secretWord: "",
-            category: "",
             timeLeft: 0,
             timerInterval: null,
             paused: false
         };
         let rolesViewed = 0;
 
-        // ================= NAVEGACIÓN Y VALIDACIÓN =================
-
-        function showScreen(screenId) {
+        // ================= NAVEGACIÓN =================
+        
+        function showScreen(id) {
             document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
-            document.getElementById(screenId).classList.remove('hidden');
+            document.getElementById(id).classList.remove('hidden');
         }
 
-        function validateSetup() {
-            const numP = parseInt(document.getElementById('num-players').value);
-            const numI = parseInt(document.getElementById('num-impostors').value);
-            
-            if (numP < 3) return alert("Mínimo 3 jugadores.");
-            if (numI >= numP) return alert("Debe haber más jugadores que impostores.");
-            
+        // Toggle para mostrar/ocultar input personalizado
+        function toggleCustomArea() {
+            const checkbox = document.getElementById('cat-Personalizado');
+            const area = document.getElementById('custom-area');
+            if(checkbox.checked) area.classList.remove('hidden');
+            else area.classList.add('hidden');
+        }
+
+        // Ir a Categorías (Guardando config inicial)
+        function goToCategories(fromSetup = false) {
+            if (fromSetup) {
+                const p = parseInt(document.getElementById('num-players').value);
+                const i = parseInt(document.getElementById('num-impostors').value);
+                const t = parseInt(document.getElementById('game-time').value);
+
+                if (p < 3) return alert("Mínimo 3 jugadores.");
+                if (i >= p) return alert("Debe haber más jugadores que impostores.");
+
+                // Si cambiamos el número de jugadores, reseteamos los nombres guardados
+                if (p !== gameConfig.players) {
+                    savedPlayerNames = new Array(p).fill("");
+                } else if (savedPlayerNames.length === 0) {
+                    savedPlayerNames = new Array(p).fill("");
+                }
+
+                gameConfig = { players: p, impostors: i, time: t };
+            }
             showScreen('screen-categories');
         }
 
-        function validateCategories() {
-            // Validar que se haya seleccionado ALGO
+        // Ir a Nombres
+        function goToNames() {
+            // Validar selección
             const checkboxes = document.querySelectorAll('.categories-grid input:checked');
             const customText = document.getElementById('custom-words').value.trim();
+            const customCheck = document.getElementById('cat-Personalizado').checked;
 
-            if (checkboxes.length === 0 && customText === "") {
-                alert("⚠️ ¡ERROR!\nDebes seleccionar al menos una categoría o escribir palabras personalizadas para poder continuar.");
-                return;
+            if (checkboxes.length === 0 && (!customCheck || customText === "")) {
+                return alert("Selecciona al menos una categoría o escribe palabras personalizadas.");
             }
 
-            generateNameInputs();
+            // Generar inputs preservando valores guardados
+            const container = document.getElementById('names-list');
+            container.innerHTML = "";
+            
+            for(let i=0; i < gameConfig.players; i++) {
+                // Usar nombre guardado o default
+                const val = savedPlayerNames[i] || `Jugador ${i+1}`;
+                container.innerHTML += `
+                <div class="input-group" style="margin-bottom:10px;">
+                    <input type="text" id="pname-${i}" placeholder="Nombre Jugador ${i+1}" value="${val}" onchange="saveName(${i}, this.value)">
+                </div>`;
+            }
+            // Actualizar array por si acaso venían defaults
+            saveAllNamesCurrent();
+            
             showScreen('screen-names');
         }
 
-        function generateNameInputs() {
-            const num = parseInt(document.getElementById('num-players').value);
-            const container = document.getElementById('names-list');
-            container.innerHTML = "";
+        // Función auxiliar para guardar nombres en tiempo real
+        function saveName(index, value) {
+            savedPlayerNames[index] = value;
+        }
 
-            for(let i=0; i<num; i++) {
-                container.innerHTML += `
-                <div class="input-group" style="margin-bottom:10px;">
-                    <input type="text" id="pname-${i}" placeholder="Nombre Jugador ${i+1}" value="Jugador ${i+1}">
-                </div>`;
+        function saveAllNamesCurrent() {
+            for(let i=0; i < gameConfig.players; i++) {
+                const el = document.getElementById(`pname-${i}`);
+                if(el) savedPlayerNames[i] = el.value.trim() || `Jugador ${i+1}`;
             }
         }
 
-        // ================= LÓGICA DEL JUEGO =================
+        // ================= LÓGICA DE PARTIDA =================
 
-        function startGameLogic() {
-            // 1. Recoger Nombres
-            const num = parseInt(document.getElementById('num-players').value);
-            players = [];
-            for(let i=0; i<num; i++) {
-                let name = document.getElementById(`pname-${i}`).value.trim();
-                if(!name) name = `Jugador ${i+1}`;
-                players.push(name);
-            }
-
-            // 2. Construir bolsa de palabras
+        function assignRoles() {
+            saveAllNamesCurrent(); // Asegurar que tenemos los últimos nombres
+            
+            // 1. Elegir Palabra
             let wordPool = [];
-            // De checkboxes
             document.querySelectorAll('.categories-grid input:checked').forEach(cb => {
                 const key = cb.id.replace('cat-', '');
-                if(database[key]) wordPool = wordPool.concat(database[key]);
+                if (key !== "Personalizado" && database[key]) {
+                    wordPool = wordPool.concat(database[key]);
+                }
             });
-            // De texto personalizado
-            const customText = document.getElementById('custom-words').value.trim();
-            if(customText) {
-                const customs = customText.split(',').map(w => w.trim()).filter(w => w.length > 0);
+            
+            if (document.getElementById('cat-Personalizado').checked) {
+                const txt = document.getElementById('custom-words').value;
+                const customs = txt.split(',').map(w => w.trim()).filter(w => w.length > 0);
                 wordPool = wordPool.concat(customs);
             }
 
-            // Seleccionar palabra secreta
-            if(wordPool.length === 0) { 
-                alert("Error técnico: No hay palabras. Reinicia."); return; 
-            }
+            if (wordPool.length === 0) return alert("Error: No hay palabras disponibles.");
             gameData.secretWord = wordPool[Math.floor(Math.random() * wordPool.length)];
 
-            // 3. Asignar Impostores
-            const numImpostors = parseInt(document.getElementById('num-impostors').value);
+            // 2. Elegir Impostores
             gameData.impostorIndices = [];
-            while(gameData.impostorIndices.length < numImpostors) {
-                let r = Math.floor(Math.random() * num);
+            while(gameData.impostorIndices.length < gameConfig.impostors) {
+                let r = Math.floor(Math.random() * gameConfig.players);
                 if(!gameData.impostorIndices.includes(r)) gameData.impostorIndices.push(r);
             }
 
-            // 4. Preparar pantalla de revelación
+            // 3. UI Revelación
             rolesViewed = 0;
             const list = document.getElementById('reveal-list');
             list.innerHTML = "";
             
-            players.forEach((player, index) => {
+            savedPlayerNames.forEach((name, idx) => {
                 const btn = document.createElement('button');
                 btn.className = "reveal-item";
-                btn.id = `btn-reveal-${index}`;
-                btn.innerHTML = `<span>👤 ${player}</span> <span>👁️ Ver Rol</span>`;
-                btn.onclick = () => openRoleModal(index);
+                btn.id = `btn-rev-${idx}`;
+                btn.innerHTML = `<span>👤 ${name}</span> <span>👁️ Ver</span>`;
+                btn.onclick = () => showRoleModal(idx);
                 list.appendChild(btn);
             });
 
@@ -436,105 +388,108 @@
             showScreen('screen-reveal');
         }
 
-        // ================= MODAL Y REVELACIÓN =================
-
-        function openRoleModal(playerIndex) {
+        function showRoleModal(idx) {
             const modal = document.getElementById('role-modal');
-            const isImpostor = gameData.impostorIndices.includes(playerIndex);
-            const playerName = players[playerIndex];
-
-            let html = "";
+            const isImpostor = gameData.impostorIndices.includes(idx);
             
+            let content = "";
             if(isImpostor) {
-                html = `
+                content = `
                 <div class="role-card is-impostor">
-                    <h1 style="font-size: 2.5rem; margin-bottom: 10px;">🤫 ERES IMPOSTOR</h1>
-                    <p style="font-size: 1.1rem;">Tu misión: Engañar a todos.</p>
+                    <h1 style="font-size:2rem;">🤫 ERES EL IMPOSTOR</h1>
                     <div class="secret-word-display">???</div>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">No conoces la palabra. Escucha y finge.</p>
-                    <button class="btn" style="background: rgba(0,0,0,0.3); border:1px solid white; margin-top: 20px;" onclick="closeRoleModal(${playerIndex})">Entendido, cerrar</button>
+                    <p>Finge que sabes la palabra.</p>
+                    <button class="btn" onclick="hideRoleModal(${idx})">Entendido</button>
                 </div>`;
             } else {
-                html = `
+                content = `
                 <div class="role-card is-civil">
-                    <h1 style="font-size: 2.5rem; margin-bottom: 10px;">😇 ERES CIVIL</h1>
-                    <p style="font-size: 1.1rem;">La palabra secreta es:</p>
+                    <h1 style="font-size:2rem;">😇 ERES CIVIL</h1>
+                    <p>La palabra es:</p>
                     <div class="secret-word-display">${gameData.secretWord}</div>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Da pistas sutiles. Encuentra al impostor.</p>
-                    <button class="btn" style="background: rgba(0,0,0,0.3); border:1px solid white; margin-top: 20px;" onclick="closeRoleModal(${playerIndex})">Entendido, cerrar</button>
+                    <button class="btn" onclick="hideRoleModal(${idx})">Entendido</button>
                 </div>`;
             }
-
-            modal.innerHTML = html;
+            modal.innerHTML = content;
             modal.classList.remove('hidden');
         }
 
-        function closeRoleModal(index) {
+        function hideRoleModal(idx) {
             document.getElementById('role-modal').classList.add('hidden');
-            
-            // Desactivar botón
-            const btn = document.getElementById(`btn-reveal-${index}`);
+            const btn = document.getElementById(`btn-rev-${idx}`);
             btn.disabled = true;
-            btn.innerHTML = `<span>${players[index]}</span> <span>✅ Listo</span>`;
+            btn.innerHTML = `<span>👤 ${savedPlayerNames[idx]}</span> <span>✅ Listo</span>`;
             
             rolesViewed++;
-            if(rolesViewed >= players.length) {
+            if(rolesViewed >= gameConfig.players) {
                 document.getElementById('btn-begin-debate').classList.remove('hidden');
             }
         }
 
-        // ================= JUEGO Y TIMER =================
-
         function startDebate() {
             showScreen('screen-game');
             
-            // Elegir quién empieza
-            const starter = players[Math.floor(Math.random() * players.length)];
-            document.getElementById('starter-player').innerText = starter;
+            // LÓGICA JUGADOR INICIAL (NO IMPOSTOR)
+            // Filtramos los índices que NO son impostores
+            const civilians = [];
+            for(let i=0; i < gameConfig.players; i++) {
+                if(!gameData.impostorIndices.includes(i)) {
+                    civilians.push(i);
+                }
+            }
+            // Elegimos uno al azar de la lista de civiles
+            const starterIndex = civilians[Math.floor(Math.random() * civilians.length)];
+            document.getElementById('starter-player').innerText = savedPlayerNames[starterIndex];
 
-            // Iniciar Timer
-            const minutes = parseInt(document.getElementById('game-time').value);
-            gameData.timeLeft = minutes * 60;
+            // Timer
+            gameData.timeLeft = gameConfig.time * 60;
             gameData.paused = false;
-            updateTimerDisplay();
-
+            updateTimer();
             if(gameData.timerInterval) clearInterval(gameData.timerInterval);
-            
             gameData.timerInterval = setInterval(() => {
                 if(!gameData.paused) {
                     gameData.timeLeft--;
-                    updateTimerDisplay();
-                    
+                    updateTimer();
                     if(gameData.timeLeft <= 0) {
                         clearInterval(gameData.timerInterval);
-                        document.getElementById('timer-display').style.color = "#ef4444";
-                        document.getElementById('timer-display').innerText = "00:00";
-                        alert("⏰ ¡TIEMPO TERMINADO!\nEs hora de votar quién es el impostor.");
+                        alert("¡Tiempo terminado!");
                     }
                 }
             }, 1000);
         }
 
-        function updateTimerDisplay() {
-            const m = Math.floor(gameData.timeLeft / 60).toString().padStart(2, '0');
-            const s = (gameData.timeLeft % 60).toString().padStart(2, '0');
-            document.getElementById('timer-display').innerText = `${m}:${s}`;
+        function updateTimer() {
+            const m = Math.floor(gameData.timeLeft / 60).toString().padStart(2,'0');
+            const s = (gameData.timeLeft % 60).toString().padStart(2,'0');
+            const disp = document.getElementById('timer-display');
+            disp.innerText = `${m}:${s}`;
+            if(gameData.timeLeft < 10) disp.style.color = "#ef4444";
+            else disp.style.color = "white";
         }
 
         function togglePause() {
             gameData.paused = !gameData.paused;
-            const btn = document.getElementById('btn-pause');
-            btn.innerText = gameData.paused ? "Reanudar" : "Pausar";
-            btn.style.background = gameData.paused ? "transparent" : "";
-            btn.style.border = gameData.paused ? "1px solid white" : "";
+            document.getElementById('btn-pause').innerText = gameData.paused ? "Reanudar" : "Pausar";
         }
 
-        function resetGame() {
-            if(confirm("¿Seguro que quieres salir al menú principal?")) {
+        // ================= RESETEO =================
+
+        // NUEVA PARTIDA: Mantiene nombres, vuelve a categorías
+        function softReset() {
+            if(confirm("¿Terminar partida actual y jugar otra con los mismos jugadores?")) {
                 clearInterval(gameData.timerInterval);
-                location.reload(); // Manera más segura de limpiar todo
+                showScreen('screen-categories');
             }
         }
+
+        // MENÚ PRINCIPAL: Borra todo
+        function fullReset() {
+            if(confirm("¿Volver al menú principal? Se borrarán los nombres.")) {
+                clearInterval(gameData.timerInterval);
+                location.reload(); 
+            }
+        }
+
     </script>
 </body>
 </html>
