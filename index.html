@@ -171,6 +171,64 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         
+        /* MÚSICA DE FONDO */
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .volume-control {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volume-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+        }
+        
+        .music-option {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            text-align: left;
+        }
+        
+        .music-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .music-option-content {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
         /* TUTORIAL / AYUDA */
         .help-btn {
             background: rgba(56, 189, 248, 0.2);
@@ -325,6 +383,37 @@
             flex-wrap: wrap;
         }
         
+        /* CONTROLES DE MÚSICA EN EL JUEGO */
+        .music-game-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .music-btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+        
         /* Mejoras para dispositivos táctiles */
         @media (max-width: 768px) {
             .container {
@@ -349,6 +438,12 @@
             .info-icon-tooltip {
                 font-size: 0.75rem;
                 max-width: 200px;
+            }
+            
+            .music-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
             }
         }
         
@@ -376,6 +471,7 @@
                 <li><strong>Impostores:</strong> Cuántos jugadores serán impostores (debe ser menor al número de jugadores)</li>
                 <li><strong>Tiempo:</strong> Duración del debate en minutos</li>
                 <li><strong>Sonido de Alerta:</strong> Elige el sonido que sonará cuando termine el tiempo</li>
+                <li><strong>Música de Fondo:</strong> Añade ambiente con música (URL, archivo local o sin música)</li>
             </ul>
             <p>💡 <strong>Consejo:</strong> Para grupos grandes (6+ jugadores), considera agregar más impostores.</p>
         </div>
@@ -435,6 +531,59 @@
             <div class="sound-preview">
                 <span id="selected-sound-name">Sin sonido</span>
                 <button class="btn btn-small" onclick="testAlarmSound()">Probar Sonido</button>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label>
+                Música de Fondo 🎵 
+                <div class="info-icon-wrapper" onclick="toggleTooltip(this)" ontouchstart="toggleTooltip(this)">
+                    <span class="info-icon">i</span>
+                    <div class="info-icon-tooltip">Agrega música de fondo para crear ambiente durante el debate</div>
+                </div>
+            </label>
+            
+            <div class="music-option">
+                <div class="music-option-header" onclick="toggleMusicOption('music-none')">
+                    <span><input type="radio" id="music-none" name="music-source" value="none" checked> Sin música</span>
+                    <span>🔇</span>
+                </div>
+            </div>
+            
+            <div class="music-option">
+                <div class="music-option-header" onclick="toggleMusicOption('music-url')">
+                    <span><input type="radio" id="music-url" name="music-source" value="url"> URL de música</span>
+                    <span>🔗</span>
+                </div>
+                <div id="music-url-content" class="music-option-content hidden">
+                    <input type="text" id="music-url-input" placeholder="https://ejemplo.com/musica.mp3" style="margin-bottom: 8px;">
+                    <p style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 8px;">Ejemplos de música libre:</p>
+                    <div style="display: flex; flex-direction: column; gap: 5px; font-size: 0.8rem;">
+                        <button class="btn btn-small" onclick="setExampleMusic('https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-667.mp3')">🎮 Música de Suspenso</button>
+                        <button class="btn btn-small" onclick="setExampleMusic('https://assets.mixkit.co/music/preview/mixkit-mysterious-suspense-590.mp3')">🕵️‍♂️ Misteriosa</button>
+                        <button class="btn btn-small" onclick="setExampleMusic('https://assets.mixkit.co/music/preview/mixkit-puzzle-game-mystery-clue-561.mp3')">🧩 Música de Puzle</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="music-option">
+                <div class="music-option-header" onclick="toggleMusicOption('music-file')">
+                    <span><input type="radio" id="music-file" name="music-source" value="file"> Subir archivo</span>
+                    <span>📁</span>
+                </div>
+                <div id="music-file-content" class="music-option-content hidden">
+                    <input type="file" id="music-file-input" accept="audio/*" style="margin-bottom: 8px;">
+                    <p style="font-size: 0.8rem; color: #cbd5e1;">Formatos soportados: MP3, WAV, OGG</p>
+                </div>
+            </div>
+            
+            <div class="music-controls">
+                <button class="btn btn-small" onclick="testBackgroundMusic()" id="btn-test-music">🎵 Probar Música</button>
+                <div class="volume-control">
+                    <span>🔈</span>
+                    <input type="range" min="0" max="100" value="50" class="volume-slider" id="music-volume" onchange="updateMusicVolume()">
+                    <span>🔊</span>
+                </div>
             </div>
         </div>
 
@@ -590,6 +739,17 @@
             <strong id="starter-player" style="font-size:1.4rem; color:var(--accent-color); display:block; margin-top:5px;">---</strong>
         </div>
 
+        <!-- Controles de música en el juego -->
+        <div class="music-game-controls">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button class="music-btn" id="btn-music-toggle" onclick="toggleBackgroundMusic()">🎵</button>
+                <span id="music-status" style="font-size: 0.9rem;">Música: Apagada</span>
+            </div>
+            <div class="volume-control" style="width: 120px;">
+                <input type="range" min="0" max="100" value="50" class="volume-slider" id="game-music-volume" onchange="updateGameMusicVolume()">
+            </div>
+        </div>
+
         <button class="btn" id="btn-pause" onclick="togglePause()">Pausar</button>
         <div style="display:flex; gap:10px; margin-top:10px;">
             <button class="btn btn-secondary" onclick="softReset()">🔄 Nueva Partida</button>
@@ -627,6 +787,180 @@
         let audioContext = null;
         let helpOpen = null; // Para controlar qué ayuda está abierta
         let activeTooltip = null; // Para controlar qué tooltip está activo
+        
+        // Música de fondo
+        let backgroundMusic = null;
+        let musicConfig = {
+            enabled: false,
+            source: "none", // "none", "url", "file"
+            url: "",
+            file: null,
+            volume: 0.5,
+            playing: false
+        };
+
+        // ================= FUNCIONES PARA MÚSICA =================
+        function toggleMusicOption(optionId) {
+            // Actualizar radio button
+            document.getElementById(optionId).checked = true;
+            
+            // Ocultar todos los contenidos
+            document.getElementById('music-url-content').classList.add('hidden');
+            document.getElementById('music-file-content').classList.add('hidden');
+            
+            // Mostrar contenido correspondiente
+            if (optionId === 'music-url') {
+                document.getElementById('music-url-content').classList.remove('hidden');
+                musicConfig.source = "url";
+            } else if (optionId === 'music-file') {
+                document.getElementById('music-file-content').classList.remove('hidden');
+                musicConfig.source = "file";
+            } else {
+                musicConfig.source = "none";
+            }
+            
+            // Guardar configuración
+            saveMusicConfig();
+        }
+
+        function setExampleMusic(url) {
+            document.getElementById('music-url-input').value = url;
+            musicConfig.url = url;
+            saveMusicConfig();
+        }
+
+        function updateMusicVolume() {
+            const volume = document.getElementById('music-volume').value / 100;
+            musicConfig.volume = volume;
+            if (backgroundMusic) {
+                backgroundMusic.volume = volume;
+            }
+            saveMusicConfig();
+        }
+
+        function updateGameMusicVolume() {
+            const volume = document.getElementById('game-music-volume').value / 100;
+            musicConfig.volume = volume;
+            if (backgroundMusic) {
+                backgroundMusic.volume = volume;
+            }
+            saveMusicConfig();
+        }
+
+        function saveMusicConfig() {
+            // Guardar configuración de música
+            const musicSource = document.querySelector('input[name="music-source"]:checked').value;
+            musicConfig.source = musicSource;
+            
+            if (musicSource === 'url') {
+                musicConfig.url = document.getElementById('music-url-input').value;
+            } else if (musicSource === 'file') {
+                const fileInput = document.getElementById('music-file-input');
+                if (fileInput.files.length > 0) {
+                    musicConfig.file = fileInput.files[0];
+                }
+            }
+        }
+
+        function testBackgroundMusic() {
+            saveMusicConfig();
+            
+            // Detener música actual si está sonando
+            if (backgroundMusic) {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+            }
+            
+            if (musicConfig.source === "none") {
+                alert("Selecciona una fuente de música primero");
+                return;
+            }
+            
+            let musicUrl = "";
+            
+            if (musicConfig.source === "url") {
+                if (!musicConfig.url) {
+                    alert("Ingresa una URL de música válida");
+                    return;
+                }
+                musicUrl = musicConfig.url;
+            } else if (musicConfig.source === "file") {
+                if (!musicConfig.file) {
+                    alert("Selecciona un archivo de música primero");
+                    return;
+                }
+                // Crear URL temporal para el archivo
+                musicUrl = URL.createObjectURL(musicConfig.file);
+            }
+            
+            // Crear elemento de audio
+            backgroundMusic = new Audio(musicUrl);
+            backgroundMusic.volume = musicConfig.volume;
+            backgroundMusic.loop = true;
+            
+            // Intentar reproducir
+            backgroundMusic.play().then(() => {
+                musicConfig.playing = true;
+                document.getElementById('btn-test-music').textContent = "⏸️ Pausar Música";
+                alert("Música reproduciéndose. Presiona 'Probar Música' nuevamente para detener.");
+            }).catch(error => {
+                console.error("Error al reproducir música:", error);
+                alert("Error al reproducir la música. Verifica la URL o el archivo.");
+            });
+        }
+
+        function toggleBackgroundMusic() {
+            if (!backgroundMusic) {
+                alert("Primero configura la música en la pantalla de configuración");
+                return;
+            }
+            
+            if (musicConfig.playing) {
+                backgroundMusic.pause();
+                musicConfig.playing = false;
+                document.getElementById('btn-music-toggle').textContent = "🎵";
+                document.getElementById('music-status').textContent = "Música: Apagada";
+            } else {
+                backgroundMusic.play().then(() => {
+                    musicConfig.playing = true;
+                    document.getElementById('btn-music-toggle').textContent = "⏸️";
+                    document.getElementById('music-status').textContent = "Música: Encendida";
+                }).catch(error => {
+                    console.error("Error al reanudar música:", error);
+                    alert("No se pudo reanudar la música. Puede que necesites reiniciar la música.");
+                });
+            }
+        }
+
+        function startBackgroundMusic() {
+            if (musicConfig.source === "none" || !backgroundMusic) {
+                return;
+            }
+            
+            backgroundMusic.volume = musicConfig.volume;
+            backgroundMusic.loop = true;
+            
+            // En algunos navegadores, no se puede autoplay sin interacción del usuario
+            // Por eso intentamos reproducir pero manejamos el error
+            backgroundMusic.play().then(() => {
+                musicConfig.playing = true;
+                document.getElementById('btn-music-toggle').textContent = "⏸️";
+                document.getElementById('music-status').textContent = "Música: Encendida";
+            }).catch(error => {
+                console.log("La música no pudo iniciar automáticamente. El usuario debe interactuar primero.");
+                musicConfig.playing = false;
+                document.getElementById('btn-music-toggle').textContent = "🎵";
+                document.getElementById('music-status').textContent = "Música: Click para iniciar";
+            });
+        }
+
+        function stopBackgroundMusic() {
+            if (backgroundMusic && musicConfig.playing) {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+                musicConfig.playing = false;
+            }
+        }
 
         // ================= FUNCIONES PARA TOOLTIPS EN iOS =================
         function toggleTooltip(element) {
@@ -913,6 +1247,9 @@
 
                 gameConfig = { players: p, impostors: i, time: t };
                 gameData.alarmSound = soundType;
+                
+                // Guardar configuración de música
+                saveMusicConfig();
             }
             showScreen('screen-categories');
         }
@@ -1081,6 +1418,9 @@
                     }
                 }
             }, 1000);
+            
+            // Iniciar música de fondo si está configurada
+            startBackgroundMusic();
         }
 
         function updateTimer() {
@@ -1095,6 +1435,15 @@
         function togglePause() {
             gameData.paused = !gameData.paused;
             document.getElementById('btn-pause').innerText = gameData.paused ? "Reanudar" : "Pausar";
+            
+            // También pausar/reanudar la música si está activa
+            if (backgroundMusic) {
+                if (gameData.paused) {
+                    backgroundMusic.pause();
+                } else if (musicConfig.playing) {
+                    backgroundMusic.play().catch(e => console.error("Error al reanudar música:", e));
+                }
+            }
         }
 
         // ================= RESETEO =================
@@ -1103,6 +1452,7 @@
         function softReset() {
             if(confirm("¿Terminar partida actual y jugar otra con los mismos jugadores?")) {
                 clearInterval(gameData.timerInterval);
+                stopBackgroundMusic();
                 showScreen('screen-categories');
             }
         }
@@ -1111,6 +1461,7 @@
         function fullReset() {
             if(confirm("¿Volver al menú principal? Se borrarán los nombres.")) {
                 clearInterval(gameData.timerInterval);
+                stopBackgroundMusic();
                 location.reload(); 
             }
         }
@@ -1126,6 +1477,10 @@
             // Cerrar tooltips al hacer clic/tocar fuera
             document.addEventListener('click', closeAllTooltips);
             document.addEventListener('touchstart', closeAllTooltips);
+            
+            // Inicializar controles de volumen en el juego
+            document.getElementById('game-music-volume').value = musicConfig.volume * 100;
+            document.getElementById('music-volume').value = musicConfig.volume * 100;
             
             // Añadir un mensaje inicial para nuevos jugadores
             const setupScreen = document.getElementById('screen-setup');
