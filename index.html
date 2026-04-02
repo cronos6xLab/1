@@ -709,6 +709,12 @@ animation: fadeIn 0.25s ease;
 .lang-grid { grid-template-columns: repeat(2, 1fr); }
 .card { padding: 18px; }
 }
+
+/* Fix modal button */
+#modal-understood-btn {
+  cursor: pointer;
+  touch-action: manipulation;
+}
 </style>
 
 </head>
@@ -1779,42 +1785,67 @@ function assignRoles() {
   showScreen('screen-reveal');
 }
 
+// =====================================================
+// MODAL FIX - showRoleModal and hideRoleModal (robust event handling)
+// =====================================================
 function showRoleModal(idx) {
   const modal = document.getElementById('role-modal');
   const isImp = gameData.impostorIndices.includes(idx);
+  
+  let innerHtml = '';
   if (isImp) {
-    modal.innerHTML = `
+    innerHtml = `
     <div class="role-card impostor">
       <span class="role-emoji">🤫</span>
       <div class="role-title">${t('role_impostor')}</div>
       <div class="word-box">???</div>
       <div class="role-hint">${t('impostor_hint')}</div>
-      <button class="btn btn-primary" onclick="hideRoleModal(${idx})" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
+      <button id="modal-understood-btn" class="btn btn-primary" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
     </div>`;
   } else {
-    modal.innerHTML = `
+    innerHtml = `
     <div class="role-card civil">
       <span class="role-emoji">😇</span>
       <div class="role-title">${t('role_civil')}</div>
       <div style="font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:#6ee7b7;margin-bottom:8px;">${t('civil_word_label')}</div>
       <div class="word-box">${gameData.secretWord}</div>
       <div class="role-hint">${t('civil_hint')}</div>
-      <button class="btn btn-primary" onclick="hideRoleModal(${idx})" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
+      <button id="modal-understood-btn" class="btn btn-primary" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
     </div>`;
   }
+  
+  modal.innerHTML = innerHtml;
   modal.classList.add('visible');
+  
+  // Attach event listener securely
+  const btn = document.getElementById('modal-understood-btn');
+  if (btn) {
+    // Remove any previous listeners by cloning and replacing
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', function() {
+      hideRoleModal(idx);
+    });
+  } else {
+    console.error('Modal button not found');
+  }
 }
 
 function hideRoleModal(idx) {
-  document.getElementById('role-modal').classList.remove('visible');
+  const modal = document.getElementById('role-modal');
+  modal.classList.remove('visible');
+  
   const item = document.getElementById(`rev-${idx}`);
   if (item) {
     item.classList.add('done');
-    item.querySelector('.reveal-status').textContent = t('role_done');
+    const statusSpan = item.querySelector('.reveal-status');
+    if (statusSpan) statusSpan.textContent = t('role_done');
   }
+  
   rolesViewed++;
   if (rolesViewed >= gameConfig.players) {
-    document.getElementById('btn-begin-debate').classList.remove('hidden');
+    const startBtn = document.getElementById('btn-begin-debate');
+    if (startBtn) startBtn.classList.remove('hidden');
   }
 }
 
@@ -1883,7 +1914,6 @@ function fullReset() {
 document.addEventListener('DOMContentLoaded', () => {
   buildLangGrid();
   document.getElementById('lang-pick-label').textContent = 'Select your language / Elige tu idioma';
-  // Pre-select Spanish
   selectedLang = 'es';
 });
 </script>
