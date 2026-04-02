@@ -74,32 +74,47 @@ padding-bottom: 40px;
 #lang-overlay {
 position: fixed;
 inset: 0;
-background: var(–bg);
+background: #080c14;
 z-index: 9999;
 display: flex;
 flex-direction: column;
 align-items: center;
-justify-content: center;
-padding: 32px 24px;
+justify-content: flex-start;
+padding: 48px 24px 40px;
+overflow-y: auto;
 animation: fadeIn 0.3s ease;
 }
 
-.lang-logo {
-font-family: var(–font-title);
-font-size: clamp(3rem, 10vw, 5rem);
-letter-spacing: 4px;
-background: linear-gradient(135deg, #3b82f6, #06b6d4);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+.lang-logo-wrap {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 14px;
 margin-bottom: 8px;
 }
 
+.lang-icon { font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1; }
+
+.lang-logo {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(3rem, 10vw, 4.5rem);
+letter-spacing: 6px;
+background: linear-gradient(135deg, #3b82f6, #06b6d4);
+-webkit-background-clip: text;
+background-clip: text;
+-webkit-text-fill-color: transparent;
+color: transparent;
+line-height: 1;
+}
+
 .lang-subtitle {
-color: var(–text-muted);
-font-size: 0.85rem;
+color: #64748b;
+font-family: ‘Space Grotesk’, sans-serif;
+font-size: 0.75rem;
 letter-spacing: 3px;
 text-transform: uppercase;
-margin-bottom: 48px;
+margin-bottom: 36px;
+text-align: center;
 }
 
 .lang-grid {
@@ -116,41 +131,43 @@ flex-direction: column;
 align-items: center;
 gap: 6px;
 padding: 14px 8px;
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: var(–radius-sm);
+background: #0d1420;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
 cursor: pointer;
 transition: all 0.2s;
-font-family: var(–font);
-color: var(–text);
+font-family: ‘Space Grotesk’, sans-serif;
+color: #f1f5f9;
 font-size: 0.8rem;
 font-weight: 500;
 }
 
 .lang-btn:hover, .lang-btn.active {
-border-color: var(–primary);
-background: rgba(59,130,246,0.1);
+border-color: #3b82f6;
+background: rgba(59,130,246,0.12);
 transform: translateY(-2px);
+color: #93c5fd;
 }
 
-.lang-flag { font-size: 1.6rem; }
+.lang-flag { font-size: 1.6rem; line-height: 1; }
 
 .lang-confirm {
-margin-top: 32px;
-padding: 14px 48px;
-background: var(–primary);
+margin-top: 28px;
+padding: 15px 52px;
+background: linear-gradient(135deg, #3b82f6, #1d4ed8);
 color: white;
 border: none;
 border-radius: 50px;
-font-family: var(–font);
+font-family: ‘Space Grotesk’, sans-serif;
 font-size: 1rem;
-font-weight: 600;
+font-weight: 700;
 cursor: pointer;
 transition: all 0.2s;
-box-shadow: 0 0 30px var(–primary-glow);
+box-shadow: 0 4px 24px rgba(59,130,246,0.4);
+letter-spacing: 0.5px;
 }
 
-.lang-confirm:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(59,130,246,0.4); }
+.lang-confirm:hover { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(59,130,246,0.55); }
 
 /* SCREENS */
 .screen { display: none; animation: fadeIn 0.35s ease; }
@@ -700,8 +717,11 @@ animation: fadeIn 0.25s ease;
 <!-- LANGUAGE OVERLAY -->
 
 <div id="lang-overlay">
-  <div class="lang-logo">🕵️ IMPOSTOR</div>
-  <div class="lang-subtitle" id="lang-pick-label">Select your language</div>
+  <div class="lang-logo-wrap">
+    <span class="lang-icon">🕵️</span>
+    <span class="lang-logo">IMPOSTOR</span>
+  </div>
+  <div class="lang-subtitle" id="lang-pick-label">Select your language / Elige tu idioma</div>
   <div class="lang-grid" id="lang-grid"></div>
   <button class="lang-confirm" id="lang-confirm-btn" onclick="confirmLanguage()">Continue →</button>
 </div>
