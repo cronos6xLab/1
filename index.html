@@ -34,12 +34,13 @@
     --radius-lg: 24px;
   }
 
+html { background: #080c14; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-font-family: var(--font);
-background: var(--bg);
-color: var(--text);
+font-family: ‘Space Grotesk’, sans-serif;
+background: #080c14;
+color: #f1f5f9;
 min-height: 100vh;
 display: flex;
 align-items: flex-start;
@@ -50,7 +51,7 @@ overflow-x: hidden;
 }
 
 body::before {
-content: '';
+content: ‘’;
 position: fixed;
 top: -200px;
 left: 50%;
@@ -96,7 +97,7 @@ margin-bottom: 8px;
 .lang-icon { font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1; }
 
 .lang-logo {
-font-family: 'Bebas Neue', sans-serif;
+font-family: ‘Bebas Neue’, sans-serif;
 font-size: clamp(3rem, 10vw, 4.5rem);
 letter-spacing: 6px;
 background: linear-gradient(135deg, #3b82f6, #06b6d4);
@@ -109,7 +110,7 @@ line-height: 1;
 
 .lang-subtitle {
 color: #64748b;
-font-family: 'Space Grotesk', sans-serif;
+font-family: ‘Space Grotesk’, sans-serif;
 font-size: 0.75rem;
 letter-spacing: 3px;
 text-transform: uppercase;
@@ -136,7 +137,7 @@ border: 1px solid rgba(255,255,255,0.08);
 border-radius: 10px;
 cursor: pointer;
 transition: all 0.2s;
-font-family: 'Space Grotesk', sans-serif;
+font-family: ‘Space Grotesk’, sans-serif;
 color: #f1f5f9;
 font-size: 0.8rem;
 font-weight: 500;
@@ -158,7 +159,7 @@ background: linear-gradient(135deg, #3b82f6, #1d4ed8);
 color: white;
 border: none;
 border-radius: 50px;
-font-family: 'Space Grotesk', sans-serif;
+font-family: ‘Space Grotesk’, sans-serif;
 font-size: 1rem;
 font-weight: 700;
 cursor: pointer;
@@ -186,17 +187,15 @@ position: relative;
 }
 
 .game-title {
-font-family: var(--font-title);
+font-family: ‘Bebas Neue’, sans-serif;
 font-size: clamp(2.8rem, 9vw, 4rem);
 letter-spacing: 4px;
 line-height: 1;
-background: linear-gradient(135deg, #fff 30%, var(--accent));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+color: #ffffff;
 }
 
 .game-tagline {
-color: var(--text-muted);
+color: #64748b;
 font-size: 0.78rem;
 letter-spacing: 3px;
 text-transform: uppercase;
@@ -207,32 +206,32 @@ margin-top: 6px;
 position: absolute;
 top: 28px;
 right: 0;
-background: var(--surface2);
-border: 1px solid var(--border);
+background: #111926;
+border: 1px solid rgba(255,255,255,0.08);
 border-radius: 8px;
 padding: 6px 10px;
-color: var(--text-dim);
+color: #94a3b8;
 font-size: 1.2rem;
 cursor: pointer;
 transition: all 0.2s;
 }
 
-.lang-toggle-btn:hover { border-color: var(--primary); color: var(--text); }
+.lang-toggle-btn:hover { border-color: #3b82f6; color: #f1f5f9; }
 
 /* CARD */
 .card {
-background: var(--surface);
-border: 1px solid var(--border);
-border-radius: var(--radius-lg);
+background: #0d1420;
+border: 1px solid rgba(255,255,255,0.07);
+border-radius: 24px;
 padding: 24px;
 margin-bottom: 12px;
 }
 
 .card-title {
-font-family: var(--font-title);
+font-family: ‘Bebas Neue’, sans-serif;
 font-size: 1.4rem;
 letter-spacing: 2px;
-color: var(--accent);
+color: #06b6d4;
 margin-bottom: 16px;
 display: flex;
 align-items: center;
@@ -245,7 +244,7 @@ font-size: 0.7rem;
 font-weight: 600;
 letter-spacing: 2px;
 text-transform: uppercase;
-color: var(--text-muted);
+color: #64748b;
 margin-bottom: 8px;
 }
 
@@ -262,21 +261,21 @@ font-size: 0.72rem;
 font-weight: 600;
 letter-spacing: 1.5px;
 text-transform: uppercase;
-color: var(--text-muted);
+color: #64748b;
 margin-bottom: 8px;
 }
 
-input[type="number"],
-input[type="text"],
+input[type=“number”],
+input[type=“text”],
 select,
 textarea {
 width: 100%;
 padding: 12px 14px;
-background: var(--surface2);
-border: 1px solid var(--border);
-border-radius: var(--radius-sm);
-color: var(--text);
-font-family: var(--font);
+background: #111926;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
+color: #f1f5f9;
+font-family: ‘Space Grotesk’, sans-serif;
 font-size: 1rem;
 transition: border-color 0.2s, box-shadow 0.2s;
 -webkit-appearance: none;
@@ -285,12 +284,12 @@ appearance: none;
 
 input:focus, select:focus, textarea:focus {
 outline: none;
-border-color: var(--primary);
-box-shadow: 0 0 0 3px var(--primary-glow);
+border-color: #3b82f6;
+box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
 }
 
 select {
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%2364748b’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);
 background-repeat: no-repeat;
 background-position: right 14px center;
 padding-right: 36px;
@@ -308,9 +307,9 @@ input, select, textarea { font-size: 16px; }
 display: flex;
 align-items: center;
 gap: 0;
-background: var(--surface2);
-border: 1px solid var(--border);
-border-radius: var(--radius-sm);
+background: #111926;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
 overflow: hidden;
 }
 
@@ -318,22 +317,22 @@ overflow: hidden;
 padding: 12px 18px;
 background: transparent;
 border: none;
-color: var(--text-dim);
+color: #94a3b8;
 font-size: 1.2rem;
 cursor: pointer;
 transition: background 0.15s, color 0.15s;
-font-family: var(--font);
+font-family: ‘Space Grotesk’, sans-serif;
 }
 
-.stepper button:hover { background: rgba(59,130,246,0.15); color: var(--primary); }
+.stepper button:hover { background: rgba(59,130,246,0.15); color: #3b82f6; }
 
 .stepper-val {
 flex: 1;
 text-align: center;
-font-family: var(--font-mono);
+font-family: ‘JetBrains Mono’, monospace;
 font-size: 1.1rem;
 font-weight: 700;
-color: var(--text);
+color: #f1f5f9;
 padding: 12px 0;
 }
 
@@ -351,21 +350,22 @@ display: flex;
 align-items: center;
 gap: 8px;
 padding: 12px 14px;
-background: var(--surface2);
-border: 1px solid var(--border);
-border-radius: var(--radius-sm);
+background: #111926;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
 cursor: pointer;
 font-size: 0.88rem;
 font-weight: 500;
 transition: all 0.2s;
 user-select: none;
+color: #f1f5f9;
 }
 
 .cat-item label:hover { border-color: rgba(59,130,246,0.4); }
 
 .cat-item input:checked + label {
 background: rgba(59,130,246,0.15);
-border-color: var(--primary);
+border-color: #3b82f6;
 color: #93c5fd;
 }
 
@@ -378,11 +378,11 @@ align-items: center;
 justify-content: space-between;
 margin-top: 10px;
 padding: 10px 14px;
-background: var(--surface2);
-border: 1px solid var(--border);
-border-radius: var(--radius-sm);
+background: #111926;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
 font-size: 0.85rem;
-color: var(--text-dim);
+color: #94a3b8;
 }
 
 /* BUTTONS */
@@ -392,7 +392,7 @@ width: 100%;
 padding: 15px 24px;
 border: none;
 border-radius: 50px;
-font-family: var(--font);
+font-family: ‘Space Grotesk’, sans-serif;
 font-size: 1rem;
 font-weight: 700;
 cursor: pointer;
@@ -404,23 +404,23 @@ margin-top: 12px;
 .btn:active { transform: scale(0.98); }
 
 .btn-primary {
-background: linear-gradient(135deg, var(--primary), #1d4ed8);
+background: linear-gradient(135deg, #3b82f6, #1d4ed8);
 color: white;
-box-shadow: 0 4px 20px var(--primary-glow);
+box-shadow: 0 4px 20px rgba(59,130,246,0.25);
 }
 
 .btn-primary:hover { box-shadow: 0 6px 28px rgba(59,130,246,0.4); transform: translateY(-1px); }
 
 .btn-ghost {
 background: transparent;
-border: 1px solid var(--border);
-color: var(--text-dim);
+border: 1px solid rgba(255,255,255,0.1);
+color: #94a3b8;
 }
 
-.btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: #f1f5f9; }
 
 .btn-danger {
-background: linear-gradient(135deg, var(--danger), #b91c1c);
+background: linear-gradient(135deg, #ef4444, #b91c1c);
 color: white;
 box-shadow: 0 4px 20px rgba(239,68,68,0.2);
 }
@@ -446,9 +446,9 @@ margin-bottom: 10px;
 }
 
 .player-num {
-font-family: var(--font-mono);
+font-family: ‘JetBrains Mono’, monospace;
 font-size: 0.8rem;
-color: var(--text-muted);
+color: #64748b;
 width: 24px;
 text-align: right;
 flex-shrink: 0;
@@ -462,13 +462,14 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 14px 18px;
-background: var(--surface2);
-border: 1px solid var(--border);
-border-radius: var(--radius-sm);
+background: #111926;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
 margin-bottom: 8px;
 cursor: pointer;
 transition: all 0.2s;
 font-weight: 500;
+color: #f1f5f9;
 }
 
 .reveal-item:hover { border-color: rgba(59,130,246,0.4); background: rgba(59,130,246,0.05); }
@@ -480,29 +481,30 @@ pointer-events: none;
 }
 
 .reveal-item .reveal-name { display: flex; align-items: center; gap: 10px; }
-.reveal-item .reveal-status { font-size: 0.8rem; color: var(--text-muted); }
-.reveal-item.done .reveal-status { color: var(--success); }
+.reveal-item .reveal-status { font-size: 0.8rem; color: #64748b; }
+.reveal-item.done .reveal-status { color: #10b981; }
 
 /* TIMER */
 .timer-display {
-font-family: var(--font-mono);
+font-family: ‘JetBrains Mono’, monospace;
 font-size: clamp(4rem, 15vw, 6rem);
 font-weight: 700;
 text-align: center;
 letter-spacing: 4px;
 padding: 24px 0;
+color: #f1f5f9;
 transition: color 0.3s;
 }
 
-.timer-display.warning { color: var(--warn); }
-.timer-display.danger { color: var(--danger); animation: pulse 0.5s infinite alternate; }
+.timer-display.warning { color: #f59e0b; }
+.timer-display.danger { color: #ef4444; animation: pulse 0.5s infinite alternate; }
 
 @keyframes pulse { from { opacity: 1; } to { opacity: 0.6; } }
 
 .starter-card {
-background: var(--surface2);
-border: 1px solid var(--border-accent);
-border-radius: var(--radius);
+background: #111926;
+border: 1px solid rgba(99,179,237,0.25);
+border-radius: 16px;
 padding: 16px 20px;
 text-align: center;
 margin-bottom: 16px;
@@ -512,26 +514,28 @@ margin-bottom: 16px;
 font-size: 0.72rem;
 letter-spacing: 2px;
 text-transform: uppercase;
-color: var(--text-muted);
+color: #64748b;
 margin-bottom: 6px;
 }
 
 .starter-name {
 font-size: 1.5rem;
 font-weight: 700;
-color: var(--accent);
+color: #06b6d4;
 }
 
 /* MODAL */
 .modal-overlay {
 position: fixed;
 inset: 0;
-background: rgba(8,12,20,0.96);
+background: rgba(8,12,20,0.97);
 z-index: 5000;
 display: none;
 align-items: center;
 justify-content: center;
 padding: 24px;
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
 }
 
 .modal-overlay.visible { display: flex; animation: fadeIn 0.2s ease; }
@@ -539,7 +543,7 @@ padding: 24px;
 .role-card {
 width: 100%;
 max-width: 380px;
-border-radius: var(--radius-lg);
+border-radius: 24px;
 padding: 32px 28px;
 text-align: center;
 animation: zoomIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
@@ -553,7 +557,7 @@ to { transform: scale(1); opacity: 1; }
 }
 
 .role-card::before {
-content: '';
+content: ‘’;
 position: absolute;
 inset: 0;
 opacity: 0.05;
@@ -581,7 +585,7 @@ box-shadow: 0 0 60px rgba(16,185,129,0.1), inset 0 0 60px rgba(0,0,0,0.5);
 .role-emoji { font-size: 3.5rem; margin-bottom: 12px; display: block; }
 
 .role-title {
-font-family: var(--font-title);
+font-family: ‘Bebas Neue’, sans-serif;
 font-size: 2.2rem;
 letter-spacing: 3px;
 margin-bottom: 16px;
@@ -592,7 +596,7 @@ margin-bottom: 16px;
 
 .word-box {
 background: rgba(0,0,0,0.4);
-border-radius: var(--radius-sm);
+border-radius: 10px;
 padding: 16px 20px;
 margin: 16px 0;
 font-size: 1.8rem;
@@ -611,26 +615,26 @@ margin-bottom: 20px;
 
 /* HELP SECTION */
 .help-panel {
-background: rgba(59,130,246,0.05);
-border: 1px solid rgba(59,130,246,0.15);
-border-radius: var(--radius-sm);
+background: rgba(59,130,246,0.06);
+border: 1px solid rgba(59,130,246,0.18);
+border-radius: 10px;
 padding: 16px;
 margin-top: 8px;
 font-size: 0.85rem;
 line-height: 1.6;
-color: var(--text-dim);
+color: #94a3b8;
 display: none;
 }
 
 .help-panel.open { display: block; animation: fadeIn 0.2s ease; }
-.help-panel h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.9rem; }
+.help-panel h4 { color: #06b6d4; margin-bottom: 8px; font-size: 0.9rem; }
 .help-panel ul, .help-panel ol { padding-left: 18px; }
 .help-panel li { margin-bottom: 4px; }
 
 .help-btn {
 background: rgba(6,182,212,0.1);
 border: 1px solid rgba(6,182,212,0.3);
-color: var(--accent);
+color: #06b6d4;
 border-radius: 6px;
 padding: 4px 10px;
 font-size: 0.75rem;
@@ -663,17 +667,22 @@ text-transform: uppercase;
 .badge-blue { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
 .badge-green { background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
 
+/* Force body bg on all screen sizes */
+@media (max-width: 9999px) {
+html, body { background-color: #080c14 !important; }
+}
+
 /* DIVIDER */
 .divider {
 height: 1px;
-background: var(--border);
+background: rgba(255,255,255,0.07);
 margin: 16px 0;
 }
 
 /* FOOTER */
 .app-footer {
 text-align: center;
-color: var(--text-muted);
+color: #64748b;
 font-size: 0.72rem;
 letter-spacing: 1.5px;
 text-transform: uppercase;
@@ -689,7 +698,7 @@ padding-right: 4px;
 
 .scroll-list::-webkit-scrollbar { width: 4px; }
 .scroll-list::-webkit-scrollbar-track { background: transparent; }
-.scroll-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.scroll-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 2px; }
 
 /* HIDDEN */
 .hidden { display: none !important; }
@@ -700,7 +709,7 @@ margin-top: 10px;
 padding: 14px;
 background: rgba(6,182,212,0.05);
 border: 1px dashed rgba(6,182,212,0.3);
-border-radius: var(--radius-sm);
+border-radius: 10px;
 animation: fadeIn 0.25s ease;
 }
 
@@ -709,18 +718,13 @@ animation: fadeIn 0.25s ease;
 .lang-grid { grid-template-columns: repeat(2, 1fr); }
 .card { padding: 18px; }
 }
-
-/* Fix modal button */
-#modal-understood-btn {
-  cursor: pointer;
-  touch-action: manipulation;
-}
 </style>
 
 </head>
 <body>
 
 <!-- LANGUAGE OVERLAY -->
+
 <div id="lang-overlay">
   <div class="lang-logo-wrap">
     <span class="lang-icon">🕵️</span>
@@ -732,11 +736,13 @@ animation: fadeIn 0.25s ease;
 </div>
 
 <!-- ROLE MODAL -->
+
 <div class="modal-overlay" id="role-modal"></div>
 
 <div class="app">
 
   <!-- =================== SETUP =================== -->
+
   <div id="screen-setup" class="screen">
     <div class="header">
       <button class="lang-toggle-btn" onclick="openLangSelector()" title="Change language">🌐</button>
@@ -744,169 +750,188 @@ animation: fadeIn 0.25s ease;
       <div class="game-tagline" id="tagline-main">Ultimate Edition</div>
     </div>
 
-    <div class="card">
-      <div class="section-header">
-        <div class="card-title" data-i18n="setup_title">⚙️ SETUP</div>
-        <button class="help-btn" onclick="toggleHelp('help-setup')" data-i18n="btn_help">HELP</button>
-      </div>
-      <div class="help-panel" id="help-setup">
-        <h4 data-i18n="help_setup_title">Configuration</h4>
-        <ul id="help-setup-list"></ul>
-      </div>
+```
+<div class="card">
+  <div class="section-header">
+    <div class="card-title" data-i18n="setup_title">⚙️ SETUP</div>
+    <button class="help-btn" onclick="toggleHelp('help-setup')" data-i18n="btn_help">HELP</button>
+  </div>
+  <div class="help-panel" id="help-setup">
+    <h4 data-i18n="help_setup_title">Configuration</h4>
+    <ul id="help-setup-list"></ul>
+  </div>
 
-      <div class="row">
-        <div class="col field">
-          <div class="section-label" data-i18n="label_players">Players</div>
-          <div class="stepper">
-            <button onclick="stepperChange('num-players',-1)">−</button>
-            <div class="stepper-val" id="num-players-display">4</div>
-            <button onclick="stepperChange('num-players',1)">+</button>
-          </div>
-          <input type="hidden" id="num-players" value="4">
-        </div>
-        <div class="col field">
-          <div class="section-label" data-i18n="label_impostors">Impostors</div>
-          <div class="stepper">
-            <button onclick="stepperChange('num-impostors',-1)">−</button>
-            <div class="stepper-val" id="num-impostors-display">1</div>
-            <button onclick="stepperChange('num-impostors',1)">+</button>
-          </div>
-          <input type="hidden" id="num-impostors" value="1">
-        </div>
+  <div class="row">
+    <div class="col field">
+      <div class="section-label" data-i18n="label_players">Players</div>
+      <div class="stepper">
+        <button onclick="stepperChange('num-players',-1)">−</button>
+        <div class="stepper-val" id="num-players-display">4</div>
+        <button onclick="stepperChange('num-players',1)">+</button>
       </div>
-
-      <div class="field">
-        <div class="section-label" data-i18n="label_time">Time (minutes)</div>
-        <div class="stepper">
-          <button onclick="stepperChange('game-time',-1)">−</button>
-          <div class="stepper-val" id="game-time-display">5</div>
-          <button onclick="stepperChange('game-time',1)">+</button>
-        </div>
-        <input type="hidden" id="game-time" value="5">
-      </div>
-
-      <div class="field">
-        <div class="section-label" data-i18n="label_sound">Alert Sound</div>
-        <select id="alarm-sound" onchange="updateSoundName()">
-          <option value="none" data-i18n="sound_none">No sound</option>
-          <option value="beep" data-i18n="sound_beep">Classic Beep</option>
-          <option value="bell" data-i18n="sound_bell">Bell</option>
-          <option value="digital" data-i18n="sound_digital">Digital</option>
-          <option value="alarm" data-i18n="sound_alarm">Emergency Alarm</option>
-          <option value="chime" data-i18n="sound_chime">Chime</option>
-          <option value="buzzer" data-i18n="sound_buzzer">Buzzer</option>
-        </select>
-        <div class="sound-row">
-          <span id="selected-sound-name">—</span>
-          <button class="btn btn-ghost btn-sm" onclick="testAlarmSound()" data-i18n="btn_test_sound">Test</button>
-        </div>
-      </div>
+      <input type="hidden" id="num-players" value="4">
     </div>
+    <div class="col field">
+      <div class="section-label" data-i18n="label_impostors">Impostors</div>
+      <div class="stepper">
+        <button onclick="stepperChange('num-impostors',-1)">−</button>
+        <div class="stepper-val" id="num-impostors-display">1</div>
+        <button onclick="stepperChange('num-impostors',1)">+</button>
+      </div>
+      <input type="hidden" id="num-impostors" value="1">
+    </div>
+  </div>
 
-    <button class="btn btn-primary" onclick="goToCategories(true)" data-i18n="btn_continue">Continue →</button>
+  <div class="field">
+    <div class="section-label" data-i18n="label_time">Time (minutes)</div>
+    <div class="stepper">
+      <button onclick="stepperChange('game-time',-1)">−</button>
+      <div class="stepper-val" id="game-time-display">5</div>
+      <button onclick="stepperChange('game-time',1)">+</button>
+    </div>
+    <input type="hidden" id="game-time" value="5">
+  </div>
+
+  <div class="field">
+    <div class="section-label" data-i18n="label_sound">Alert Sound</div>
+    <select id="alarm-sound" onchange="updateSoundName()">
+      <option value="none" data-i18n="sound_none">No sound</option>
+      <option value="beep" data-i18n="sound_beep">Classic Beep</option>
+      <option value="bell" data-i18n="sound_bell">Bell</option>
+      <option value="digital" data-i18n="sound_digital">Digital</option>
+      <option value="alarm" data-i18n="sound_alarm">Emergency Alarm</option>
+      <option value="chime" data-i18n="sound_chime">Chime</option>
+      <option value="buzzer" data-i18n="sound_buzzer">Buzzer</option>
+    </select>
+    <div class="sound-row">
+      <span id="selected-sound-name">—</span>
+      <button class="btn btn-ghost btn-sm" onclick="testAlarmSound()" data-i18n="btn_test_sound">Test</button>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-primary" onclick="goToCategories(true)" data-i18n="btn_continue">Continue →</button>
+```
+
   </div>
 
   <!-- =================== CATEGORIES =================== -->
+
   <div id="screen-categories" class="screen">
     <div class="header">
       <div class="game-title" data-i18n="cats_title">📂 TOPICS</div>
     </div>
 
-    <div class="card">
-      <div class="section-header">
-        <div class="card-title" data-i18n="cats_pick">PICK THEMES</div>
-        <button class="help-btn" onclick="toggleHelp('help-cats')" data-i18n="btn_help">HELP</button>
-      </div>
-      <div class="help-panel" id="help-cats">
-        <h4 data-i18n="help_cats_title">Categories</h4>
-        <ul id="help-cats-list"></ul>
-      </div>
+```
+<div class="card">
+  <div class="section-header">
+    <div class="card-title" data-i18n="cats_pick">PICK THEMES</div>
+    <button class="help-btn" onclick="toggleHelp('help-cats')" data-i18n="btn_help">HELP</button>
+  </div>
+  <div class="help-panel" id="help-cats">
+    <h4 data-i18n="help_cats_title">Categories</h4>
+    <ul id="help-cats-list"></ul>
+  </div>
 
-      <div class="cat-grid" id="cat-grid"></div>
+  <div class="cat-grid" id="cat-grid"></div>
 
-      <div id="custom-area" class="hidden">
-        <div class="section-label" data-i18n="custom_label">Your words (comma separated)</div>
-        <textarea id="custom-words" rows="3" data-i18n-placeholder="custom_placeholder"></textarea>
-      </div>
-    </div>
+  <div id="custom-area" class="hidden">
+    <div class="section-label" data-i18n="custom_label">Your words (comma separated)</div>
+    <textarea id="custom-words" rows="3" data-i18n-placeholder="custom_placeholder"></textarea>
+  </div>
+</div>
 
-    <button class="btn btn-primary" onclick="goToNames()" data-i18n="btn_next">Next →</button>
-    <button class="btn btn-ghost" onclick="fullReset()" data-i18n="btn_back_main">← Main Menu</button>
+<button class="btn btn-primary" onclick="goToNames()" data-i18n="btn_next">Next →</button>
+<button class="btn btn-ghost" onclick="fullReset()" data-i18n="btn_back_main">← Main Menu</button>
+```
+
   </div>
 
   <!-- =================== NAMES =================== -->
+
   <div id="screen-names" class="screen">
     <div class="header">
       <div class="game-title" data-i18n="names_title">👥 PLAYERS</div>
     </div>
 
-    <div class="card">
-      <div class="section-header">
-        <div class="card-title" data-i18n="names_assign">ASSIGN NAMES</div>
-        <button class="help-btn" onclick="toggleHelp('help-names')" data-i18n="btn_help">HELP</button>
-      </div>
-      <div class="help-panel" id="help-names">
-        <h4 data-i18n="help_names_title">Player Names</h4>
-        <ul id="help-names-list"></ul>
-      </div>
-      <div class="scroll-list" id="names-list"></div>
-    </div>
+```
+<div class="card">
+  <div class="section-header">
+    <div class="card-title" data-i18n="names_assign">ASSIGN NAMES</div>
+    <button class="help-btn" onclick="toggleHelp('help-names')" data-i18n="btn_help">HELP</button>
+  </div>
+  <div class="help-panel" id="help-names">
+    <h4 data-i18n="help_names_title">Player Names</h4>
+    <ul id="help-names-list"></ul>
+  </div>
+  <div class="scroll-list" id="names-list"></div>
+</div>
 
-    <button class="btn btn-primary" onclick="assignRoles()" data-i18n="btn_deal_roles">Deal Roles 🎲</button>
-    <button class="btn btn-ghost" onclick="showScreen('screen-categories')" data-i18n="btn_back">← Back</button>
+<button class="btn btn-primary" onclick="assignRoles()" data-i18n="btn_deal_roles">Deal Roles 🎲</button>
+<button class="btn btn-ghost" onclick="showScreen('screen-categories')" data-i18n="btn_back">← Back</button>
+```
+
   </div>
 
   <!-- =================== REVEAL =================== -->
+
   <div id="screen-reveal" class="screen">
     <div class="header">
       <div class="game-title" data-i18n="reveal_title">🤫 ROLES</div>
     </div>
 
-    <div class="card">
-      <div class="section-header">
-        <div class="card-title" data-i18n="reveal_secret">SECRET IDENTITY</div>
-        <button class="help-btn" onclick="toggleHelp('help-reveal')" data-i18n="btn_help">HELP</button>
-      </div>
-      <div class="help-panel" id="help-reveal">
-        <h4 data-i18n="help_reveal_title">Role Reveal</h4>
-        <ul id="help-reveal-list"></ul>
-      </div>
-      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;" data-i18n="reveal_instructions">Pass the device to each player. Tap your name to see your role.</p>
-      <div id="reveal-list"></div>
-    </div>
+```
+<div class="card">
+  <div class="section-header">
+    <div class="card-title" data-i18n="reveal_secret">SECRET IDENTITY</div>
+    <button class="help-btn" onclick="toggleHelp('help-reveal')" data-i18n="btn_help">HELP</button>
+  </div>
+  <div class="help-panel" id="help-reveal">
+    <h4 data-i18n="help_reveal_title">Role Reveal</h4>
+    <ul id="help-reveal-list"></ul>
+  </div>
+  <p style="font-size:0.85rem; color:#64748b; margin-bottom:16px;" data-i18n="reveal_instructions">Pass the device to each player. Tap your name to see your role.</p>
+  <div id="reveal-list"></div>
+</div>
 
-    <button id="btn-begin-debate" class="btn btn-primary hidden" onclick="startDebate()" data-i18n="btn_start_game">🔥 Start Game</button>
+<button id="btn-begin-debate" class="btn btn-primary hidden" onclick="startDebate()" data-i18n="btn_start_game">🔥 Start Game</button>
+```
+
   </div>
 
   <!-- =================== GAME =================== -->
+
   <div id="screen-game" class="screen">
     <div class="header">
       <div class="game-title" data-i18n="game_title">⏳ DEBATE</div>
     </div>
 
-    <div class="card" style="text-align:center;">
-      <div class="section-header">
-        <div class="card-title" data-i18n="game_timer_label">TIMER</div>
-        <button class="help-btn" onclick="toggleHelp('help-game')" data-i18n="btn_help">HELP</button>
-      </div>
-      <div class="help-panel" id="help-game">
-        <h4 data-i18n="help_game_title">How to Play</h4>
-        <ul id="help-game-list"></ul>
-      </div>
+```
+<div class="card" style="text-align:center;">
+  <div class="section-header">
+    <div class="card-title" data-i18n="game_timer_label">TIMER</div>
+    <button class="help-btn" onclick="toggleHelp('help-game')" data-i18n="btn_help">HELP</button>
+  </div>
+  <div class="help-panel" id="help-game">
+    <h4 data-i18n="help_game_title">How to Play</h4>
+    <ul id="help-game-list"></ul>
+  </div>
 
-      <div class="timer-display" id="timer-display">05:00</div>
+  <div class="timer-display" id="timer-display">05:00</div>
 
-      <div class="starter-card">
-        <div class="starter-label" data-i18n="game_starts_asking">Starts asking:</div>
-        <div class="starter-name" id="starter-player">—</div>
-      </div>
-    </div>
+  <div class="starter-card">
+    <div class="starter-label" data-i18n="game_starts_asking">Starts asking:</div>
+    <div class="starter-name" id="starter-player">—</div>
+  </div>
+</div>
 
-    <button class="btn btn-primary" id="btn-pause" onclick="togglePause()" data-i18n="btn_pause">⏸ Pause</button>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="softReset()" data-i18n="btn_new_game">🔄 New Game</button>
-      <button class="btn btn-danger" onclick="fullReset()" data-i18n="btn_main_menu">🏠 Menu</button>
-    </div>
+<button class="btn btn-primary" id="btn-pause" onclick="togglePause()" data-i18n="btn_pause">⏸ Pause</button>
+<div class="btn-row">
+  <button class="btn btn-ghost" onclick="softReset()" data-i18n="btn_new_game">🔄 New Game</button>
+  <button class="btn btn-danger" onclick="fullReset()" data-i18n="btn_main_menu">🏠 Menu</button>
+</div>
+```
+
   </div>
 
   <div class="app-footer">Impostor Ultimate · 2026</div>
@@ -1785,67 +1810,42 @@ function assignRoles() {
   showScreen('screen-reveal');
 }
 
-// =====================================================
-// MODAL FIX - showRoleModal and hideRoleModal (robust event handling)
-// =====================================================
 function showRoleModal(idx) {
   const modal = document.getElementById('role-modal');
   const isImp = gameData.impostorIndices.includes(idx);
-  
-  let innerHtml = '';
   if (isImp) {
-    innerHtml = `
+    modal.innerHTML = `
     <div class="role-card impostor">
       <span class="role-emoji">🤫</span>
       <div class="role-title">${t('role_impostor')}</div>
       <div class="word-box">???</div>
       <div class="role-hint">${t('impostor_hint')}</div>
-      <button id="modal-understood-btn" class="btn btn-primary" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
+      <button class="btn btn-primary" onclick="hideRoleModal(${idx})" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
     </div>`;
   } else {
-    innerHtml = `
+    modal.innerHTML = `
     <div class="role-card civil">
       <span class="role-emoji">😇</span>
       <div class="role-title">${t('role_civil')}</div>
       <div style="font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:#6ee7b7;margin-bottom:8px;">${t('civil_word_label')}</div>
       <div class="word-box">${gameData.secretWord}</div>
       <div class="role-hint">${t('civil_hint')}</div>
-      <button id="modal-understood-btn" class="btn btn-primary" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
+      <button class="btn btn-primary" onclick="hideRoleModal(${idx})" style="max-width:260px;margin:0 auto;">${t('btn_understood')}</button>
     </div>`;
   }
-  
-  modal.innerHTML = innerHtml;
   modal.classList.add('visible');
-  
-  // Attach event listener securely
-  const btn = document.getElementById('modal-understood-btn');
-  if (btn) {
-    // Remove any previous listeners by cloning and replacing
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-    newBtn.addEventListener('click', function() {
-      hideRoleModal(idx);
-    });
-  } else {
-    console.error('Modal button not found');
-  }
 }
 
 function hideRoleModal(idx) {
-  const modal = document.getElementById('role-modal');
-  modal.classList.remove('visible');
-  
+  document.getElementById('role-modal').classList.remove('visible');
   const item = document.getElementById(`rev-${idx}`);
   if (item) {
     item.classList.add('done');
-    const statusSpan = item.querySelector('.reveal-status');
-    if (statusSpan) statusSpan.textContent = t('role_done');
+    item.querySelector('.reveal-status').textContent = t('role_done');
   }
-  
   rolesViewed++;
   if (rolesViewed >= gameConfig.players) {
-    const startBtn = document.getElementById('btn-begin-debate');
-    if (startBtn) startBtn.classList.remove('hidden');
+    document.getElementById('btn-begin-debate').classList.remove('hidden');
   }
 }
 
@@ -1914,6 +1914,7 @@ function fullReset() {
 document.addEventListener('DOMContentLoaded', () => {
   buildLangGrid();
   document.getElementById('lang-pick-label').textContent = 'Select your language / Elige tu idioma';
+  // Pre-select Spanish
   selectedLang = 'es';
 });
 </script>
