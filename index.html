@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Radio Explorer - Mapa interactivo de coberturas</title>
-  <!-- Leaflet CSS y JS -->
+  <title>Radio Explorer - Mapa de coberturas</title>
+  <!-- Leaflet CSS y JS (cargado de forma segura) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* -------------------- RESET & GLOBAL -------------------- */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
+    /* RESET Y ESTILOS COMPLETOS (aseguran que el mapa ocupe toda la pantalla) */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     :root {
@@ -30,13 +28,13 @@
 
     html, body {
       height: 100%;
+      width: 100%;
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow: hidden;
     }
 
-    /* -------------------- LAYOUT PRINCIPAL -------------------- */
     .app {
       display: grid;
       grid-template-columns: 380px 1fr;
@@ -44,7 +42,7 @@
       width: 100%;
     }
 
-    /* -------------------- SIDEBAR (PANEL LATERAL) -------------------- */
+    /* Sidebar */
     .sidebar {
       background: var(--panel);
       border-right: 1px solid var(--border);
@@ -55,18 +53,6 @@
       z-index: 10;
     }
 
-    .sidebar::before {
-      content: '';
-      position: absolute;
-      top: -80px;
-      left: -80px;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(0, 229, 160, 0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Header */
     .header {
       padding: 22px 22px 18px;
       border-bottom: 1px solid var(--border);
@@ -108,7 +94,6 @@
       letter-spacing: 0.4px;
     }
 
-    /* Formulario agregar */
     .add-form {
       padding: 18px 22px;
       border-bottom: 1px solid var(--border);
@@ -146,9 +131,7 @@
       opacity: 0.7;
     }
 
-    input[type="text"],
-    input[type="number"],
-    select {
+    input, select {
       width: 100%;
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -161,76 +144,17 @@
       transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    select:focus {
+    input:focus, select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.07);
     }
 
-    select {
-      appearance: none;
-      cursor: pointer;
-    }
-
-    /* Autocomplete */
-    .suggestions-box {
-      position: absolute;
-      top: calc(100% + 5px);
-      left: 0;
-      right: 0;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      z-index: 9999;
-      display: none;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
-    }
-
-    .suggestions-box.active {
-      display: block;
-    }
-
-    .suggestion-item {
-      padding: 10px 14px;
-      font-size: 12px;
-      color: var(--text);
-      cursor: pointer;
-      transition: background 0.13s;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .suggestion-item:last-child {
-      border-bottom: none;
-    }
-
-    .suggestion-item:hover {
-      background: rgba(0, 229, 160, 0.05);
-    }
-
-    .s-main {
-      font-weight: 500;
-      line-height: 1.3;
-    }
-
-    .s-sub {
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
-
-    /* Fila de radio + unidad */
     .row-controls {
       display: grid;
       grid-template-columns: 1fr 80px;
       gap: 8px;
     }
 
-    /* Selector de color principal */
     .swatch-row {
       display: flex;
       gap: 8px;
@@ -247,16 +171,10 @@
       transition: transform 0.13s, border-color 0.13s;
     }
 
-    .color-swatch:hover {
-      transform: scale(1.15);
-    }
-
     .color-swatch.active {
       border-color: white;
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
     }
 
-    /* Status messages */
     .status {
       font-size: 11px;
       padding: 8px 12px;
@@ -270,14 +188,12 @@
       display: flex;
       background: rgba(0, 153, 255, 0.08);
       color: var(--accent2);
-      border: 1px solid rgba(0, 153, 255, 0.13);
     }
 
     .status.error {
       display: flex;
       background: rgba(255, 80, 80, 0.08);
       color: #ff7070;
-      border: 1px solid rgba(255, 80, 80, 0.13);
     }
 
     .spinner {
@@ -290,12 +206,9 @@
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
-    /* Botón agregar */
     .btn-add {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #0a0c10;
@@ -318,17 +231,6 @@
       transform: translateY(-1px);
     }
 
-    .btn-add:active {
-      transform: translateY(0);
-    }
-
-    .btn-add:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Lista de ubicaciones */
     .locations-header {
       padding: 12px 22px 8px;
       display: flex;
@@ -356,12 +258,10 @@
       cursor: pointer;
       padding: 4px 8px;
       border-radius: 6px;
-      transition: color 0.15s, background 0.15s;
     }
 
     .btn-clear-all:hover {
       color: #ff7070;
-      background: rgba(255, 80, 80, 0.07);
     }
 
     .locations-list {
@@ -381,38 +281,15 @@
       gap: 10px;
       padding: 40px 0;
       color: var(--muted);
-      font-size: 12px;
       text-align: center;
     }
 
-    .empty-state .e-icon {
-      font-size: 32px;
-      opacity: 0.4;
-    }
-
-    /* Tarjeta de ubicación */
     .loc-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
-      transition: border-color 0.2s, opacity 0.2s;
-      animation: slideIn 0.22s ease;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .loc-card:hover {
-      border-color: #2a2f3a;
+      transition: border-color 0.2s;
     }
 
     .loc-card-header {
@@ -421,7 +298,6 @@
       gap: 9px;
       padding: 10px 12px;
       cursor: pointer;
-      user-select: none;
     }
 
     .loc-dot {
@@ -446,13 +322,11 @@
       font-weight: 700;
       padding: 2px 7px;
       border-radius: 20px;
-      flex-shrink: 0;
     }
 
     .loc-actions {
       display: flex;
       gap: 3px;
-      flex-shrink: 0;
     }
 
     .loc-btn {
@@ -461,17 +335,8 @@
       border-radius: 6px;
       border: none;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      transition: background 0.13s;
       background: transparent;
       color: var(--muted);
-    }
-
-    .loc-btn:hover {
-      background: rgba(255, 255, 255, 0.06);
     }
 
     .loc-btn.delete:hover {
@@ -503,16 +368,6 @@
       margin-bottom: 10px;
     }
 
-    .loc-edit-row input,
-    .loc-edit-row select {
-      font-size: 12px;
-      padding: 7px 10px;
-    }
-
-    .loc-edit-row input {
-      padding-left: 10px;
-    }
-
     .loc-color-row {
       display: flex;
       gap: 6px;
@@ -525,93 +380,26 @@
       border-radius: 6px;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: transform 0.12s, border-color 0.12s;
-    }
-
-    .loc-swatch:hover {
-      transform: scale(1.2);
     }
 
     .loc-swatch.active {
       border-color: white;
     }
 
-    /* Footer sidebar */
     .sidebar-footer {
       padding: 10px 22px;
       border-top: 1px solid var(--border);
       font-size: 10px;
       color: var(--muted);
       text-align: center;
-      flex-shrink: 0;
     }
 
-    /* Scrollbar personalizada */
-    ::-webkit-scrollbar {
-      width: 3px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 2px;
-    }
-
-    /* -------------------- MAPA -------------------- */
     #map {
       width: 100%;
       height: 100%;
       background: #0d0f14;
     }
 
-    .leaflet-container {
-      background: #0d0f14;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    .leaflet-tile {
-      filter: brightness(0.85) saturate(0.6) hue-rotate(180deg) invert(1);
-    }
-
-    .leaflet-control-zoom a {
-      background: var(--panel) !important;
-      color: var(--text) !important;
-      border-color: var(--border) !important;
-    }
-
-    .leaflet-control-attribution {
-      background: rgba(10, 12, 16, 0.75) !important;
-      color: var(--muted) !important;
-      font-size: 9px !important;
-    }
-
-    .leaflet-control-attribution a {
-      color: var(--accent) !important;
-    }
-
-    .leaflet-popup-content-wrapper {
-      background: var(--panel);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    }
-
-    .leaflet-popup-tip {
-      background: var(--panel);
-    }
-
-    .leaflet-popup-content {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      line-height: 1.5;
-      margin: 10px 14px;
-    }
-
-    /* Botón flotante "ver todo" */
     .btn-fit {
       position: absolute;
       bottom: 22px;
@@ -629,9 +417,7 @@
       display: flex;
       align-items: center;
       gap: 7px;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(2px);
     }
 
     .btn-fit:hover {
@@ -639,20 +425,16 @@
       color: var(--accent);
     }
 
-    /* Responsive */
     @media (max-width: 700px) {
       .app {
         grid-template-columns: 1fr;
         grid-template-rows: auto 1fr;
       }
-
       .sidebar {
         max-height: 58vh;
         overflow-y: auto;
       }
-
-      html,
-      body {
+      html, body {
         overflow: auto;
       }
     }
@@ -660,7 +442,6 @@
 </head>
 <body>
 <div class="app">
-  <!-- BARRA LATERAL -->
   <aside class="sidebar">
     <div class="header">
       <div class="logo">
@@ -670,18 +451,15 @@
       <div class="tagline">Visualiza múltiples radios en el mapa a la vez</div>
     </div>
 
-    <!-- Formulario agregar ubicación -->
     <div class="add-form">
       <div class="section-title">➕ Agregar ubicación</div>
-
       <div class="field-group">
-        <div class="input-wrap" style="position:relative;">
+        <div class="input-wrap">
           <span class="icon">🔍</span>
           <input type="text" id="locationInput" placeholder="Dirección, ciudad, lugar…" autocomplete="off" />
           <div class="suggestions-box" id="suggestions"></div>
         </div>
       </div>
-
       <div class="row-controls">
         <div class="input-wrap">
           <span class="icon">📐</span>
@@ -693,12 +471,11 @@
         </div>
         <div class="input-wrap">
           <span class="icon" style="font-size:10px; left:9px;">⭕</span>
-          <input type="number" id="radiusInput" value="1.5" min="0.05" step="0.2" style="padding-left:26px;" />
+          <input type="number" id="radiusInput" value="1.5" min="0.05" step="0.2" />
         </div>
       </div>
-
       <div>
-        <div class="section-title" style="margin-bottom:8px;">🎨 Color</div>
+        <div class="section-title">🎨 Color</div>
         <div class="swatch-row" id="colorPicker">
           <div class="color-swatch active" data-color="#00e5a0" style="background:#00e5a0;"></div>
           <div class="color-swatch" data-color="#0099ff" style="background:#0099ff;"></div>
@@ -710,17 +487,14 @@
           <div class="color-swatch" data-color="#ff6b6b" style="background:#ff6b6b;"></div>
         </div>
       </div>
-
       <div class="status loading" id="statusLoading"><div class="spinner"></div><span>Buscando dirección…</span></div>
       <div class="status error" id="statusError"><span>⚠️</span><span id="errorMsg">No encontrado.</span></div>
-
-      <button class="btn-add" id="addBtn">＋ &nbsp;Agregar al mapa</button>
+      <button class="btn-add" id="addBtn">＋ Agregar al mapa</button>
     </div>
 
-    <!-- Lista de ubicaciones activas -->
     <div class="locations-header">
       <div style="display:flex;align-items:center;">
-        <span class="section-title" style="margin:0;">Ubicaciones activas</span>
+        <span class="section-title">Ubicaciones activas</span>
         <span class="locations-count" id="locCount">0</span>
       </div>
       <button class="btn-clear-all" id="clearAllBtn">Limpiar todo</button>
@@ -732,11 +506,9 @@
         <div>Aún no hay ubicaciones.<br>Agrega la primera arriba.</div>
       </div>
     </div>
-
-    <div class="sidebar-footer">OpenStreetMap · Nominatim · Leaflet.js — Sin API key requerida</div>
+    <div class="sidebar-footer">OpenStreetMap · Nominatim · Leaflet.js</div>
   </aside>
 
-  <!-- MAPA -->
   <div style="position:relative;">
     <div id="map"></div>
     <button class="btn-fit" id="fitAllBtn">🗺️ Ver todo</button>
@@ -746,393 +518,316 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   (function() {
-    // ----- INICIALIZACIÓN MAPA -----
-    const map = L.map('map').setView([20, 0], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19,
-    }).addTo(map);
-
-    // ----- ESTADO GLOBAL -----
-    let locations = [];
-    let idCounter = 0;
-    let selectedColor = '#00e5a0';
-    let debounceTimer = null;
-
-    // Paleta de colores
-    const COLOR_PALETTE = ['#00e5a0','#0099ff','#ff4d6d','#ffd166','#c77dff','#ff9f1c','#00c8ff','#ff6b6b'];
-
-    // ----- ELEMENTOS DOM -----
-    const locationInput = document.getElementById('locationInput');
-    const suggestionsBox = document.getElementById('suggestions');
-    const radiusInput = document.getElementById('radiusInput');
-    const unitSelect = document.getElementById('unitSelect');
-    const addBtn = document.getElementById('addBtn');
-    const statusLoading = document.getElementById('statusLoading');
-    const statusError = document.getElementById('statusError');
-    const errorMsgSpan = document.getElementById('errorMsg');
-    const locationsContainer = document.getElementById('locationsList');
-    const emptyStateDiv = document.getElementById('emptyState');
-    const locCountSpan = document.getElementById('locCount');
-    const clearAllBtn = document.getElementById('clearAllBtn');
-    const fitAllBtn = document.getElementById('fitAllBtn');
-    const colorPickerDiv = document.getElementById('colorPicker');
-
-    // ----- UTILIDADES -----
-    function getUniqueId() {
-      return ++idCounter;
-    }
-
-    function metersToKm2(meters) {
-      const radiusKm = meters / 1000;
-      return (Math.PI * radiusKm * radiusKm).toFixed(2);
-    }
-
-    function formatRadius(value, unit) {
-      return `${parseFloat(value).toFixed(1)} ${unit}`;
-    }
-
-    function toMeters(value, unit) {
-      if (unit === 'km') return value * 1000;
-      if (unit === 'mi') return value * 1609.344;
-      return value;
-    }
-
-    function shortName(fullName) {
-      const parts = fullName.split(', ');
-      return parts.slice(0, 2).join(', ');
-    }
-
-    function setStatus(statusType) {
-      statusLoading.style.display = 'none';
-      statusError.style.display = 'none';
-      if (statusType === 'loading') statusLoading.style.display = 'flex';
-      if (statusType === 'error') statusError.style.display = 'flex';
-    }
-
-    // Color automático no usado (para siguiente)
-    function getUnusedColor() {
-      const used = locations.map(l => l.color);
-      const available = COLOR_PALETTE.find(c => !used.includes(c));
-      return available || COLOR_PALETTE[locations.length % COLOR_PALETTE.length];
-    }
-
-    function updateGlobalColorPicker(color) {
-      colorPickerDiv.querySelectorAll('.color-swatch').forEach(sw => {
-        sw.classList.toggle('active', sw.dataset.color === color);
-      });
-      selectedColor = color;
-    }
-
-    function preselectNextColor() {
-      const nextColor = getUnusedColor();
-      if (nextColor) {
-        selectedColor = nextColor;
-        updateGlobalColorPicker(nextColor);
+    console.log("Iniciando Radio Explorer...");
+    
+    // Esperar a que el DOM esté completamente cargado
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log("DOM cargado, inicializando mapa...");
+      
+      // Elementos del DOM
+      const mapDiv = document.getElementById('map');
+      if (!mapDiv) {
+        console.error("No se encontró el elemento #map");
+        return;
       }
-    }
-
-    // ----- DIBUJAR / ELIMINAR CAPAS EN MAPA -----
-    function drawLocationOnMap(loc) {
-      if (loc.circle) map.removeLayer(loc.circle);
-      if (loc.marker) map.removeLayer(loc.marker);
-      if (!loc.visible) return;
-
-      const radiusMeters = toMeters(parseFloat(loc.radius), loc.unit);
-      loc.circle = L.circle([loc.lat, loc.lng], {
-        radius: radiusMeters,
-        color: loc.color,
-        fillColor: loc.color,
-        fillOpacity: 0.12,
-        weight: 2,
-        dashArray: '5 5',
+      
+      // Inicializar mapa (Leaflet)
+      const map = L.map('map').setView([20, 0], 2);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
       }).addTo(map);
-
-      loc.marker = L.circleMarker([loc.lat, loc.lng], {
-        radius: 6,
-        color: loc.color,
-        fillColor: loc.color,
-        fillOpacity: 1,
-        weight: 2,
-      }).addTo(map);
-
-      loc.marker.bindPopup(`
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-          <span style="width:10px;height:10px;border-radius:50%;background:${loc.color};display:inline-block;"></span>
-          <strong style="font-size:13px;">${shortName(loc.name)}</strong>
-        </div>
-        <div style="font-size:11px;">Radio · ${formatRadius(loc.radius, loc.unit)}</div>
-        <div style="font-size:11px;">Área · ${metersToKm2(radiusMeters)} km²</div>
-      `, { maxWidth: 240 });
-    }
-
-    function removeLayerFromMap(loc) {
-      if (loc.circle) { map.removeLayer(loc.circle); loc.circle = null; }
-      if (loc.marker) { map.removeLayer(loc.marker); loc.marker = null; }
-    }
-
-    // ----- AJUSTAR VISTA A TODOS LOS RADIOS -----
-    function fitAllRadios() {
-      const visibleLocations = locations.filter(l => l.visible && l.circle);
-      if (!visibleLocations.length) return;
-      const bounds = visibleLocations.map(l => l.circle.getBounds()).reduce((acc, b) => acc.extend(b));
-      map.fitBounds(bounds, { padding: [50, 50] });
-    }
-
-    // ----- RENDER LISTA DE TARJETAS -----
-    function renderLocationsList() {
-      locCountSpan.textContent = locations.length;
-      emptyStateDiv.style.display = locations.length ? 'none' : 'flex';
-
-      // Eliminar tarjetas huérfanas
-      document.querySelectorAll('.loc-card').forEach(card => {
-        if (!locations.find(l => l.id == card.dataset.id)) card.remove();
-      });
-
-      locations.forEach(loc => {
-        let card = locationsContainer.querySelector(`.loc-card[data-id="${loc.id}"]`);
-        if (!card) {
-          card = buildLocationCard(loc);
-          locationsContainer.insertBefore(card, emptyStateDiv);
+      console.log("Mapa inicializado correctamente");
+      
+      // Estado
+      let locations = [];
+      let idCounter = 0;
+      let selectedColor = '#00e5a0';
+      let debounceTimer = null;
+      const COLOR_PALETTE = ['#00e5a0','#0099ff','#ff4d6d','#ffd166','#c77dff','#ff9f1c','#00c8ff','#ff6b6b'];
+      
+      // Elementos del DOM
+      const locationInput = document.getElementById('locationInput');
+      const suggestionsBox = document.getElementById('suggestions');
+      const radiusInput = document.getElementById('radiusInput');
+      const unitSelect = document.getElementById('unitSelect');
+      const addBtn = document.getElementById('addBtn');
+      const statusLoading = document.getElementById('statusLoading');
+      const statusError = document.getElementById('statusError');
+      const errorMsgSpan = document.getElementById('errorMsg');
+      const locationsContainer = document.getElementById('locationsList');
+      const emptyStateDiv = document.getElementById('emptyState');
+      const locCountSpan = document.getElementById('locCount');
+      const clearAllBtn = document.getElementById('clearAllBtn');
+      const fitAllBtn = document.getElementById('fitAllBtn');
+      const colorPickerDiv = document.getElementById('colorPicker');
+      
+      if (!locationInput || !addBtn) {
+        console.error("Faltan elementos críticos en el DOM");
+        return;
+      }
+      
+      // Utilidades
+      function getUniqueId() { return ++idCounter; }
+      function toMeters(val, unit) {
+        if (unit === 'km') return val * 1000;
+        if (unit === 'mi') return val * 1609.344;
+        return val;
+      }
+      function formatRadius(val, unit) { return `${parseFloat(val).toFixed(1)} ${unit}`; }
+      function shortName(full) { return full.split(', ').slice(0,2).join(', '); }
+      function setStatus(type) {
+        statusLoading.style.display = 'none';
+        statusError.style.display = 'none';
+        if (type === 'loading') statusLoading.style.display = 'flex';
+        if (type === 'error') statusError.style.display = 'flex';
+      }
+      
+      function updateGlobalColorPicker(color) {
+        colorPickerDiv.querySelectorAll('.color-swatch').forEach(sw => {
+          sw.classList.toggle('active', sw.dataset.color === color);
+        });
+        selectedColor = color;
+      }
+      
+      function preselectNextColor() {
+        const used = locations.map(l => l.color);
+        const next = COLOR_PALETTE.find(c => !used.includes(c)) || COLOR_PALETTE[locations.length % COLOR_PALETTE.length];
+        if (next) {
+          selectedColor = next;
+          updateGlobalColorPicker(next);
         }
-        syncCardWithLocation(card, loc);
-      });
-    }
-
-    function buildLocationCard(loc) {
-      const card = document.createElement('div');
-      card.className = 'loc-card';
-      card.dataset.id = loc.id;
-      card.innerHTML = `
-        <div class="loc-card-header">
-          <span class="loc-dot"></span>
-          <span class="loc-name"></span>
-          <span class="loc-badge"></span>
-          <div class="loc-actions">
-            <button class="loc-btn toggle-btn" title="Mostrar/Ocultar">👁️</button>
-            <button class="loc-btn focus-btn"  title="Centrar en mapa">🎯</button>
-            <button class="loc-btn delete"     title="Eliminar">✕</button>
+      }
+      
+      // Dibujar en mapa
+      function drawLocation(loc) {
+        if (loc.circle) map.removeLayer(loc.circle);
+        if (loc.marker) map.removeLayer(loc.marker);
+        if (!loc.visible) return;
+        
+        const radiusM = toMeters(parseFloat(loc.radius), loc.unit);
+        loc.circle = L.circle([loc.lat, loc.lng], {
+          radius: radiusM,
+          color: loc.color,
+          fillColor: loc.color,
+          fillOpacity: 0.12,
+          weight: 2,
+          dashArray: '5 5'
+        }).addTo(map);
+        
+        loc.marker = L.circleMarker([loc.lat, loc.lng], {
+          radius: 6,
+          color: loc.color,
+          fillColor: loc.color,
+          fillOpacity: 1,
+          weight: 2
+        }).addTo(map);
+        
+        loc.marker.bindPopup(`
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:${loc.color};"></span>
+            <strong>${shortName(loc.name)}</strong>
           </div>
-        </div>
-        <div class="loc-body">
-          <div class="loc-edit-row">
-            <select class="loc-unit-sel">
-              <option value="km">Kilómetros</option>
-              <option value="mi">Millas</option>
-              <option value="m">Metros</option>
-            </select>
-            <input type="number" class="loc-radius-inp" min="0.05" step="0.1" />
+          <div>Radio: ${formatRadius(loc.radius, loc.unit)}</div>
+          <div>Área: ${((Math.PI * Math.pow(radiusM/1000, 2)).toFixed(2))} km²</div>
+        `);
+      }
+      
+      function removeLayer(loc) {
+        if (loc.circle) map.removeLayer(loc.circle);
+        if (loc.marker) map.removeLayer(loc.marker);
+      }
+      
+      function fitAll() {
+        const visible = locations.filter(l => l.visible && l.circle);
+        if (!visible.length) return;
+        const bounds = visible.map(l => l.circle.getBounds()).reduce((a,b) => a.extend(b));
+        map.fitBounds(bounds, { padding: [50,50] });
+      }
+      
+      // Construcción de tarjetas
+      function buildCard(loc) {
+        const card = document.createElement('div');
+        card.className = 'loc-card';
+        card.dataset.id = loc.id;
+        card.innerHTML = `
+          <div class="loc-card-header">
+            <span class="loc-dot"></span>
+            <span class="loc-name"></span>
+            <span class="loc-badge"></span>
+            <div class="loc-actions">
+              <button class="loc-btn toggle-btn" title="Mostrar/Ocultar">👁️</button>
+              <button class="loc-btn focus-btn" title="Centrar">🎯</button>
+              <button class="loc-btn delete" title="Eliminar">✕</button>
+            </div>
           </div>
-          <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">Color personalizado</div>
-          <div class="loc-color-row"></div>
-        </div>`;
-
-      // Swatches de color individuales
-      const colorRow = card.querySelector('.loc-color-row');
-      COLOR_PALETTE.forEach(c => {
-        const sw = document.createElement('div');
-        sw.className = 'loc-swatch';
-        sw.dataset.color = c;
-        sw.style.background = c;
-        sw.addEventListener('click', (e) => {
-          e.stopPropagation();
-          colorRow.querySelectorAll('.loc-swatch').forEach(s => s.classList.remove('active'));
-          sw.classList.add('active');
-          loc.color = c;
-          drawLocationOnMap(loc);
-          syncCardWithLocation(card, loc);
-        });
-        colorRow.appendChild(sw);
-      });
-
-      // Eventos de la tarjeta
-      const header = card.querySelector('.loc-card-header');
-      header.addEventListener('click', (e) => {
-        if (e.target.closest('.loc-actions')) return;
-        card.querySelector('.loc-body').classList.toggle('open');
-      });
-
-      card.querySelector('.toggle-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        loc.visible = !loc.visible;
-        drawLocationOnMap(loc);
-        syncCardWithLocation(card, loc);
-      });
-
-      card.querySelector('.focus-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (loc.circle) map.fitBounds(loc.circle.getBounds(), { padding: [70, 70] });
-        else if (loc.marker) loc.marker.openPopup();
-      });
-
-      card.querySelector('.delete').addEventListener('click', (e) => {
-        e.stopPropagation();
-        removeLayerFromMap(loc);
-        locations = locations.filter(l => l.id !== loc.id);
-        card.style.transition = 'opacity 0.18s, transform 0.18s';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(-6px)';
-        setTimeout(() => {
-          card.remove();
-          renderLocationsList();
-        }, 180);
-      });
-
-      // Edición de radio y unidad
-      const radiusInp = card.querySelector('.loc-radius-inp');
-      const unitSel = card.querySelector('.loc-unit-sel');
-      radiusInp.addEventListener('input', function() {
-        loc.radius = parseFloat(this.value) || 0.5;
-        drawLocationOnMap(loc);
-        syncCardWithLocation(card, loc);
-      });
-      unitSel.addEventListener('change', function() {
-        loc.unit = this.value;
-        drawLocationOnMap(loc);
-        syncCardWithLocation(card, loc);
-      });
-
-      return card;
-    }
-
-    function syncCardWithLocation(card, loc) {
-      card.querySelector('.loc-dot').style.background = loc.color;
-      card.querySelector('.loc-name').textContent = shortName(loc.name);
-      const badge = card.querySelector('.loc-badge');
-      badge.textContent = formatRadius(loc.radius, loc.unit);
-      badge.style.background = loc.color + '20';
-      badge.style.color = loc.color;
-
-      card.querySelector('.loc-unit-sel').value = loc.unit;
-      card.querySelector('.loc-radius-inp').value = loc.radius;
-
-      const colorRow = card.querySelector('.loc-color-row');
-      colorRow.querySelectorAll('.loc-swatch').forEach(sw => {
-        sw.classList.toggle('active', sw.dataset.color === loc.color);
-      });
-
-      const toggleBtn = card.querySelector('.toggle-btn');
-      toggleBtn.style.opacity = loc.visible ? '1' : '0.45';
-      card.style.opacity = loc.visible ? '1' : '0.6';
-    }
-
-    // ----- AUTOCOMPLETADO NOMINATIM -----
-    async function fetchSuggestions(query, callback) {
-      try {
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&addressdetails=0`;
-        const resp = await fetch(url, { headers: { 'Accept-Language': 'es' } });
-        const data = await resp.json();
-        callback(data);
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-
-    function renderSuggestions(results, onSelect) {
-      suggestionsBox.innerHTML = '';
-      if (!results.length) {
-        suggestionsBox.classList.remove('active');
-        return;
-      }
-      results.forEach(place => {
-        const item = document.createElement('div');
-        item.className = 'suggestion-item';
-        const parts = place.display_name.split(', ');
-        item.innerHTML = `<span style="color:var(--accent);">📍</span>
-          <div><div class="s-main">${parts.slice(0,2).join(', ')}</div>
-          ${parts.length>2 ? `<div class="s-sub">${parts.slice(2).join(', ')}</div>` : ''}</div>`;
-        item.addEventListener('click', () => {
-          onSelect(place);
-          suggestionsBox.classList.remove('active');
-        });
-        suggestionsBox.appendChild(item);
-      });
-      suggestionsBox.classList.add('active');
-    }
-
-    locationInput.addEventListener('input', (e) => {
-      clearTimeout(debounceTimer);
-      const query = e.target.value.trim();
-      if (query.length < 3) {
-        suggestionsBox.classList.remove('active');
-        return;
-      }
-      debounceTimer = setTimeout(() => {
-        fetchSuggestions(query, (results) => {
-          renderSuggestions(results, (selected) => {
-            locationInput.value = selected.display_name;
+          <div class="loc-body">
+            <div class="loc-edit-row">
+              <select class="loc-unit-sel"><option value="km">Km</option><option value="mi">Mi</option><option value="m">m</option></select>
+              <input type="number" class="loc-radius-inp" min="0.05" step="0.1" />
+            </div>
+            <div class="loc-color-row"></div>
+          </div>
+        `;
+        
+        const colorRow = card.querySelector('.loc-color-row');
+        COLOR_PALETTE.forEach(c => {
+          const sw = document.createElement('div');
+          sw.className = 'loc-swatch';
+          sw.style.background = c;
+          sw.dataset.color = c;
+          sw.addEventListener('click', (e) => {
+            e.stopPropagation();
+            colorRow.querySelectorAll('.loc-swatch').forEach(s => s.classList.remove('active'));
+            sw.classList.add('active');
+            loc.color = c;
+            drawLocation(loc);
+            syncCard(card, loc);
           });
+          colorRow.appendChild(sw);
         });
-      }, 350);
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.input-wrap')) suggestionsBox.classList.remove('active');
-    });
-
-    // ----- AGREGAR UBICACIÓN -----
-    addBtn.addEventListener('click', async () => {
-      const query = locationInput.value.trim();
-      if (!query) {
-        errorMsgSpan.textContent = 'Escribe una dirección o lugar.';
-        setStatus('error');
-        return;
+        
+        // Eventos
+        card.querySelector('.loc-card-header').addEventListener('click', (e) => {
+          if (!e.target.closest('.loc-actions')) card.querySelector('.loc-body').classList.toggle('open');
+        });
+        card.querySelector('.toggle-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          loc.visible = !loc.visible;
+          drawLocation(loc);
+          syncCard(card, loc);
+        });
+        card.querySelector('.focus-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (loc.circle) map.fitBounds(loc.circle.getBounds(), { padding: [70,70] });
+        });
+        card.querySelector('.delete').addEventListener('click', (e) => {
+          e.stopPropagation();
+          removeLayer(loc);
+          locations = locations.filter(l => l.id !== loc.id);
+          card.remove();
+          renderList();
+        });
+        
+        const radiusInp = card.querySelector('.loc-radius-inp');
+        const unitSel = card.querySelector('.loc-unit-sel');
+        radiusInp.addEventListener('input', () => { loc.radius = parseFloat(radiusInp.value) || 0.5; drawLocation(loc); syncCard(card, loc); });
+        unitSel.addEventListener('change', () => { loc.unit = unitSel.value; drawLocation(loc); syncCard(card, loc); });
+        
+        return card;
       }
-      setStatus('loading');
-      addBtn.disabled = true;
-      try {
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`;
-        const response = await fetch(url, { headers: { 'Accept-Language': 'es' } });
-        const data = await response.json();
-        if (!data.length) throw new Error('no results');
-
-        const newLocation = {
-          id: getUniqueId(),
-          name: data[0].display_name,
-          lat: parseFloat(data[0].lat),
-          lng: parseFloat(data[0].lon),
-          radius: parseFloat(radiusInput.value) || 1,
-          unit: unitSelect.value,
-          color: selectedColor,
-          visible: true,
-          circle: null,
-          marker: null,
-        };
-        locations.push(newLocation);
-        drawLocationOnMap(newLocation);
-        renderLocationsList();
-        setStatus(null);
-        locationInput.value = '';
-        preselectNextColor();
-        fitAllRadios();
-      } catch (err) {
-        errorMsgSpan.textContent = 'No se encontró la ubicación. Intenta con más detalles.';
-        setStatus('error');
-      } finally {
-        addBtn.disabled = false;
+      
+      function syncCard(card, loc) {
+        card.querySelector('.loc-dot').style.background = loc.color;
+        card.querySelector('.loc-name').textContent = shortName(loc.name);
+        const badge = card.querySelector('.loc-badge');
+        badge.textContent = formatRadius(loc.radius, loc.unit);
+        badge.style.background = loc.color + '20';
+        badge.style.color = loc.color;
+        card.querySelector('.loc-unit-sel').value = loc.unit;
+        card.querySelector('.loc-radius-inp').value = loc.radius;
+        const colorRow = card.querySelector('.loc-color-row');
+        colorRow.querySelectorAll('.loc-swatch').forEach(sw => sw.classList.toggle('active', sw.dataset.color === loc.color));
+        card.querySelector('.toggle-btn').style.opacity = loc.visible ? '1' : '0.45';
+        card.style.opacity = loc.visible ? '1' : '0.6';
       }
-    });
-
-    locationInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') addBtn.click();
-    });
-
-    // ----- LIMPIAR TODO -----
-    clearAllBtn.addEventListener('click', () => {
-      locations.forEach(loc => removeLayerFromMap(loc));
-      locations = [];
-      renderLocationsList();
-    });
-
-    fitAllBtn.addEventListener('click', fitAllRadios);
-
-    // ----- INICIALIZAR COLOR POR DEFECTO -----
-    function initColorSelection() {
-      selectedColor = '#00e5a0';
+      
+      function renderList() {
+        locCountSpan.textContent = locations.length;
+        emptyStateDiv.style.display = locations.length ? 'none' : 'flex';
+        locations.forEach(loc => {
+          let card = locationsContainer.querySelector(`.loc-card[data-id="${loc.id}"]`);
+          if (!card) {
+            card = buildCard(loc);
+            locationsContainer.insertBefore(card, emptyStateDiv);
+          }
+          syncCard(card, loc);
+        });
+        // Eliminar huérfanos
+        document.querySelectorAll('.loc-card').forEach(card => {
+          if (!locations.find(l => l.id == card.dataset.id)) card.remove();
+        });
+      }
+      
+      // Autocompletado
+      async function fetchSuggestions(q, callback) {
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=5`, { headers: { 'Accept-Language': 'es' } });
+          const data = await res.json();
+          callback(data);
+        } catch(e) { console.warn(e); callback([]); }
+      }
+      
+      function showSuggestions(results, onSelect) {
+        suggestionsBox.innerHTML = '';
+        if (!results.length) { suggestionsBox.classList.remove('active'); return; }
+        results.forEach(r => {
+          const div = document.createElement('div');
+          div.className = 'suggestion-item';
+          div.innerHTML = `<span>📍</span><div><strong>${r.display_name.split(', ').slice(0,2).join(', ')}</strong></div>`;
+          div.addEventListener('click', () => { onSelect(r); suggestionsBox.classList.remove('active'); });
+          suggestionsBox.appendChild(div);
+        });
+        suggestionsBox.classList.add('active');
+      }
+      
+      locationInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        const q = locationInput.value.trim();
+        if (q.length < 3) { suggestionsBox.classList.remove('active'); return; }
+        debounceTimer = setTimeout(() => {
+          fetchSuggestions(q, (results) => {
+            showSuggestions(results, (selected) => { locationInput.value = selected.display_name; });
+          });
+        }, 350);
+      });
+      document.addEventListener('click', (e) => { if (!e.target.closest('.input-wrap')) suggestionsBox.classList.remove('active'); });
+      
+      // Agregar ubicación
+      addBtn.addEventListener('click', async () => {
+        const query = locationInput.value.trim();
+        if (!query) { errorMsgSpan.textContent = 'Escribe una dirección.'; setStatus('error'); return; }
+        setStatus('loading');
+        addBtn.disabled = true;
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`, { headers: { 'Accept-Language': 'es' } });
+          const data = await res.json();
+          if (!data.length) throw new Error();
+          const newLoc = {
+            id: getUniqueId(),
+            name: data[0].display_name,
+            lat: parseFloat(data[0].lat),
+            lng: parseFloat(data[0].lon),
+            radius: parseFloat(radiusInput.value) || 1,
+            unit: unitSelect.value,
+            color: selectedColor,
+            visible: true,
+            circle: null, marker: null
+          };
+          locations.push(newLoc);
+          drawLocation(newLoc);
+          renderList();
+          setStatus(null);
+          locationInput.value = '';
+          preselectNextColor();
+          fitAll();
+        } catch(e) {
+          errorMsgSpan.textContent = 'No se encontró la ubicación.';
+          setStatus('error');
+        } finally {
+          addBtn.disabled = false;
+        }
+      });
+      
+      locationInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addBtn.click(); });
+      clearAllBtn.addEventListener('click', () => { locations.forEach(l => removeLayer(l)); locations = []; renderList(); });
+      fitAllBtn.addEventListener('click', fitAll);
+      
+      // Inicializar color
       updateGlobalColorPicker('#00e5a0');
-    }
-    initColorSelection();
-    renderLocationsList();
+      renderList();
+      console.log("Radio Explorer listo");
+    });
   })();
 </script>
 </body>
