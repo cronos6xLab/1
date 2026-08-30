@@ -594,6 +594,11 @@ textarea { resize: vertical; min-height: 80px; }
 
 .modal-overlay.visible { display: flex; animation: fadeIn 0.2s ease; }
 
+/* Aseguramos que el modal de gestionar quede por encima del de roles si ambos se llaman */
+#manage-modal {
+  z-index: 6000;
+}
+
 .role-card {
   width: 100%;
   max-width: 380px;
@@ -819,7 +824,7 @@ textarea { resize: vertical; min-height: 80px; }
   </div>
   <div class="lang-subtitle" id="lang-pick-label">Select your language / Elige tu idioma</div>
   <div class="lang-grid" id="lang-grid"></div>
-  <button class="lang-confirm" id="lang-confirm-btn" onclick="confirmLanguage()">Continue →</button>
+  <button type="button" class="lang-confirm" id="lang-confirm-btn" onclick="confirmLanguage()">Continue →</button>
 </div>
 
 <!-- ROLE MODAL -->
@@ -827,14 +832,14 @@ textarea { resize: vertical; min-height: 80px; }
 
 <!-- MANAGE PLAYERS MODAL -->
 <div class="modal-overlay" id="manage-modal">
-  <div class="role-card" style="border-color: var(--primary);">
+  <div class="role-card" style="border-color: var(--primary); text-align: left;">
     <div class="card-title" style="justify-content: center; margin-bottom: 20px;" data-i18n="manage_players_title">GESTIONAR JUGADORES</div>
     <div class="manage-list" id="manage-list"></div>
-    <div class="row">
+    <div class="row" style="align-items: center;">
       <input type="text" id="new-player-name-mid" style="flex:1; margin:0;" placeholder="Nombre..." data-i18n-placeholder="add_player_placeholder">
-      <button class="btn btn-primary btn-sm" style="margin:0; padding: 12px 16px;" onclick="addPlayerMidGame()">+</button>
+      <button type="button" class="btn btn-primary btn-sm" style="margin:0; padding: 0 16px; height: 42px;" onclick="addPlayerMidGame()">+</button>
     </div>
-    <button class="btn btn-ghost" onclick="closeManagePlayers()" style="margin-top: 20px;" data-i18n="btn_close">Cerrar</button>
+    <button type="button" class="btn btn-ghost" onclick="closeManagePlayers()" style="margin-top: 20px;" data-i18n="btn_close">Cerrar</button>
   </div>
 </div>
 
@@ -843,7 +848,7 @@ textarea { resize: vertical; min-height: 80px; }
   <!-- =================== SETUP =================== -->
   <div id="screen-setup" class="screen active">
     <div class="header">
-      <button class="lang-toggle-btn" onclick="openLangSelector()" title="Change language">🌐</button>
+      <button type="button" class="lang-toggle-btn" onclick="openLangSelector()" title="Change language">🌐</button>
       <div class="game-title" id="title-main">🕵️ IMPOSTOR</div>
       <div class="game-tagline" id="tagline-main">Ultimate Edition</div>
     </div>
@@ -851,7 +856,7 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card">
       <div class="section-header">
         <div class="card-title" data-i18n="setup_title">⚙️ CONFIGURACIÓN</div>
-        <button class="help-btn" onclick="toggleHelp('help-setup')" data-i18n="btn_help">HELP</button>
+        <button type="button" class="help-btn" onclick="toggleHelp('help-setup')" data-i18n="btn_help">HELP</button>
       </div>
       <div class="help-panel" id="help-setup">
         <h4 data-i18n="help_setup_title">Configuration</h4>
@@ -862,18 +867,18 @@ textarea { resize: vertical; min-height: 80px; }
         <div class="col field">
           <div class="section-label" data-i18n="label_players">Players</div>
           <div class="stepper">
-            <button onclick="stepperChange('num-players',-1)">−</button>
+            <button type="button" onclick="stepperChange('num-players',-1)">−</button>
             <div class="stepper-val" id="num-players-display">4</div>
-            <button onclick="stepperChange('num-players',1)">+</button>
+            <button type="button" onclick="stepperChange('num-players',1)">+</button>
           </div>
           <input type="hidden" id="num-players" value="4">
         </div>
         <div class="col field">
           <div class="section-label" data-i18n="label_impostors">Impostors</div>
           <div class="stepper">
-            <button onclick="stepperChange('num-impostors',-1)">−</button>
+            <button type="button" onclick="stepperChange('num-impostors',-1)">−</button>
             <div class="stepper-val" id="num-impostors-display">1</div>
-            <button onclick="stepperChange('num-impostors',1)">+</button>
+            <button type="button" onclick="stepperChange('num-impostors',1)">+</button>
           </div>
           <input type="hidden" id="num-impostors" value="1">
         </div>
@@ -882,9 +887,9 @@ textarea { resize: vertical; min-height: 80px; }
       <div class="field">
         <div class="section-label" data-i18n="label_time">Time (minutes)</div>
         <div class="stepper">
-          <button onclick="stepperChange('game-time',-1)">−</button>
+          <button type="button" onclick="stepperChange('game-time',-1)">−</button>
           <div class="stepper-val" id="game-time-display">5</div>
-          <button onclick="stepperChange('game-time',1)">+</button>
+          <button type="button" onclick="stepperChange('game-time',1)">+</button>
         </div>
         <input type="hidden" id="game-time" value="5">
       </div>
@@ -902,13 +907,13 @@ textarea { resize: vertical; min-height: 80px; }
         </select>
         <div class="sound-row">
           <span id="selected-sound-name">—</span>
-          <button class="btn btn-ghost btn-sm" onclick="testAlarmSound()" data-i18n="btn_test_sound">Test</button>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="testAlarmSound()" data-i18n="btn_test_sound">Test</button>
         </div>
       </div>
     </div>
 
-    <button class="btn btn-primary" onclick="goToCategories(true)" data-i18n="btn_continue">Continue →</button>
-    <button class="btn btn-ghost" onclick="showScreen('screen-history')" style="margin-top: 10px;" data-i18n="btn_history">📜 Historial</button>
+    <button type="button" class="btn btn-primary" onclick="goToCategories(true)" data-i18n="btn_continue">Continue →</button>
+    <button type="button" class="btn btn-ghost" onclick="showScreen('screen-history')" style="margin-top: 10px;" data-i18n="btn_history">📜 Historial</button>
   </div>
 
   <!-- =================== HISTORY =================== -->
@@ -919,8 +924,8 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card">
       <div id="history-list" class="scroll-list"></div>
     </div>
-    <button class="btn btn-danger" onclick="clearHistory()" data-i18n="btn_clear_history">🗑️ Borrar Historial</button>
-    <button class="btn btn-ghost" onclick="showScreen('screen-setup')" style="margin-top: 10px;" data-i18n="btn_back">← Atrás</button>
+    <button type="button" class="btn btn-danger" onclick="clearHistory()" data-i18n="btn_clear_history">🗑️ Borrar Historial</button>
+    <button type="button" class="btn btn-ghost" onclick="showScreen('screen-setup')" style="margin-top: 10px;" data-i18n="btn_back">← Atrás</button>
   </div>
 
   <!-- =================== CATEGORIES =================== -->
@@ -932,7 +937,7 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card">
       <div class="section-header">
         <div class="card-title" data-i18n="cats_pick">PICK THEMES</div>
-        <button class="help-btn" onclick="toggleHelp('help-cats')" data-i18n="btn_help">HELP</button>
+        <button type="button" class="help-btn" onclick="toggleHelp('help-cats')" data-i18n="btn_help">HELP</button>
       </div>
       <div class="help-panel" id="help-cats">
         <h4 data-i18n="help_cats_title">Categories</h4>
@@ -947,8 +952,8 @@ textarea { resize: vertical; min-height: 80px; }
       </div>
     </div>
 
-    <button class="btn btn-primary" onclick="goToNames()" data-i18n="btn_next">Next →</button>
-    <button class="btn btn-ghost" onclick="fullReset()" data-i18n="btn_back_main">← Main Menu</button>
+    <button type="button" class="btn btn-primary" onclick="goToNames()" data-i18n="btn_next">Next →</button>
+    <button type="button" class="btn btn-ghost" onclick="fullReset()" data-i18n="btn_back_main">← Main Menu</button>
   </div>
 
   <!-- =================== NAMES =================== -->
@@ -960,7 +965,7 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card">
       <div class="section-header">
         <div class="card-title" data-i18n="names_assign">ASIGNAR NOMBRES</div>
-        <button class="help-btn" onclick="toggleHelp('help-names')" data-i18n="btn_help">HELP</button>
+        <button type="button" class="help-btn" onclick="toggleHelp('help-names')" data-i18n="btn_help">HELP</button>
       </div>
       <div class="help-panel" id="help-names">
         <h4 data-i18n="help_names_title">Player Names</h4>
@@ -968,14 +973,14 @@ textarea { resize: vertical; min-height: 80px; }
       </div>
       <div class="scroll-list" id="names-list"></div>
       
-      <div class="row" style="margin-top: 12px;">
+      <div class="row" style="margin-top: 12px; align-items: center;">
         <input type="text" id="new-player-name-setup" style="flex:1; margin:0;" placeholder="Nombre..." data-i18n-placeholder="add_player_placeholder">
-        <button class="btn btn-primary btn-sm" style="margin:0; padding: 12px 16px; height: 100%;" onclick="addPlayerInSetup()">+</button>
+        <button type="button" class="btn btn-primary btn-sm" style="margin:0; padding: 0 16px; height: 42px;" onclick="addPlayerInSetup()">+</button>
       </div>
     </div>
 
-    <button class="btn btn-primary" onclick="assignRoles()" data-i18n="btn_deal_roles">Deal Roles 🎲</button>
-    <button class="btn btn-ghost" onclick="showScreen('screen-categories')" data-i18n="btn_back">← Back</button>
+    <button type="button" class="btn btn-primary" onclick="assignRoles()" data-i18n="btn_deal_roles">Deal Roles 🎲</button>
+    <button type="button" class="btn btn-ghost" onclick="showScreen('screen-categories')" data-i18n="btn_back">← Back</button>
   </div>
 
   <!-- =================== REVEAL =================== -->
@@ -987,7 +992,7 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card">
       <div class="section-header">
         <div class="card-title" data-i18n="reveal_secret">SECRET IDENTITY</div>
-        <button class="help-btn" onclick="toggleHelp('help-reveal')" data-i18n="btn_help">HELP</button>
+        <button type="button" class="help-btn" onclick="toggleHelp('help-reveal')" data-i18n="btn_help">HELP</button>
       </div>
       <div class="help-panel" id="help-reveal">
         <h4 data-i18n="help_reveal_title">Role Reveal</h4>
@@ -997,8 +1002,8 @@ textarea { resize: vertical; min-height: 80px; }
       <div id="reveal-list"></div>
     </div>
 
-    <button id="btn-begin-debate" class="btn btn-primary hidden" onclick="startDebate()" data-i18n="btn_start_game">🔥 Start Game</button>
-    <button class="btn btn-ghost" onclick="showScreen('screen-names')" data-i18n="btn_back">← Back</button>
+    <button type="button" id="btn-begin-debate" class="btn btn-primary hidden" onclick="startDebate()" data-i18n="btn_start_game">🔥 Start Game</button>
+    <button type="button" class="btn btn-ghost" onclick="showScreen('screen-names')" data-i18n="btn_back">← Back</button>
   </div>
 
   <!-- =================== GAME =================== -->
@@ -1010,7 +1015,7 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="card" style="text-align:center;">
       <div class="section-header">
         <div class="card-title" data-i18n="game_timer_label">TIMER</div>
-        <button class="help-btn" onclick="toggleHelp('help-game')" data-i18n="btn_help">HELP</button>
+        <button type="button" class="help-btn" onclick="toggleHelp('help-game')" data-i18n="btn_help">HELP</button>
       </div>
       <div class="help-panel" id="help-game">
         <h4 data-i18n="help_game_title">How to Play</h4>
@@ -1025,12 +1030,12 @@ textarea { resize: vertical; min-height: 80px; }
       </div>
     </div>
 
-    <button class="btn btn-primary" id="btn-pause" onclick="togglePause()" data-i18n="btn_pause">⏸ Pause</button>
-    <button class="btn btn-danger" onclick="revealAndEndGame()" data-i18n="btn_reveal_end" style="margin-top: 10px;">👁️ Revelar y Terminar</button>
-    <button class="btn btn-ghost" onclick="openManagePlayers()" data-i18n="btn_manage_players" style="margin-top: 10px;">👥 Gestionar Jugadores</button>
+    <button type="button" class="btn btn-primary" id="btn-pause" onclick="togglePause()" data-i18n="btn_pause">⏸ Pause</button>
+    <button type="button" class="btn btn-danger" onclick="revealAndEndGame()" data-i18n="btn_reveal_end" style="margin-top: 10px;">👁️ Revelar y Terminar</button>
+    <button type="button" class="btn btn-ghost" onclick="openManagePlayers()" data-i18n="btn_manage_players" style="margin-top: 10px;">👥 Gestionar Jugadores</button>
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="softReset()" data-i18n="btn_new_game">🔄 New Game</button>
-      <button class="btn btn-danger" onclick="fullReset()" data-i18n="btn_main_menu">🏠 Menu</button>
+      <button type="button" class="btn btn-ghost" onclick="softReset()" data-i18n="btn_new_game">🔄 New Game</button>
+      <button type="button" class="btn btn-danger" onclick="fullReset()" data-i18n="btn_main_menu">🏠 Menu</button>
     </div>
   </div>
 
@@ -1161,6 +1166,37 @@ let audioContext = null;
 let openHelpId = null;
 
 // =====================================================
+// WAKE LOCK API (MANTENER PANTALLA ENCENDIDA)
+// =====================================================
+let wakeLock = null;
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => {
+        // console.log('Wake Lock was released');
+      });
+    }
+  } catch (err) {
+    console.error(`Wake Lock error: ${err.name}, ${err.message}`);
+  }
+}
+
+function releaseWakeLock() {
+  if (wakeLock !== null) {
+    wakeLock.release().then(() => wakeLock = null);
+  }
+}
+
+// Re-acquire wake lock if user switches tabs and comes back
+document.addEventListener('visibilitychange', async () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    await requestWakeLock();
+  }
+});
+
+// =====================================================
 // LANG SELECTOR
 // =====================================================
 function buildLangGrid() {
@@ -1168,6 +1204,7 @@ function buildLangGrid() {
   grid.innerHTML = '';
   languages.forEach(l => {
     const btn = document.createElement('button');
+    btn.type = 'button';
     btn.className = 'lang-btn' + (l.code === selectedLang ? ' active' : '');
     btn.innerHTML = `<span class="lang-flag">${l.flag}</span><span>${l.name}</span>`;
     btn.onclick = () => {
@@ -1319,7 +1356,6 @@ function goToCategories(fromSetup = false) {
     if (gameConfig.players < 3) return alert(t('err_min_players'));
     if (gameConfig.impostors >= gameConfig.players) return alert(t('err_impostors'));
 
-    // Sync savedPlayerNames array length with the stepper value
     while (savedPlayerNames.length < gameConfig.players) {
       savedPlayerNames.push('');
     }
@@ -1353,10 +1389,11 @@ function renderNamesList() {
   savedPlayerNames.forEach((name, i) => {
     const row = document.createElement('div');
     row.className = 'player-input-row';
+    const safeName = name.replace(/"/g, '&quot;');
     row.innerHTML = `
       <span class="player-num">${i + 1}.</span>
-      <input type="text" value="${name || ''}" placeholder="${t('player_default')} ${i + 1}" oninput="updatePlayerName(${i}, this.value)">
-      <button class="remove-player-btn" onclick="removePlayerInSetup(${i})">✕</button>
+      <input type="text" value="${safeName}" placeholder="${t('player_default')} ${i + 1}" oninput="updatePlayerName(${i}, this.value)">
+      <button type="button" class="remove-player-btn" onclick="removePlayerInSetup(${i})">✕</button>
     `;
     list.appendChild(row);
   });
@@ -1418,7 +1455,7 @@ function addGameToHistory() {
     impostors: impNames,
     players: savedPlayerNames.join(', ')
   });
-  if(history.length > 20) history.pop(); // Keep max 20 records
+  if(history.length > 20) history.pop();
   localStorage.setItem('impostor_history', JSON.stringify(history));
 }
 
@@ -1486,18 +1523,15 @@ function getSecretWord() {
 }
 
 function assignRoles() {
-  // Filter empty names
   savedPlayerNames = savedPlayerNames.map(n => n.trim()).filter(n => n);
   
   if (savedPlayerNames.length < 3) return alert(t('err_min_players'));
   if (savedPlayerNames.length <= gameConfig.impostors) return alert(t('err_impostors'));
 
-  // Fill defaults if empty (though filter removes them, if user left blank we just re-add default or rely on previous)
   for (let i = 0; i < savedPlayerNames.length; i++) {
     if (!savedPlayerNames[i]) savedPlayerNames[i] = `${t('player_default')} ${i + 1}`;
   }
 
-  // Sync gameConfig to actual valid names
   gameConfig.players = savedPlayerNames.length;
 
   const word = getSecretWord();
@@ -1543,7 +1577,7 @@ function showRole(playerIndex) {
         <div class="word-box">${gameData.secretWord}</div>
       ` : ''}
       <p class="role-hint">${isImpostor ? t('impostor_hint') : t('civil_hint')}</p>
-      <button class="btn btn-primary" onclick="closeRole(${playerIndex})">${t('btn_understood')}</button>
+      <button type="button" class="btn btn-primary" onclick="closeRole(${playerIndex})">${t('btn_understood')}</button>
     </div>
   `;
   modal.classList.add('visible');
@@ -1571,6 +1605,7 @@ function startDebate() {
   
   showScreen('screen-game');
   startTimer();
+  requestWakeLock(); // Activar pantalla siempre encendida
 }
 
 function startTimer() {
@@ -1585,6 +1620,7 @@ function startTimer() {
         if (!gameData.gameEnded) {
           gameData.gameEnded = true;
           addGameToHistory();
+          releaseWakeLock(); // Liberar pantalla
           alert(t('time_up_msg'));
           softReset(true);
         }
@@ -1617,6 +1653,7 @@ function revealAndEndGame() {
   gameData.paused = true;
   gameData.gameEnded = true;
   addGameToHistory();
+  releaseWakeLock(); // Liberar pantalla
   
   const impostorNames = gameData.impostorIndices.map(i => savedPlayerNames[i]).join(', ');
   const modal = document.getElementById('role-modal');
@@ -1629,7 +1666,7 @@ function revealAndEndGame() {
       <div class="word-box">${gameData.secretWord}</div>
       <div style="font-size: 0.85rem; color: var(--impostor); margin: 16px 0 8px;">${t('label_impostor_was')}</div>
       <div class="word-box" style="border-color: var(--impostor); color: var(--impostor);">${impostorNames}</div>
-      <button class="btn btn-danger" onclick="closeEndGameModal()">${t('btn_close')}</button>
+      <button type="button" class="btn btn-danger" onclick="closeEndGameModal()">${t('btn_close')}</button>
     </div>
   `;
   modal.classList.add('visible');
@@ -1645,6 +1682,7 @@ function softReset(skipConfirm = false) {
   clearInterval(gameData.timerInterval);
   gameData.paused = false;
   gameData.gameEnded = false;
+  releaseWakeLock(); // Liberar pantalla
   assignRoles();
 }
 
@@ -1654,6 +1692,7 @@ function fullReset(skipConfirm = false) {
   savedPlayerNames = [];
   gameData.usedWords = [];
   gameData.gameEnded = false;
+  releaseWakeLock(); // Liberar pantalla
   showScreen('screen-setup');
 }
 
@@ -1663,6 +1702,7 @@ function fullReset(skipConfirm = false) {
 function openManagePlayers() {
   gameData.paused = true;
   document.getElementById('btn-pause').textContent = t('btn_resume');
+  document.getElementById('role-modal').classList.remove('visible'); // Prevenir bloqueo
   renderManageList();
   document.getElementById('manage-modal').classList.add('visible');
 }
@@ -1677,9 +1717,10 @@ function renderManageList() {
   savedPlayerNames.forEach((name, i) => {
     const item = document.createElement('div');
     item.className = 'manage-item';
+    const safeName = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     item.innerHTML = `
-      <span>${i + 1}. ${name}</span>
-      <button class="remove-player-btn" onclick="removePlayerMidGame(${i})">✕</button>
+      <span>${i + 1}. ${safeName}</span>
+      <button type="button" class="remove-player-btn" onclick="removePlayerMidGame(${i})">✕</button>
     `;
     list.appendChild(item);
   });
@@ -1737,7 +1778,7 @@ function addPlayerMidGame() {
       <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">${t('civil_word_label')}</div>
       <div class="word-box">${gameData.secretWord}</div>
       <p class="role-hint">${t('civil_hint')}</p>
-      <button class="btn btn-primary" onclick="closeRole(${playerIdx})">${t('btn_understood')}</button>
+      <button type="button" class="btn btn-primary" onclick="closeRole(${playerIdx})">${t('btn_understood')}</button>
     </div>
   `;
   roleModal.classList.add('visible');
