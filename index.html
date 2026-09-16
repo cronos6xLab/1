@@ -71,7 +71,6 @@
     pointer-events: none;
     z-index: 0;
   }
-
   body::after {
     content: '';
     position: fixed;
@@ -96,7 +95,6 @@
     background-size: auto, 7px 7px; pointer-events: none;
   }
   #lang-overlay > * { position: relative; }
-
   .lang-logo-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; transform: rotate(-2deg); }
   .lang-icon { font-size: clamp(2.4rem, 8vw, 3rem); line-height: 1; filter: drop-shadow(4px 4px 0 var(--ink)); }
   .lang-logo {
@@ -113,10 +111,7 @@
     font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
     box-shadow: var(--shadow-sm); border-radius: 6px;
   }
-  .lang-btn:hover, .lang-btn.active {
-    background: var(--yellow); color: var(--ink); border-color: var(--ink);
-    transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
-  }
+  .lang-btn:hover, .lang-btn.active { background: var(--yellow); color: var(--ink); border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
   .lang-flag { font-size: 1.7rem; line-height: 1; }
   .lang-confirm {
     margin-top: 30px; padding: 15px 52px; background: var(--yellow); color: var(--ink);
@@ -154,21 +149,13 @@
   .lang-toggle-btn:hover { background: var(--yellow); color: var(--ink); border-color: var(--ink); transform: rotate(-8deg) translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
 
   /* CARD */
-  .card {
-    background: var(--bg-2); border: var(--border-w) solid var(--white);
-    border-radius: 10px; padding: 20px; margin-bottom: 14px; position: relative;
-    box-shadow: var(--shadow);
-  }
+  .card { background: var(--bg-2); border: var(--border-w) solid var(--white); border-radius: 10px; padding: 20px; margin-bottom: 14px; position: relative; box-shadow: var(--shadow); }
   .card::before {
     content: ''; position: absolute; top: 6px; right: 6px; width: 44px; height: 44px;
     background-image: radial-gradient(circle, var(--yellow) 1.2px, transparent 1.6px);
     background-size: 6px 6px; opacity: 0.28; pointer-events: none; border-radius: 0 8px 0 0;
   }
-  .card-title {
-    font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
-    letter-spacing: 1.5px; color: var(--yellow); display: flex; align-items: center; gap: 8px;
-    text-transform: uppercase; text-shadow: 2px 2px 0 var(--ink);
-  }
+  .card-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; letter-spacing: 1.5px; color: var(--yellow); display: flex; align-items: center; gap: 8px; text-transform: uppercase; text-shadow: 2px 2px 0 var(--ink); }
 
   .section-label { font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; font-weight: 700; opacity: 0.85; }
   .row { display: flex; gap: 12px; }
@@ -178,7 +165,6 @@
   .field { margin-bottom: 18px; }
   .field:last-child { margin-bottom: 0; }
   label.field-label { display: block; font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; font-weight: 700; }
-
   input[type="number"], input[type="text"], select, textarea {
     width: 100%; padding: 12px 14px; background: var(--bg-3);
     border: var(--border-w) solid var(--white); color: var(--white);
@@ -187,10 +173,7 @@
     border-radius: 8px; box-shadow: var(--shadow-sm);
   }
   input::placeholder, textarea::placeholder { color: var(--gray); opacity: 0.75; font-weight: 500; }
-  input:focus, select:focus, textarea:focus {
-    outline: none; background: var(--bg); border-color: var(--yellow);
-    transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--yellow);
-  }
+  input:focus, select:focus, textarea:focus { outline: none; background: var(--bg); border-color: var(--yellow); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--yellow); }
   select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffe600' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 12px center; padding-right: 38px; cursor: pointer;
@@ -222,19 +205,11 @@
     box-shadow: var(--shadow-sm);
   }
   .cat-item label:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--yellow); }
-  .cat-item input:checked + label {
-    background: var(--yellow); color: var(--ink); border-color: var(--ink);
-    transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--red); text-shadow: none;
-  }
+  .cat-item input:checked + label { background: var(--yellow); color: var(--ink); border-color: var(--ink); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--red); text-shadow: none; }
   .cat-item.full { grid-column: span 2; }
 
   /* SOUND */
-  .sound-row {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    margin-top: 10px; padding: 10px 14px; background: var(--bg-3);
-    border: var(--border-w) solid var(--white); font-family: var(--font-marker);
-    font-size: 0.85rem; color: var(--white); border-radius: 8px; box-shadow: var(--shadow-sm);
-  }
+  .sound-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; padding: 10px 14px; background: var(--bg-3); border: var(--border-w) solid var(--white); font-family: var(--font-marker); font-size: 0.85rem; color: var(--white); border-radius: 8px; box-shadow: var(--shadow-sm); }
 
   /* BUTTONS */
   .btn {
@@ -297,144 +272,117 @@
   .timer-display.danger { color: var(--red); text-shadow: -3px -3px 0 var(--ink), 3px -3px 0 var(--ink), -3px 3px 0 var(--ink), 3px 3px 0 var(--ink), 6px 6px 0 var(--yellow); animation: pulse 0.6s ease-in-out infinite alternate; }
   @keyframes pulse { from { transform: scale(1) rotate(-1deg); } to { transform: scale(1.06) rotate(1deg); } }
 
-  .starter-card {
-    background: var(--bg-3); border: var(--border-w) solid var(--yellow);
-    padding: 14px 20px; text-align: center; margin-top: 16px;
-    border-radius: 8px; position: relative; box-shadow: var(--shadow-sm);
-  }
+  .starter-card { background: var(--bg-3); border: var(--border-w) solid var(--yellow); padding: 14px 20px; text-align: center; margin-top: 16px; border-radius: 8px; position: relative; box-shadow: var(--shadow-sm); }
   .starter-label { font-family: var(--font-marker); font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; font-weight: 400; }
   .starter-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; letter-spacing: 1.5px; color: var(--yellow); text-transform: uppercase; text-shadow: 2px 2px 0 var(--ink); }
 
-  /* ============================================================
-     VOTING SCREEN
-     ============================================================ */
-  .vote-progress {
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    letter-spacing: 3px;
-    color: var(--gray);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-
-  .vote-turn-label {
-    font-family: var(--font-marker);
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    color: var(--gray);
-    text-align: center;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-  }
-
+  /* VOTING */
+  .vote-progress { text-align: center; font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 3px; color: var(--gray); margin-bottom: 12px; text-transform: uppercase; }
+  .vote-turn-label { font-family: var(--font-marker); font-size: 0.85rem; letter-spacing: 1px; color: var(--gray); text-align: center; margin-bottom: 4px; text-transform: uppercase; }
   .vote-turn-name {
-    font-family: var(--font-title);
-    font-size: clamp(2rem, 9vw, 2.8rem);
-    letter-spacing: 3px;
-    color: var(--yellow);
-    text-align: center;
-    line-height: 1;
+    font-family: var(--font-title); font-size: clamp(2rem, 9vw, 2.8rem);
+    letter-spacing: 3px; color: var(--yellow); text-align: center; line-height: 1;
     text-transform: uppercase;
     text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 5px 5px 0 var(--red);
-    transform: rotate(-1deg);
-    margin-bottom: 8px;
+    transform: rotate(-1deg); margin-bottom: 8px;
   }
-
-  .vote-instruction {
-    text-align: center;
-    font-family: var(--font-marker);
-    font-size: 0.82rem;
-    color: var(--gray);
-    margin-bottom: 18px;
-    line-height: 1.5;
-  }
-
+  .vote-instruction { text-align: center; font-family: var(--font-marker); font-size: 0.82rem; color: var(--gray); margin-bottom: 18px; line-height: 1.5; }
   .vote-options { display: flex; flex-direction: column; gap: 10px; }
-
   .vote-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    padding: 14px 18px;
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    color: var(--white);
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.12s ease;
-    text-align: left;
-    -webkit-tap-highlight-color: transparent;
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 18px;
+    background: var(--bg-3); border: var(--border-w) solid var(--white); color: var(--white);
+    font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer;
+    border-radius: 8px; box-shadow: var(--shadow-sm); transition: all 0.12s ease;
+    text-align: left; -webkit-tap-highlight-color: transparent;
   }
   .vote-option:hover, .vote-option:focus-visible {
-    background: var(--yellow);
-    color: var(--ink);
-    border-color: var(--ink);
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--red);
-    outline: none;
+    background: var(--yellow); color: var(--ink); border-color: var(--ink);
+    transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--red); outline: none;
   }
   .vote-option:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-
-  .vote-option-num {
-    font-family: var(--font-marker);
-    font-size: 0.85rem;
-    color: var(--yellow);
-    width: 26px;
-    flex-shrink: 0;
-    opacity: 0.9;
-  }
+  .vote-option-num { font-family: var(--font-marker); font-size: 0.85rem; color: var(--yellow); width: 26px; flex-shrink: 0; opacity: 0.9; }
   .vote-option:hover .vote-option-num, .vote-option:focus-visible .vote-option-num { color: var(--ink); }
-
   .vote-option-name { flex: 1; }
 
-  /* Vote confirmation */
   .vote-confirm-icon {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 12px;
-    border-radius: 50%;
-    background: var(--green);
-    border: 3px solid var(--ink);
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2rem;
-    font-weight: 900;
-    box-shadow: 4px 4px 0 var(--ink);
+    width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%;
+    background: var(--green); border: 3px solid var(--ink); color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem; font-weight: 900; box-shadow: 4px 4px 0 var(--ink);
     transform: rotate(-4deg);
   }
   .vote-confirm-text {
-    font-family: var(--font-title);
-    font-size: 1.7rem;
-    letter-spacing: 2px;
-    color: var(--green);
-    text-align: center;
-    text-transform: uppercase;
+    font-family: var(--font-title); font-size: 1.7rem; letter-spacing: 2px;
+    color: var(--green); text-align: center; text-transform: uppercase;
     text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink);
     margin-bottom: 10px;
   }
-  .vote-confirm-who {
-    font-family: var(--font-marker);
-    font-size: 0.95rem;
-    text-align: center;
-    color: var(--gray);
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-  .vote-confirm-who strong {
-    color: var(--yellow);
+  .vote-confirm-who { font-family: var(--font-marker); font-size: 0.95rem; text-align: center; color: var(--gray); margin-bottom: 20px; line-height: 1.5; }
+  .vote-confirm-who strong { color: var(--yellow); font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 1px; }
+
+  /* ============================================================
+     GUESS SCREEN (LAST CHANCE)
+     ============================================================ */
+  .guess-name-badge {
+    display: inline-block;
+    padding: 8px 22px;
+    background: var(--red);
+    color: var(--white);
     font-family: var(--font-display);
-    font-size: 1.15rem;
-    letter-spacing: 1px;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 3px solid var(--ink);
+    border-radius: 8px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(-2deg);
+    margin: 8px auto 0;
+    text-shadow: 2px 2px 0 var(--ink);
+  }
+
+  #guess-input {
+    font-family: var(--font-title);
+    font-size: 1.7rem;
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 18px 14px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 4px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    border-radius: 8px;
+    font-weight: 400;
+  }
+  #guess-input::placeholder {
+    color: var(--ink);
+    opacity: 0.35;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    font-family: var(--font-marker);
+  }
+  #guess-input:focus {
+    background: var(--yellow);
+    box-shadow: 5px 5px 0 var(--red);
+    outline: none;
+  }
+
+  .guess-warning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(255, 46, 46, 0.12);
+    border: 2px dashed var(--red);
+    border-radius: 8px;
+    font-family: var(--font-marker);
+    font-size: 0.78rem;
+    color: var(--red);
+    letter-spacing: 0.5px;
   }
 
   /* MODALS */
@@ -450,7 +398,6 @@
   .modal-overlay.visible { display: flex; }
   #manage-modal { z-index: 6000; }
 
-  /* ROLE CARD */
   .role-card {
     width: 100%; max-width: 380px; padding: 28px 24px 24px; text-align: center;
     position: relative; overflow: hidden; background: var(--bg-2);
@@ -510,23 +457,13 @@
   .role-card .btn-ghost:hover { background: rgba(0,0,0,0.4); border-color: var(--yellow); color: var(--yellow); }
 
   /* HELP */
-  .help-panel {
-    background: var(--bg-3); border: 2px dashed var(--yellow); padding: 14px;
-    margin-top: 12px; font-size: 0.9rem; line-height: 1.65; color: var(--paper);
-    display: none; border-radius: 8px;
-  }
+  .help-panel { background: var(--bg-3); border: 2px dashed var(--yellow); padding: 14px; margin-top: 12px; font-size: 0.9rem; line-height: 1.65; color: var(--paper); display: none; border-radius: 8px; }
   .help-panel.open { display: block; animation: panelIn 0.3s ease; }
   .help-panel h4 { font-family: var(--font-display); color: var(--yellow); margin-bottom: 8px; font-size: 0.95rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
   .help-panel ul, .help-panel ol { padding-left: 20px; }
   .help-panel li { margin-bottom: 5px; }
   .help-panel strong { color: var(--yellow); }
-
-  .help-btn {
-    background: var(--bg-3); border: 2px solid var(--yellow); color: var(--yellow);
-    padding: 5px 12px; font-family: var(--font-display); font-size: 0.85rem;
-    font-weight: 700; letter-spacing: 1.5px; cursor: pointer; transition: all 0.12s ease;
-    border-radius: 6px; text-transform: uppercase;
-  }
+  .help-btn { background: var(--bg-3); border: 2px solid var(--yellow); color: var(--yellow); padding: 5px 12px; font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; transition: all 0.12s ease; border-radius: 6px; text-transform: uppercase; }
   .help-btn:hover { background: var(--yellow); color: var(--ink); }
   .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
 
@@ -534,7 +471,6 @@
 
   .app-footer { text-align: center; color: var(--gray); font-family: var(--font-marker); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; padding-top: 24px; transform: rotate(-0.5deg); }
 
-  /* SCROLL LIST */
   .scroll-list { max-height: 50vh; overflow-y: auto; padding-right: 6px; scrollbar-width: thin; scrollbar-color: var(--yellow) transparent; }
   .scroll-list::-webkit-scrollbar { width: 6px; }
   .scroll-list::-webkit-scrollbar-track { background: transparent; }
@@ -544,24 +480,16 @@
 
   #custom-area { margin-top: 12px; padding: 14px; background: var(--bg-3); border: 3px dashed var(--yellow); border-radius: 8px; animation: panelIn 0.3s ease; }
 
-  /* MANAGE MODAL */
   #manage-modal .role-card { max-width: 420px; text-align: left; background: var(--bg-2); }
   #manage-modal .role-card::before { opacity: 0.15; }
   #manage-modal .card-title { justify-content: center; margin-bottom: 18px; color: var(--yellow); }
   #manage-modal .manage-list { max-height: 40vh; overflow-y: auto; margin-bottom: 16px; scrollbar-width: thin; }
   #manage-modal .manage-list::-webkit-scrollbar { width: 6px; }
   #manage-modal .manage-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
-  #manage-modal .manage-item {
-    display: flex; justify-content: space-between; align-items: center;
-    background: var(--bg-3); padding: 10px 14px; margin-bottom: 8px;
-    border: 2px solid var(--white); border-radius: 6px;
-    font-family: var(--font-display); font-size: 1.05rem; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--white);
-  }
+  #manage-modal .manage-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-3); padding: 10px 14px; margin-bottom: 8px; border: 2px solid var(--white); border-radius: 6px; font-family: var(--font-display); font-size: 1.05rem; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
   #manage-modal .role-card .btn-ghost { border-color: var(--white); color: var(--white); }
   #manage-modal .role-card .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
 
-  /* HISTORY */
   .history-item { background: var(--bg-3); border: var(--border-w) solid var(--white); padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: var(--shadow-sm); }
   .history-item h4 { color: var(--yellow); font-family: var(--font-marker); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 8px; font-weight: 400; }
   .history-item p { font-size: 0.9rem; color: var(--white); margin-bottom: 4px; line-height: 1.45; }
@@ -573,6 +501,7 @@
     .card { padding: 16px; }
     .role-card { padding: 22px 18px 20px; }
     .role-emoji { width: 72px; height: 72px; font-size: 2.4rem; }
+    #guess-input { font-size: 1.3rem; padding: 14px 10px; letter-spacing: 2px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -795,7 +724,6 @@
       </div>
     </div>
 
-    <!-- NEW: Prominent vote button -->
     <button type="button" class="btn btn-primary" id="btn-vote-now" data-i18n="vote_btn_start" style="margin-bottom: 12px;">🗳️ Votar Ahora</button>
 
     <button type="button" class="btn btn-ghost" id="btn-pause" data-i18n="btn_pause">⏸ Pause</button>
@@ -816,7 +744,6 @@
 
     <div class="vote-progress" id="vote-progress">1 / 4</div>
 
-    <!-- Turn card -->
     <div class="card" id="vote-turn-card">
       <div class="vote-turn-label" data-i18n="vote_turn">Turno de:</div>
       <div class="vote-turn-name" id="vote-turn-name">—</div>
@@ -824,12 +751,41 @@
       <div class="vote-options" id="vote-options"></div>
     </div>
 
-    <!-- Confirmation card -->
     <div class="card hidden" id="vote-confirm-card" style="text-align:center;">
       <div class="vote-confirm-icon">✓</div>
       <div class="vote-confirm-text" data-i18n="vote_registered">¡Voto registrado!</div>
       <div class="vote-confirm-who" id="vote-confirm-who"></div>
       <button type="button" class="btn btn-primary" id="btn-vote-next" data-i18n="vote_pass_next">Pasar al siguiente →</button>
+    </div>
+  </div>
+
+  <!-- GUESS SCREEN (LAST CHANCE) -->
+  <div id="screen-guess" class="screen">
+    <div class="header">
+      <div class="game-title" data-i18n="guess_title">🎯 Última Oportunidad</div>
+    </div>
+
+    <div class="card" style="text-align: center; padding: 26px 22px;">
+      <div class="role-emoji" style="background: var(--red); color: var(--white);">🔪</div>
+
+      <div class="role-title" style="font-size: clamp(1.7rem, 7.5vw, 2.2rem); color: var(--red); text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink), 6px 6px 0 var(--yellow); margin-bottom: 10px;">
+        <span data-i18n="guess_heading">¡Te Atraparon!</span>
+      </div>
+
+      <div class="guess-name-badge" id="guess-impostor-name">—</div>
+
+      <p class="role-hint" style="margin-top: 18px; margin-bottom: 4px; color: var(--white);" data-i18n="guess_instruction"></p>
+
+      <div class="field" style="margin-top: 18px; margin-bottom: 0;">
+        <input type="text" id="guess-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btn-submit-guess" style="margin-top: 18px;" data-i18n="guess_btn">Adivinar la Palabra</button>
+
+      <div class="guess-warning">
+        <span>👀</span>
+        <span data-i18n="guess_hint">Nadie más debe mirar la pantalla</span>
+      </div>
     </div>
   </div>
 
@@ -843,7 +799,7 @@
    TRANSLATIONS
    ============================================================ */
 const LANGUAGES = [
-  { code: 'es', name: 'Español', flag: '🇲🇽' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'en', name: 'English', flag: '🇺🇸' },
   { code: 'pt', name: 'Português', flag: '🇧🇷' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
@@ -899,8 +855,20 @@ const I18N = {
     vote_impostors_win: '¡Impostores Ganan!',
     vote_tie_msg: 'Empate en la votación. Nadie fue expulsado. Los impostores ganan la ronda.',
     vote_btn_start: '🗳️ Votar Ahora',
-    vote_count: 'votos',
-    btn_next_round: '🔄 Siguiente Ronda'
+    btn_next_round: '🔄 Siguiente Ronda',
+    /* GUESS (LAST CHANCE) */
+    guess_title: '🎯 Última Oportunidad',
+    guess_heading: '¡Te Atraparon!',
+    guess_instruction: 'Escribe la palabra secreta para salvarte. Si aciertas, ¡los impostores ganan la ronda!',
+    guess_placeholder: 'Escribe tu respuesta aquí...',
+    guess_btn: 'Adivinar la Palabra',
+    guess_hint: 'Nadie más debe mirar la pantalla',
+    guess_correct_title: '¡Acertaste!',
+    guess_correct_msg: '¡Te salvaste! Los impostores ganan la ronda.',
+    guess_wrong_title: 'Fallaste',
+    guess_wrong_msg: 'Los civiles ganan. La palabra era:',
+    guess_your_answer: 'Tu respuesta:',
+    guess_correct_answer: 'Respuesta correcta:'
   },
   en: {
     lang_pick: 'Select your language', setup_title: '⚙️ Setup', tagline: 'Ultimate Edition',
@@ -943,19 +911,31 @@ const I18N = {
     vote_impostors_win: 'Impostors Win!',
     vote_tie_msg: 'Vote tied. Nobody expelled. Impostors win the round.',
     vote_btn_start: '🗳️ Vote Now',
-    vote_count: 'votes',
-    btn_next_round: '🔄 Next Round'
+    btn_next_round: '🔄 Next Round',
+    /* GUESS (LAST CHANCE) */
+    guess_title: '🎯 Last Chance',
+    guess_heading: 'Caught!',
+    guess_instruction: 'Type the secret word to save yourself. If correct, the impostors win the round!',
+    guess_placeholder: 'Type your answer here...',
+    guess_btn: 'Guess the Word',
+    guess_hint: 'Nobody else should look at the screen',
+    guess_correct_title: 'Correct!',
+    guess_correct_msg: 'You saved yourself! The impostors win the round.',
+    guess_wrong_title: 'Wrong!',
+    guess_wrong_msg: 'The civilians win. The word was:',
+    guess_your_answer: 'Your answer:',
+    guess_correct_answer: 'Correct answer:'
   },
-  pt: { lang_pick: 'Escolha seu idioma', setup_title: '⚙️ Configuração', tagline: 'Edição Ultimate', label_players: 'Jogadores', label_impostors: 'Impostores', label_time: 'Tempo (minutos)', label_sound: 'Som de Alerta', sound_none: 'Sem som', btn_test_sound: 'Testar', btn_continue: 'Continuar →', btn_help: 'Ajuda', btn_next: 'Próximo →', btn_back_main: '← Menu Principal', btn_back: '← Voltar', btn_deal_roles: 'Distribuir Papéis 🎲', btn_start_game: '🔥 Começar Jogo', btn_pause: '⏸ Pausar', btn_resume: '▶ Retomar', btn_new_game: '🔄 Nova Partida', btn_main_menu: '🏠 Menu', cats_title: '📂 Temas', cats_pick: 'Escolha Categorias', names_title: '👥 Jogadores', names_assign: 'Atribuir Nomes', reveal_title: '🤫 Papéis', reveal_secret: 'Identidade Secreta', game_title: '⏳ Debate', game_timer_label: 'Cronômetro', game_starts_asking: 'Começa perguntando:', role_civil: 'Você é Civil', role_impostor: 'Você é o Impostor', civil_word_label: 'A palavra secreta é:', btn_understood: 'Entendido ✓', role_seen: 'Ver Papel', role_done: 'Papel Visto ✓', cat_varied: '🎲 Variado', cat_places: '✈️ Lugares', cat_food: '🍕 Comidas', cat_animals: '🦁 Animais', cat_movies: '🎬 Filmes', cat_sports: '⚽ Esportes', cat_anime: '🎌 Anime', cat_games: '🎮 Jogos', cat_custom: '✏️ Personalizado', player_default: 'Jogador', btn_close: 'Fechar', vote_title: '🗳️ Votação', vote_turn: 'Turno de:', vote_instruction: 'Toque em quem você acha que é o impostor', vote_registered: 'Voto registrado!', vote_pass_next: 'Passar para o próximo →', vote_expelled: 'Expulso:', vote_was_impostor: '✗ ERA O IMPOSTOR', vote_was_civil: '✓ ERA CIVIL', vote_civilians_win: 'Civis Ganham!', vote_impostors_win: 'Impostores Ganham!', vote_tie_msg: 'Empate. Ninguém expulso. Impostores ganham a ronda.', vote_btn_start: '🗳️ Votar Agora', btn_next_round: '🔄 Próxima Ronda' },
-  fr: { lang_pick: 'Choisissez votre langue', setup_title: '⚙️ Configuration', tagline: 'Édition Ultime', label_players: 'Joueurs', label_impostors: 'Imposteurs', label_time: 'Temps (minutes)', label_sound: 'Son d\'alerte', sound_none: 'Sans son', btn_test_sound: 'Tester', btn_continue: 'Continuer →', btn_help: 'Aide', btn_next: 'Suivant →', btn_back_main: '← Menu Principal', btn_back: '← Retour', btn_deal_roles: 'Distribuer les Rôles 🎲', btn_start_game: '🔥 Commencer', btn_pause: '⏸ Pause', btn_resume: '▶ Reprendre', btn_new_game: '🔄 Nouvelle Partie', btn_main_menu: '🏠 Menu', cats_title: '📂 Thèmes', cats_pick: 'Choisir les Thèmes', names_title: '👥 Joueurs', names_assign: 'Attribuer des Noms', reveal_title: '🤫 Rôles', reveal_secret: 'Identité Secrète', game_title: '⏳ Débat', game_timer_label: 'Chronomètre', game_starts_asking: 'Commence par demander:', role_civil: 'Vous êtes Civil', role_impostor: 'Vous êtes l\'Imposteur', civil_word_label: 'Le mot secret est:', btn_understood: 'Compris ✓', role_seen: 'Voir le Rôle', role_done: 'Rôle Vu ✓', cat_varied: '🎲 Varié', cat_places: '✈️ Lieux', cat_food: '🍕 Nourriture', cat_animals: '🦁 Animaux', cat_movies: '🎬 Films', cat_sports: '⚽ Sports', cat_anime: '🎌 Anime', cat_games: '🎮 Jeux', cat_custom: '✏️ Personnalisé', player_default: 'Joueur', btn_close: 'Fermer', vote_title: '🗳️ Vote', vote_turn: 'Tour de :', vote_instruction: 'Touchez qui vous pensez être l\'imposteur', vote_registered: 'Vote enregistré!', vote_pass_next: 'Passer au suivant →', vote_expelled: 'Expulsé:', vote_was_impostor: '✗ ÉTAIT L\'IMPOSTEUR', vote_was_civil: '✓ ÉTAIT CIVIL', vote_civilians_win: 'Les Civils Gagnent!', vote_impostors_win: 'Les Imposteurs Gagnent!', vote_tie_msg: 'Égalité. Personne expulsé. Les imposteurs gagnent.', vote_btn_start: '🗳️ Voter Maintenant', btn_next_round: '🔄 Manche Suivante' },
-  de: { lang_pick: 'Sprache wählen', setup_title: '⚙️ Einstellungen', tagline: 'Ultimate Edition', label_players: 'Spieler', label_impostors: 'Impostoren', label_time: 'Zeit (Minuten)', label_sound: 'Alarmsound', sound_none: 'Kein Ton', btn_test_sound: 'Testen', btn_continue: 'Weiter →', btn_help: 'Hilfe', btn_next: 'Weiter →', btn_back_main: '← Hauptmenü', btn_back: '← Zurück', btn_deal_roles: 'Rollen verteilen 🎲', btn_start_game: '🔥 Spiel starten', btn_pause: '⏸ Pause', btn_resume: '▶ Fortsetzen', btn_new_game: '🔄 Neues Spiel', btn_main_menu: '🏠 Menü', cats_title: '📂 Themen', cats_pick: 'Themen Wählen', names_title: '👥 Spieler', names_assign: 'Namen Zuweisen', reveal_title: '🤫 Rollen', reveal_secret: 'Geheime Identität', game_title: '⏳ Debatte', game_timer_label: 'Timer', game_starts_asking: 'Beginnt zu fragen:', role_civil: 'Du bist Zivilist', role_impostor: 'Du bist der Impostor', civil_word_label: 'Das Geheimwort ist:', btn_understood: 'Verstanden ✓', role_seen: 'Rolle sehen', role_done: 'Rolle gesehen ✓', cat_varied: '🎲 Gemischt', cat_places: '✈️ Orte', cat_food: '🍕 Essen', cat_animals: '🦁 Tiere', cat_movies: '🎬 Filme', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Spiele', cat_custom: '✏️ Benutzerdefiniert', player_default: 'Spieler', btn_close: 'Schließen', vote_title: '🗳️ Abstimmung', vote_turn: 'Am Zug:', vote_instruction: 'Tippe, wer deiner Meinung nach der Impostor ist', vote_registered: 'Stimme registriert!', vote_pass_next: 'Weiter zum Nächsten →', vote_expelled: 'Rausgeworfen:', vote_was_impostor: '✗ WAR DER IMPOSTOR', vote_was_civil: '✓ WAR ZIVILIST', vote_civilians_win: 'Zivilisten Gewinnen!', vote_impostors_win: 'Impostoren Gewinnen!', vote_tie_msg: 'Unentschieden. Niemand rausgeworfen. Impostoren gewinnen.', vote_btn_start: '🗳️ Jetzt Abstimmen', btn_next_round: '🔄 Nächste Runde' },
-  it: { lang_pick: 'Scegli la tua lingua', setup_title: '⚙️ Configurazione', tagline: 'Edizione Ultimate', label_players: 'Giocatori', label_impostors: 'Impostori', label_time: 'Tempo (minuti)', label_sound: 'Suono di Allerta', sound_none: 'Nessun suono', btn_test_sound: 'Prova', btn_continue: 'Continua →', btn_help: 'Aiuto', btn_next: 'Avanti →', btn_back_main: '← Menu Principale', btn_back: '← Indietro', btn_deal_roles: 'Distribuire i Ruoli 🎲', btn_start_game: '🔥 Inizia il Gioco', btn_pause: '⏸ Pausa', btn_resume: '▶ Riprendi', btn_new_game: '🔄 Nuova Partita', btn_main_menu: '🏠 Menu', cats_title: '📂 Temi', cats_pick: 'Scegli Temi', names_title: '👥 Giocatori', names_assign: 'Assegna Nomi', reveal_title: '🤫 Ruoli', reveal_secret: 'Identità Segreta', game_title: '⏳ Dibattito', game_timer_label: 'Timer', game_starts_asking: 'Inizia a fare domande:', role_civil: 'Sei Civile', role_impostor: 'Sei l\'Impostore', civil_word_label: 'La parola segreta è:', btn_understood: 'Capito ✓', role_seen: 'Vedi Ruolo', role_done: 'Ruolo Visto ✓', cat_varied: '🎲 Misto', cat_places: '✈️ Luoghi', cat_food: '🍕 Cibo', cat_animals: '🦁 Animali', cat_movies: '🎬 Film', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Giochi', cat_custom: '✏️ Personalizzato', player_default: 'Giocatore', btn_close: 'Chiudi', vote_title: '🗳️ Votazione', vote_turn: 'Turno di:', vote_instruction: 'Tocca chi pensi sia l\'impostore', vote_registered: 'Voto registrato!', vote_pass_next: 'Passa al prossimo →', vote_expelled: 'Espulso:', vote_was_impostor: '✗ ERA L\'IMPOSTORE', vote_was_civil: '✓ ERA CIVILE', vote_civilians_win: 'Vincono i Civili!', vote_impostors_win: 'Vincono gli Impostori!', vote_tie_msg: 'Pareggio. Nessuno espulso. Vincono gli impostori.', vote_btn_start: '🗳️ Vota Ora', btn_next_round: '🔄 Prossimo Round' },
-  ru: { lang_pick: 'Выберите язык', setup_title: '⚙️ Настройки', tagline: 'Ультимативное издание', label_players: 'Игроки', label_impostors: 'Самозванцы', label_time: 'Время (мин)', label_sound: 'Звук оповещения', sound_none: 'Без звука', btn_test_sound: 'Тест', btn_continue: 'Продолжить →', btn_help: 'Помощь', btn_next: 'Далее →', btn_back_main: '← Главное меню', btn_back: '← Назад', btn_deal_roles: 'Раздать роли 🎲', btn_start_game: '🔥 Начать игру', btn_pause: '⏸ Пауза', btn_resume: '▶ Продолжить', btn_new_game: '🔄 Новая игра', btn_main_menu: '🏠 Меню', cats_title: '📂 Темы', cats_pick: 'Выбрать темы', names_title: '👥 Игроки', names_assign: 'Назначить имена', reveal_title: '🤫 Роли', reveal_secret: 'Тайная личность', game_title: '⏳ Дебаты', game_timer_label: 'Таймер', game_starts_asking: 'Начинает задавать вопросы:', role_civil: 'Вы мирный', role_impostor: 'Вы самозванец', civil_word_label: 'Секретное слово:', btn_understood: 'Понятно ✓', role_seen: 'Посмотреть роль', role_done: 'Роль просмотрена ✓', cat_varied: '🎲 Разное', cat_places: '✈️ Места', cat_food: '🍕 Еда', cat_animals: '🦁 Животные', cat_movies: '🎬 Фильмы', cat_sports: '⚽ Спорт', cat_anime: '🎌 Аниме', cat_games: '🎮 Игры', cat_custom: '✏️ Пользовательский', player_default: 'Игрок', btn_close: 'Закрыть', vote_title: '🗳️ Голосование', vote_turn: 'Ход:', vote_instruction: 'Нажмите на того, кто по-вашему самозванец', vote_registered: 'Голос учтён!', vote_pass_next: 'Передать следующему →', vote_expelled: 'Изгнан:', vote_was_impostor: '✗ БЫЛ САМОЗВАНЦЕМ', vote_was_civil: '✓ БЫЛ МИРНЫМ', vote_civilians_win: 'Мирные Побеждают!', vote_impostors_win: 'Самозванцы Побеждают!', vote_tie_msg: 'Ничья. Никто не изгнан. Самозванцы побеждают.', vote_btn_start: '🗳️ Голосовать', btn_next_round: '🔄 Следующий раунд' },
-  ja: { lang_pick: '言語を選択してください', setup_title: '⚙️ 設定', tagline: 'アルティメット版', label_players: 'プレイヤー数', label_impostors: 'インポスター数', label_time: '時間（分）', label_sound: '警告音', sound_none: '音なし', btn_test_sound: 'テスト', btn_continue: '続ける →', btn_help: 'ヘルプ', btn_next: '次へ →', btn_back_main: '← メインメニュー', btn_back: '← 戻る', btn_deal_roles: '役割を配る 🎲', btn_start_game: '🔥 ゲーム開始', btn_pause: '⏸ 一時停止', btn_resume: '▶ 再開', btn_new_game: '🔄 新しいゲーム', btn_main_menu: '🏠 メニュー', cats_title: '📂 テーマ', cats_pick: 'テーマを選ぶ', names_title: '👥 プレイヤー', names_assign: '名前を割り当て', reveal_title: '🤫 役割', reveal_secret: '秘密の身元', game_title: '⏳ 議論', game_timer_label: 'タイマー', game_starts_asking: '最初に質問するのは:', role_civil: 'あなたは市民です', role_impostor: 'あなたがインポスターです', civil_word_label: '秘密の言葉は:', btn_understood: '了解 ✓', role_seen: '役割を見る', role_done: '確認済み ✓', cat_varied: '🎲 ミックス', cat_places: '✈️ 場所', cat_food: '🍕 食べ物', cat_animals: '🦁 動物', cat_movies: '🎬 映画', cat_sports: '⚽ スポーツ', cat_anime: '🎌 アニメ', cat_games: '🎮 ゲーム', cat_custom: '✏️ カスタム', player_default: 'プレイヤー', btn_close: '閉じる', vote_title: '🗳️ 投票', vote_turn: '投票者:', vote_instruction: 'インポスターだと思う人をタップ', vote_registered: '投票完了！', vote_pass_next: '次の人へ →', vote_expelled: '追放:', vote_was_impostor: '✗ インポスターだった', vote_was_civil: '✓ 市民だった', vote_civilians_win: '市民の勝利！', vote_impostors_win: 'インポスターの勝利！', vote_tie_msg: '同票。誰も追放されず。インポスターの勝利。', vote_btn_start: '🗳️ 今すぐ投票', btn_next_round: '🔄 次のラウンド' },
-  ko: { lang_pick: '언어를 선택하세요', setup_title: '⚙️ 설정', tagline: '얼티메이트 에디션', label_players: '플레이어 수', label_impostors: '임포스터 수', label_time: '시간 (분)', label_sound: '경고음', sound_none: '소리 없음', btn_test_sound: '테스트', btn_continue: '계속 →', btn_help: '도움말', btn_next: '다음 →', btn_back_main: '← 메인 메뉴', btn_back: '← 뒤로', btn_deal_roles: '역할 배분 🎲', btn_start_game: '🔥 게임 시작', btn_pause: '⏸ 일시 정지', btn_resume: '▶ 재개', btn_new_game: '🔄 새 게임', btn_main_menu: '🏠 메뉴', cats_title: '📂 주제', cats_pick: '테마 선택', names_title: '👥 플레이어', names_assign: '이름 지정', reveal_title: '🤫 역할', reveal_secret: '비밀 신원', game_title: '⏳ 토론', game_timer_label: '타이머', game_starts_asking: '먼저 질문하는 사람:', role_civil: '당신은 시민입니다', role_impostor: '당신이 임포스터입니다', civil_word_label: '비밀 단어는:', btn_understood: '알겠습니다 ✓', role_seen: '역할 보기', role_done: '역할 확인 ✓', cat_varied: '🎲 다양', cat_places: '✈️ 장소', cat_food: '🍕 음식', cat_animals: '🦁 동물', cat_movies: '🎬 영화', cat_sports: '⚽ 스포츠', cat_anime: '🎌 애니메', cat_games: '🎮 게임', cat_custom: '✏️ 커스텀', player_default: '플레이어', btn_close: '닫기', vote_title: '🗳️ 투표', vote_turn: '차례:', vote_instruction: '임포스터라고 생각하는 사람을 탭하세요', vote_registered: '투표 완료!', vote_pass_next: '다음 사람에게 →', vote_expelled: '추방:', vote_was_impostor: '✗ 임포스터였음', vote_was_civil: '✓ 시민이었음', vote_civilians_win: '시민 승리!', vote_impostors_win: '임포스터 승리!', vote_tie_msg: '동점. 아무도 추방되지 않음. 임포스터 승리.', vote_btn_start: '🗳️ 지금 투표', btn_next_round: '🔄 다음 라운드' },
-  zh: { lang_pick: '请选择语言', setup_title: '⚙️ 设置', tagline: '终极版', label_players: '玩家数量', label_impostors: '内奸数量', label_time: '时间（分钟）', label_sound: '警报声音', sound_none: '无声音', btn_test_sound: '测试', btn_continue: '继续 →', btn_help: '帮助', btn_next: '下一步 →', btn_back_main: '← 主菜单', btn_back: '← 返回', btn_deal_roles: '分配角色 🎲', btn_start_game: '🔥 开始游戏', btn_pause: '⏸ 暂停', btn_resume: '▶ 继续', btn_new_game: '🔄 新游戏', btn_main_menu: '🏠 菜单', cats_title: '📂 主题', cats_pick: '选择主题', names_title: '👥 玩家', names_assign: '分配名称', reveal_title: '🤫 角色', reveal_secret: '秘密身份', game_title: '⏳ 辩论', game_timer_label: '计时器', game_starts_asking: '先开始提问：', role_civil: '你是平民', role_impostor: '你是内奸', civil_word_label: '秘密词语是：', btn_understood: '明白了 ✓', role_seen: '查看角色', role_done: '已查看 ✓', cat_varied: '🎲 综合', cat_places: '✈️ 地点', cat_food: '🍕 食物', cat_animals: '🦁 动物', cat_movies: '🎬 电影', cat_sports: '⚽ 运动', cat_anime: '🎌 动漫', cat_games: '🎮 游戏', cat_custom: '✏️ 自定义', player_default: '玩家', btn_close: '关闭', vote_title: '🗳️ 投票', vote_turn: '轮到：', vote_instruction: '点击你认为的内奸', vote_registered: '投票已记录！', vote_pass_next: '传给下一位 →', vote_expelled: '被淘汰：', vote_was_impostor: '✗ 是内奸', vote_was_civil: '✓ 是平民', vote_civilians_win: '平民胜利！', vote_impostors_win: '内奸胜利！', vote_tie_msg: '投票平局。无人被淘汰。内奸获胜。', vote_btn_start: '🗳️ 立即投票', btn_next_round: '🔄 下一轮' },
-  ar: { lang_pick: 'اختر لغتك', setup_title: '⚙️ الإعدادات', tagline: 'الإصدار النهائي', label_players: 'اللاعبون', label_impostors: 'المتسللون', label_time: 'الوقت (دقائق)', label_sound: 'صوت التنبيه', sound_none: 'بدون صوت', btn_test_sound: 'اختبار', btn_continue: 'متابعة →', btn_help: 'مساعدة', btn_next: 'التالي →', btn_back_main: '→ القائمة الرئيسية', btn_back: '→ رجوع', btn_deal_roles: 'توزيع الأدوار 🎲', btn_start_game: '🔥 ابدأ اللعبة', btn_pause: '⏸ إيقاف مؤقت', btn_resume: '▶ استئناف', btn_new_game: '🔄 لعبة جديدة', btn_main_menu: '🏠 القائمة', cats_title: '📂 المواضيع', cats_pick: 'اختر الفئات', names_title: '👥 اللاعبون', names_assign: 'تعيين الأسماء', reveal_title: '🤫 الأدوار', reveal_secret: 'الهوية السرية', game_title: '⏳ النقاش', game_timer_label: 'المؤقت', game_starts_asking: 'يبدأ بالسؤال:', role_civil: 'أنت مدني', role_impostor: 'أنت المتسلل', civil_word_label: 'الكلمة السرية هي:', btn_understood: 'فهمت ✓', role_seen: 'انظر الدور', role_done: 'شوهد الدور ✓', cat_varied: '🎲 متنوع', cat_places: '✈️ أماكن', cat_food: '🍕 طعام', cat_animals: '🦁 حيوانات', cat_movies: '🎬 أفلام', cat_sports: '⚽ رياضة', cat_anime: '🎌 أنمي', cat_games: '🎮 ألعاب', cat_custom: '✏️ مخصص', player_default: 'لاعب', btn_close: 'إغلاق', vote_title: '🗳️ التصويت', vote_turn: 'دور:', vote_instruction: 'اضغط على من تظن أنه المتسلل', vote_registered: 'تم تسجيل الصوت!', vote_pass_next: 'مرر للتالي →', vote_expelled: 'مُستبعد:', vote_was_impostor: '✗ كان المتسلل', vote_was_civil: '✓ كان مدنياً', vote_civilians_win: 'فاز المدنيون!', vote_impostors_win: 'فاز المتسللون!', vote_tie_msg: 'تعادل. لم يُستبعد أحد. فاز المتسللون.', vote_btn_start: '🗳️ صوّت الآن', btn_next_round: '🔄 الجولة التالية' },
-  tr: { lang_pick: 'Dilinizi seçin', setup_title: '⚙️ Ayarlar', tagline: 'Ultimate Sürüm', label_players: 'Oyuncular', label_impostors: 'Sahtekârlar', label_time: 'Süre (dakika)', label_sound: 'Uyarı Sesi', sound_none: 'Sessiz', btn_test_sound: 'Test', btn_continue: 'Devam →', btn_help: 'Yardım', btn_next: 'İleri →', btn_back_main: '← Ana Menü', btn_back: '← Geri', btn_deal_roles: 'Rolleri Dağıt 🎲', btn_start_game: '🔥 Oyunu Başlat', btn_pause: '⏸ Duraklat', btn_resume: '▶ Devam', btn_new_game: '🔄 Yeni Oyun', btn_main_menu: '🏠 Menü', cats_title: '📂 Temalar', cats_pick: 'Tema Seç', names_title: '👥 Oyuncular', names_assign: 'İsimleri Atayın', reveal_title: '🤫 Roller', reveal_secret: 'Gizli Kimlik', game_title: '⏳ Tartışma', game_timer_label: 'Süre', game_starts_asking: 'İlk soru soran:', role_civil: 'Sivilsiniz', role_impostor: 'Sahtekârsınız', civil_word_label: 'Gizli kelime:', btn_understood: 'Anladım ✓', role_seen: 'Rolü Gör', role_done: 'Rol Görüldü ✓', cat_varied: '🎲 Karışık', cat_places: '✈️ Yerler', cat_food: '🍕 Yiyecekler', cat_animals: '🦁 Hayvanlar', cat_movies: '🎬 Filmler', cat_sports: '⚽ Spor', cat_anime: '🎌 Anime', cat_games: '🎮 Oyunlar', cat_custom: '✏️ Özel', player_default: 'Oyuncu', btn_close: 'Kapat', vote_title: '🗳️ Oylama', vote_turn: 'Sıra:', vote_instruction: 'Sahtekâr olduğunu düşündüğün kişiye dokun', vote_registered: 'Oy kaydedildi!', vote_pass_next: 'Sıradakine geç →', vote_expelled: 'Kovuldu:', vote_was_impostor: '✗ SAHTEKÂRDI', vote_was_civil: '✓ SİVİLDİ', vote_civilians_win: 'Siviller Kazandı!', vote_impostors_win: 'Sahtekârlar Kazandı!', vote_tie_msg: 'Berabere. Kimse kovulmadı. Sahtekârlar kazandı.', vote_btn_start: '🗳️ Şimdi Oy Ver', btn_next_round: '🔄 Sonraki Tur' },
+  pt: { lang_pick: 'Escolha seu idioma', setup_title: '⚙️ Configuração', tagline: 'Edição Ultimate', label_players: 'Jogadores', label_impostors: 'Impostores', label_time: 'Tempo (minutos)', label_sound: 'Som de Alerta', sound_none: 'Sem som', btn_test_sound: 'Testar', btn_continue: 'Continuar →', btn_help: 'Ajuda', btn_next: 'Próximo →', btn_back_main: '← Menu Principal', btn_back: '← Voltar', btn_deal_roles: 'Distribuir Papéis 🎲', btn_start_game: '🔥 Começar Jogo', btn_pause: '⏸ Pausar', btn_resume: '▶ Retomar', btn_new_game: '🔄 Nova Partida', btn_main_menu: '🏠 Menu', cats_title: '📂 Temas', cats_pick: 'Escolha Categorias', names_title: '👥 Jogadores', names_assign: 'Atribuir Nomes', reveal_title: '🤫 Papéis', reveal_secret: 'Identidade Secreta', game_title: '⏳ Debate', game_timer_label: 'Cronômetro', game_starts_asking: 'Começa perguntando:', role_civil: 'Você é Civil', role_impostor: 'Você é o Impostor', civil_word_label: 'A palavra secreta é:', btn_understood: 'Entendido ✓', role_seen: 'Ver Papel', role_done: 'Papel Visto ✓', cat_varied: '🎲 Variado', cat_places: '✈️ Lugares', cat_food: '🍕 Comidas', cat_animals: '🦁 Animais', cat_movies: '🎬 Filmes', cat_sports: '⚽ Esportes', cat_anime: '🎌 Anime', cat_games: '🎮 Jogos', cat_custom: '✏️ Personalizado', player_default: 'Jogador', btn_close: 'Fechar', vote_title: '🗳️ Votação', vote_turn: 'Turno de:', vote_instruction: 'Toque em quem você acha que é o impostor', vote_registered: 'Voto registrado!', vote_pass_next: 'Passar para o próximo →', vote_expelled: 'Expulso:', vote_was_impostor: '✗ ERA O IMPOSTOR', vote_was_civil: '✓ ERA CIVIL', vote_civilians_win: 'Civis Ganham!', vote_impostors_win: 'Impostores Ganham!', vote_tie_msg: 'Empate. Ninguém expulso. Impostores ganham a ronda.', vote_btn_start: '🗳️ Votar Agora', btn_next_round: '🔄 Próxima Ronda', guess_title: '🎯 Última Chance', guess_heading: 'Te Pegaram!', guess_instruction: 'Digite a palavra secreta para se salvar. Se acertar, os impostores ganham!', guess_placeholder: 'Digite sua resposta...', guess_btn: 'Adivinhar a Palavra', guess_hint: 'Ninguém mais deve olhar a tela', guess_correct_title: 'Acertou!', guess_correct_msg: 'Você se salvou! Os impostores ganham.', guess_wrong_title: 'Errou', guess_wrong_msg: 'Os civis ganham. A palavra era:', guess_your_answer: 'Sua resposta:' },
+  fr: { lang_pick: 'Choisissez votre langue', setup_title: '⚙️ Configuration', tagline: 'Édition Ultime', label_players: 'Joueurs', label_impostors: 'Imposteurs', label_time: 'Temps (minutes)', label_sound: 'Son d\'alerte', sound_none: 'Sans son', btn_test_sound: 'Tester', btn_continue: 'Continuer →', btn_help: 'Aide', btn_next: 'Suivant →', btn_back_main: '← Menu Principal', btn_back: '← Retour', btn_deal_roles: 'Distribuer les Rôles 🎲', btn_start_game: '🔥 Commencer', btn_pause: '⏸ Pause', btn_resume: '▶ Reprendre', btn_new_game: '🔄 Nouvelle Partie', btn_main_menu: '🏠 Menu', cats_title: '📂 Thèmes', cats_pick: 'Choisir les Thèmes', names_title: '👥 Joueurs', names_assign: 'Attribuer des Noms', reveal_title: '🤫 Rôles', reveal_secret: 'Identité Secrète', game_title: '⏳ Débat', game_timer_label: 'Chronomètre', game_starts_asking: 'Commence par demander:', role_civil: 'Vous êtes Civil', role_impostor: 'Vous êtes l\'Imposteur', civil_word_label: 'Le mot secret est:', btn_understood: 'Compris ✓', role_seen: 'Voir le Rôle', role_done: 'Rôle Vu ✓', cat_varied: '🎲 Varié', cat_places: '✈️ Lieux', cat_food: '🍕 Nourriture', cat_animals: '🦁 Animaux', cat_movies: '🎬 Films', cat_sports: '⚽ Sports', cat_anime: '🎌 Anime', cat_games: '🎮 Jeux', cat_custom: '✏️ Personnalisé', player_default: 'Joueur', btn_close: 'Fermer', vote_title: '🗳️ Vote', vote_turn: 'Tour de :', vote_instruction: 'Touchez qui vous pensez être l\'imposteur', vote_registered: 'Vote enregistré!', vote_pass_next: 'Passer au suivant →', vote_expelled: 'Expulsé:', vote_was_impostor: '✗ ÉTAIT L\'IMPOSTEUR', vote_was_civil: '✓ ÉTAIT CIVIL', vote_civilians_win: 'Les Civils Gagnent!', vote_impostors_win: 'Les Imposteurs Gagnent!', vote_tie_msg: 'Égalité. Personne expulsé. Les imposteurs gagnent.', vote_btn_start: '🗳️ Voter Maintenant', btn_next_round: '🔄 Manche Suivante', guess_title: '🎯 Dernière Chance', guess_heading: 'Attrapé!', guess_instruction: 'Tapez le mot secret pour vous sauver. Si correct, les imposteurs gagnent!', guess_placeholder: 'Tapez votre réponse...', guess_btn: 'Deviner le Mot', guess_hint: 'Personne d\'autre ne doit regarder l\'écran', guess_correct_title: 'Correct!', guess_correct_msg: 'Vous vous êtes sauvé! Les imposteurs gagnent.', guess_wrong_title: 'Raté', guess_wrong_msg: 'Les civils gagnent. Le mot était:', guess_your_answer: 'Votre réponse:' },
+  de: { lang_pick: 'Sprache wählen', setup_title: '⚙️ Einstellungen', tagline: 'Ultimate Edition', label_players: 'Spieler', label_impostors: 'Impostoren', label_time: 'Zeit (Minuten)', label_sound: 'Alarmsound', sound_none: 'Kein Ton', btn_test_sound: 'Testen', btn_continue: 'Weiter →', btn_help: 'Hilfe', btn_next: 'Weiter →', btn_back_main: '← Hauptmenü', btn_back: '← Zurück', btn_deal_roles: 'Rollen verteilen 🎲', btn_start_game: '🔥 Spiel starten', btn_pause: '⏸ Pause', btn_resume: '▶ Fortsetzen', btn_new_game: '🔄 Neues Spiel', btn_main_menu: '🏠 Menü', cats_title: '📂 Themen', cats_pick: 'Themen Wählen', names_title: '👥 Spieler', names_assign: 'Namen Zuweisen', reveal_title: '🤫 Rollen', reveal_secret: 'Geheime Identität', game_title: '⏳ Debatte', game_timer_label: 'Timer', game_starts_asking: 'Beginnt zu fragen:', role_civil: 'Du bist Zivilist', role_impostor: 'Du bist der Impostor', civil_word_label: 'Das Geheimwort ist:', btn_understood: 'Verstanden ✓', role_seen: 'Rolle sehen', role_done: 'Rolle gesehen ✓', cat_varied: '🎲 Gemischt', cat_places: '✈️ Orte', cat_food: '🍕 Essen', cat_animals: '🦁 Tiere', cat_movies: '🎬 Filme', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Spiele', cat_custom: '✏️ Benutzerdefiniert', player_default: 'Spieler', btn_close: 'Schließen', vote_title: '🗳️ Abstimmung', vote_turn: 'Am Zug:', vote_instruction: 'Tippe, wer der Impostor ist', vote_registered: 'Stimme registriert!', vote_pass_next: 'Weiter →', vote_expelled: 'Rausgeworfen:', vote_was_impostor: '✗ WAR DER IMPOSTOR', vote_was_civil: '✓ WAR ZIVILIST', vote_civilians_win: 'Zivilisten Gewinnen!', vote_impostors_win: 'Impostoren Gewinnen!', vote_tie_msg: 'Unentschieden. Niemand rausgeworfen. Impostoren gewinnen.', vote_btn_start: '🗳️ Jetzt Abstimmen', btn_next_round: '🔄 Nächste Runde', guess_title: '🎯 Letzte Chance', guess_heading: 'Erwischt!', guess_instruction: 'Tippe das Geheimwort ein, um dich zu retten. Bei Erfolg gewinnen die Impostoren!', guess_placeholder: 'Antwort eingeben...', guess_btn: 'Wort Raten', guess_hint: 'Niemand sonst darf auf den Bildschirm schauen', guess_correct_title: 'Richtig!', guess_correct_msg: 'Du hast dich gerettet! Die Impostoren gewinnen.', guess_wrong_title: 'Falsch', guess_wrong_msg: 'Die Zivilisten gewinnen. Das Wort war:', guess_your_answer: 'Deine Antwort:' },
+  it: { lang_pick: 'Scegli la tua lingua', setup_title: '⚙️ Configurazione', tagline: 'Edizione Ultimate', label_players: 'Giocatori', label_impostors: 'Impostori', label_time: 'Tempo (minuti)', label_sound: 'Suono di Allerta', sound_none: 'Nessun suono', btn_test_sound: 'Prova', btn_continue: 'Continua →', btn_help: 'Aiuto', btn_next: 'Avanti →', btn_back_main: '← Menu Principale', btn_back: '← Indietro', btn_deal_roles: 'Distribuire i Ruoli 🎲', btn_start_game: '🔥 Inizia il Gioco', btn_pause: '⏸ Pausa', btn_resume: '▶ Riprendi', btn_new_game: '🔄 Nuova Partita', btn_main_menu: '🏠 Menu', cats_title: '📂 Temi', cats_pick: 'Scegli Temi', names_title: '👥 Giocatori', names_assign: 'Assegna Nomi', reveal_title: '🤫 Ruoli', reveal_secret: 'Identità Segreta', game_title: '⏳ Dibattito', game_timer_label: 'Timer', game_starts_asking: 'Inizia a fare domande:', role_civil: 'Sei Civile', role_impostor: 'Sei l\'Impostore', civil_word_label: 'La parola segreta è:', btn_understood: 'Capito ✓', role_seen: 'Vedi Ruolo', role_done: 'Ruolo Visto ✓', cat_varied: '🎲 Misto', cat_places: '✈️ Luoghi', cat_food: '🍕 Cibo', cat_animals: '🦁 Animali', cat_movies: '🎬 Film', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Giochi', cat_custom: '✏️ Personalizzato', player_default: 'Giocatore', btn_close: 'Chiudi', vote_title: '🗳️ Votazione', vote_turn: 'Turno di:', vote_instruction: 'Tocca chi pensi sia l\'impostore', vote_registered: 'Voto registrato!', vote_pass_next: 'Passa al prossimo →', vote_expelled: 'Espulso:', vote_was_impostor: '✗ ERA L\'IMPOSTORE', vote_was_civil: '✓ ERA CIVILE', vote_civilians_win: 'Vincono i Civili!', vote_impostors_win: 'Vincono gli Impostori!', vote_tie_msg: 'Pareggio. Nessuno espulso. Vincono gli impostori.', vote_btn_start: '🗳️ Vota Ora', btn_next_round: '🔄 Prossimo Round', guess_title: '🎯 Ultima Chance', guess_heading: 'Ti Hanno Preso!', guess_instruction: 'Scrivi la parola segreta per salvarti. Se indovini, vincono gli impostori!', guess_placeholder: 'Scrivi la tua risposta...', guess_btn: 'Indovina la Parola', guess_hint: 'Nessun altro deve guardare lo schermo', guess_correct_title: 'Giusto!', guess_correct_msg: 'Ti sei salvato! Vincono gli impostori.', guess_wrong_title: 'Sbagliato', guess_wrong_msg: 'Vincono i civili. La parola era:', guess_your_answer: 'La tua risposta:' },
+  ru: { lang_pick: 'Выберите язык', setup_title: '⚙️ Настройки', tagline: 'Ультимативное издание', label_players: 'Игроки', label_impostors: 'Самозванцы', label_time: 'Время (мин)', label_sound: 'Звук оповещения', sound_none: 'Без звука', btn_test_sound: 'Тест', btn_continue: 'Продолжить →', btn_help: 'Помощь', btn_next: 'Далее →', btn_back_main: '← Главное меню', btn_back: '← Назад', btn_deal_roles: 'Раздать роли 🎲', btn_start_game: '🔥 Начать игру', btn_pause: '⏸ Пауза', btn_resume: '▶ Продолжить', btn_new_game: '🔄 Новая игра', btn_main_menu: '🏠 Меню', cats_title: '📂 Темы', cats_pick: 'Выбрать темы', names_title: '👥 Игроки', names_assign: 'Назначить имена', reveal_title: '🤫 Роли', reveal_secret: 'Тайная личность', game_title: '⏳ Дебаты', game_timer_label: 'Таймер', game_starts_asking: 'Начинает задавать вопросы:', role_civil: 'Вы мирный', role_impostor: 'Вы самозванец', civil_word_label: 'Секретное слово:', btn_understood: 'Понятно ✓', role_seen: 'Посмотреть роль', role_done: 'Роль просмотрена ✓', cat_varied: '🎲 Разное', cat_places: '✈️ Места', cat_food: '🍕 Еда', cat_animals: '🦁 Животные', cat_movies: '🎬 Фильмы', cat_sports: '⚽ Спорт', cat_anime: '🎌 Аниме', cat_games: '🎮 Игры', cat_custom: '✏️ Пользовательский', player_default: 'Игрок', btn_close: 'Закрыть', vote_title: '🗳️ Голосование', vote_turn: 'Ход:', vote_instruction: 'Нажмите на того, кто самозванец', vote_registered: 'Голос учтён!', vote_pass_next: 'Передать дальше →', vote_expelled: 'Изгнан:', vote_was_impostor: '✗ БЫЛ САМОЗВАНЦЕМ', vote_was_civil: '✓ БЫЛ МИРНЫМ', vote_civilians_win: 'Мирные Побеждают!', vote_impostors_win: 'Самозванцы Побеждают!', vote_tie_msg: 'Ничья. Никто не изгнан. Самозванцы побеждают.', vote_btn_start: '🗳️ Голосовать', btn_next_round: '🔄 Следующий раунд', guess_title: '🎯 Последний шанс', guess_heading: 'Вас поймали!', guess_instruction: 'Введите секретное слово чтобы спастись. Если угадаете — самозванцы побеждают!', guess_placeholder: 'Введите ответ...', guess_btn: 'Угадать слово', guess_hint: 'Никто больше не должен смотреть на экран', guess_correct_title: 'Верно!', guess_correct_msg: 'Вы спаслись! Самозванцы побеждают.', guess_wrong_title: 'Неверно', guess_wrong_msg: 'Мирные побеждают. Слово было:', guess_your_answer: 'Ваш ответ:' },
+  ja: { lang_pick: '言語を選択してください', setup_title: '⚙️ 設定', tagline: 'アルティメット版', label_players: 'プレイヤー数', label_impostors: 'インポスター数', label_time: '時間（分）', label_sound: '警告音', sound_none: '音なし', btn_test_sound: 'テスト', btn_continue: '続ける →', btn_help: 'ヘルプ', btn_next: '次へ →', btn_back_main: '← メインメニュー', btn_back: '← 戻る', btn_deal_roles: '役割を配る 🎲', btn_start_game: '🔥 ゲーム開始', btn_pause: '⏸ 一時停止', btn_resume: '▶ 再開', btn_new_game: '🔄 新しいゲーム', btn_main_menu: '🏠 メニュー', cats_title: '📂 テーマ', cats_pick: 'テーマを選ぶ', names_title: '👥 プレイヤー', names_assign: '名前を割り当て', reveal_title: '🤫 役割', reveal_secret: '秘密の身元', game_title: '⏳ 議論', game_timer_label: 'タイマー', game_starts_asking: '最初に質問するのは:', role_civil: 'あなたは市民です', role_impostor: 'あなたがインポスターです', civil_word_label: '秘密の言葉は:', btn_understood: '了解 ✓', role_seen: '役割を見る', role_done: '確認済み ✓', cat_varied: '🎲 ミックス', cat_places: '✈️ 場所', cat_food: '🍕 食べ物', cat_animals: '🦁 動物', cat_movies: '🎬 映画', cat_sports: '⚽ スポーツ', cat_anime: '🎌 アニメ', cat_games: '🎮 ゲーム', cat_custom: '✏️ カスタム', player_default: 'プレイヤー', btn_close: '閉じる', vote_title: '🗳️ 投票', vote_turn: '投票者:', vote_instruction: 'インポスターだと思う人をタップ', vote_registered: '投票完了！', vote_pass_next: '次の人へ →', vote_expelled: '追放:', vote_was_impostor: '✗ インポスターだった', vote_was_civil: '✓ 市民だった', vote_civilians_win: '市民の勝利！', vote_impostors_win: 'インポスターの勝利！', vote_tie_msg: '同票。誰も追放されず。インポスターの勝利。', vote_btn_start: '🗳️ 今すぐ投票', btn_next_round: '🔄 次のラウンド', guess_title: '🎯 最後のチャンス', guess_heading: '捕まった！', guess_instruction: '秘密の言葉を入力して逃げよう。正解ならインポスターの勝利！', guess_placeholder: '答えを入力...', guess_btn: '言葉を当てる', guess_hint: '他の人は画面を見ないでください', guess_correct_title: '正解！', guess_correct_msg: '逃げ切った！インポスターの勝利。', guess_wrong_title: '不正解', guess_wrong_msg: '市民の勝利。正解は:', guess_your_answer: 'あなたの答え:' },
+  ko: { lang_pick: '언어를 선택하세요', setup_title: '⚙️ 설정', tagline: '얼티메이트 에디션', label_players: '플레이어 수', label_impostors: '임포스터 수', label_time: '시간 (분)', label_sound: '경고음', sound_none: '소리 없음', btn_test_sound: '테스트', btn_continue: '계속 →', btn_help: '도움말', btn_next: '다음 →', btn_back_main: '← 메인 메뉴', btn_back: '← 뒤로', btn_deal_roles: '역할 배분 🎲', btn_start_game: '🔥 게임 시작', btn_pause: '⏸ 일시 정지', btn_resume: '▶ 재개', btn_new_game: '🔄 새 게임', btn_main_menu: '🏠 메뉴', cats_title: '📂 주제', cats_pick: '테마 선택', names_title: '👥 플레이어', names_assign: '이름 지정', reveal_title: '🤫 역할', reveal_secret: '비밀 신원', game_title: '⏳ 토론', game_timer_label: '타이머', game_starts_asking: '먼저 질문하는 사람:', role_civil: '당신은 시민입니다', role_impostor: '당신이 임포스터입니다', civil_word_label: '비밀 단어는:', btn_understood: '알겠습니다 ✓', role_seen: '역할 보기', role_done: '역할 확인 ✓', cat_varied: '🎲 다양', cat_places: '✈️ 장소', cat_food: '🍕 음식', cat_animals: '🦁 동물', cat_movies: '🎬 영화', cat_sports: '⚽ 스포츠', cat_anime: '🎌 애니메', cat_games: '🎮 게임', cat_custom: '✏️ 커스텀', player_default: '플레이어', btn_close: '닫기', vote_title: '🗳️ 투표', vote_turn: '차례:', vote_instruction: '임포스터라고 생각하는 사람을 탭하세요', vote_registered: '투표 완료!', vote_pass_next: '다음 사람에게 →', vote_expelled: '추방:', vote_was_impostor: '✗ 임포스터였음', vote_was_civil: '✓ 시민이었음', vote_civilians_win: '시민 승리!', vote_impostors_win: '임포스터 승리!', vote_tie_msg: '동점. 아무도 추방되지 않음. 임포스터 승리.', vote_btn_start: '🗳️ 지금 투표', btn_next_round: '🔄 다음 라운드', guess_title: '🎯 마지막 기회', guess_heading: '잡혔습니다!', guess_instruction: '비밀 단어를 입력해 살아남으세요. 맞추면 임포스터 승리!', guess_placeholder: '답을 입력하세요...', guess_btn: '단어 추측', guess_hint: '다른 사람은 화면을 보지 마세요', guess_correct_title: '정답!', guess_correct_msg: '살아남았습니다! 임포스터 승리.', guess_wrong_title: '오답', guess_wrong_msg: '시민 승리. 정답은:', guess_your_answer: '당신의 답:' },
+  zh: { lang_pick: '请选择语言', setup_title: '⚙️ 设置', tagline: '终极版', label_players: '玩家数量', label_impostors: '内奸数量', label_time: '时间（分钟）', label_sound: '警报声音', sound_none: '无声音', btn_test_sound: '测试', btn_continue: '继续 →', btn_help: '帮助', btn_next: '下一步 →', btn_back_main: '← 主菜单', btn_back: '← 返回', btn_deal_roles: '分配角色 🎲', btn_start_game: '🔥 开始游戏', btn_pause: '⏸ 暂停', btn_resume: '▶ 继续', btn_new_game: '🔄 新游戏', btn_main_menu: '🏠 菜单', cats_title: '📂 主题', cats_pick: '选择主题', names_title: '👥 玩家', names_assign: '分配名称', reveal_title: '🤫 角色', reveal_secret: '秘密身份', game_title: '⏳ 辩论', game_timer_label: '计时器', game_starts_asking: '先开始提问：', role_civil: '你是平民', role_impostor: '你是内奸', civil_word_label: '秘密词语是：', btn_understood: '明白了 ✓', role_seen: '查看角色', role_done: '已查看 ✓', cat_varied: '🎲 综合', cat_places: '✈️ 地点', cat_food: '🍕 食物', cat_animals: '🦁 动物', cat_movies: '🎬 电影', cat_sports: '⚽ 运动', cat_anime: '🎌 动漫', cat_games: '🎮 游戏', cat_custom: '✏️ 自定义', player_default: '玩家', btn_close: '关闭', vote_title: '🗳️ 投票', vote_turn: '轮到：', vote_instruction: '点击你认为的内奸', vote_registered: '投票已记录！', vote_pass_next: '传给下一位 →', vote_expelled: '被淘汰：', vote_was_impostor: '✗ 是内奸', vote_was_civil: '✓ 是平民', vote_civilians_win: '平民胜利！', vote_impostors_win: '内奸胜利！', vote_tie_msg: '投票平局。无人被淘汰。内奸获胜。', vote_btn_start: '🗳️ 立即投票', btn_next_round: '🔄 下一轮', guess_title: '🎯 最后机会', guess_heading: '被抓住了！', guess_instruction: '输入秘密词语自救。猜对则内奸获胜！', guess_placeholder: '输入答案...', guess_btn: '猜词', guess_hint: '其他人不要看屏幕', guess_correct_title: '猜对了！', guess_correct_msg: '你自救成功！内奸获胜。', guess_wrong_title: '猜错了', guess_wrong_msg: '平民获胜。答案是：', guess_your_answer: '你的答案：' },
+  ar: { lang_pick: 'اختر لغتك', setup_title: '⚙️ الإعدادات', tagline: 'الإصدار النهائي', label_players: 'اللاعبون', label_impostors: 'المتسللون', label_time: 'الوقت (دقائق)', label_sound: 'صوت التنبيه', sound_none: 'بدون صوت', btn_test_sound: 'اختبار', btn_continue: 'متابعة →', btn_help: 'مساعدة', btn_next: 'التالي →', btn_back_main: '→ القائمة الرئيسية', btn_back: '→ رجوع', btn_deal_roles: 'توزيع الأدوار 🎲', btn_start_game: '🔥 ابدأ اللعبة', btn_pause: '⏸ إيقاف مؤقت', btn_resume: '▶ استئناف', btn_new_game: '🔄 لعبة جديدة', btn_main_menu: '🏠 القائمة', cats_title: '📂 المواضيع', cats_pick: 'اختر الفئات', names_title: '👥 اللاعبون', names_assign: 'تعيين الأسماء', reveal_title: '🤫 الأدوار', reveal_secret: 'الهوية السرية', game_title: '⏳ النقاش', game_timer_label: 'المؤقت', game_starts_asking: 'يبدأ بالسؤال:', role_civil: 'أنت مدني', role_impostor: 'أنت المتسلل', civil_word_label: 'الكلمة السرية هي:', btn_understood: 'فهمت ✓', role_seen: 'انظر الدور', role_done: 'شوهد الدور ✓', cat_varied: '🎲 متنوع', cat_places: '✈️ أماكن', cat_food: '🍕 طعام', cat_animals: '🦁 حيوانات', cat_movies: '🎬 أفلام', cat_sports: '⚽ رياضة', cat_anime: '🎌 أنمي', cat_games: '🎮 ألعاب', cat_custom: '✏️ مخصص', player_default: 'لاعب', btn_close: 'إغلاق', vote_title: '🗳️ التصويت', vote_turn: 'دور:', vote_instruction: 'اضغط على من تظن أنه المتسلل', vote_registered: 'تم تسجيل الصوت!', vote_pass_next: 'مرر للتالي →', vote_expelled: 'مُستبعد:', vote_was_impostor: '✗ كان المتسلل', vote_was_civil: '✓ كان مدنياً', vote_civilians_win: 'فاز المدنيون!', vote_impostors_win: 'فاز المتسللون!', vote_tie_msg: 'تعادل. لم يُستبعد أحد. فاز المتسللون.', vote_btn_start: '🗳️ صوّت الآن', btn_next_round: '🔄 الجولة التالية', guess_title: '🎯 الفرصة الأخيرة', guess_heading: 'تم القبض عليك!', guess_instruction: 'اكتب الكلمة السرية لتنقذ نفسك. إذا أصبت، يفوز المتسللون!', guess_placeholder: 'اكتب إجابتك...', guess_btn: 'خمّن الكلمة', guess_hint: 'لا يجب أن ينظر أحد آخر إلى الشاشة', guess_correct_title: 'صحيح!', guess_correct_msg: 'أنقذت نفسك! فاز المتسللون.', guess_wrong_title: 'خطأ', guess_wrong_msg: 'فاز المدنيون. الكلمة كانت:', guess_your_answer: 'إجابتك:' },
+  tr: { lang_pick: 'Dilinizi seçin', setup_title: '⚙️ Ayarlar', tagline: 'Ultimate Sürüm', label_players: 'Oyuncular', label_impostors: 'Sahtekârlar', label_time: 'Süre (dakika)', label_sound: 'Uyarı Sesi', sound_none: 'Sessiz', btn_test_sound: 'Test', btn_continue: 'Devam →', btn_help: 'Yardım', btn_next: 'İleri →', btn_back_main: '← Ana Menü', btn_back: '← Geri', btn_deal_roles: 'Rolleri Dağıt 🎲', btn_start_game: '🔥 Oyunu Başlat', btn_pause: '⏸ Duraklat', btn_resume: '▶ Devam', btn_new_game: '🔄 Yeni Oyun', btn_main_menu: '🏠 Menü', cats_title: '📂 Temalar', cats_pick: 'Tema Seç', names_title: '👥 Oyuncular', names_assign: 'İsimleri Atayın', reveal_title: '🤫 Roller', reveal_secret: 'Gizli Kimlik', game_title: '⏳ Tartışma', game_timer_label: 'Süre', game_starts_asking: 'İlk soru soran:', role_civil: 'Sivilsiniz', role_impostor: 'Sahtekârsınız', civil_word_label: 'Gizli kelime:', btn_understood: 'Anladım ✓', role_seen: 'Rolü Gör', role_done: 'Rol Görüldü ✓', cat_varied: '🎲 Karışık', cat_places: '✈️ Yerler', cat_food: '🍕 Yiyecekler', cat_animals: '🦁 Hayvanlar', cat_movies: '🎬 Filmler', cat_sports: '⚽ Spor', cat_anime: '🎌 Anime', cat_games: '🎮 Oyunlar', cat_custom: '✏️ Özel', player_default: 'Oyuncu', btn_close: 'Kapat', vote_title: '🗳️ Oylama', vote_turn: 'Sıra:', vote_instruction: 'Sahtekâr olduğunu düşündüğün kişiye dokun', vote_registered: 'Oy kaydedildi!', vote_pass_next: 'Sıradakine geç →', vote_expelled: 'Kovuldu:', vote_was_impostor: '✗ SAHTEKÂRDI', vote_was_civil: '✓ SİVİLDİ', vote_civilians_win: 'Siviller Kazandı!', vote_impostors_win: 'Sahtekârlar Kazandı!', vote_tie_msg: 'Berabere. Kimse kovulmadı. Sahtekârlar kazandı.', vote_btn_start: '🗳️ Şimdi Oy Ver', btn_next_round: '🔄 Sonraki Tur', guess_title: '🎯 Son Şans', guess_heading: 'Yakalandın!', guess_instruction: 'Kendini kurtarmak için gizli kelimeyi yaz. Doğruysa sahtekârlar kazanır!', guess_placeholder: 'Cevabını yaz...', guess_btn: 'Kelimeyi Tahmin Et', guess_hint: 'Başka kimse ekrana bakmamalı', guess_correct_title: 'Doğru!', guess_correct_msg: 'Kendini kurtardın! Sahtekârlar kazandı.', guess_wrong_title: 'Yanlış', guess_wrong_msg: 'Siviller kazandı. Kelime şuydu:', guess_your_answer: 'Cevabın:' },
 };
 
 Object.keys(I18N).forEach(code => {
@@ -994,7 +974,6 @@ const CATEGORIES = [
 const SoundEngine = (() => {
   let audioCtx = null;
   const getCtx = () => audioCtx || (audioCtx = new (window.AudioContext || window.webkitAudioContext)());
-
   const playTone = (ctx, { type = 'sine', freq, start = 0, duration = 0.3, gain = 0.2, freqEnd = null }) => {
     const osc = ctx.createOscillator();
     const g = ctx.createGain();
@@ -1003,27 +982,20 @@ const SoundEngine = (() => {
     if (freqEnd !== null) {
       osc.frequency.setValueAtTime(freq, t0);
       osc.frequency.linearRampToValueAtTime(freqEnd, t0 + duration);
-    } else {
-      osc.frequency.value = freq;
-    }
+    } else { osc.frequency.value = freq; }
     g.gain.setValueAtTime(gain, t0);
     g.gain.exponentialRampToValueAtTime(0.001, t0 + duration);
     osc.connect(g).connect(ctx.destination);
-    osc.start(t0);
-    osc.stop(t0 + duration);
+    osc.start(t0); osc.stop(t0 + duration);
   };
-
   const SOUNDS = {
     beep:    [{ freq: 800, duration: 0.5, gain: 0.3 }],
-    bell:    [{ freq: 600, start: 0,   duration: 0.8, gain: 0.2 },
-              { freq: 800, start: 0.1, duration: 0.8, gain: 0.2 },
-              { freq: 1000, start: 0.2, duration: 0.8, gain: 0.2 }],
+    bell:    [{ freq: 600, start: 0, duration: 0.8, gain: 0.2 },{ freq: 800, start: 0.1, duration: 0.8, gain: 0.2 },{ freq: 1000, start: 0.2, duration: 0.8, gain: 0.2 }],
     digital: Array.from({ length: 5 }, (_, i) => ({ type: 'square', freq: 1000, start: i * 0.15, duration: 0.1, gain: 0.1 })),
     alarm:   Array.from({ length: 3 }, (_, i) => ({ type: 'sawtooth', freq: 400, freqEnd: 800, start: i * 0.6, duration: 0.6, gain: 0.15 })),
     chime:   [523, 659, 784, 1046].map((freq, i) => ({ freq, start: i * 0.2, duration: 1, gain: 0.15 })),
     buzzer:  [{ type: 'sawtooth', freq: 150, duration: 1.5, gain: 0.3 }],
   };
-
   return {
     play(sound) {
       if (!sound || sound === 'none' || !SOUNDS[sound]) return;
@@ -1056,9 +1028,16 @@ const state = {
     active: false,
     voters: [],
     currentIdx: 0,
-    votes: {},       // { voterIdx: votedIdx }
+    votes: {},
     lastVotedFor: null,
     showingResults: false,
+    // Last-chance guess
+    guessImpostorIdx: null,
+    guessResolved: false,
+    // Cached vote data for final modal after guess
+    cachedVoteSummary: '',
+    cachedWasTie: false,
+    cachedExpelledIdx: null,
   },
   rolesViewed: 0,
   openHelpId: null,
@@ -1067,6 +1046,30 @@ const state = {
 
 const $ = id => document.getElementById(id);
 const t = key => I18N[state.currentLang]?.[key] ?? I18N.en[key] ?? key;
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* Normalize a word for comparison: lowercase, strip accents, punctuation */
+function normalizeWord(str) {
+  return String(str || '')
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, ' ');
+}
 
 /* ============================================================
    WAKE LOCK
@@ -1175,7 +1178,6 @@ function stepperChange(id, delta) {
   const val = Math.max(cfg.min, Math.min(cfg.max, parseInt(input.value, 10) + delta));
   input.value = val;
   $(`${id}-display`).textContent = val;
-
   if (id === 'num-players') {
     const impInput = $('num-impostors');
     if (parseInt(impInput.value, 10) >= val) {
@@ -1212,7 +1214,6 @@ function goToCategories() {
 function goToNames() {
   const checkedCats = document.querySelectorAll('.cat-item input:checked');
   if (checkedCats.length === 0) return alert(t('err_no_categories'));
-
   if ($('cat-Personalizado').checked) {
     const words = $('custom-words').value.split(',').map(w => w.trim()).filter(Boolean);
     if (words.length === 0) return alert(t('err_no_words'));
@@ -1236,15 +1237,10 @@ function renderNamesList() {
   }).join('');
 }
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
 function syncSetupSteppers() {
   state.config.players = state.playerNames.length;
   $('num-players').value = state.config.players;
   $('num-players-display').textContent = state.config.players;
-
   const impInput = $('num-impostors');
   if (parseInt(impInput.value, 10) >= state.config.players) {
     const v = state.config.players - 1;
@@ -1297,12 +1293,10 @@ function addGameToHistory(winner) {
 function renderHistory() {
   const list = $('history-list');
   const history = getHistory();
-
   if (history.length === 0) {
     list.innerHTML = `<p style="color: var(--gray); text-align: center; padding: 24px; font-family: var(--font-marker);">${t('history_empty')}</p>`;
     return;
   }
-
   list.innerHTML = history.map(game => `
     <div class="history-item">
       <h4>${escapeHtml(game.date)}</h4>
@@ -1340,31 +1334,19 @@ function getSecretWord() {
     state.game.usedWords = [];
     pool = words;
   }
-
   const word = pool[Math.floor(Math.random() * pool.length)];
   state.game.usedWords.push(word);
   return word;
 }
 
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 function assignRoles() {
   state.playerNames = state.playerNames.map(n => n.trim()).filter(Boolean);
-
   if (state.playerNames.length < 3) return alert(t('err_min_players'));
   if (state.playerNames.length <= state.config.impostors) return alert(t('err_impostors'));
 
   for (let i = 0; i < state.playerNames.length; i++) {
     if (!state.playerNames[i]) state.playerNames[i] = `${t('player_default')} ${i + 1}`;
   }
-
   state.config.players = state.playerNames.length;
 
   const word = getSecretWord();
@@ -1424,10 +1406,8 @@ function closeRole(playerIndex) {
 function startDebate() {
   state.game.timeLeft = state.config.time * 60;
   updateTimerDisplay();
-
   const starterIdx = Math.floor(Math.random() * state.playerNames.length);
   $('starter-player').textContent = state.playerNames[starterIdx];
-
   showScreen('screen-game');
   startTimer();
   requestWakeLock();
@@ -1444,7 +1424,6 @@ function startTimer() {
       state.game.timerId = null;
       SoundEngine.play(state.game.alarmSound);
       if (!state.game.gameEnded) {
-        // Auto start voting when time runs out
         setTimeout(() => startVoting(), 400);
       }
     }
@@ -1474,9 +1453,7 @@ function startVoting() {
   state.game.paused = true;
   releaseWakeLock();
 
-  // Shuffle the voting order so it's not obvious who's first
   const voters = shuffle(Array.from({ length: state.playerNames.length }, (_, i) => i));
-
   state.vote = {
     active: true,
     voters,
@@ -1484,8 +1461,12 @@ function startVoting() {
     votes: {},
     lastVotedFor: null,
     showingResults: false,
+    guessImpostorIdx: null,
+    guessResolved: false,
+    cachedVoteSummary: '',
+    cachedWasTie: false,
+    cachedExpelledIdx: null,
   };
-
   showScreen('screen-vote');
   renderVoteTurn();
   requestWakeLock();
@@ -1493,12 +1474,9 @@ function startVoting() {
 
 function renderVoteTurn() {
   const voterIdx = state.vote.voters[state.vote.currentIdx];
-  const voterName = state.playerNames[voterIdx];
-
-  $('vote-turn-name').textContent = voterName;
+  $('vote-turn-name').textContent = state.playerNames[voterIdx];
   $('vote-progress').textContent = `${state.vote.currentIdx + 1} / ${state.vote.voters.length}`;
 
-  // Build voting options (exclude self)
   $('vote-options').innerHTML = state.playerNames.map((name, i) => {
     if (i === voterIdx) return '';
     return `<button type="button" class="vote-option" data-vote-for="${i}">
@@ -1513,12 +1491,9 @@ function renderVoteTurn() {
 
 function castVote(votedIdx) {
   const voterIdx = state.vote.voters[state.vote.currentIdx];
-  if (votedIdx === voterIdx) return; // can't vote for self
-
+  if (votedIdx === voterIdx) return;
   state.vote.votes[voterIdx] = votedIdx;
   state.vote.lastVotedFor = votedIdx;
-
-  // Show confirmation
   $('vote-turn-card').classList.add('hidden');
   $('vote-confirm-card').classList.remove('hidden');
   $('vote-confirm-who').innerHTML = `<strong>${escapeHtml(state.playerNames[votedIdx])}</strong>`;
@@ -1537,7 +1512,6 @@ function showVoteResults() {
   state.vote.showingResults = true;
   state.game.gameEnded = true;
 
-  // Tally
   const counts = {};
   Object.values(state.vote.votes).forEach(v => { counts[v] = (counts[v] || 0) + 1; });
 
@@ -1552,44 +1526,58 @@ function showVoteResults() {
   const isTie = leaders.length !== 1;
   const expelledIdx = isTie ? null : leaders[0];
   const wasImpostor = !isTie && state.game.impostorIndices.includes(expelledIdx);
-  const civiliansWin = !isTie && wasImpostor;
-  const winnerKey = civiliansWin ? 'civilians' : 'impostors';
 
+  // Build vote summary for later use
+  const voteSummary = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([idx, count]) => `${state.playerNames[+idx]} — ${count}`)
+    .join(' · ');
+
+  state.vote.cachedVoteSummary = voteSummary;
+  state.vote.cachedWasTie = isTie;
+  state.vote.cachedExpelledIdx = expelledIdx;
+
+  // ---- NEW: If impostor is caught, give LAST CHANCE to guess ----
+  if (wasImpostor) {
+    state.vote.guessImpostorIdx = expelledIdx;
+    state.vote.guessResolved = false;
+    state.vote.active = false;
+    releaseWakeLock();
+    startImpostorGuess(expelledIdx);
+    return;
+  }
+
+  // Tie or civil expelled → impostors win directly
+  const winnerKey = 'impostors';
   addGameToHistory(winnerKey);
   releaseWakeLock();
 
   const impostorNames = state.game.impostorIndices.map(i => state.playerNames[i]).join(', ');
 
-  // Build vote summary
-  const voteSummary = Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .map(([idx, count]) => `${escapeHtml(state.playerNames[+idx])} — ${count}`)
-    .join(' · ');
-
   const modal = $('role-modal');
   modal.innerHTML = `
-    <div class="role-card ${civiliansWin ? 'win' : 'impostor'}">
-      <div class="role-emoji">${civiliansWin ? '🏆' : '💀'}</div>
-      <div class="role-title">${civiliansWin ? t('vote_civilians_win') : t('vote_impostors_win')}</div>
+    <div class="role-card impostor">
+      <div class="role-emoji">${isTie ? '🤝' : '💀'}</div>
+      <div class="role-title">${t('vote_impostors_win')}</div>
 
       ${isTie ? `
         <p class="role-hint" style="margin-bottom: 18px;">${t('vote_tie_msg')}</p>
       ` : `
-        <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px; ${civiliansWin ? 'color: var(--ink);' : ''}">${t('vote_expelled')}</div>
+        <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px;">${t('vote_expelled')}</div>
         <div class="word-box">${escapeHtml(state.playerNames[expelledIdx])}</div>
-        <p class="role-hint" style="font-family: var(--font-display); font-weight: 700; letter-spacing: 1.5px; font-size: 1rem; margin-bottom: 16px; ${civiliansWin ? 'color: var(--ink);' : 'color: var(--yellow);'}">
-          ${wasImpostor ? t('vote_was_impostor') : t('vote_was_civil')}
+        <p class="role-hint" style="font-family: var(--font-display); font-weight: 700; letter-spacing: 1.5px; font-size: 1rem; margin-bottom: 16px; color: var(--yellow);">
+          ${t('vote_was_civil')}
         </p>
       `}
 
-      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 12px 0 6px; ${civiliansWin ? 'color: var(--ink);' : ''}">${t('label_word')}</div>
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 12px 0 6px;">${t('label_word')}</div>
       <div class="word-box">${escapeHtml(state.game.secretWord)}</div>
 
-      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 14px 0 6px; ${civiliansWin ? 'color: var(--ink);' : ''}">${t('label_impostor_was')}</div>
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 14px 0 6px;">${t('label_impostor_was')}</div>
       <div class="word-box" style="background: var(--ink); color: var(--red);">${escapeHtml(impostorNames)}</div>
 
       ${voteSummary ? `
-        <div style="font-family: var(--font-marker); font-size:0.72rem; margin-top: 14px; opacity: 0.85; line-height: 1.6; ${civiliansWin ? 'color: var(--ink);' : 'color: var(--white);'}">
+        <div style="font-family: var(--font-marker); font-size:0.72rem; margin-top: 14px; opacity: 0.85; line-height: 1.6; color: var(--white);">
           📊 ${voteSummary}
         </div>
       ` : ''}
@@ -1615,11 +1603,86 @@ function handleVoteBackToMenu() {
 }
 
 /* ============================================================
+   LAST CHANCE — IMPOSTOR GUESS
+   ============================================================ */
+function startImpostorGuess(expelledIdx) {
+  const name = state.playerNames[expelledIdx];
+  $('guess-impostor-name').textContent = name;
+  $('guess-input').value = '';
+  $('guess-input').placeholder = t('guess_placeholder');
+  $('guess-input').disabled = false;
+  $('btn-submit-guess').disabled = false;
+  $('btn-submit-guess').textContent = t('guess_btn');
+
+  showScreen('screen-guess');
+  requestWakeLock();
+  setTimeout(() => $('guess-input').focus(), 250);
+}
+
+function submitGuess() {
+  if (state.vote.guessResolved) return;
+  const guess = $('guess-input').value.trim();
+  if (!guess) return;
+
+  const correct = normalizeWord(guess) === normalizeWord(state.game.secretWord);
+  state.vote.guessResolved = true;
+  state.vote.showingResults = true;
+  $('guess-input').disabled = true;
+  $('btn-submit-guess').disabled = true;
+
+  releaseWakeLock();
+  showGuessResult(correct, guess);
+}
+
+function showGuessResult(correct, guess) {
+  const winnerKey = correct ? 'impostors' : 'civilians';
+  addGameToHistory(winnerKey);
+
+  const impostorNames = state.game.impostorIndices.map(i => state.playerNames[i]).join(', ');
+  const { cachedVoteSummary: voteSummary } = state.vote;
+
+  const cardClass = correct ? 'impostor' : 'win';
+  const emoji = correct ? '😈' : '🏆';
+  const title = correct ? t('guess_correct_title') : t('guess_wrong_title');
+  const msg = correct ? t('guess_correct_msg') : t('guess_wrong_msg');
+
+  const modal = $('role-modal');
+  modal.innerHTML = `
+    <div class="role-card ${cardClass}">
+      <div class="role-emoji">${emoji}</div>
+      <div class="role-title">${title}</div>
+      <p class="role-hint" style="margin-bottom: 16px; ${correct ? 'color: var(--white);' : 'color: var(--ink);'}">${msg}</p>
+
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px; ${correct ? 'color: var(--white);' : 'color: var(--ink);'}">${t('guess_your_answer')}</div>
+      <div class="word-box" style="background: ${correct ? 'var(--ink)' : 'var(--paper)'}; color: ${correct ? 'var(--yellow)' : 'var(--ink)'}; ${correct ? 'border-color: var(--yellow);' : ''}">
+        ${escapeHtml(guess)}
+      </div>
+
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 14px 0 6px; ${correct ? 'color: var(--white);' : 'color: var(--ink);'}">${t('guess_correct_answer')}</div>
+      <div class="word-box">${escapeHtml(state.game.secretWord)}</div>
+
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 14px 0 6px; ${correct ? 'color: var(--white);' : 'color: var(--ink);'}">${t('label_impostor_was')}</div>
+      <div class="word-box" style="background: var(--ink); color: var(--red);">${escapeHtml(impostorNames)}</div>
+
+      ${voteSummary ? `
+        <div style="font-family: var(--font-marker); font-size:0.72rem; margin-top: 14px; opacity: 0.85; line-height: 1.6; ${correct ? 'color: var(--white);' : 'color: var(--ink);'}">
+          📊 ${voteSummary}
+        </div>
+      ` : ''}
+
+      <div class="btn-row" style="margin-top: 22px;">
+        <button type="button" class="btn btn-primary" data-vote-next-round>${t('btn_next_round')}</button>
+        <button type="button" class="btn btn-ghost" data-vote-menu>${t('btn_main_menu')}</button>
+      </div>
+    </div>`;
+  modal.classList.add('visible');
+}
+
+/* ============================================================
    REVEAL & END (emergency skip)
    ============================================================ */
 function revealAndEndGame() {
   if (!confirm(t('confirm_reveal'))) return;
-
   clearInterval(state.game.timerId);
   state.game.timerId = null;
   state.game.paused = true;
@@ -1696,14 +1759,11 @@ function renderManageList() {
 function removePlayerMidGame(idx) {
   if (state.playerNames.length <= 3) return alert(t('err_min_players'));
   if (!confirm(t('confirm_remove'))) return;
-
   const wasImpostor = state.game.impostorIndices.includes(idx);
   state.playerNames.splice(idx, 1);
-
   state.game.impostorIndices = state.game.impostorIndices
     .filter(i => i !== idx)
     .map(i => i > idx ? i - 1 : i);
-
   if (wasImpostor && state.game.impostorIndices.length < state.config.impostors) {
     const available = state.playerNames.map((_, i) => i).filter(i => !state.game.impostorIndices.includes(i));
     if (available.length > 0) {
@@ -1713,7 +1773,6 @@ function removePlayerMidGame(idx) {
       alert(`${state.playerNames[newImp]} ${t('new_impostor')}`);
     }
   }
-
   state.config.players = state.playerNames.length;
   renderManageList();
 }
@@ -1722,15 +1781,12 @@ function addPlayerMidGame() {
   const input = $('new-player-name-mid');
   const name = input.value.trim();
   if (!name) return;
-
   state.playerNames.push(name);
   state.config.players = state.playerNames.length;
   input.value = '';
   renderManageList();
-
   const playerIdx = state.playerNames.length - 1;
   $('manage-modal').classList.remove('visible');
-
   const modal = $('role-modal');
   modal.innerHTML = `
     <div class="role-card civil">
@@ -1751,10 +1807,7 @@ function updateSoundName() {
   const select = $('alarm-sound');
   $('selected-sound-name').textContent = select.options[select.selectedIndex].text;
 }
-
-function testAlarmSound() {
-  SoundEngine.play($('alarm-sound').value);
-}
+function testAlarmSound() { SoundEngine.play($('alarm-sound').value); }
 
 /* ============================================================
    HELP
@@ -1835,12 +1888,18 @@ function bindEvents() {
     if (item) showRole(+item.dataset.reveal);
   });
 
-  // Voting options
+  // Voting
   $('vote-options').addEventListener('click', e => {
     const opt = e.target.closest('[data-vote-for]');
     if (opt) castVote(+opt.dataset.voteFor);
   });
   $('btn-vote-next').addEventListener('click', advanceVote);
+
+  // Last chance guess
+  $('btn-submit-guess').addEventListener('click', submitGuess);
+  $('guess-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); submitGuess(); }
+  });
 
   // Modal delegation
   $('role-modal').addEventListener('click', e => {
@@ -1852,7 +1911,6 @@ function bindEvents() {
     if (nextRoundBtn) return handleVoteNextRound();
     const menuBtn = e.target.closest('[data-vote-menu]');
     if (menuBtn) return handleVoteBackToMenu();
-    // Prevent accidental close during vote results
     if (e.target === $('role-modal') && !state.vote.showingResults) {
       $('role-modal').classList.remove('visible');
     }
