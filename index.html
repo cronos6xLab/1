@@ -3,56 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0a0a14">
+<meta name="theme-color" content="#141414">
 <title>Impostor Ultimate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Permanent+Marker&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     DESIGN TOKENS
+     DESIGN TOKENS — COMIC BOOK AESTHETIC
      ============================================================ */
   :root {
-    --bg: #07070c;
-    --bg-soft: #0d0d16;
-    --surface: rgba(20, 20, 32, 0.72);
-    --surface-solid: #14141f;
-    --surface-2: rgba(30, 30, 46, 0.6);
-    --surface-hi: rgba(255, 255, 255, 0.04);
+    --ink: #0a0a0a;
+    --ink-2: #1a1a1a;
+    --paper: #f2ecd8;
+    --paper-dark: #d9d2b8;
+    --bg: #141414;
+    --bg-2: #1c1c1c;
+    --bg-3: #242424;
 
-    --stroke: rgba(255, 255, 255, 0.08);
-    --stroke-hi: rgba(255, 255, 255, 0.14);
+    --yellow: #ffe600;
+    --yellow-2: #ffcc00;
+    --red: #ff2e2e;
+    --red-2: #cc1a1a;
+    --blue: #00b4ff;
+    --blue-2: #0077cc;
+    --magenta: #ff00aa;
+    --green: #00e676;
+    --white: #ffffff;
+    --gray: #9a9a9a;
 
-    --primary: #5eead4;
-    --primary-soft: rgba(94, 234, 212, 0.14);
-    --primary-glow: rgba(94, 234, 212, 0.35);
+    --border-w: 3px;
+    --shadow: 5px 5px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+    --shadow-lg: 8px 8px 0 var(--ink);
 
-    --accent: #a78bfa;
-    --accent-soft: rgba(167, 139, 250, 0.14);
-
-    --danger: #fb7185;
-    --danger-soft: rgba(251, 113, 133, 0.14);
-    --warn: #fbbf24;
-    --success: #4ade80;
-
-    --text: #f1f5f9;
-    --text-soft: #b8c1d1;
-    --text-dim: #6b7689;
-
-    --radius: 14px;
-    --radius-sm: 10px;
-    --radius-lg: 22px;
-
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-    --shadow: 0 8px 24px -8px rgba(0,0,0,0.5);
-    --shadow-lg: 0 24px 60px -20px rgba(0,0,0,0.6);
-    --shadow-glow: 0 0 24px -4px var(--primary-glow);
-
-    --ease: cubic-bezier(0.2, 0.9, 0.3, 1);
-    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    --font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-title: 'Bangers', cursive, sans-serif;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-marker: 'Permanent Marker', cursive;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   /* ============================================================
@@ -62,46 +50,51 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: var(--font);
+    font-family: var(--font-body);
     background: var(--bg);
-    color: var(--text);
+    color: var(--white);
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 16px;
-    padding-top: max(16px, env(safe-area-inset-top));
+    padding: 14px;
+    padding-top: max(14px, env(safe-area-inset-top));
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
     position: relative;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    font-weight: 500;
   }
 
-  /* Ambient gradient backdrop */
+  /* Halftone + speed-line backdrop */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background:
-      radial-gradient(600px 400px at 15% -10%, rgba(94, 234, 212, 0.15), transparent 60%),
-      radial-gradient(700px 500px at 90% 5%, rgba(167, 139, 250, 0.12), transparent 60%),
-      radial-gradient(500px 400px at 50% 110%, rgba(251, 113, 133, 0.08), transparent 60%);
+    background-image:
+      radial-gradient(circle at 15% 5%, rgba(255,230,0,0.10) 0%, transparent 35%),
+      radial-gradient(circle at 85% 95%, rgba(255,46,46,0.10) 0%, transparent 35%),
+      radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1.4px);
+    background-size: auto, auto, 7px 7px;
     pointer-events: none;
     z-index: 0;
   }
 
-  /* Subtle grain texture */
+  /* Diagonal speed lines */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-    opacity: 0.035;
+    background:
+      repeating-linear-gradient(115deg,
+        transparent 0,
+        transparent 60px,
+        rgba(255,255,255,0.025) 60px,
+        rgba(255,255,255,0.025) 61px);
     pointer-events: none;
     z-index: 0;
-    mix-blend-mode: overlay;
   }
 
   /* ============================================================
@@ -126,17 +119,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 24px 40px;
+    padding: 48px 20px 40px;
     overflow-y: auto;
-    animation: fadeIn 0.4s var(--ease);
+    animation: panelIn 0.4s cubic-bezier(0.2, 1.4, 0.4, 1);
   }
   #lang-overlay::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(500px 400px at 50% 0%, rgba(94, 234, 212, 0.18), transparent 60%),
-      radial-gradient(500px 400px at 50% 100%, rgba(167, 139, 250, 0.12), transparent 60%);
+      radial-gradient(circle at 50% 0%, rgba(255,230,0,0.14) 0%, transparent 55%),
+      radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
+    background-size: auto, 7px 7px;
     pointer-events: none;
   }
   #lang-overlay > * { position: relative; }
@@ -145,42 +139,43 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 10px;
-    animation: logoPop 0.6s var(--ease-spring);
-  }
-  @keyframes logoPop {
-    from { transform: scale(0.85) translateY(10px); opacity: 0; }
-    to { transform: scale(1) translateY(0); opacity: 1; }
+    margin-bottom: 6px;
+    transform: rotate(-2deg);
   }
 
-  .lang-icon { font-size: clamp(2.4rem, 8vw, 3.2rem); line-height: 1; filter: drop-shadow(0 6px 20px rgba(94,234,212,0.35)); }
+  .lang-icon {
+    font-size: clamp(2.4rem, 8vw, 3rem);
+    line-height: 1;
+    filter: drop-shadow(4px 4px 0 var(--ink));
+  }
 
   .lang-logo {
-    font-size: clamp(2.2rem, 8vw, 3.2rem);
-    letter-spacing: -1.5px;
-    background: linear-gradient(135deg, #5eead4 0%, #a78bfa 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    font-weight: 700;
-    line-height: 1;
+    font-family: var(--font-title);
+    font-size: clamp(2.6rem, 10vw, 3.6rem);
+    letter-spacing: 2px;
+    color: var(--yellow);
+    line-height: 0.9;
+    text-transform: uppercase;
+    text-shadow:
+      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
+      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
+      4px 4px 0 var(--ink), 6px 6px 0 var(--red);
   }
 
   .lang-subtitle {
-    color: var(--text-dim);
-    font-family: var(--font-mono);
+    color: var(--gray);
+    font-family: var(--font-marker);
     font-size: 0.75rem;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     text-align: center;
   }
 
   .lang-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 12px;
     width: 100%;
     max-width: 420px;
   }
@@ -189,152 +184,179 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 16px 8px;
-    background: var(--surface);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius);
+    gap: 6px;
+    padding: 14px 8px;
+    background: var(--bg-2);
+    border: var(--border-w) solid var(--white);
+    color: var(--white);
     cursor: pointer;
-    transition: all 0.25s var(--ease);
-    font-family: var(--font);
-    color: var(--text-soft);
-    font-size: 0.8rem;
-    font-weight: 500;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.15s ease;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-sm);
+    border-radius: 6px;
   }
   .lang-btn:hover, .lang-btn.active {
-    border-color: var(--primary);
-    background: var(--primary-soft);
-    color: var(--primary);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px -12px var(--primary-glow);
+    background: var(--yellow);
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--ink);
   }
 
   .lang-flag { font-size: 1.7rem; line-height: 1; }
 
   .lang-confirm {
-    margin-top: 32px;
-    padding: 16px 56px;
-    background: linear-gradient(135deg, #5eead4, #34d399);
-    color: #05231f;
-    border: none;
-    border-radius: var(--radius);
-    font-family: var(--font);
-    font-size: 1rem;
+    margin-top: 30px;
+    padding: 15px 52px;
+    background: var(--yellow);
+    color: var(--ink);
+    border: var(--border-w) solid var(--ink);
+    border-radius: 8px;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
     font-weight: 700;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: all 0.25s var(--ease);
-    letter-spacing: 0.5px;
-    box-shadow: 0 12px 30px -10px var(--primary-glow);
+    transition: all 0.12s ease;
+    text-transform: uppercase;
+    box-shadow: var(--shadow);
   }
-  .lang-confirm:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -12px var(--primary-glow); }
-  .lang-confirm:active { transform: translateY(0); }
+  .lang-confirm:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+  .lang-confirm:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
 
   /* ============================================================
      SCREENS
      ============================================================ */
-  .screen { display: none; animation: fadeIn 0.35s var(--ease); }
-  .screen.active { display: block; }
+  .screen { display: none; }
+  .screen.active {
+    display: block;
+    animation: panelIn 0.4s cubic-bezier(0.2, 1.4, 0.4, 1);
+  }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes panelIn {
+    0% { transform: translateY(24px) rotate(-1.5deg); opacity: 0; }
+    100% { transform: translateY(0) rotate(0); opacity: 1; }
   }
 
   /* ============================================================
      HEADER
      ============================================================ */
   .header {
-    padding: 24px 0 20px;
+    padding: 22px 0 18px;
     text-align: center;
     position: relative;
   }
 
   .game-title {
-    font-size: clamp(1.6rem, 6vw, 2.2rem);
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: var(--text);
-    line-height: 1.1;
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    letter-spacing: 3px;
+    color: var(--yellow);
+    line-height: 0.95;
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-shadow:
+      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
+      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
+      4px 4px 0 var(--ink), 7px 7px 0 var(--red);
+    transform: rotate(-1.5deg);
   }
 
   .game-tagline {
-    color: var(--text-dim);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
+    color: var(--gray);
+    font-family: var(--font-marker);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-top: 6px;
+    margin-top: 10px;
   }
 
   .lang-toggle-btn {
     position: absolute;
-    top: 24px;
+    top: 22px;
     right: 0;
-    background: var(--surface);
-    border: 1px solid var(--stroke);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    color: var(--text-soft);
-    font-size: 1rem;
+    background: var(--bg-2);
+    border: var(--border-w) solid var(--white);
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.25s var(--ease);
+    transition: all 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
   }
   .lang-toggle-btn:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    box-shadow: 0 0 0 4px var(--primary-soft);
-    transform: rotate(15deg);
+    background: var(--yellow);
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: rotate(-8deg) translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--ink);
   }
 
   /* ============================================================
-     CARD
+     CARD / PANEL
      ============================================================ */
   .card {
-    background: var(--surface);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius-lg);
-    padding: 22px;
+    background: var(--bg-2);
+    border: var(--border-w) solid var(--white);
+    border-radius: 10px;
+    padding: 20px;
     margin-bottom: 14px;
     position: relative;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     box-shadow: var(--shadow);
   }
 
+  /* Small halftone corner accent */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 44px;
+    height: 44px;
+    background-image: radial-gradient(circle, var(--yellow) 1.2px, transparent 1.6px);
+    background-size: 6px 6px;
+    opacity: 0.28;
+    pointer-events: none;
+    border-radius: 0 8px 0 0;
+  }
+
   .card-title {
-    font-size: 0.95rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
     font-weight: 700;
-    letter-spacing: 0.3px;
-    color: var(--text);
+    letter-spacing: 1.5px;
+    color: var(--yellow);
     display: flex;
     align-items: center;
     gap: 8px;
     text-transform: uppercase;
+    text-shadow: 2px 2px 0 var(--ink);
   }
 
   /* ============================================================
      LABELS
      ============================================================ */
   .section-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--white);
     margin-bottom: 8px;
-    font-weight: 500;
+    font-weight: 700;
+    opacity: 0.85;
   }
 
   .row { display: flex; gap: 12px; }
@@ -348,13 +370,13 @@
 
   label.field-label {
     display: block;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--white);
     margin-bottom: 8px;
-    font-weight: 500;
+    font-weight: 700;
   }
 
   input[type="number"],
@@ -362,38 +384,40 @@
   select,
   textarea {
     width: 100%;
-    padding: 13px 15px;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--stroke);
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 0.95rem;
-    transition: all 0.2s var(--ease);
+    padding: 12px 14px;
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
     -webkit-appearance: none;
     appearance: none;
-    border-radius: var(--radius-sm);
-    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
   }
 
-  input::placeholder, textarea::placeholder { color: var(--text-dim); opacity: 0.7; }
+  input::placeholder, textarea::placeholder { color: var(--gray); opacity: 0.75; font-weight: 500; }
 
   input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px var(--primary-soft);
-    background: rgba(0, 0, 0, 0.35);
+    background: var(--bg);
+    border-color: var(--yellow);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--yellow);
   }
 
   select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7689' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffe600' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 40px;
+    background-position: right 12px center;
+    padding-right: 38px;
     cursor: pointer;
   }
-  select option { background: var(--surface-solid); color: var(--text); }
+  select option { background: var(--bg-2); color: var(--white); }
 
-  textarea { resize: vertical; min-height: 84px; font-family: var(--font); }
+  textarea { resize: vertical; min-height: 84px; font-family: var(--font-body); }
 
   @media screen and (max-width: 768px) {
     input, select, textarea { font-size: 16px; }
@@ -405,38 +429,43 @@
   .stepper {
     display: flex;
     align-items: stretch;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius-sm);
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
   }
 
   .stepper button {
     padding: 12px 16px;
-    background: transparent;
+    background: var(--yellow);
     border: none;
-    color: var(--primary);
-    font-size: 1.1rem;
-    font-weight: 600;
+    color: var(--ink);
+    font-size: 1.3rem;
+    font-weight: 900;
     cursor: pointer;
-    transition: all 0.15s var(--ease);
-    font-family: var(--font);
-    min-width: 44px;
+    transition: all 0.1s ease;
+    font-family: var(--font-body);
+    min-width: 48px;
+    line-height: 1;
   }
-  .stepper button:hover { background: var(--primary-soft); }
-  .stepper button:active { transform: scale(0.92); }
+  .stepper button:hover { background: var(--red); color: var(--white); }
+  .stepper button:active { transform: scale(0.9); }
 
   .stepper-val {
     flex: 1;
     text-align: center;
-    font-family: var(--font-mono);
-    font-size: 1.05rem;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
     font-weight: 700;
-    color: var(--text);
-    padding: 12px 0;
+    color: var(--yellow);
+    padding: 6px 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    letter-spacing: 1px;
+    background: var(--bg-3);
+    text-shadow: 2px 2px 0 var(--ink);
   }
 
   /* ============================================================
@@ -445,7 +474,7 @@
   .cat-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 10px;
   }
 
   .cat-item input { display: none; }
@@ -454,25 +483,31 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 13px 14px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--stroke);
+    padding: 12px 14px;
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
     cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.2s var(--ease);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    transition: all 0.12s ease;
     user-select: none;
-    color: var(--text-soft);
-    border-radius: var(--radius-sm);
+    color: var(--white);
+    border-radius: 8px;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-sm);
   }
 
-  .cat-item label:hover { border-color: var(--stroke-hi); color: var(--text); }
+  .cat-item label:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--yellow); }
 
   .cat-item input:checked + label {
-    background: var(--primary-soft);
-    border-color: var(--primary);
-    color: var(--primary);
-    font-weight: 600;
+    background: var(--yellow);
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--red);
+    text-shadow: none;
   }
 
   .cat-item.full { grid-column: span 2; }
@@ -487,13 +522,15 @@
     gap: 12px;
     margin-top: 10px;
     padding: 10px 14px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--stroke);
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
+    font-family: var(--font-marker);
     font-size: 0.85rem;
-    color: var(--text-soft);
-    border-radius: var(--radius-sm);
+    color: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
   }
-  .sound-row #selected-sound-name { font-weight: 500; }
+  .sound-row #selected-sound-name { font-weight: 400; }
 
   /* ============================================================
      BUTTONS
@@ -501,58 +538,57 @@
   .btn {
     display: block;
     width: 100%;
-    padding: 15px 22px;
-    border: none;
-    border-radius: var(--radius);
-    font-family: var(--font);
-    font-size: 0.95rem;
-    font-weight: 600;
+    padding: 14px 22px;
+    border: var(--border-w) solid var(--ink);
+    border-radius: 8px;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s var(--ease);
+    transition: all 0.12s ease;
     text-align: center;
     margin-top: 12px;
-    letter-spacing: 0.3px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: var(--shadow);
     -webkit-tap-highlight-color: transparent;
+    line-height: 1.1;
   }
 
-  .btn:active { transform: scale(0.98); }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
 
   .btn-primary {
-    background: linear-gradient(135deg, #5eead4, #34d399);
-    color: #05231f;
-    box-shadow: 0 8px 24px -10px var(--primary-glow);
+    background: var(--yellow);
+    color: var(--ink);
   }
-  .btn-primary:hover { box-shadow: 0 14px 32px -10px var(--primary-glow); transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(0) scale(0.98); }
+  .btn-primary:hover { background: var(--yellow-2); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
 
   .btn-ghost {
-    background: var(--surface-hi);
-    border: 1px solid var(--stroke);
-    color: var(--text-soft);
+    background: var(--bg-2);
+    color: var(--white);
+    border-color: var(--white);
   }
-  .btn-ghost:hover { border-color: var(--stroke-hi); color: var(--text); background: rgba(255,255,255,0.06); }
+  .btn-ghost:hover { background: var(--bg-3); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--yellow); border-color: var(--yellow); }
 
   .btn-danger {
-    background: var(--danger-soft);
-    color: var(--danger);
-    border: 1px solid rgba(251, 113, 133, 0.3);
+    background: var(--red);
+    color: var(--white);
+    border-color: var(--ink);
   }
-  .btn-danger:hover {
-    background: var(--danger);
-    color: #1a0409;
-    box-shadow: 0 8px 24px -10px rgba(251, 113, 133, 0.5);
-  }
+  .btn-danger:hover { background: var(--red-2); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
 
   .btn-sm {
     padding: 10px 18px;
-    font-size: 0.82rem;
+    font-size: 0.95rem;
     width: auto;
     display: inline-block;
     margin-top: 0;
-    border-radius: var(--radius-sm);
+    letter-spacing: 1.5px;
+    box-shadow: var(--shadow-sm);
   }
+  .btn-sm:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 
-  .btn-row { display: flex; gap: 10px; margin-top: 12px; }
+  .btn-row { display: flex; gap: 12px; margin-top: 12px; }
   .btn-row .btn { margin-top: 0; }
 
   /* ============================================================
@@ -566,35 +602,37 @@
   }
 
   .player-num {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--primary);
-    width: 22px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--yellow);
+    width: 26px;
     text-align: right;
     flex-shrink: 0;
-    font-weight: 600;
+    font-weight: 700;
+    text-shadow: 2px 2px 0 var(--ink);
   }
 
   .player-input-row input { margin: 0; flex: 1; }
 
   .remove-player-btn {
-    background: transparent;
-    border: 1px solid rgba(251, 113, 133, 0.25);
-    color: var(--danger);
-    width: 40px;
-    height: 40px;
-    font-size: 0.95rem;
+    background: var(--red);
+    border: var(--border-w) solid var(--ink);
+    color: var(--white);
+    width: 42px;
+    height: 42px;
+    font-size: 1.05rem;
     cursor: pointer;
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s var(--ease);
+    transition: all 0.12s ease;
     flex-shrink: 0;
-    font-weight: 600;
+    font-weight: 900;
+    box-shadow: var(--shadow-sm);
   }
-  .remove-player-btn:hover { background: var(--danger); color: #1a0409; border-color: var(--danger); }
-  .remove-player-btn:active { transform: scale(0.92); }
+  .remove-player-btn:hover { background: var(--red-2); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .remove-player-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 
   /* ============================================================
      REVEAL LIST
@@ -603,204 +641,305 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 18px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--stroke);
-    margin-bottom: 8px;
+    padding: 14px 18px;
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
+    margin-bottom: 10px;
     cursor: pointer;
-    transition: all 0.2s var(--ease);
-    font-weight: 500;
-    color: var(--text);
-    border-radius: var(--radius-sm);
+    transition: all 0.12s ease;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
   }
 
-  .reveal-item:hover { border-color: var(--primary); background: var(--primary-soft); transform: translateY(-1px); }
+  .reveal-item:hover {
+    border-color: var(--yellow);
+    background: var(--bg-2);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--yellow);
+  }
 
   .reveal-item.done {
-    opacity: 0.45;
+    opacity: 0.55;
     cursor: default;
     pointer-events: none;
-    border-color: rgba(74, 222, 128, 0.3);
-    background: rgba(74, 222, 128, 0.06);
+    border-color: var(--green);
+    background: rgba(0, 230, 118, 0.08);
   }
 
   .reveal-item .reveal-name { display: flex; align-items: center; gap: 10px; }
-  .reveal-item .reveal-status { font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }
-  .reveal-item.done .reveal-status { color: var(--success); }
+  .reveal-item .reveal-status { font-family: var(--font-marker); font-size: 0.78rem; color: var(--gray); font-weight: 400; }
+  .reveal-item.done .reveal-status { color: var(--green); }
 
   /* ============================================================
-     TIMER
+     TIMER — Big comic numerals
      ============================================================ */
   .timer-display {
-    font-family: var(--font-mono);
-    font-size: clamp(4rem, 16vw, 6rem);
-    font-weight: 700;
+    font-family: var(--font-title);
+    font-size: clamp(5rem, 20vw, 8rem);
+    font-weight: 400;
     text-align: center;
-    letter-spacing: -2px;
-    padding: 20px 0;
-    color: var(--text);
-    transition: color 0.3s var(--ease);
+    letter-spacing: 6px;
+    padding: 8px 0 4px;
+    color: var(--yellow);
+    transition: color 0.3s ease;
     line-height: 1;
+    text-shadow:
+      -3px -3px 0 var(--ink), 3px -3px 0 var(--ink),
+      -3px 3px 0 var(--ink), 3px 3px 0 var(--ink),
+      6px 6px 0 var(--red);
     font-variant-numeric: tabular-nums;
   }
 
-  .timer-display.warning { color: var(--warn); }
-  .timer-display.danger { color: var(--danger); animation: pulse 1s ease-in-out infinite; }
+  .timer-display.warning { color: #ff9500; text-shadow:
+      -3px -3px 0 var(--ink), 3px -3px 0 var(--ink),
+      -3px 3px 0 var(--ink), 3px 3px 0 var(--ink),
+      6px 6px 0 var(--red); }
+
+  .timer-display.danger {
+    color: var(--red);
+    text-shadow:
+      -3px -3px 0 var(--ink), 3px -3px 0 var(--ink),
+      -3px 3px 0 var(--ink), 3px 3px 0 var(--ink),
+      6px 6px 0 var(--yellow);
+    animation: pulse 0.6s ease-in-out infinite alternate;
+  }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.65; transform: scale(1.02); }
+    from { transform: scale(1) rotate(-1deg); }
+    to { transform: scale(1.06) rotate(1deg); }
   }
 
   .starter-card {
-    background: linear-gradient(135deg, rgba(94, 234, 212, 0.08), rgba(167, 139, 250, 0.08));
-    border: 1px solid rgba(94, 234, 212, 0.25);
-    padding: 16px 20px;
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--yellow);
+    padding: 14px 20px;
     text-align: center;
     margin-top: 16px;
-    border-radius: var(--radius);
+    border-radius: 8px;
+    position: relative;
+    box-shadow: var(--shadow-sm);
   }
 
   .starter-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 2px;
+    font-family: var(--font-marker);
+    font-size: 0.7rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-    font-weight: 500;
+    color: var(--gray);
+    margin-bottom: 4px;
+    font-weight: 400;
   }
 
   .starter-name {
-    font-size: 1.4rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary);
+    letter-spacing: 1.5px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 var(--ink);
   }
 
   /* ============================================================
-     MODAL
+     MODALS
      ============================================================ */
   .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(5, 5, 10, 0.8);
+    background: rgba(10, 10, 10, 0.88);
     z-index: 5000;
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  }
+  .modal-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(115deg,
+        transparent 0, transparent 40px,
+        rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+      radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
+    background-size: auto, 6px 6px;
+    pointer-events: none;
   }
 
-  .modal-overlay.visible { display: flex; animation: fadeIn 0.25s var(--ease); }
+  .modal-overlay.visible { display: flex; }
   #manage-modal { z-index: 6000; }
 
+  /* ============================================================
+     ROLE CARD — Action panel
+     ============================================================ */
   .role-card {
     width: 100%;
     max-width: 380px;
-    padding: 32px 26px;
+    padding: 28px 24px 24px;
     text-align: center;
-    animation: zoomIn 0.4s var(--ease-spring);
     position: relative;
     overflow: hidden;
-    background: var(--surface-solid);
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    background: var(--bg-2);
+    border: 4px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 10px 10px 0 var(--ink);
+    animation: burstIn 0.45s cubic-bezier(0.2, 1.6, 0.4, 1);
+    z-index: 1;
   }
 
-  @keyframes zoomIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+  @keyframes burstIn {
+    0% { transform: scale(0.3) rotate(-14deg); opacity: 0; }
+    60% { transform: scale(1.05) rotate(3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
   }
+
+  /* Halftone dots inside card */
+  .role-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1.4px);
+    background-size: 6px 6px;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .role-card > * { position: relative; }
 
   .role-card.impostor {
-    background: linear-gradient(160deg, #1a0810, #2d0a1a);
-    border-color: rgba(251, 113, 133, 0.5);
-    box-shadow: 0 24px 60px -20px rgba(251, 113, 133, 0.4), inset 0 0 60px rgba(251,113,133,0.06);
+    background: linear-gradient(160deg, #ff2e2e 0%, #cc1a1a 100%);
+    border-color: var(--ink);
+    color: var(--white);
+    box-shadow: 10px 10px 0 var(--yellow);
   }
 
   .role-card.civil {
-    background: linear-gradient(160deg, #061a15, #0a2d22);
-    border-color: rgba(74, 222, 128, 0.5);
-    box-shadow: 0 24px 60px -20px rgba(74, 222, 128, 0.3), inset 0 0 60px rgba(74,222,128,0.06);
+    background: linear-gradient(160deg, #00b4ff 0%, #0077cc 100%);
+    border-color: var(--ink);
+    color: var(--white);
+    box-shadow: 10px 10px 0 var(--yellow);
   }
 
+  /* Burst behind emoji */
   .role-emoji {
-    font-size: 3.2rem;
-    margin-bottom: 14px;
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    font-size: 2.8rem;
     line-height: 1;
-    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
+    margin: 0 auto 12px;
+    background: var(--yellow);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(-4deg);
   }
 
   .role-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 18px;
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 7vw, 2.3rem);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow:
+      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
+      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
+      4px 4px 0 var(--ink);
+  }
+
+  .role-card.civil .role-title { text-shadow:
+      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
+      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
+      4px 4px 0 var(--ink); }
+
+  .word-box {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-family: var(--font-title);
+    font-size: 1.7rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    border: 3px solid var(--ink);
+    border-radius: 6px;
+    word-break: break-word;
+    box-shadow: 4px 4px 0 var(--ink);
+    line-height: 1.1;
     text-transform: uppercase;
   }
 
-  .role-card.impostor .role-title { color: var(--danger); }
-  .role-card.civil .role-title { color: var(--success); }
-
-  .word-box {
-    background: rgba(0, 0, 0, 0.4);
-    padding: 16px 20px;
-    margin: 16px 0;
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    border: 1px solid var(--stroke-hi);
-    border-radius: var(--radius-sm);
-    word-break: break-word;
-    color: var(--text);
-    font-family: var(--font);
-  }
-
   .role-hint {
-    font-size: 0.9rem;
-    color: var(--text-soft);
-    line-height: 1.55;
-    margin-bottom: 22px;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-weight: 500;
   }
+
+  .role-card .btn-primary {
+    background: var(--ink);
+    color: var(--yellow);
+    border-color: var(--yellow);
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
+  }
+  .role-card .btn-primary:hover { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
 
   /* ============================================================
      HELP
      ============================================================ */
   .help-panel {
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--stroke);
-    padding: 16px;
+    background: var(--bg-3);
+    border: 2px dashed var(--yellow);
+    padding: 14px;
     margin-top: 12px;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     line-height: 1.65;
-    color: var(--text-soft);
+    color: var(--paper);
     display: none;
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
   }
 
-  .help-panel.open { display: block; animation: fadeIn 0.25s var(--ease); }
-  .help-panel h4 { color: var(--primary); margin-bottom: 10px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; }
-  .help-panel ul, .help-panel ol { padding-left: 18px; }
-  .help-panel li { margin-bottom: 6px; }
+  .help-panel.open { display: block; animation: panelIn 0.3s ease; }
+  .help-panel h4 {
+    font-family: var(--font-display);
+    color: var(--yellow);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .help-panel ul, .help-panel ol { padding-left: 20px; }
+  .help-panel li { margin-bottom: 5px; }
+  .help-panel strong { color: var(--yellow); }
 
   .help-btn {
-    background: transparent;
-    border: 1px solid var(--stroke-hi);
-    color: var(--text-soft);
+    background: var(--bg-3);
+    border: 2px solid var(--yellow);
+    color: var(--yellow);
     padding: 5px 12px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     cursor: pointer;
-    letter-spacing: 1px;
-    transition: all 0.2s var(--ease);
-    font-family: var(--font-mono);
-    border-radius: 20px;
+    transition: all 0.12s ease;
+    border-radius: 6px;
+    text-transform: uppercase;
   }
-  .help-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .help-btn:hover { background: var(--yellow); color: var(--ink); }
 
   .section-header {
     display: flex;
@@ -813,19 +952,20 @@
   /* ============================================================
      DIVIDER
      ============================================================ */
-  .divider { height: 1px; background: var(--stroke); margin: 16px 0; }
+  .divider { height: 3px; background: var(--ink); margin: 16px 0; }
 
   /* ============================================================
      FOOTER
      ============================================================ */
   .app-footer {
     text-align: center;
-    color: var(--text-dim);
-    font-size: 0.68rem;
+    color: var(--gray);
+    font-family: var(--font-marker);
+    font-size: 0.7rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding-top: 24px;
-    font-family: var(--font-mono);
+    transform: rotate(-0.5deg);
   }
 
   /* ============================================================
@@ -834,14 +974,14 @@
   .scroll-list {
     max-height: 50vh;
     overflow-y: auto;
-    padding-right: 4px;
+    padding-right: 6px;
     scrollbar-width: thin;
-    scrollbar-color: var(--stroke-hi) transparent;
+    scrollbar-color: var(--yellow) transparent;
   }
   .scroll-list::-webkit-scrollbar { width: 6px; }
   .scroll-list::-webkit-scrollbar-track { background: transparent; }
-  .scroll-list::-webkit-scrollbar-thumb { background: var(--stroke-hi); border-radius: 3px; }
-  .scroll-list::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+  .scroll-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; border: 1px solid var(--ink); }
+  .scroll-list::-webkit-scrollbar-thumb:hover { background: var(--red); }
 
   /* ============================================================
      HELPERS
@@ -851,51 +991,87 @@
   #custom-area {
     margin-top: 12px;
     padding: 14px;
-    background: rgba(94, 234, 212, 0.04);
-    border: 1px dashed rgba(94, 234, 212, 0.3);
-    border-radius: var(--radius-sm);
-    animation: fadeIn 0.25s var(--ease);
+    background: var(--bg-3);
+    border: 3px dashed var(--yellow);
+    border-radius: 8px;
+    animation: panelIn 0.3s ease;
   }
 
   /* MANAGE MODAL */
-  #manage-modal .role-card { max-width: 420px; text-align: left; }
-  #manage-modal .card-title { justify-content: center; margin-bottom: 20px; }
-  #manage-modal .manage-list { max-height: 40vh; overflow-y: auto; margin-bottom: 16px; scrollbar-width: thin; }
+  #manage-modal .role-card { max-width: 420px; text-align: left; background: var(--bg-2); }
+  #manage-modal .role-card::before { opacity: 0.15; }
+  #manage-modal .card-title {
+    justify-content: center;
+    margin-bottom: 18px;
+    color: var(--yellow);
+  }
+  #manage-modal .manage-list {
+    max-height: 40vh;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    scrollbar-width: thin;
+  }
   #manage-modal .manage-list::-webkit-scrollbar { width: 6px; }
-  #manage-modal .manage-list::-webkit-scrollbar-thumb { background: var(--stroke-hi); border-radius: 3px; }
+  #manage-modal .manage-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
   #manage-modal .manage-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 0, 0, 0.25);
-    padding: 12px 14px;
+    background: var(--bg-3);
+    padding: 10px 14px;
     margin-bottom: 8px;
-    border: 1px solid var(--stroke);
-    border-radius: var(--radius-sm);
-    font-weight: 500;
+    border: 2px solid var(--white);
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
   }
+  #manage-modal .role-card .btn-ghost { border-color: var(--white); color: var(--white); }
+  #manage-modal .role-card .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
 
   /* HISTORY */
   .history-item {
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px solid var(--stroke);
-    padding: 16px;
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
+    padding: 14px;
     margin-bottom: 12px;
-    border-radius: var(--radius);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
   }
-  .history-item h4 { color: var(--primary); font-size: 0.8rem; font-family: var(--font-mono); letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 600; }
-  .history-item p { font-size: 0.9rem; color: var(--text-soft); margin-bottom: 6px; line-height: 1.5; }
-  .history-item p strong { color: var(--text-dim); font-weight: 500; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
-  .history-item .imp-color { color: var(--danger); font-weight: 700; }
+  .history-item h4 {
+    color: var(--yellow);
+    font-family: var(--font-marker);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .history-item p {
+    font-size: 0.9rem;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.45;
+  }
+  .history-item p strong {
+    color: var(--gray);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .history-item .imp-color { color: var(--red); font-weight: 900; font-family: var(--font-display); letter-spacing: 1px; }
 
   /* RESPONSIVE */
   @media (max-width: 380px) {
     .lang-grid { grid-template-columns: repeat(2, 1fr); }
-    .card { padding: 18px; border-radius: 18px; }
-    .role-card { padding: 26px 20px; }
+    .card { padding: 16px; }
+    .role-card { padding: 22px 18px 20px; }
+    .role-emoji { width: 72px; height: 72px; font-size: 2.4rem; }
   }
 
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
@@ -918,12 +1094,12 @@
 <div class="modal-overlay" id="role-modal"></div>
 
 <div class="modal-overlay" id="manage-modal">
-  <div class="role-card" style="border-color: rgba(94,234,212,0.4); text-align: left;">
+  <div class="role-card" style="text-align: left;">
     <div class="card-title" style="justify-content: center; margin-bottom: 20px;" data-i18n="manage_players_title">GESTIONAR JUGADORES</div>
     <div class="manage-list" id="manage-list"></div>
     <div class="row" style="align-items: center;">
       <input type="text" id="new-player-name-mid" style="flex:1; margin:0;" placeholder="Nombre..." data-i18n-placeholder="add_player_placeholder">
-      <button type="button" class="btn btn-primary btn-sm" id="btn-add-mid" style="padding: 0 18px; height: 44px; font-size: 1.2rem;">+</button>
+      <button type="button" class="btn btn-primary btn-sm" id="btn-add-mid" style="padding: 0 18px; height: 46px; font-size: 1.4rem;">+</button>
     </div>
     <button type="button" class="btn btn-ghost" id="btn-close-manage" style="margin-top: 20px;" data-i18n="btn_close">Cerrar</button>
   </div>
@@ -999,7 +1175,7 @@
     </div>
 
     <button type="button" class="btn btn-primary" id="btn-continue" data-i18n="btn_continue">Continue →</button>
-    <button type="button" class="btn btn-ghost" id="btn-history-open" style="margin-top: 10px;" data-i18n="btn_history">📜 Historial</button>
+    <button type="button" class="btn btn-ghost" id="btn-history-open" style="margin-top: 12px;" data-i18n="btn_history">📜 Historial</button>
   </div>
 
   <!-- HISTORY -->
@@ -1011,7 +1187,7 @@
       <div id="history-list" class="scroll-list"></div>
     </div>
     <button type="button" class="btn btn-danger" id="btn-clear-history" data-i18n="btn_clear_history">🗑️ Borrar Historial</button>
-    <button type="button" class="btn btn-ghost" id="btn-history-back" style="margin-top: 10px;" data-i18n="btn_back">← Atrás</button>
+    <button type="button" class="btn btn-ghost" id="btn-history-back" style="margin-top: 12px;" data-i18n="btn_back">← Atrás</button>
   </div>
 
   <!-- CATEGORIES -->
@@ -1061,7 +1237,7 @@
 
       <div class="row" style="margin-top: 12px; align-items: center;">
         <input type="text" id="new-player-name-setup" style="flex:1; margin:0;" placeholder="Nombre..." data-i18n-placeholder="add_player_placeholder">
-        <button type="button" class="btn btn-primary btn-sm" id="btn-add-setup" style="padding: 0 18px; height: 44px; font-size: 1.2rem;">+</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-add-setup" style="padding: 0 18px; height: 46px; font-size: 1.4rem;">+</button>
       </div>
     </div>
 
@@ -1084,7 +1260,7 @@
         <h4 data-i18n="help_reveal_title">Role Reveal</h4>
         <ul id="help-reveal-list"></ul>
       </div>
-      <p style="font-size:0.88rem; color:var(--text-soft); margin-bottom:16px;" data-i18n="reveal_instructions">Pass the device to each player. Tap your name to see your role.</p>
+      <p style="font-family: var(--font-marker); font-size:0.85rem; color:var(--gray); margin-bottom:16px; line-height:1.5;" data-i18n="reveal_instructions">Pass the device to each player. Tap your name to see your role.</p>
       <div id="reveal-list"></div>
     </div>
 
@@ -1117,8 +1293,8 @@
     </div>
 
     <button type="button" class="btn btn-primary" id="btn-pause" data-i18n="btn_pause">⏸ Pause</button>
-    <button type="button" class="btn btn-danger" id="btn-reveal-end" style="margin-top: 10px;" data-i18n="btn_reveal_end">👁️ Revelar y Terminar</button>
-    <button type="button" class="btn btn-ghost" id="btn-manage" style="margin-top: 10px;" data-i18n="btn_manage_players">👥 Gestionar Jugadores</button>
+    <button type="button" class="btn btn-danger" id="btn-reveal-end" style="margin-top: 12px;" data-i18n="btn_reveal_end">👁️ Revelar y Terminar</button>
+    <button type="button" class="btn btn-ghost" id="btn-manage" style="margin-top: 12px;" data-i18n="btn_manage_players">👥 Gestionar Jugadores</button>
     <div class="btn-row">
       <button type="button" class="btn btn-ghost" id="btn-new-game" data-i18n="btn_new_game">🔄 New Game</button>
       <button type="button" class="btn btn-danger" id="btn-main-menu" data-i18n="btn_main_menu">🏠 Menu</button>
@@ -1208,7 +1384,6 @@ const I18N = {
     btn_history: '📜 History', history_title: '📜 History', history_empty: 'No saved matches.', btn_clear_history: '🗑️ Clear History', confirm_clear_history: 'Delete all history?',
     new_impostor: 'is now an Impostor.'
   },
-  // Compact fallbacks for other languages (inherit missing keys from English)
   pt: { lang_pick: 'Escolha seu idioma', setup_title: '⚙️ Configuração', tagline: 'Edição Ultimate', label_players: 'Jogadores', label_impostors: 'Impostores', label_time: 'Tempo (minutos)', label_sound: 'Som de Alerta', sound_none: 'Sem som', btn_test_sound: 'Testar', btn_continue: 'Continuar →', btn_help: 'Ajuda', btn_next: 'Próximo →', btn_back_main: '← Menu Principal', btn_back: '← Voltar', btn_deal_roles: 'Distribuir Papéis 🎲', btn_start_game: '🔥 Começar Jogo', btn_pause: '⏸ Pausar', btn_resume: '▶ Retomar', btn_new_game: '🔄 Nova Partida', btn_main_menu: '🏠 Menu', cats_title: '📂 Temas', cats_pick: 'Escolha Categorias', names_title: '👥 Jogadores', names_assign: 'Atribuir Nomes', reveal_title: '🤫 Papéis', reveal_secret: 'Identidade Secreta', game_title: '⏳ Debate', game_timer_label: 'Cronômetro', game_starts_asking: 'Começa perguntando:', role_civil: 'Você é Civil', role_impostor: 'Você é o Impostor', civil_word_label: 'A palavra secreta é:', btn_understood: 'Entendido ✓', role_seen: 'Ver Papel', role_done: 'Papel Visto ✓', cat_varied: '🎲 Variado', cat_places: '✈️ Lugares', cat_food: '🍕 Comidas', cat_animals: '🦁 Animais', cat_movies: '🎬 Filmes', cat_sports: '⚽ Esportes', cat_anime: '🎌 Anime', cat_games: '🎮 Jogos', cat_custom: '✏️ Personalizado', player_default: 'Jogador', btn_close: 'Fechar' },
   fr: { lang_pick: 'Choisissez votre langue', setup_title: '⚙️ Configuration', tagline: 'Édition Ultime', label_players: 'Joueurs', label_impostors: 'Imposteurs', label_time: 'Temps (minutes)', label_sound: 'Son d\'alerte', sound_none: 'Sans son', btn_test_sound: 'Tester', btn_continue: 'Continuer →', btn_help: 'Aide', btn_next: 'Suivant →', btn_back_main: '← Menu Principal', btn_back: '← Retour', btn_deal_roles: 'Distribuer les Rôles 🎲', btn_start_game: '🔥 Commencer', btn_pause: '⏸ Pause', btn_resume: '▶ Reprendre', btn_new_game: '🔄 Nouvelle Partie', btn_main_menu: '🏠 Menu', cats_title: '📂 Thèmes', cats_pick: 'Choisir les Thèmes', names_title: '👥 Joueurs', names_assign: 'Attribuer des Noms', reveal_title: '🤫 Rôles', reveal_secret: 'Identité Secrète', game_title: '⏳ Débat', game_timer_label: 'Chronomètre', game_starts_asking: 'Commence par demander:', role_civil: 'Vous êtes Civil', role_impostor: 'Vous êtes l\'Imposteur', civil_word_label: 'Le mot secret est:', btn_understood: 'Compris ✓', role_seen: 'Voir le Rôle', role_done: 'Rôle Vu ✓', cat_varied: '🎲 Varié', cat_places: '✈️ Lieux', cat_food: '🍕 Nourriture', cat_animals: '🦁 Animaux', cat_movies: '🎬 Films', cat_sports: '⚽ Sports', cat_anime: '🎌 Anime', cat_games: '🎮 Jeux', cat_custom: '✏️ Personnalisé', player_default: 'Joueur', btn_close: 'Fermer' },
   de: { lang_pick: 'Sprache wählen', setup_title: '⚙️ Einstellungen', tagline: 'Ultimate Edition', label_players: 'Spieler', label_impostors: 'Impostoren', label_time: 'Zeit (Minuten)', label_sound: 'Alarmsound', sound_none: 'Kein Ton', btn_test_sound: 'Testen', btn_continue: 'Weiter →', btn_help: 'Hilfe', btn_next: 'Weiter →', btn_back_main: '← Hauptmenü', btn_back: '← Zurück', btn_deal_roles: 'Rollen verteilen 🎲', btn_start_game: '🔥 Spiel starten', btn_pause: '⏸ Pause', btn_resume: '▶ Fortsetzen', btn_new_game: '🔄 Neues Spiel', btn_main_menu: '🏠 Menü', cats_title: '📂 Themen', cats_pick: 'Themen Wählen', names_title: '👥 Spieler', names_assign: 'Namen Zuweisen', reveal_title: '🤫 Rollen', reveal_secret: 'Geheime Identität', game_title: '⏳ Debatte', game_timer_label: 'Timer', game_starts_asking: 'Beginnt zu fragen:', role_civil: 'Du bist Zivilist', role_impostor: 'Du bist der Impostor', civil_word_label: 'Das Geheimwort ist:', btn_understood: 'Verstanden ✓', role_seen: 'Rolle sehen', role_done: 'Rolle gesehen ✓', cat_varied: '🎲 Gemischt', cat_places: '✈️ Orte', cat_food: '🍕 Essen', cat_animals: '🦁 Tiere', cat_movies: '🎬 Filme', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Spiele', cat_custom: '✏️ Benutzerdefiniert', player_default: 'Spieler', btn_close: 'Schließen' },
@@ -1221,7 +1396,6 @@ const I18N = {
   tr: { lang_pick: 'Dilinizi seçin', setup_title: '⚙️ Ayarlar', tagline: 'Ultimate Sürüm', label_players: 'Oyuncular', label_impostors: 'Sahtekârlar', label_time: 'Süre (dakika)', label_sound: 'Uyarı Sesi', sound_none: 'Sessiz', btn_test_sound: 'Test', btn_continue: 'Devam →', btn_help: 'Yardım', btn_next: 'İleri →', btn_back_main: '← Ana Menü', btn_back: '← Geri', btn_deal_roles: 'Rolleri Dağıt 🎲', btn_start_game: '🔥 Oyunu Başlat', btn_pause: '⏸ Duraklat', btn_resume: '▶ Devam', btn_new_game: '🔄 Yeni Oyun', btn_main_menu: '🏠 Menü', cats_title: '📂 Temalar', cats_pick: 'Tema Seç', names_title: '👥 Oyuncular', names_assign: 'İsimleri Atayın', reveal_title: '🤫 Roller', reveal_secret: 'Gizli Kimlik', game_title: '⏳ Tartışma', game_timer_label: 'Süre', game_starts_asking: 'İlk soru soran:', role_civil: 'Sivilsiniz', role_impostor: 'Sahtekârsınız', civil_word_label: 'Gizli kelime:', btn_understood: 'Anladım ✓', role_seen: 'Rolü Gör', role_done: 'Rol Görüldü ✓', cat_varied: '🎲 Karışık', cat_places: '✈️ Yerler', cat_food: '🍕 Yiyecekler', cat_animals: '🦁 Hayvanlar', cat_movies: '🎬 Filmler', cat_sports: '⚽ Spor', cat_anime: '🎌 Anime', cat_games: '🎮 Oyunlar', cat_custom: '✏️ Özel', player_default: 'Oyuncu', btn_close: 'Kapat' },
 };
 
-// Inherit missing keys from English
 Object.keys(I18N).forEach(code => {
   if (code === 'en') return;
   I18N[code] = Object.assign({}, I18N.en, I18N[code]);
@@ -1253,7 +1427,7 @@ const CATEGORIES = [
 ];
 
 /* ============================================================
-   SOUND ENGINE — Configuration-driven
+   SOUND ENGINE
    ============================================================ */
 const SoundEngine = (() => {
   let audioCtx = null;
@@ -1277,7 +1451,6 @@ const SoundEngine = (() => {
     osc.stop(t0 + duration);
   };
 
-  // Each sound is an array of tone configurations
   const SOUNDS = {
     beep:    [{ freq: 800, duration: 0.5, gain: 0.3 }],
     bell:    [{ freq: 600, start: 0,   duration: 0.8, gain: 0.2 },
@@ -1345,7 +1518,7 @@ document.addEventListener('visibilitychange', async () => {
 });
 
 /* ============================================================
-   LANGUAGE SELECTOR
+   LANGUAGE
    ============================================================ */
 function buildLangGrid() {
   const grid = $('lang-grid');
@@ -1418,7 +1591,7 @@ function buildCategoryGrid() {
 }
 
 /* ============================================================
-   STEPPER & NAVIGATION
+   STEPPER & NAV
    ============================================================ */
 const STEPPER_CFG = {
   'num-players':   { min: 3, max: 20 },
@@ -1457,7 +1630,6 @@ function goToCategories() {
   if (state.config.players < 3) return alert(t('err_min_players'));
   if (state.config.impostors >= state.config.players) return alert(t('err_impostors'));
 
-  // Resize player array while preserving names
   const names = state.playerNames;
   if (names.length < state.config.players) {
     while (names.length < state.config.players) names.push('');
@@ -1556,7 +1728,7 @@ function renderHistory() {
   const history = getHistory();
 
   if (history.length === 0) {
-    list.innerHTML = `<p style="color: var(--text-dim); text-align: center; padding: 24px; font-size: 0.9rem;">${t('history_empty')}</p>`;
+    list.innerHTML = `<p style="color: var(--gray); text-align: center; padding: 24px; font-family: var(--font-marker);">${t('history_empty')}</p>`;
     return;
   }
 
@@ -1565,7 +1737,7 @@ function renderHistory() {
       <h4>${escapeHtml(game.date)}</h4>
       <p><strong>${t('label_word')}</strong> ${escapeHtml(game.word)}</p>
       <p><strong>${t('label_impostor_was')}</strong> <span class="imp-color">${escapeHtml(game.impostors)}</span></p>
-      <p style="font-size:0.8rem; margin-top:4px;"><strong>${t('label_players_were')}</strong> ${escapeHtml(game.players)}</p>
+      <p style="font-size:0.82rem; margin-top:4px;"><strong>${t('label_players_were')}</strong> ${escapeHtml(game.players)}</p>
     </div>
   `).join('');
 }
@@ -1619,7 +1791,6 @@ function assignRoles() {
   if (!word) return alert(t('err_no_words'));
   state.game.secretWord = word;
 
-  // Fisher-Yates shuffle for better randomness
   const indices = Array.from({ length: state.config.players }, (_, i) => i);
   for (let i = indices.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -1649,10 +1820,10 @@ function showRole(playerIndex) {
   const modal = $('role-modal');
   modal.innerHTML = `
     <div class="role-card ${isImpostor ? 'impostor' : 'civil'}">
-      <span class="role-emoji">${isImpostor ? '🔪' : '🕵️'}</span>
+      <div class="role-emoji">${isImpostor ? '🔪' : '🕵️'}</div>
       <div class="role-title">${isImpostor ? t('role_impostor') : t('role_civil')}</div>
       ${!isImpostor ? `
-        <div style="font-size:0.8rem; color: var(--text-dim); margin-bottom:8px; letter-spacing:0.5px;">${t('civil_word_label')}</div>
+        <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px;">${t('civil_word_label')}</div>
         <div class="word-box">${escapeHtml(state.game.secretWord)}</div>
       ` : ''}
       <p class="role-hint">${isImpostor ? t('impostor_hint') : t('civil_hint')}</p>
@@ -1735,14 +1906,14 @@ function revealAndEndGame() {
   const modal = $('role-modal');
   modal.innerHTML = `
     <div class="role-card impostor">
-      <span class="role-emoji">⚠️</span>
+      <div class="role-emoji">⚠️</div>
       <div class="role-title">${t('end_game_title')}</div>
-      <p class="role-hint" style="color: var(--text); margin-bottom: 20px;">${t('end_game_civilians_lose')}</p>
-      <div style="font-size:0.8rem; color: var(--text-dim); margin-bottom:8px; letter-spacing:0.5px;">${t('label_word')}</div>
+      <p class="role-hint" style="margin-bottom: 16px;">${t('end_game_civilians_lose')}</p>
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px;">${t('label_word')}</div>
       <div class="word-box">${escapeHtml(state.game.secretWord)}</div>
-      <div style="font-size:0.8rem; color: var(--danger); margin: 16px 0 8px; letter-spacing:0.5px; text-transform:uppercase;">${t('label_impostor_was')}</div>
-      <div class="word-box" style="border-color: rgba(251,113,133,0.5); color: var(--danger);">${escapeHtml(impostorNames)}</div>
-      <button type="button" class="btn btn-danger" data-end-game>${t('btn_close')}</button>
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 14px 0 6px;">${t('label_impostor_was')}</div>
+      <div class="word-box" style="background: var(--ink); color: var(--red);">${escapeHtml(impostorNames)}</div>
+      <button type="button" class="btn btn-primary" data-end-game style="margin-top: 16px;">${t('btn_close')}</button>
     </div>`;
   modal.classList.add('visible');
 }
@@ -1838,9 +2009,9 @@ function addPlayerMidGame() {
   const modal = $('role-modal');
   modal.innerHTML = `
     <div class="role-card civil">
-      <span class="role-emoji">🕵️</span>
+      <div class="role-emoji">🕵️</div>
       <div class="role-title">${t('role_civil')}</div>
-      <div style="font-size:0.8rem; color: var(--text-dim); margin-bottom:8px; letter-spacing:0.5px;">${t('civil_word_label')}</div>
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px;">${t('civil_word_label')}</div>
       <div class="word-box">${escapeHtml(state.game.secretWord)}</div>
       <p class="role-hint">${t('civil_hint')}</p>
       <button type="button" class="btn btn-primary" data-close-role="${playerIdx}">${t('btn_understood')}</button>
@@ -1873,10 +2044,9 @@ function toggleHelp(id) {
 }
 
 /* ============================================================
-   EVENT DELEGATION
+   EVENTS
    ============================================================ */
 function bindEvents() {
-  // Language
   $('lang-grid').addEventListener('click', e => {
     const btn = e.target.closest('[data-lang]');
     if (!btn) return;
@@ -1886,18 +2056,15 @@ function bindEvents() {
   $('lang-confirm-btn').addEventListener('click', confirmLanguage);
   $('btn-lang-toggle').addEventListener('click', openLangSelector);
 
-  // Steppers
   document.querySelectorAll('[data-stepper]').forEach(btn => {
     btn.addEventListener('click', () => {
       stepperChange(btn.dataset.stepper, parseInt(btn.dataset.delta, 10));
     });
   });
 
-  // Sound select
   $('alarm-sound').addEventListener('change', updateSoundName);
   $('btn-test-sound').addEventListener('click', testAlarmSound);
 
-  // Navigation
   $('btn-continue').addEventListener('click', goToCategories);
   $('btn-history-open').addEventListener('click', () => showScreen('screen-history'));
   $('btn-history-back').addEventListener('click', () => showScreen('screen-setup'));
@@ -1909,21 +2076,18 @@ function bindEvents() {
   $('btn-assign-roles').addEventListener('click', assignRoles);
   $('btn-begin-debate').addEventListener('click', startDebate);
 
-  // Game controls
   $('btn-pause').addEventListener('click', togglePause);
   $('btn-reveal-end').addEventListener('click', revealAndEndGame);
   $('btn-manage').addEventListener('click', openManagePlayers);
   $('btn-new-game').addEventListener('click', () => softReset(false));
   $('btn-main-menu').addEventListener('click', () => fullReset(false));
 
-  // Category custom toggle
   $('cat-grid').addEventListener('change', e => {
     if (e.target.id === 'cat-Personalizado') {
       $('custom-area').classList.toggle('hidden', !e.target.checked);
     }
   });
 
-  // Names list - delegated input & remove
   $('names-list').addEventListener('input', e => {
     const input = e.target.closest('[data-role="player-name"]');
     if (input) state.playerNames[+input.dataset.idx] = input.value;
@@ -1937,13 +2101,11 @@ function bindEvents() {
     if (e.key === 'Enter') { e.preventDefault(); addPlayerInSetup(); }
   });
 
-  // Reveal list - delegated click
   $('reveal-list').addEventListener('click', e => {
     const item = e.target.closest('[data-reveal]');
     if (item) showRole(+item.dataset.reveal);
   });
 
-  // Modal delegation (role-close, end-game)
   $('role-modal').addEventListener('click', e => {
     const closeRoleBtn = e.target.closest('[data-close-role]');
     if (closeRoleBtn) return closeRole(closeRoleBtn.dataset.closeRole);
@@ -1952,7 +2114,6 @@ function bindEvents() {
     if (e.target === $('role-modal')) $('role-modal').classList.remove('visible');
   });
 
-  // Manage modal
   $('btn-add-mid').addEventListener('click', addPlayerMidGame);
   $('new-player-name-mid').addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); addPlayerMidGame(); }
@@ -1963,7 +2124,6 @@ function bindEvents() {
     if (btn) removePlayerMidGame(+btn.dataset.removeMid);
   });
 
-  // Help buttons (delegated)
   document.addEventListener('click', e => {
     const btn = e.target.closest('[data-help]');
     if (btn) toggleHelp(btn.dataset.help);
