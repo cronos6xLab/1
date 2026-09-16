@@ -9,9 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Permanent+Marker&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     DESIGN TOKENS — COMIC BOOK AESTHETIC
-     ============================================================ */
   :root {
     --ink: #0a0a0a;
     --ink-2: #1a1a1a;
@@ -20,7 +17,6 @@
     --bg: #141414;
     --bg-2: #1c1c1c;
     --bg-3: #242424;
-
     --yellow: #ffe600;
     --yellow-2: #ffcc00;
     --red: #ff2e2e;
@@ -31,21 +27,16 @@
     --green: #00e676;
     --white: #ffffff;
     --gray: #9a9a9a;
-
     --border-w: 3px;
     --shadow: 5px 5px 0 var(--ink);
     --shadow-sm: 3px 3px 0 var(--ink);
     --shadow-lg: 8px 8px 0 var(--ink);
-
     --font-title: 'Bangers', cursive, sans-serif;
     --font-display: 'Bebas Neue', sans-serif;
     --font-marker: 'Permanent Marker', cursive;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* ============================================================
-     RESET
-     ============================================================ */
   html { background: var(--bg); }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -68,7 +59,6 @@
     font-weight: 500;
   }
 
-  /* Halftone + speed-line backdrop */
   body::before {
     content: '';
     position: fixed;
@@ -82,989 +72,502 @@
     z-index: 0;
   }
 
-  /* Diagonal speed lines */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
-    background:
-      repeating-linear-gradient(115deg,
-        transparent 0,
-        transparent 60px,
-        rgba(255,255,255,0.025) 60px,
-        rgba(255,255,255,0.025) 61px);
+    background: repeating-linear-gradient(115deg, transparent 0, transparent 60px, rgba(255,255,255,0.025) 60px, rgba(255,255,255,0.025) 61px);
     pointer-events: none;
     z-index: 0;
   }
 
-  /* ============================================================
-     LAYOUT
-     ============================================================ */
-  .app {
-    width: 100%;
-    max-width: 460px;
-    position: relative;
-    z-index: 1;
-    padding-bottom: max(40px, env(safe-area-inset-bottom));
-  }
+  .app { width: 100%; max-width: 460px; position: relative; z-index: 1; padding-bottom: max(40px, env(safe-area-inset-bottom)); }
 
-  /* ============================================================
-     LANGUAGE OVERLAY
-     ============================================================ */
+  /* LANGUAGE OVERLAY */
   #lang-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 20px 40px;
-    overflow-y: auto;
+    position: fixed; inset: 0; background: var(--bg); z-index: 9999;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 48px 20px 40px; overflow-y: auto;
     animation: panelIn 0.4s cubic-bezier(0.2, 1.4, 0.4, 1);
   }
   #lang-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(255,230,0,0.14) 0%, transparent 55%),
-      radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
-    background-size: auto, 7px 7px;
-    pointer-events: none;
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255,230,0,0.14) 0%, transparent 55%), radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
+    background-size: auto, 7px 7px; pointer-events: none;
   }
   #lang-overlay > * { position: relative; }
 
-  .lang-logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 6px;
-    transform: rotate(-2deg);
-  }
-
-  .lang-icon {
-    font-size: clamp(2.4rem, 8vw, 3rem);
-    line-height: 1;
-    filter: drop-shadow(4px 4px 0 var(--ink));
-  }
-
+  .lang-logo-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; transform: rotate(-2deg); }
+  .lang-icon { font-size: clamp(2.4rem, 8vw, 3rem); line-height: 1; filter: drop-shadow(4px 4px 0 var(--ink)); }
   .lang-logo {
-    font-family: var(--font-title);
-    font-size: clamp(2.6rem, 10vw, 3.6rem);
-    letter-spacing: 2px;
-    color: var(--yellow);
-    line-height: 0.9;
-    text-transform: uppercase;
-    text-shadow:
-      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
-      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
-      4px 4px 0 var(--ink), 6px 6px 0 var(--red);
+    font-family: var(--font-title); font-size: clamp(2.6rem, 10vw, 3.6rem);
+    letter-spacing: 2px; color: var(--yellow); line-height: 0.9; text-transform: uppercase;
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink), 6px 6px 0 var(--red);
   }
-
-  .lang-subtitle {
-    color: var(--gray);
-    font-family: var(--font-marker);
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    text-align: center;
-  }
-
-  .lang-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    width: 100%;
-    max-width: 420px;
-  }
-
+  .lang-subtitle { color: var(--gray); font-family: var(--font-marker); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 32px; text-align: center; }
+  .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 420px; }
   .lang-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 14px 8px;
-    background: var(--bg-2);
-    border: var(--border-w) solid var(--white);
-    color: var(--white);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: var(--shadow-sm);
-    border-radius: 6px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 8px;
+    background: var(--bg-2); border: var(--border-w) solid var(--white); color: var(--white);
+    cursor: pointer; transition: all 0.15s ease; font-family: var(--font-display);
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    box-shadow: var(--shadow-sm); border-radius: 6px;
   }
   .lang-btn:hover, .lang-btn.active {
-    background: var(--yellow);
-    color: var(--ink);
-    border-color: var(--ink);
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--ink);
+    background: var(--yellow); color: var(--ink); border-color: var(--ink);
+    transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink);
   }
-
   .lang-flag { font-size: 1.7rem; line-height: 1; }
-
   .lang-confirm {
-    margin-top: 30px;
-    padding: 15px 52px;
-    background: var(--yellow);
-    color: var(--ink);
-    border: var(--border-w) solid var(--ink);
-    border-radius: 8px;
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.12s ease;
-    text-transform: uppercase;
-    box-shadow: var(--shadow);
+    margin-top: 30px; padding: 15px 52px; background: var(--yellow); color: var(--ink);
+    border: var(--border-w) solid var(--ink); border-radius: 8px; font-family: var(--font-display);
+    font-size: 1.15rem; font-weight: 700; letter-spacing: 2px; cursor: pointer;
+    transition: all 0.12s ease; text-transform: uppercase; box-shadow: var(--shadow);
   }
   .lang-confirm:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
   .lang-confirm:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
 
-  /* ============================================================
-     SCREENS
-     ============================================================ */
+  /* SCREENS */
   .screen { display: none; }
-  .screen.active {
-    display: block;
-    animation: panelIn 0.4s cubic-bezier(0.2, 1.4, 0.4, 1);
-  }
-
+  .screen.active { display: block; animation: panelIn 0.4s cubic-bezier(0.2, 1.4, 0.4, 1); }
   @keyframes panelIn {
     0% { transform: translateY(24px) rotate(-1.5deg); opacity: 0; }
     100% { transform: translateY(0) rotate(0); opacity: 1; }
   }
 
-  /* ============================================================
-     HEADER
-     ============================================================ */
-  .header {
-    padding: 22px 0 18px;
-    text-align: center;
-    position: relative;
-  }
-
+  /* HEADER */
+  .header { padding: 22px 0 18px; text-align: center; position: relative; }
   .game-title {
-    font-family: var(--font-title);
-    font-size: clamp(2rem, 8vw, 2.8rem);
-    letter-spacing: 3px;
-    color: var(--yellow);
-    line-height: 0.95;
-    text-transform: uppercase;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-shadow:
-      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
-      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
-      4px 4px 0 var(--ink), 7px 7px 0 var(--red);
+    font-family: var(--font-title); font-size: clamp(2rem, 8vw, 2.8rem);
+    letter-spacing: 3px; color: var(--yellow); line-height: 0.95; text-transform: uppercase;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink), 7px 7px 0 var(--red);
     transform: rotate(-1.5deg);
   }
-
-  .game-tagline {
-    color: var(--gray);
-    font-family: var(--font-marker);
-    font-size: 0.72rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 10px;
-  }
-
+  .game-tagline { color: var(--gray); font-family: var(--font-marker); font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; margin-top: 10px; }
   .lang-toggle-btn {
-    position: absolute;
-    top: 22px;
-    right: 0;
-    background: var(--bg-2);
-    border: var(--border-w) solid var(--white);
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    color: var(--white);
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-sm);
+    position: absolute; top: 22px; right: 0; background: var(--bg-2);
+    border: var(--border-w) solid var(--white); width: 42px; height: 42px; border-radius: 8px;
+    color: var(--white); font-size: 1.1rem; cursor: pointer; transition: all 0.15s ease;
+    display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
   }
-  .lang-toggle-btn:hover {
-    background: var(--yellow);
-    color: var(--ink);
-    border-color: var(--ink);
-    transform: rotate(-8deg) translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--ink);
-  }
+  .lang-toggle-btn:hover { background: var(--yellow); color: var(--ink); border-color: var(--ink); transform: rotate(-8deg) translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
 
-  /* ============================================================
-     CARD / PANEL
-     ============================================================ */
+  /* CARD */
   .card {
-    background: var(--bg-2);
-    border: var(--border-w) solid var(--white);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 14px;
-    position: relative;
+    background: var(--bg-2); border: var(--border-w) solid var(--white);
+    border-radius: 10px; padding: 20px; margin-bottom: 14px; position: relative;
     box-shadow: var(--shadow);
   }
-
-  /* Small halftone corner accent */
   .card::before {
-    content: '';
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 44px;
-    height: 44px;
+    content: ''; position: absolute; top: 6px; right: 6px; width: 44px; height: 44px;
     background-image: radial-gradient(circle, var(--yellow) 1.2px, transparent 1.6px);
-    background-size: 6px 6px;
-    opacity: 0.28;
-    pointer-events: none;
-    border-radius: 0 8px 0 0;
+    background-size: 6px 6px; opacity: 0.28; pointer-events: none; border-radius: 0 8px 0 0;
   }
-
   .card-title {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--yellow);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 0 var(--ink);
+    font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+    letter-spacing: 1.5px; color: var(--yellow); display: flex; align-items: center; gap: 8px;
+    text-transform: uppercase; text-shadow: 2px 2px 0 var(--ink);
   }
 
-  /* ============================================================
-     LABELS
-     ============================================================ */
-  .section-label {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 8px;
-    font-weight: 700;
-    opacity: 0.85;
-  }
-
+  .section-label { font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; font-weight: 700; opacity: 0.85; }
   .row { display: flex; gap: 12px; }
   .col { flex: 1; min-width: 0; }
 
-  /* ============================================================
-     INPUTS
-     ============================================================ */
+  /* INPUTS */
   .field { margin-bottom: 18px; }
   .field:last-child { margin-bottom: 0; }
+  label.field-label { display: block; font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; font-weight: 700; }
 
-  label.field-label {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 0.8rem;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 8px;
-    font-weight: 700;
+  input[type="number"], input[type="text"], select, textarea {
+    width: 100%; padding: 12px 14px; background: var(--bg-3);
+    border: var(--border-w) solid var(--white); color: var(--white);
+    font-family: var(--font-body); font-size: 1rem; font-weight: 600;
+    transition: all 0.15s ease; -webkit-appearance: none; appearance: none;
+    border-radius: 8px; box-shadow: var(--shadow-sm);
   }
-
-  input[type="number"],
-  input[type="text"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 12px 14px;
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.15s ease;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-  }
-
   input::placeholder, textarea::placeholder { color: var(--gray); opacity: 0.75; font-weight: 500; }
-
   input:focus, select:focus, textarea:focus {
-    outline: none;
-    background: var(--bg);
-    border-color: var(--yellow);
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--yellow);
+    outline: none; background: var(--bg); border-color: var(--yellow);
+    transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--yellow);
   }
-
   select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffe600' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 38px;
-    cursor: pointer;
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 38px; cursor: pointer;
   }
   select option { background: var(--bg-2); color: var(--white); }
-
   textarea { resize: vertical; min-height: 84px; font-family: var(--font-body); }
+  @media screen and (max-width: 768px) { input, select, textarea { font-size: 16px; } }
 
-  @media screen and (max-width: 768px) {
-    input, select, textarea { font-size: 16px; }
-  }
-
-  /* ============================================================
-     STEPPER
-     ============================================================ */
-  .stepper {
-    display: flex;
-    align-items: stretch;
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .stepper button {
-    padding: 12px 16px;
-    background: var(--yellow);
-    border: none;
-    color: var(--ink);
-    font-size: 1.3rem;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    font-family: var(--font-body);
-    min-width: 48px;
-    line-height: 1;
-  }
+  /* STEPPER */
+  .stepper { display: flex; align-items: stretch; background: var(--bg-3); border: var(--border-w) solid var(--white); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .stepper button { padding: 12px 16px; background: var(--yellow); border: none; color: var(--ink); font-size: 1.3rem; font-weight: 900; cursor: pointer; transition: all 0.1s ease; font-family: var(--font-body); min-width: 48px; line-height: 1; }
   .stepper button:hover { background: var(--red); color: var(--white); }
   .stepper button:active { transform: scale(0.9); }
-
   .stepper-val {
-    flex: 1;
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--yellow);
-    padding: 6px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 1px;
-    background: var(--bg-3);
-    text-shadow: 2px 2px 0 var(--ink);
+    flex: 1; text-align: center; font-family: var(--font-display); font-size: 1.6rem;
+    font-weight: 700; color: var(--yellow); padding: 6px 0;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: 1px; background: var(--bg-3); text-shadow: 2px 2px 0 var(--ink);
   }
 
-  /* ============================================================
-     CATEGORY GRID
-     ============================================================ */
-  .cat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
+  /* CATEGORY GRID */
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .cat-item input { display: none; }
-
   .cat-item label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 14px;
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    cursor: pointer;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    transition: all 0.12s ease;
-    user-select: none;
-    color: var(--white);
-    border-radius: 8px;
-    text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px; padding: 12px 14px; background: var(--bg-3);
+    border: var(--border-w) solid var(--white); cursor: pointer; font-family: var(--font-display);
+    font-size: 0.95rem; font-weight: 700; letter-spacing: 0.8px; transition: all 0.12s ease;
+    user-select: none; color: var(--white); border-radius: 8px; text-transform: uppercase;
     box-shadow: var(--shadow-sm);
   }
-
   .cat-item label:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--yellow); }
-
   .cat-item input:checked + label {
-    background: var(--yellow);
-    color: var(--ink);
-    border-color: var(--ink);
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--red);
-    text-shadow: none;
+    background: var(--yellow); color: var(--ink); border-color: var(--ink);
+    transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--red); text-shadow: none;
   }
-
   .cat-item.full { grid-column: span 2; }
 
-  /* ============================================================
-     SOUND PREVIEW
-     ============================================================ */
+  /* SOUND */
   .sound-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 10px;
-    padding: 10px 14px;
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    font-family: var(--font-marker);
-    font-size: 0.85rem;
-    color: var(--white);
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 10px; padding: 10px 14px; background: var(--bg-3);
+    border: var(--border-w) solid var(--white); font-family: var(--font-marker);
+    font-size: 0.85rem; color: var(--white); border-radius: 8px; box-shadow: var(--shadow-sm);
   }
-  .sound-row #selected-sound-name { font-weight: 400; }
 
-  /* ============================================================
-     BUTTONS
-     ============================================================ */
+  /* BUTTONS */
   .btn {
-    display: block;
-    width: 100%;
-    padding: 14px 22px;
-    border: var(--border-w) solid var(--ink);
-    border-radius: 8px;
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.12s ease;
-    text-align: center;
-    margin-top: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    box-shadow: var(--shadow);
-    -webkit-tap-highlight-color: transparent;
-    line-height: 1.1;
+    display: block; width: 100%; padding: 14px 22px;
+    border: var(--border-w) solid var(--ink); border-radius: 8px;
+    font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+    cursor: pointer; transition: all 0.12s ease; text-align: center;
+    margin-top: 12px; letter-spacing: 2px; text-transform: uppercase;
+    box-shadow: var(--shadow); -webkit-tap-highlight-color: transparent; line-height: 1.1;
   }
-
   .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
-
-  .btn-primary {
-    background: var(--yellow);
-    color: var(--ink);
-  }
+  .btn-primary { background: var(--yellow); color: var(--ink); }
   .btn-primary:hover { background: var(--yellow-2); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
-
-  .btn-ghost {
-    background: var(--bg-2);
-    color: var(--white);
-    border-color: var(--white);
-  }
+  .btn-ghost { background: var(--bg-2); color: var(--white); border-color: var(--white); }
   .btn-ghost:hover { background: var(--bg-3); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--yellow); border-color: var(--yellow); }
-
-  .btn-danger {
-    background: var(--red);
-    color: var(--white);
-    border-color: var(--ink);
-  }
+  .btn-danger { background: var(--red); color: var(--white); border-color: var(--ink); }
   .btn-danger:hover { background: var(--red-2); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
-
-  .btn-sm {
-    padding: 10px 18px;
-    font-size: 0.95rem;
-    width: auto;
-    display: inline-block;
-    margin-top: 0;
-    letter-spacing: 1.5px;
-    box-shadow: var(--shadow-sm);
-  }
+  .btn-sm { padding: 10px 18px; font-size: 0.95rem; width: auto; display: inline-block; margin-top: 0; letter-spacing: 1.5px; box-shadow: var(--shadow-sm); }
   .btn-sm:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-
   .btn-row { display: flex; gap: 12px; margin-top: 12px; }
   .btn-row .btn { margin-top: 0; }
 
-  /* ============================================================
-     PLAYER LIST
-     ============================================================ */
-  .player-input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .player-num {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--yellow);
-    width: 26px;
-    text-align: right;
-    flex-shrink: 0;
-    font-weight: 700;
-    text-shadow: 2px 2px 0 var(--ink);
-  }
-
+  /* PLAYER LIST */
+  .player-input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .player-num { font-family: var(--font-display); font-size: 1.1rem; color: var(--yellow); width: 26px; text-align: right; flex-shrink: 0; font-weight: 700; text-shadow: 2px 2px 0 var(--ink); }
   .player-input-row input { margin: 0; flex: 1; }
-
   .remove-player-btn {
-    background: var(--red);
-    border: var(--border-w) solid var(--ink);
-    color: var(--white);
-    width: 42px;
-    height: 42px;
-    font-size: 1.05rem;
-    cursor: pointer;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.12s ease;
-    flex-shrink: 0;
-    font-weight: 900;
-    box-shadow: var(--shadow-sm);
+    background: var(--red); border: var(--border-w) solid var(--ink); color: var(--white);
+    width: 42px; height: 42px; font-size: 1.05rem; cursor: pointer; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.12s ease; flex-shrink: 0; font-weight: 900; box-shadow: var(--shadow-sm);
   }
   .remove-player-btn:hover { background: var(--red-2); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
   .remove-player-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 
-  /* ============================================================
-     REVEAL LIST
-     ============================================================ */
+  /* REVEAL LIST */
   .reveal-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all 0.12s ease;
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    color: var(--white);
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; background: var(--bg-3); border: var(--border-w) solid var(--white);
+    margin-bottom: 10px; cursor: pointer; transition: all 0.12s ease;
+    font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+    letter-spacing: 0.8px; color: var(--white); border-radius: 8px;
+    box-shadow: var(--shadow-sm); text-transform: uppercase;
   }
-
-  .reveal-item:hover {
-    border-color: var(--yellow);
-    background: var(--bg-2);
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--yellow);
-  }
-
-  .reveal-item.done {
-    opacity: 0.55;
-    cursor: default;
-    pointer-events: none;
-    border-color: var(--green);
-    background: rgba(0, 230, 118, 0.08);
-  }
-
+  .reveal-item:hover { border-color: var(--yellow); background: var(--bg-2); transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--yellow); }
+  .reveal-item.done { opacity: 0.55; cursor: default; pointer-events: none; border-color: var(--green); background: rgba(0, 230, 118, 0.08); }
   .reveal-item .reveal-name { display: flex; align-items: center; gap: 10px; }
   .reveal-item .reveal-status { font-family: var(--font-marker); font-size: 0.78rem; color: var(--gray); font-weight: 400; }
   .reveal-item.done .reveal-status { color: var(--green); }
 
-  /* ============================================================
-     TIMER — Big comic numerals
-     ============================================================ */
+  /* TIMER */
   .timer-display {
-    font-family: var(--font-title);
-    font-size: clamp(5rem, 20vw, 8rem);
-    font-weight: 400;
-    text-align: center;
-    letter-spacing: 6px;
-    padding: 8px 0 4px;
-    color: var(--yellow);
-    transition: color 0.3s ease;
-    line-height: 1;
-    text-shadow:
-      -3px -3px 0 var(--ink), 3px -3px 0 var(--ink),
-      -3px 3px 0 var(--ink), 3px 3px 0 var(--ink),
-      6px 6px 0 var(--red);
+    font-family: var(--font-title); font-size: clamp(5rem, 20vw, 8rem);
+    font-weight: 400; text-align: center; letter-spacing: 6px; padding: 8px 0 4px;
+    color: var(--yellow); transition: color 0.3s ease; line-height: 1;
+    text-shadow: -3px -3px 0 var(--ink), 3px -3px 0 var(--ink), -3px 3px 0 var(--ink), 3px 3px 0 var(--ink), 6px 6px 0 var(--red);
     font-variant-numeric: tabular-nums;
   }
-
-  .timer-display.warning { color: #ff9500; text-shadow:
-      -3px -3px 0 var(--ink), 3px -3px 0 var(--ink),
-      -3px 3px 0 var(--ink), 3px 3px 0 var(--ink),
-      6px 6px 0 var(--red); }
-
-  .timer-display.danger {
-    color: var(--red);
-    text-shadow:
-      -3px -3px 0 var(--ink), 3px -3px 0 var(--ink),
-      -3px 3px 0 var(--ink), 3px 3px 0 var(--ink),
-      6px 6px 0 var(--yellow);
-    animation: pulse 0.6s ease-in-out infinite alternate;
-  }
-
-  @keyframes pulse {
-    from { transform: scale(1) rotate(-1deg); }
-    to { transform: scale(1.06) rotate(1deg); }
-  }
+  .timer-display.warning { color: #ff9500; }
+  .timer-display.danger { color: var(--red); text-shadow: -3px -3px 0 var(--ink), 3px -3px 0 var(--ink), -3px 3px 0 var(--ink), 3px 3px 0 var(--ink), 6px 6px 0 var(--yellow); animation: pulse 0.6s ease-in-out infinite alternate; }
+  @keyframes pulse { from { transform: scale(1) rotate(-1deg); } to { transform: scale(1.06) rotate(1deg); } }
 
   .starter-card {
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--yellow);
-    padding: 14px 20px;
-    text-align: center;
-    margin-top: 16px;
-    border-radius: 8px;
-    position: relative;
-    box-shadow: var(--shadow-sm);
+    background: var(--bg-3); border: var(--border-w) solid var(--yellow);
+    padding: 14px 20px; text-align: center; margin-top: 16px;
+    border-radius: 8px; position: relative; box-shadow: var(--shadow-sm);
   }
-
-  .starter-label {
-    font-family: var(--font-marker);
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 4px;
-    font-weight: 400;
-  }
-
-  .starter-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--yellow);
-    text-transform: uppercase;
-    text-shadow: 2px 2px 0 var(--ink);
-  }
+  .starter-label { font-family: var(--font-marker); font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; font-weight: 400; }
+  .starter-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; letter-spacing: 1.5px; color: var(--yellow); text-transform: uppercase; text-shadow: 2px 2px 0 var(--ink); }
 
   /* ============================================================
-     MODALS
+     VOTING SCREEN
      ============================================================ */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.88);
-    z-index: 5000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .modal-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(115deg,
-        transparent 0, transparent 40px,
-        rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
-      radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
-    background-size: auto, 6px 6px;
-    pointer-events: none;
+  .vote-progress {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    color: var(--gray);
+    margin-bottom: 12px;
+    text-transform: uppercase;
   }
 
+  .vote-turn-label {
+    font-family: var(--font-marker);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--gray);
+    text-align: center;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .vote-turn-name {
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    letter-spacing: 3px;
+    color: var(--yellow);
+    text-align: center;
+    line-height: 1;
+    text-transform: uppercase;
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 5px 5px 0 var(--red);
+    transform: rotate(-1deg);
+    margin-bottom: 8px;
+  }
+
+  .vote-instruction {
+    text-align: center;
+    font-family: var(--font-marker);
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .vote-options { display: flex; flex-direction: column; gap: 10px; }
+
+  .vote-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-3);
+    border: var(--border-w) solid var(--white);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.12s ease;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .vote-option:hover, .vote-option:focus-visible {
+    background: var(--yellow);
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--red);
+    outline: none;
+  }
+  .vote-option:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+  .vote-option-num {
+    font-family: var(--font-marker);
+    font-size: 0.85rem;
+    color: var(--yellow);
+    width: 26px;
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+  .vote-option:hover .vote-option-num, .vote-option:focus-visible .vote-option-num { color: var(--ink); }
+
+  .vote-option-name { flex: 1; }
+
+  /* Vote confirmation */
+  .vote-confirm-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 3px solid var(--ink);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 900;
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(-4deg);
+  }
+  .vote-confirm-text {
+    font-family: var(--font-title);
+    font-size: 1.7rem;
+    letter-spacing: 2px;
+    color: var(--green);
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink);
+    margin-bottom: 10px;
+  }
+  .vote-confirm-who {
+    font-family: var(--font-marker);
+    font-size: 0.95rem;
+    text-align: center;
+    color: var(--gray);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .vote-confirm-who strong {
+    color: var(--yellow);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+  }
+
+  /* MODALS */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(10, 10, 10, 0.88); z-index: 5000;
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(115deg, transparent 0, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px), radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
+    background-size: auto, 6px 6px; pointer-events: none;
+  }
   .modal-overlay.visible { display: flex; }
   #manage-modal { z-index: 6000; }
 
-  /* ============================================================
-     ROLE CARD — Action panel
-     ============================================================ */
+  /* ROLE CARD */
   .role-card {
-    width: 100%;
-    max-width: 380px;
-    padding: 28px 24px 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-2);
-    border: 4px solid var(--ink);
-    border-radius: 12px;
+    width: 100%; max-width: 380px; padding: 28px 24px 24px; text-align: center;
+    position: relative; overflow: hidden; background: var(--bg-2);
+    border: 4px solid var(--ink); border-radius: 12px;
     box-shadow: 10px 10px 0 var(--ink);
     animation: burstIn 0.45s cubic-bezier(0.2, 1.6, 0.4, 1);
     z-index: 1;
   }
-
   @keyframes burstIn {
     0% { transform: scale(0.3) rotate(-14deg); opacity: 0; }
     60% { transform: scale(1.05) rotate(3deg); opacity: 1; }
     100% { transform: scale(1) rotate(0); opacity: 1; }
   }
-
-  /* Halftone dots inside card */
   .role-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1.4px);
-    background-size: 6px 6px;
-    pointer-events: none;
-    opacity: 0.7;
+    background-size: 6px 6px; pointer-events: none; opacity: 0.7;
   }
-
   .role-card > * { position: relative; }
+  .role-card.impostor { background: linear-gradient(160deg, #ff2e2e 0%, #cc1a1a 100%); border-color: var(--ink); color: var(--white); box-shadow: 10px 10px 0 var(--yellow); }
+  .role-card.civil { background: linear-gradient(160deg, #00b4ff 0%, #0077cc 100%); border-color: var(--ink); color: var(--white); box-shadow: 10px 10px 0 var(--yellow); }
+  .role-card.win { background: linear-gradient(160deg, #ffcc00 0%, #ff9500 100%); border-color: var(--ink); color: var(--ink); box-shadow: 10px 10px 0 var(--red); }
+  .role-card.lose { background: linear-gradient(160deg, #6a1b9a 0%, #4a148c 100%); border-color: var(--ink); color: var(--white); box-shadow: 10px 10px 0 var(--red); }
 
-  .role-card.impostor {
-    background: linear-gradient(160deg, #ff2e2e 0%, #cc1a1a 100%);
-    border-color: var(--ink);
-    color: var(--white);
-    box-shadow: 10px 10px 0 var(--yellow);
-  }
-
-  .role-card.civil {
-    background: linear-gradient(160deg, #00b4ff 0%, #0077cc 100%);
-    border-color: var(--ink);
-    color: var(--white);
-    box-shadow: 10px 10px 0 var(--yellow);
-  }
-
-  /* Burst behind emoji */
   .role-emoji {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 84px;
-    height: 84px;
-    font-size: 2.8rem;
-    line-height: 1;
-    margin: 0 auto 12px;
-    background: var(--yellow);
-    border: 3px solid var(--ink);
-    border-radius: 50%;
-    box-shadow: 4px 4px 0 var(--ink);
-    transform: rotate(-4deg);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 84px; height: 84px; font-size: 2.8rem; line-height: 1;
+    margin: 0 auto 12px; background: var(--yellow);
+    border: 3px solid var(--ink); border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--ink); transform: rotate(-4deg);
   }
 
   .role-title {
-    font-family: var(--font-title);
-    font-size: clamp(1.8rem, 7vw, 2.3rem);
-    letter-spacing: 3px;
-    line-height: 1;
-    margin-bottom: 16px;
-    text-transform: uppercase;
+    font-family: var(--font-title); font-size: clamp(1.8rem, 7vw, 2.3rem);
+    letter-spacing: 3px; line-height: 1; margin-bottom: 16px; text-transform: uppercase;
     color: var(--white);
-    text-shadow:
-      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
-      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
-      4px 4px 0 var(--ink);
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--ink);
   }
-
-  .role-card.civil .role-title { text-shadow:
-      -2px -2px 0 var(--ink), 2px -2px 0 var(--ink),
-      -2px 2px 0 var(--ink), 2px 2px 0 var(--ink),
-      4px 4px 0 var(--ink); }
+  .role-card.win .role-title { color: var(--ink); text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 4px 4px 0 var(--white); }
 
   .word-box {
-    background: var(--paper);
-    color: var(--ink);
-    padding: 14px 18px;
-    margin: 12px 0;
-    font-family: var(--font-title);
-    font-size: 1.7rem;
-    font-weight: 400;
-    letter-spacing: 2px;
-    border: 3px solid var(--ink);
-    border-radius: 6px;
-    word-break: break-word;
-    box-shadow: 4px 4px 0 var(--ink);
-    line-height: 1.1;
-    text-transform: uppercase;
+    background: var(--paper); color: var(--ink); padding: 14px 18px; margin: 12px 0;
+    font-family: var(--font-title); font-size: 1.7rem; font-weight: 400;
+    letter-spacing: 2px; border: 3px solid var(--ink); border-radius: 6px;
+    word-break: break-word; box-shadow: 4px 4px 0 var(--ink);
+    line-height: 1.1; text-transform: uppercase;
   }
 
-  .role-hint {
-    font-family: var(--font-body);
-    font-size: 0.92rem;
-    color: var(--white);
-    line-height: 1.5;
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
+  .role-hint { font-family: var(--font-body); font-size: 0.92rem; color: var(--white); line-height: 1.5; margin-bottom: 20px; font-weight: 500; }
+  .role-card.win .role-hint { color: var(--ink); }
 
-  .role-card .btn-primary {
-    background: var(--ink);
-    color: var(--yellow);
-    border-color: var(--yellow);
-    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
-  }
+  .role-card .btn-primary { background: var(--ink); color: var(--yellow); border-color: var(--yellow); box-shadow: 5px 5px 0 rgba(0,0,0,0.5); }
   .role-card .btn-primary:hover { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
+  .role-card.win .btn-primary { background: var(--red); color: var(--white); border-color: var(--ink); }
+  .role-card.win .btn-primary:hover { background: var(--ink); color: var(--yellow); }
+  .role-card .btn-ghost { background: rgba(0,0,0,0.2); color: var(--white); border-color: var(--white); }
+  .role-card .btn-ghost:hover { background: rgba(0,0,0,0.4); border-color: var(--yellow); color: var(--yellow); }
 
-  /* ============================================================
-     HELP
-     ============================================================ */
+  /* HELP */
   .help-panel {
-    background: var(--bg-3);
-    border: 2px dashed var(--yellow);
-    padding: 14px;
-    margin-top: 12px;
-    font-size: 0.9rem;
-    line-height: 1.65;
-    color: var(--paper);
-    display: none;
-    border-radius: 8px;
+    background: var(--bg-3); border: 2px dashed var(--yellow); padding: 14px;
+    margin-top: 12px; font-size: 0.9rem; line-height: 1.65; color: var(--paper);
+    display: none; border-radius: 8px;
   }
-
   .help-panel.open { display: block; animation: panelIn 0.3s ease; }
-  .help-panel h4 {
-    font-family: var(--font-display);
-    color: var(--yellow);
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
+  .help-panel h4 { font-family: var(--font-display); color: var(--yellow); margin-bottom: 8px; font-size: 0.95rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
   .help-panel ul, .help-panel ol { padding-left: 20px; }
   .help-panel li { margin-bottom: 5px; }
   .help-panel strong { color: var(--yellow); }
 
   .help-btn {
-    background: var(--bg-3);
-    border: 2px solid var(--yellow);
-    color: var(--yellow);
-    padding: 5px 12px;
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    cursor: pointer;
-    transition: all 0.12s ease;
-    border-radius: 6px;
-    text-transform: uppercase;
+    background: var(--bg-3); border: 2px solid var(--yellow); color: var(--yellow);
+    padding: 5px 12px; font-family: var(--font-display); font-size: 0.85rem;
+    font-weight: 700; letter-spacing: 1.5px; cursor: pointer; transition: all 0.12s ease;
+    border-radius: 6px; text-transform: uppercase;
   }
   .help-btn:hover { background: var(--yellow); color: var(--ink); }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-    gap: 12px;
-  }
-
-  /* ============================================================
-     DIVIDER
-     ============================================================ */
   .divider { height: 3px; background: var(--ink); margin: 16px 0; }
 
-  /* ============================================================
-     FOOTER
-     ============================================================ */
-  .app-footer {
-    text-align: center;
-    color: var(--gray);
-    font-family: var(--font-marker);
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding-top: 24px;
-    transform: rotate(-0.5deg);
-  }
+  .app-footer { text-align: center; color: var(--gray); font-family: var(--font-marker); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; padding-top: 24px; transform: rotate(-0.5deg); }
 
-  /* ============================================================
-     SCROLL LIST
-     ============================================================ */
-  .scroll-list {
-    max-height: 50vh;
-    overflow-y: auto;
-    padding-right: 6px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--yellow) transparent;
-  }
+  /* SCROLL LIST */
+  .scroll-list { max-height: 50vh; overflow-y: auto; padding-right: 6px; scrollbar-width: thin; scrollbar-color: var(--yellow) transparent; }
   .scroll-list::-webkit-scrollbar { width: 6px; }
   .scroll-list::-webkit-scrollbar-track { background: transparent; }
   .scroll-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; border: 1px solid var(--ink); }
-  .scroll-list::-webkit-scrollbar-thumb:hover { background: var(--red); }
 
-  /* ============================================================
-     HELPERS
-     ============================================================ */
   .hidden { display: none !important; }
 
-  #custom-area {
-    margin-top: 12px;
-    padding: 14px;
-    background: var(--bg-3);
-    border: 3px dashed var(--yellow);
-    border-radius: 8px;
-    animation: panelIn 0.3s ease;
-  }
+  #custom-area { margin-top: 12px; padding: 14px; background: var(--bg-3); border: 3px dashed var(--yellow); border-radius: 8px; animation: panelIn 0.3s ease; }
 
   /* MANAGE MODAL */
   #manage-modal .role-card { max-width: 420px; text-align: left; background: var(--bg-2); }
   #manage-modal .role-card::before { opacity: 0.15; }
-  #manage-modal .card-title {
-    justify-content: center;
-    margin-bottom: 18px;
-    color: var(--yellow);
-  }
-  #manage-modal .manage-list {
-    max-height: 40vh;
-    overflow-y: auto;
-    margin-bottom: 16px;
-    scrollbar-width: thin;
-  }
+  #manage-modal .card-title { justify-content: center; margin-bottom: 18px; color: var(--yellow); }
+  #manage-modal .manage-list { max-height: 40vh; overflow-y: auto; margin-bottom: 16px; scrollbar-width: thin; }
   #manage-modal .manage-list::-webkit-scrollbar { width: 6px; }
   #manage-modal .manage-list::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
   #manage-modal .manage-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--bg-3);
-    padding: 10px 14px;
-    margin-bottom: 8px;
-    border: 2px solid var(--white);
-    border-radius: 6px;
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--white);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg-3); padding: 10px 14px; margin-bottom: 8px;
+    border: 2px solid var(--white); border-radius: 6px;
+    font-family: var(--font-display); font-size: 1.05rem; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--white);
   }
   #manage-modal .role-card .btn-ghost { border-color: var(--white); color: var(--white); }
   #manage-modal .role-card .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
 
   /* HISTORY */
-  .history-item {
-    background: var(--bg-3);
-    border: var(--border-w) solid var(--white);
-    padding: 14px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-  }
-  .history-item h4 {
-    color: var(--yellow);
-    font-family: var(--font-marker);
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    font-weight: 400;
-  }
-  .history-item p {
-    font-size: 0.9rem;
-    color: var(--white);
-    margin-bottom: 4px;
-    line-height: 1.45;
-  }
-  .history-item p strong {
-    color: var(--gray);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  .history-item { background: var(--bg-3); border: var(--border-w) solid var(--white); padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+  .history-item h4 { color: var(--yellow); font-family: var(--font-marker); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 8px; font-weight: 400; }
+  .history-item p { font-size: 0.9rem; color: var(--white); margin-bottom: 4px; line-height: 1.45; }
+  .history-item p strong { color: var(--gray); font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; }
   .history-item .imp-color { color: var(--red); font-weight: 900; font-family: var(--font-display); letter-spacing: 1px; }
 
-  /* RESPONSIVE */
   @media (max-width: 380px) {
     .lang-grid { grid-template-columns: repeat(2, 1fr); }
     .card { padding: 16px; }
@@ -1292,12 +795,41 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-primary" id="btn-pause" data-i18n="btn_pause">⏸ Pause</button>
-    <button type="button" class="btn btn-danger" id="btn-reveal-end" style="margin-top: 12px;" data-i18n="btn_reveal_end">👁️ Revelar y Terminar</button>
+    <!-- NEW: Prominent vote button -->
+    <button type="button" class="btn btn-primary" id="btn-vote-now" data-i18n="vote_btn_start" style="margin-bottom: 12px;">🗳️ Votar Ahora</button>
+
+    <button type="button" class="btn btn-ghost" id="btn-pause" data-i18n="btn_pause">⏸ Pause</button>
     <button type="button" class="btn btn-ghost" id="btn-manage" style="margin-top: 12px;" data-i18n="btn_manage_players">👥 Gestionar Jugadores</button>
+    <button type="button" class="btn btn-danger" id="btn-reveal-end" style="margin-top: 12px;" data-i18n="btn_reveal_end">👁️ Revelar y Terminar</button>
+
     <div class="btn-row">
       <button type="button" class="btn btn-ghost" id="btn-new-game" data-i18n="btn_new_game">🔄 New Game</button>
       <button type="button" class="btn btn-danger" id="btn-main-menu" data-i18n="btn_main_menu">🏠 Menu</button>
+    </div>
+  </div>
+
+  <!-- VOTING SCREEN -->
+  <div id="screen-vote" class="screen">
+    <div class="header">
+      <div class="game-title" data-i18n="vote_title">🗳️ VOTACIÓN</div>
+    </div>
+
+    <div class="vote-progress" id="vote-progress">1 / 4</div>
+
+    <!-- Turn card -->
+    <div class="card" id="vote-turn-card">
+      <div class="vote-turn-label" data-i18n="vote_turn">Turno de:</div>
+      <div class="vote-turn-name" id="vote-turn-name">—</div>
+      <p class="vote-instruction" data-i18n="vote_instruction">Toca a quién crees que es el impostor</p>
+      <div class="vote-options" id="vote-options"></div>
+    </div>
+
+    <!-- Confirmation card -->
+    <div class="card hidden" id="vote-confirm-card" style="text-align:center;">
+      <div class="vote-confirm-icon">✓</div>
+      <div class="vote-confirm-text" data-i18n="vote_registered">¡Voto registrado!</div>
+      <div class="vote-confirm-who" id="vote-confirm-who"></div>
+      <button type="button" class="btn btn-primary" id="btn-vote-next" data-i18n="vote_pass_next">Pasar al siguiente →</button>
     </div>
   </div>
 
@@ -1340,7 +872,7 @@ const I18N = {
     civil_hint: 'Haz preguntas sobre esta palabra sin revelarla directamente. Descubre a los impostores.', impostor_hint: 'No conoces la palabra. Finge que sí la sabes. Escucha a los civiles y da respuestas vagas pero creíbles.',
     btn_understood: 'Entendido ✓', role_seen: 'Ver Rol', role_done: 'Rol Visto ✓',
     cat_varied: '🎲 Variado', cat_places: '✈️ Lugares', cat_food: '🍕 Comidas', cat_animals: '🦁 Animales', cat_movies: '🎬 Películas', cat_sports: '⚽ Deportes', cat_anime: '🎌 Anime', cat_games: '🎮 Videojuegos', cat_custom: '✏️ Personalizado',
-    time_up_msg: '¡Tiempo terminado!\n\nEs hora de votar. ¿Quiénes son los impostores?',
+    time_up_msg: '¡Tiempo terminado!',
     err_min_players: 'Mínimo 3 jugadores.', err_impostors: 'Debe haber más jugadores que impostores.', err_no_categories: 'Selecciona al menos una categoría.', err_no_words: 'No hay palabras disponibles.',
     confirm_new: '¿Terminar partida actual y jugar otra con los mismos jugadores?', confirm_reset: '¿Volver al menú principal? Se borrarán los nombres.',
     help_setup_title: 'Configuración', help_setup_items: ['<strong>Jugadores:</strong> Número total de participantes (mínimo 3)', '<strong>Impostores:</strong> Cuántos serán impostores (menos que jugadores)', '<strong>Tiempo:</strong> Duración del debate en minutos', '<strong>Sonido:</strong> Suena al terminar el tiempo'],
@@ -1353,7 +885,22 @@ const I18N = {
     btn_reveal_end: '👁️ Revelar y Terminar', confirm_reveal: 'Si revelas la palabra y al impostor ahora, los CIVILES PIERDEN automáticamente. ¿Deseas revelar de todas formas?',
     end_game_title: 'Fin del Juego', end_game_civilians_lose: 'Los civiles no lograron descubrir al impostor a tiempo.', label_word: 'Palabra:', label_impostor_was: 'Impostor(es):', label_players_were: 'Jugadores:',
     btn_history: '📜 Historial', history_title: '📜 Historial', history_empty: 'No hay partidas guardadas.', btn_clear_history: '🗑️ Borrar Historial', confirm_clear_history: '¿Borrar todo el historial?',
-    new_impostor: 'ahora es un Impostor.'
+    new_impostor: 'ahora es un Impostor.',
+    /* VOTE */
+    vote_title: '🗳️ Votación',
+    vote_turn: 'Turno de:',
+    vote_instruction: 'Toca a quién crees que es el impostor',
+    vote_registered: '¡Voto registrado!',
+    vote_pass_next: 'Pasar al siguiente →',
+    vote_expelled: 'Expulsado:',
+    vote_was_impostor: '✗ ERA EL IMPOSTOR',
+    vote_was_civil: '✓ ERA CIVIL',
+    vote_civilians_win: '¡Civiles Ganan!',
+    vote_impostors_win: '¡Impostores Ganan!',
+    vote_tie_msg: 'Empate en la votación. Nadie fue expulsado. Los impostores ganan la ronda.',
+    vote_btn_start: '🗳️ Votar Ahora',
+    vote_count: 'votos',
+    btn_next_round: '🔄 Siguiente Ronda'
   },
   en: {
     lang_pick: 'Select your language', setup_title: '⚙️ Setup', tagline: 'Ultimate Edition',
@@ -1369,7 +916,7 @@ const I18N = {
     civil_hint: 'Ask questions about this word without revealing it directly. Find the impostors.', impostor_hint: "You don't know the word. Pretend you do. Listen to the civilians and give vague but believable answers.",
     btn_understood: 'Got it ✓', role_seen: 'See Role', role_done: 'Role Seen ✓',
     cat_varied: '🎲 Mixed', cat_places: '✈️ Places', cat_food: '🍕 Food', cat_animals: '🦁 Animals', cat_movies: '🎬 Movies', cat_sports: '⚽ Sports', cat_anime: '🎌 Anime', cat_games: '🎮 Games', cat_custom: '✏️ Custom',
-    time_up_msg: "Time's up!\n\nTime to vote. Who are the impostors?",
+    time_up_msg: "Time's up!",
     err_min_players: 'Minimum 3 players.', err_impostors: 'There must be more players than impostors.', err_no_categories: 'Select at least one category.', err_no_words: 'No words available.',
     confirm_new: 'End current game and play another with the same players?', confirm_reset: 'Return to main menu? Names will be cleared.',
     help_setup_title: 'Configuration', help_setup_items: ['<strong>Players:</strong> Total participants (min 3)', '<strong>Impostors:</strong> How many will be impostors (less than players)', '<strong>Time:</strong> Debate duration in minutes', '<strong>Sound:</strong> Plays when time runs out'],
@@ -1382,18 +929,33 @@ const I18N = {
     btn_reveal_end: '👁️ Reveal & End', confirm_reveal: 'If you reveal the word and the impostor now, the CIVILIANS LOSE automatically. Do you want to reveal anyway?',
     end_game_title: 'Game Over', end_game_civilians_lose: 'The civilians failed to discover the impostor in time.', label_word: 'Word:', label_impostor_was: 'Impostor(s):', label_players_were: 'Players:',
     btn_history: '📜 History', history_title: '📜 History', history_empty: 'No saved matches.', btn_clear_history: '🗑️ Clear History', confirm_clear_history: 'Delete all history?',
-    new_impostor: 'is now an Impostor.'
+    new_impostor: 'is now an Impostor.',
+    /* VOTE */
+    vote_title: '🗳️ Voting',
+    vote_turn: 'Turn of:',
+    vote_instruction: 'Tap who you think is the impostor',
+    vote_registered: 'Vote registered!',
+    vote_pass_next: 'Pass to next →',
+    vote_expelled: 'Expelled:',
+    vote_was_impostor: '✗ WAS THE IMPOSTOR',
+    vote_was_civil: '✓ WAS CIVIL',
+    vote_civilians_win: 'Civilians Win!',
+    vote_impostors_win: 'Impostors Win!',
+    vote_tie_msg: 'Vote tied. Nobody expelled. Impostors win the round.',
+    vote_btn_start: '🗳️ Vote Now',
+    vote_count: 'votes',
+    btn_next_round: '🔄 Next Round'
   },
-  pt: { lang_pick: 'Escolha seu idioma', setup_title: '⚙️ Configuração', tagline: 'Edição Ultimate', label_players: 'Jogadores', label_impostors: 'Impostores', label_time: 'Tempo (minutos)', label_sound: 'Som de Alerta', sound_none: 'Sem som', btn_test_sound: 'Testar', btn_continue: 'Continuar →', btn_help: 'Ajuda', btn_next: 'Próximo →', btn_back_main: '← Menu Principal', btn_back: '← Voltar', btn_deal_roles: 'Distribuir Papéis 🎲', btn_start_game: '🔥 Começar Jogo', btn_pause: '⏸ Pausar', btn_resume: '▶ Retomar', btn_new_game: '🔄 Nova Partida', btn_main_menu: '🏠 Menu', cats_title: '📂 Temas', cats_pick: 'Escolha Categorias', names_title: '👥 Jogadores', names_assign: 'Atribuir Nomes', reveal_title: '🤫 Papéis', reveal_secret: 'Identidade Secreta', game_title: '⏳ Debate', game_timer_label: 'Cronômetro', game_starts_asking: 'Começa perguntando:', role_civil: 'Você é Civil', role_impostor: 'Você é o Impostor', civil_word_label: 'A palavra secreta é:', btn_understood: 'Entendido ✓', role_seen: 'Ver Papel', role_done: 'Papel Visto ✓', cat_varied: '🎲 Variado', cat_places: '✈️ Lugares', cat_food: '🍕 Comidas', cat_animals: '🦁 Animais', cat_movies: '🎬 Filmes', cat_sports: '⚽ Esportes', cat_anime: '🎌 Anime', cat_games: '🎮 Jogos', cat_custom: '✏️ Personalizado', player_default: 'Jogador', btn_close: 'Fechar' },
-  fr: { lang_pick: 'Choisissez votre langue', setup_title: '⚙️ Configuration', tagline: 'Édition Ultime', label_players: 'Joueurs', label_impostors: 'Imposteurs', label_time: 'Temps (minutes)', label_sound: 'Son d\'alerte', sound_none: 'Sans son', btn_test_sound: 'Tester', btn_continue: 'Continuer →', btn_help: 'Aide', btn_next: 'Suivant →', btn_back_main: '← Menu Principal', btn_back: '← Retour', btn_deal_roles: 'Distribuer les Rôles 🎲', btn_start_game: '🔥 Commencer', btn_pause: '⏸ Pause', btn_resume: '▶ Reprendre', btn_new_game: '🔄 Nouvelle Partie', btn_main_menu: '🏠 Menu', cats_title: '📂 Thèmes', cats_pick: 'Choisir les Thèmes', names_title: '👥 Joueurs', names_assign: 'Attribuer des Noms', reveal_title: '🤫 Rôles', reveal_secret: 'Identité Secrète', game_title: '⏳ Débat', game_timer_label: 'Chronomètre', game_starts_asking: 'Commence par demander:', role_civil: 'Vous êtes Civil', role_impostor: 'Vous êtes l\'Imposteur', civil_word_label: 'Le mot secret est:', btn_understood: 'Compris ✓', role_seen: 'Voir le Rôle', role_done: 'Rôle Vu ✓', cat_varied: '🎲 Varié', cat_places: '✈️ Lieux', cat_food: '🍕 Nourriture', cat_animals: '🦁 Animaux', cat_movies: '🎬 Films', cat_sports: '⚽ Sports', cat_anime: '🎌 Anime', cat_games: '🎮 Jeux', cat_custom: '✏️ Personnalisé', player_default: 'Joueur', btn_close: 'Fermer' },
-  de: { lang_pick: 'Sprache wählen', setup_title: '⚙️ Einstellungen', tagline: 'Ultimate Edition', label_players: 'Spieler', label_impostors: 'Impostoren', label_time: 'Zeit (Minuten)', label_sound: 'Alarmsound', sound_none: 'Kein Ton', btn_test_sound: 'Testen', btn_continue: 'Weiter →', btn_help: 'Hilfe', btn_next: 'Weiter →', btn_back_main: '← Hauptmenü', btn_back: '← Zurück', btn_deal_roles: 'Rollen verteilen 🎲', btn_start_game: '🔥 Spiel starten', btn_pause: '⏸ Pause', btn_resume: '▶ Fortsetzen', btn_new_game: '🔄 Neues Spiel', btn_main_menu: '🏠 Menü', cats_title: '📂 Themen', cats_pick: 'Themen Wählen', names_title: '👥 Spieler', names_assign: 'Namen Zuweisen', reveal_title: '🤫 Rollen', reveal_secret: 'Geheime Identität', game_title: '⏳ Debatte', game_timer_label: 'Timer', game_starts_asking: 'Beginnt zu fragen:', role_civil: 'Du bist Zivilist', role_impostor: 'Du bist der Impostor', civil_word_label: 'Das Geheimwort ist:', btn_understood: 'Verstanden ✓', role_seen: 'Rolle sehen', role_done: 'Rolle gesehen ✓', cat_varied: '🎲 Gemischt', cat_places: '✈️ Orte', cat_food: '🍕 Essen', cat_animals: '🦁 Tiere', cat_movies: '🎬 Filme', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Spiele', cat_custom: '✏️ Benutzerdefiniert', player_default: 'Spieler', btn_close: 'Schließen' },
-  it: { lang_pick: 'Scegli la tua lingua', setup_title: '⚙️ Configurazione', tagline: 'Edizione Ultimate', label_players: 'Giocatori', label_impostors: 'Impostori', label_time: 'Tempo (minuti)', label_sound: 'Suono di Allerta', sound_none: 'Nessun suono', btn_test_sound: 'Prova', btn_continue: 'Continua →', btn_help: 'Aiuto', btn_next: 'Avanti →', btn_back_main: '← Menu Principale', btn_back: '← Indietro', btn_deal_roles: 'Distribuire i Ruoli 🎲', btn_start_game: '🔥 Inizia il Gioco', btn_pause: '⏸ Pausa', btn_resume: '▶ Riprendi', btn_new_game: '🔄 Nuova Partita', btn_main_menu: '🏠 Menu', cats_title: '📂 Temi', cats_pick: 'Scegli Temi', names_title: '👥 Giocatori', names_assign: 'Assegna Nomi', reveal_title: '🤫 Ruoli', reveal_secret: 'Identità Segreta', game_title: '⏳ Dibattito', game_timer_label: 'Timer', game_starts_asking: 'Inizia a fare domande:', role_civil: 'Sei Civile', role_impostor: 'Sei l\'Impostore', civil_word_label: 'La parola segreta è:', btn_understood: 'Capito ✓', role_seen: 'Vedi Ruolo', role_done: 'Ruolo Visto ✓', cat_varied: '🎲 Misto', cat_places: '✈️ Luoghi', cat_food: '🍕 Cibo', cat_animals: '🦁 Animali', cat_movies: '🎬 Film', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Giochi', cat_custom: '✏️ Personalizzato', player_default: 'Giocatore', btn_close: 'Chiudi' },
-  ru: { lang_pick: 'Выберите язык', setup_title: '⚙️ Настройки', tagline: 'Ультимативное издание', label_players: 'Игроки', label_impostors: 'Самозванцы', label_time: 'Время (мин)', label_sound: 'Звук оповещения', sound_none: 'Без звука', btn_test_sound: 'Тест', btn_continue: 'Продолжить →', btn_help: 'Помощь', btn_next: 'Далее →', btn_back_main: '← Главное меню', btn_back: '← Назад', btn_deal_roles: 'Раздать роли 🎲', btn_start_game: '🔥 Начать игру', btn_pause: '⏸ Пауза', btn_resume: '▶ Продолжить', btn_new_game: '🔄 Новая игра', btn_main_menu: '🏠 Меню', cats_title: '📂 Темы', cats_pick: 'Выбрать темы', names_title: '👥 Игроки', names_assign: 'Назначить имена', reveal_title: '🤫 Роли', reveal_secret: 'Тайная личность', game_title: '⏳ Дебаты', game_timer_label: 'Таймер', game_starts_asking: 'Начинает задавать вопросы:', role_civil: 'Вы мирный', role_impostor: 'Вы самозванец', civil_word_label: 'Секретное слово:', btn_understood: 'Понятно ✓', role_seen: 'Посмотреть роль', role_done: 'Роль просмотрена ✓', cat_varied: '🎲 Разное', cat_places: '✈️ Места', cat_food: '🍕 Еда', cat_animals: '🦁 Животные', cat_movies: '🎬 Фильмы', cat_sports: '⚽ Спорт', cat_anime: '🎌 Аниме', cat_games: '🎮 Игры', cat_custom: '✏️ Пользовательский', player_default: 'Игрок', btn_close: 'Закрыть' },
-  ja: { lang_pick: '言語を選択してください', setup_title: '⚙️ 設定', tagline: 'アルティメット版', label_players: 'プレイヤー数', label_impostors: 'インポスター数', label_time: '時間（分）', label_sound: '警告音', sound_none: '音なし', btn_test_sound: 'テスト', btn_continue: '続ける →', btn_help: 'ヘルプ', btn_next: '次へ →', btn_back_main: '← メインメニュー', btn_back: '← 戻る', btn_deal_roles: '役割を配る 🎲', btn_start_game: '🔥 ゲーム開始', btn_pause: '⏸ 一時停止', btn_resume: '▶ 再開', btn_new_game: '🔄 新しいゲーム', btn_main_menu: '🏠 メニュー', cats_title: '📂 テーマ', cats_pick: 'テーマを選ぶ', names_title: '👥 プレイヤー', names_assign: '名前を割り当て', reveal_title: '🤫 役割', reveal_secret: '秘密の身元', game_title: '⏳ 議論', game_timer_label: 'タイマー', game_starts_asking: '最初に質問するのは:', role_civil: 'あなたは市民です', role_impostor: 'あなたがインポスターです', civil_word_label: '秘密の言葉は:', btn_understood: '了解 ✓', role_seen: '役割を見る', role_done: '確認済み ✓', cat_varied: '🎲 ミックス', cat_places: '✈️ 場所', cat_food: '🍕 食べ物', cat_animals: '🦁 動物', cat_movies: '🎬 映画', cat_sports: '⚽ スポーツ', cat_anime: '🎌 アニメ', cat_games: '🎮 ゲーム', cat_custom: '✏️ カスタム', player_default: 'プレイヤー', btn_close: '閉じる' },
-  ko: { lang_pick: '언어를 선택하세요', setup_title: '⚙️ 설정', tagline: '얼티메이트 에디션', label_players: '플레이어 수', label_impostors: '임포스터 수', label_time: '시간 (분)', label_sound: '경고음', sound_none: '소리 없음', btn_test_sound: '테스트', btn_continue: '계속 →', btn_help: '도움말', btn_next: '다음 →', btn_back_main: '← 메인 메뉴', btn_back: '← 뒤로', btn_deal_roles: '역할 배분 🎲', btn_start_game: '🔥 게임 시작', btn_pause: '⏸ 일시 정지', btn_resume: '▶ 재개', btn_new_game: '🔄 새 게임', btn_main_menu: '🏠 메뉴', cats_title: '📂 주제', cats_pick: '테마 선택', names_title: '👥 플레이어', names_assign: '이름 지정', reveal_title: '🤫 역할', reveal_secret: '비밀 신원', game_title: '⏳ 토론', game_timer_label: '타이머', game_starts_asking: '먼저 질문하는 사람:', role_civil: '당신은 시민입니다', role_impostor: '당신이 임포스터입니다', civil_word_label: '비밀 단어는:', btn_understood: '알겠습니다 ✓', role_seen: '역할 보기', role_done: '역할 확인 ✓', cat_varied: '🎲 다양', cat_places: '✈️ 장소', cat_food: '🍕 음식', cat_animals: '🦁 동물', cat_movies: '🎬 영화', cat_sports: '⚽ 스포츠', cat_anime: '🎌 애니메', cat_games: '🎮 게임', cat_custom: '✏️ 커스텀', player_default: '플레이어', btn_close: '닫기' },
-  zh: { lang_pick: '请选择语言', setup_title: '⚙️ 设置', tagline: '终极版', label_players: '玩家数量', label_impostors: '内奸数量', label_time: '时间（分钟）', label_sound: '警报声音', sound_none: '无声音', btn_test_sound: '测试', btn_continue: '继续 →', btn_help: '帮助', btn_next: '下一步 →', btn_back_main: '← 主菜单', btn_back: '← 返回', btn_deal_roles: '分配角色 🎲', btn_start_game: '🔥 开始游戏', btn_pause: '⏸ 暂停', btn_resume: '▶ 继续', btn_new_game: '🔄 新游戏', btn_main_menu: '🏠 菜单', cats_title: '📂 主题', cats_pick: '选择主题', names_title: '👥 玩家', names_assign: '分配名称', reveal_title: '🤫 角色', reveal_secret: '秘密身份', game_title: '⏳ 辩论', game_timer_label: '计时器', game_starts_asking: '先开始提问：', role_civil: '你是平民', role_impostor: '你是内奸', civil_word_label: '秘密词语是：', btn_understood: '明白了 ✓', role_seen: '查看角色', role_done: '已查看 ✓', cat_varied: '🎲 综合', cat_places: '✈️ 地点', cat_food: '🍕 食物', cat_animals: '🦁 动物', cat_movies: '🎬 电影', cat_sports: '⚽ 运动', cat_anime: '🎌 动漫', cat_games: '🎮 游戏', cat_custom: '✏️ 自定义', player_default: '玩家', btn_close: '关闭' },
-  ar: { lang_pick: 'اختر لغتك', setup_title: '⚙️ الإعدادات', tagline: 'الإصدار النهائي', label_players: 'اللاعبون', label_impostors: 'المتسللون', label_time: 'الوقت (دقائق)', label_sound: 'صوت التنبيه', sound_none: 'بدون صوت', btn_test_sound: 'اختبار', btn_continue: 'متابعة →', btn_help: 'مساعدة', btn_next: 'التالي →', btn_back_main: '→ القائمة الرئيسية', btn_back: '→ رجوع', btn_deal_roles: 'توزيع الأدوار 🎲', btn_start_game: '🔥 ابدأ اللعبة', btn_pause: '⏸ إيقاف مؤقت', btn_resume: '▶ استئناف', btn_new_game: '🔄 لعبة جديدة', btn_main_menu: '🏠 القائمة', cats_title: '📂 المواضيع', cats_pick: 'اختر الفئات', names_title: '👥 اللاعبون', names_assign: 'تعيين الأسماء', reveal_title: '🤫 الأدوار', reveal_secret: 'الهوية السرية', game_title: '⏳ النقاش', game_timer_label: 'المؤقت', game_starts_asking: 'يبدأ بالسؤال:', role_civil: 'أنت مدني', role_impostor: 'أنت المتسلل', civil_word_label: 'الكلمة السرية هي:', btn_understood: 'فهمت ✓', role_seen: 'انظر الدور', role_done: 'شوهد الدور ✓', cat_varied: '🎲 متنوع', cat_places: '✈️ أماكن', cat_food: '🍕 طعام', cat_animals: '🦁 حيوانات', cat_movies: '🎬 أفلام', cat_sports: '⚽ رياضة', cat_anime: '🎌 أنمي', cat_games: '🎮 ألعاب', cat_custom: '✏️ مخصص', player_default: 'لاعب', btn_close: 'إغلاق' },
-  tr: { lang_pick: 'Dilinizi seçin', setup_title: '⚙️ Ayarlar', tagline: 'Ultimate Sürüm', label_players: 'Oyuncular', label_impostors: 'Sahtekârlar', label_time: 'Süre (dakika)', label_sound: 'Uyarı Sesi', sound_none: 'Sessiz', btn_test_sound: 'Test', btn_continue: 'Devam →', btn_help: 'Yardım', btn_next: 'İleri →', btn_back_main: '← Ana Menü', btn_back: '← Geri', btn_deal_roles: 'Rolleri Dağıt 🎲', btn_start_game: '🔥 Oyunu Başlat', btn_pause: '⏸ Duraklat', btn_resume: '▶ Devam', btn_new_game: '🔄 Yeni Oyun', btn_main_menu: '🏠 Menü', cats_title: '📂 Temalar', cats_pick: 'Tema Seç', names_title: '👥 Oyuncular', names_assign: 'İsimleri Atayın', reveal_title: '🤫 Roller', reveal_secret: 'Gizli Kimlik', game_title: '⏳ Tartışma', game_timer_label: 'Süre', game_starts_asking: 'İlk soru soran:', role_civil: 'Sivilsiniz', role_impostor: 'Sahtekârsınız', civil_word_label: 'Gizli kelime:', btn_understood: 'Anladım ✓', role_seen: 'Rolü Gör', role_done: 'Rol Görüldü ✓', cat_varied: '🎲 Karışık', cat_places: '✈️ Yerler', cat_food: '🍕 Yiyecekler', cat_animals: '🦁 Hayvanlar', cat_movies: '🎬 Filmler', cat_sports: '⚽ Spor', cat_anime: '🎌 Anime', cat_games: '🎮 Oyunlar', cat_custom: '✏️ Özel', player_default: 'Oyuncu', btn_close: 'Kapat' },
+  pt: { lang_pick: 'Escolha seu idioma', setup_title: '⚙️ Configuração', tagline: 'Edição Ultimate', label_players: 'Jogadores', label_impostors: 'Impostores', label_time: 'Tempo (minutos)', label_sound: 'Som de Alerta', sound_none: 'Sem som', btn_test_sound: 'Testar', btn_continue: 'Continuar →', btn_help: 'Ajuda', btn_next: 'Próximo →', btn_back_main: '← Menu Principal', btn_back: '← Voltar', btn_deal_roles: 'Distribuir Papéis 🎲', btn_start_game: '🔥 Começar Jogo', btn_pause: '⏸ Pausar', btn_resume: '▶ Retomar', btn_new_game: '🔄 Nova Partida', btn_main_menu: '🏠 Menu', cats_title: '📂 Temas', cats_pick: 'Escolha Categorias', names_title: '👥 Jogadores', names_assign: 'Atribuir Nomes', reveal_title: '🤫 Papéis', reveal_secret: 'Identidade Secreta', game_title: '⏳ Debate', game_timer_label: 'Cronômetro', game_starts_asking: 'Começa perguntando:', role_civil: 'Você é Civil', role_impostor: 'Você é o Impostor', civil_word_label: 'A palavra secreta é:', btn_understood: 'Entendido ✓', role_seen: 'Ver Papel', role_done: 'Papel Visto ✓', cat_varied: '🎲 Variado', cat_places: '✈️ Lugares', cat_food: '🍕 Comidas', cat_animals: '🦁 Animais', cat_movies: '🎬 Filmes', cat_sports: '⚽ Esportes', cat_anime: '🎌 Anime', cat_games: '🎮 Jogos', cat_custom: '✏️ Personalizado', player_default: 'Jogador', btn_close: 'Fechar', vote_title: '🗳️ Votação', vote_turn: 'Turno de:', vote_instruction: 'Toque em quem você acha que é o impostor', vote_registered: 'Voto registrado!', vote_pass_next: 'Passar para o próximo →', vote_expelled: 'Expulso:', vote_was_impostor: '✗ ERA O IMPOSTOR', vote_was_civil: '✓ ERA CIVIL', vote_civilians_win: 'Civis Ganham!', vote_impostors_win: 'Impostores Ganham!', vote_tie_msg: 'Empate. Ninguém expulso. Impostores ganham a ronda.', vote_btn_start: '🗳️ Votar Agora', btn_next_round: '🔄 Próxima Ronda' },
+  fr: { lang_pick: 'Choisissez votre langue', setup_title: '⚙️ Configuration', tagline: 'Édition Ultime', label_players: 'Joueurs', label_impostors: 'Imposteurs', label_time: 'Temps (minutes)', label_sound: 'Son d\'alerte', sound_none: 'Sans son', btn_test_sound: 'Tester', btn_continue: 'Continuer →', btn_help: 'Aide', btn_next: 'Suivant →', btn_back_main: '← Menu Principal', btn_back: '← Retour', btn_deal_roles: 'Distribuer les Rôles 🎲', btn_start_game: '🔥 Commencer', btn_pause: '⏸ Pause', btn_resume: '▶ Reprendre', btn_new_game: '🔄 Nouvelle Partie', btn_main_menu: '🏠 Menu', cats_title: '📂 Thèmes', cats_pick: 'Choisir les Thèmes', names_title: '👥 Joueurs', names_assign: 'Attribuer des Noms', reveal_title: '🤫 Rôles', reveal_secret: 'Identité Secrète', game_title: '⏳ Débat', game_timer_label: 'Chronomètre', game_starts_asking: 'Commence par demander:', role_civil: 'Vous êtes Civil', role_impostor: 'Vous êtes l\'Imposteur', civil_word_label: 'Le mot secret est:', btn_understood: 'Compris ✓', role_seen: 'Voir le Rôle', role_done: 'Rôle Vu ✓', cat_varied: '🎲 Varié', cat_places: '✈️ Lieux', cat_food: '🍕 Nourriture', cat_animals: '🦁 Animaux', cat_movies: '🎬 Films', cat_sports: '⚽ Sports', cat_anime: '🎌 Anime', cat_games: '🎮 Jeux', cat_custom: '✏️ Personnalisé', player_default: 'Joueur', btn_close: 'Fermer', vote_title: '🗳️ Vote', vote_turn: 'Tour de :', vote_instruction: 'Touchez qui vous pensez être l\'imposteur', vote_registered: 'Vote enregistré!', vote_pass_next: 'Passer au suivant →', vote_expelled: 'Expulsé:', vote_was_impostor: '✗ ÉTAIT L\'IMPOSTEUR', vote_was_civil: '✓ ÉTAIT CIVIL', vote_civilians_win: 'Les Civils Gagnent!', vote_impostors_win: 'Les Imposteurs Gagnent!', vote_tie_msg: 'Égalité. Personne expulsé. Les imposteurs gagnent.', vote_btn_start: '🗳️ Voter Maintenant', btn_next_round: '🔄 Manche Suivante' },
+  de: { lang_pick: 'Sprache wählen', setup_title: '⚙️ Einstellungen', tagline: 'Ultimate Edition', label_players: 'Spieler', label_impostors: 'Impostoren', label_time: 'Zeit (Minuten)', label_sound: 'Alarmsound', sound_none: 'Kein Ton', btn_test_sound: 'Testen', btn_continue: 'Weiter →', btn_help: 'Hilfe', btn_next: 'Weiter →', btn_back_main: '← Hauptmenü', btn_back: '← Zurück', btn_deal_roles: 'Rollen verteilen 🎲', btn_start_game: '🔥 Spiel starten', btn_pause: '⏸ Pause', btn_resume: '▶ Fortsetzen', btn_new_game: '🔄 Neues Spiel', btn_main_menu: '🏠 Menü', cats_title: '📂 Themen', cats_pick: 'Themen Wählen', names_title: '👥 Spieler', names_assign: 'Namen Zuweisen', reveal_title: '🤫 Rollen', reveal_secret: 'Geheime Identität', game_title: '⏳ Debatte', game_timer_label: 'Timer', game_starts_asking: 'Beginnt zu fragen:', role_civil: 'Du bist Zivilist', role_impostor: 'Du bist der Impostor', civil_word_label: 'Das Geheimwort ist:', btn_understood: 'Verstanden ✓', role_seen: 'Rolle sehen', role_done: 'Rolle gesehen ✓', cat_varied: '🎲 Gemischt', cat_places: '✈️ Orte', cat_food: '🍕 Essen', cat_animals: '🦁 Tiere', cat_movies: '🎬 Filme', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Spiele', cat_custom: '✏️ Benutzerdefiniert', player_default: 'Spieler', btn_close: 'Schließen', vote_title: '🗳️ Abstimmung', vote_turn: 'Am Zug:', vote_instruction: 'Tippe, wer deiner Meinung nach der Impostor ist', vote_registered: 'Stimme registriert!', vote_pass_next: 'Weiter zum Nächsten →', vote_expelled: 'Rausgeworfen:', vote_was_impostor: '✗ WAR DER IMPOSTOR', vote_was_civil: '✓ WAR ZIVILIST', vote_civilians_win: 'Zivilisten Gewinnen!', vote_impostors_win: 'Impostoren Gewinnen!', vote_tie_msg: 'Unentschieden. Niemand rausgeworfen. Impostoren gewinnen.', vote_btn_start: '🗳️ Jetzt Abstimmen', btn_next_round: '🔄 Nächste Runde' },
+  it: { lang_pick: 'Scegli la tua lingua', setup_title: '⚙️ Configurazione', tagline: 'Edizione Ultimate', label_players: 'Giocatori', label_impostors: 'Impostori', label_time: 'Tempo (minuti)', label_sound: 'Suono di Allerta', sound_none: 'Nessun suono', btn_test_sound: 'Prova', btn_continue: 'Continua →', btn_help: 'Aiuto', btn_next: 'Avanti →', btn_back_main: '← Menu Principale', btn_back: '← Indietro', btn_deal_roles: 'Distribuire i Ruoli 🎲', btn_start_game: '🔥 Inizia il Gioco', btn_pause: '⏸ Pausa', btn_resume: '▶ Riprendi', btn_new_game: '🔄 Nuova Partita', btn_main_menu: '🏠 Menu', cats_title: '📂 Temi', cats_pick: 'Scegli Temi', names_title: '👥 Giocatori', names_assign: 'Assegna Nomi', reveal_title: '🤫 Ruoli', reveal_secret: 'Identità Segreta', game_title: '⏳ Dibattito', game_timer_label: 'Timer', game_starts_asking: 'Inizia a fare domande:', role_civil: 'Sei Civile', role_impostor: 'Sei l\'Impostore', civil_word_label: 'La parola segreta è:', btn_understood: 'Capito ✓', role_seen: 'Vedi Ruolo', role_done: 'Ruolo Visto ✓', cat_varied: '🎲 Misto', cat_places: '✈️ Luoghi', cat_food: '🍕 Cibo', cat_animals: '🦁 Animali', cat_movies: '🎬 Film', cat_sports: '⚽ Sport', cat_anime: '🎌 Anime', cat_games: '🎮 Giochi', cat_custom: '✏️ Personalizzato', player_default: 'Giocatore', btn_close: 'Chiudi', vote_title: '🗳️ Votazione', vote_turn: 'Turno di:', vote_instruction: 'Tocca chi pensi sia l\'impostore', vote_registered: 'Voto registrato!', vote_pass_next: 'Passa al prossimo →', vote_expelled: 'Espulso:', vote_was_impostor: '✗ ERA L\'IMPOSTORE', vote_was_civil: '✓ ERA CIVILE', vote_civilians_win: 'Vincono i Civili!', vote_impostors_win: 'Vincono gli Impostori!', vote_tie_msg: 'Pareggio. Nessuno espulso. Vincono gli impostori.', vote_btn_start: '🗳️ Vota Ora', btn_next_round: '🔄 Prossimo Round' },
+  ru: { lang_pick: 'Выберите язык', setup_title: '⚙️ Настройки', tagline: 'Ультимативное издание', label_players: 'Игроки', label_impostors: 'Самозванцы', label_time: 'Время (мин)', label_sound: 'Звук оповещения', sound_none: 'Без звука', btn_test_sound: 'Тест', btn_continue: 'Продолжить →', btn_help: 'Помощь', btn_next: 'Далее →', btn_back_main: '← Главное меню', btn_back: '← Назад', btn_deal_roles: 'Раздать роли 🎲', btn_start_game: '🔥 Начать игру', btn_pause: '⏸ Пауза', btn_resume: '▶ Продолжить', btn_new_game: '🔄 Новая игра', btn_main_menu: '🏠 Меню', cats_title: '📂 Темы', cats_pick: 'Выбрать темы', names_title: '👥 Игроки', names_assign: 'Назначить имена', reveal_title: '🤫 Роли', reveal_secret: 'Тайная личность', game_title: '⏳ Дебаты', game_timer_label: 'Таймер', game_starts_asking: 'Начинает задавать вопросы:', role_civil: 'Вы мирный', role_impostor: 'Вы самозванец', civil_word_label: 'Секретное слово:', btn_understood: 'Понятно ✓', role_seen: 'Посмотреть роль', role_done: 'Роль просмотрена ✓', cat_varied: '🎲 Разное', cat_places: '✈️ Места', cat_food: '🍕 Еда', cat_animals: '🦁 Животные', cat_movies: '🎬 Фильмы', cat_sports: '⚽ Спорт', cat_anime: '🎌 Аниме', cat_games: '🎮 Игры', cat_custom: '✏️ Пользовательский', player_default: 'Игрок', btn_close: 'Закрыть', vote_title: '🗳️ Голосование', vote_turn: 'Ход:', vote_instruction: 'Нажмите на того, кто по-вашему самозванец', vote_registered: 'Голос учтён!', vote_pass_next: 'Передать следующему →', vote_expelled: 'Изгнан:', vote_was_impostor: '✗ БЫЛ САМОЗВАНЦЕМ', vote_was_civil: '✓ БЫЛ МИРНЫМ', vote_civilians_win: 'Мирные Побеждают!', vote_impostors_win: 'Самозванцы Побеждают!', vote_tie_msg: 'Ничья. Никто не изгнан. Самозванцы побеждают.', vote_btn_start: '🗳️ Голосовать', btn_next_round: '🔄 Следующий раунд' },
+  ja: { lang_pick: '言語を選択してください', setup_title: '⚙️ 設定', tagline: 'アルティメット版', label_players: 'プレイヤー数', label_impostors: 'インポスター数', label_time: '時間（分）', label_sound: '警告音', sound_none: '音なし', btn_test_sound: 'テスト', btn_continue: '続ける →', btn_help: 'ヘルプ', btn_next: '次へ →', btn_back_main: '← メインメニュー', btn_back: '← 戻る', btn_deal_roles: '役割を配る 🎲', btn_start_game: '🔥 ゲーム開始', btn_pause: '⏸ 一時停止', btn_resume: '▶ 再開', btn_new_game: '🔄 新しいゲーム', btn_main_menu: '🏠 メニュー', cats_title: '📂 テーマ', cats_pick: 'テーマを選ぶ', names_title: '👥 プレイヤー', names_assign: '名前を割り当て', reveal_title: '🤫 役割', reveal_secret: '秘密の身元', game_title: '⏳ 議論', game_timer_label: 'タイマー', game_starts_asking: '最初に質問するのは:', role_civil: 'あなたは市民です', role_impostor: 'あなたがインポスターです', civil_word_label: '秘密の言葉は:', btn_understood: '了解 ✓', role_seen: '役割を見る', role_done: '確認済み ✓', cat_varied: '🎲 ミックス', cat_places: '✈️ 場所', cat_food: '🍕 食べ物', cat_animals: '🦁 動物', cat_movies: '🎬 映画', cat_sports: '⚽ スポーツ', cat_anime: '🎌 アニメ', cat_games: '🎮 ゲーム', cat_custom: '✏️ カスタム', player_default: 'プレイヤー', btn_close: '閉じる', vote_title: '🗳️ 投票', vote_turn: '投票者:', vote_instruction: 'インポスターだと思う人をタップ', vote_registered: '投票完了！', vote_pass_next: '次の人へ →', vote_expelled: '追放:', vote_was_impostor: '✗ インポスターだった', vote_was_civil: '✓ 市民だった', vote_civilians_win: '市民の勝利！', vote_impostors_win: 'インポスターの勝利！', vote_tie_msg: '同票。誰も追放されず。インポスターの勝利。', vote_btn_start: '🗳️ 今すぐ投票', btn_next_round: '🔄 次のラウンド' },
+  ko: { lang_pick: '언어를 선택하세요', setup_title: '⚙️ 설정', tagline: '얼티메이트 에디션', label_players: '플레이어 수', label_impostors: '임포스터 수', label_time: '시간 (분)', label_sound: '경고음', sound_none: '소리 없음', btn_test_sound: '테스트', btn_continue: '계속 →', btn_help: '도움말', btn_next: '다음 →', btn_back_main: '← 메인 메뉴', btn_back: '← 뒤로', btn_deal_roles: '역할 배분 🎲', btn_start_game: '🔥 게임 시작', btn_pause: '⏸ 일시 정지', btn_resume: '▶ 재개', btn_new_game: '🔄 새 게임', btn_main_menu: '🏠 메뉴', cats_title: '📂 주제', cats_pick: '테마 선택', names_title: '👥 플레이어', names_assign: '이름 지정', reveal_title: '🤫 역할', reveal_secret: '비밀 신원', game_title: '⏳ 토론', game_timer_label: '타이머', game_starts_asking: '먼저 질문하는 사람:', role_civil: '당신은 시민입니다', role_impostor: '당신이 임포스터입니다', civil_word_label: '비밀 단어는:', btn_understood: '알겠습니다 ✓', role_seen: '역할 보기', role_done: '역할 확인 ✓', cat_varied: '🎲 다양', cat_places: '✈️ 장소', cat_food: '🍕 음식', cat_animals: '🦁 동물', cat_movies: '🎬 영화', cat_sports: '⚽ 스포츠', cat_anime: '🎌 애니메', cat_games: '🎮 게임', cat_custom: '✏️ 커스텀', player_default: '플레이어', btn_close: '닫기', vote_title: '🗳️ 투표', vote_turn: '차례:', vote_instruction: '임포스터라고 생각하는 사람을 탭하세요', vote_registered: '투표 완료!', vote_pass_next: '다음 사람에게 →', vote_expelled: '추방:', vote_was_impostor: '✗ 임포스터였음', vote_was_civil: '✓ 시민이었음', vote_civilians_win: '시민 승리!', vote_impostors_win: '임포스터 승리!', vote_tie_msg: '동점. 아무도 추방되지 않음. 임포스터 승리.', vote_btn_start: '🗳️ 지금 투표', btn_next_round: '🔄 다음 라운드' },
+  zh: { lang_pick: '请选择语言', setup_title: '⚙️ 设置', tagline: '终极版', label_players: '玩家数量', label_impostors: '内奸数量', label_time: '时间（分钟）', label_sound: '警报声音', sound_none: '无声音', btn_test_sound: '测试', btn_continue: '继续 →', btn_help: '帮助', btn_next: '下一步 →', btn_back_main: '← 主菜单', btn_back: '← 返回', btn_deal_roles: '分配角色 🎲', btn_start_game: '🔥 开始游戏', btn_pause: '⏸ 暂停', btn_resume: '▶ 继续', btn_new_game: '🔄 新游戏', btn_main_menu: '🏠 菜单', cats_title: '📂 主题', cats_pick: '选择主题', names_title: '👥 玩家', names_assign: '分配名称', reveal_title: '🤫 角色', reveal_secret: '秘密身份', game_title: '⏳ 辩论', game_timer_label: '计时器', game_starts_asking: '先开始提问：', role_civil: '你是平民', role_impostor: '你是内奸', civil_word_label: '秘密词语是：', btn_understood: '明白了 ✓', role_seen: '查看角色', role_done: '已查看 ✓', cat_varied: '🎲 综合', cat_places: '✈️ 地点', cat_food: '🍕 食物', cat_animals: '🦁 动物', cat_movies: '🎬 电影', cat_sports: '⚽ 运动', cat_anime: '🎌 动漫', cat_games: '🎮 游戏', cat_custom: '✏️ 自定义', player_default: '玩家', btn_close: '关闭', vote_title: '🗳️ 投票', vote_turn: '轮到：', vote_instruction: '点击你认为的内奸', vote_registered: '投票已记录！', vote_pass_next: '传给下一位 →', vote_expelled: '被淘汰：', vote_was_impostor: '✗ 是内奸', vote_was_civil: '✓ 是平民', vote_civilians_win: '平民胜利！', vote_impostors_win: '内奸胜利！', vote_tie_msg: '投票平局。无人被淘汰。内奸获胜。', vote_btn_start: '🗳️ 立即投票', btn_next_round: '🔄 下一轮' },
+  ar: { lang_pick: 'اختر لغتك', setup_title: '⚙️ الإعدادات', tagline: 'الإصدار النهائي', label_players: 'اللاعبون', label_impostors: 'المتسللون', label_time: 'الوقت (دقائق)', label_sound: 'صوت التنبيه', sound_none: 'بدون صوت', btn_test_sound: 'اختبار', btn_continue: 'متابعة →', btn_help: 'مساعدة', btn_next: 'التالي →', btn_back_main: '→ القائمة الرئيسية', btn_back: '→ رجوع', btn_deal_roles: 'توزيع الأدوار 🎲', btn_start_game: '🔥 ابدأ اللعبة', btn_pause: '⏸ إيقاف مؤقت', btn_resume: '▶ استئناف', btn_new_game: '🔄 لعبة جديدة', btn_main_menu: '🏠 القائمة', cats_title: '📂 المواضيع', cats_pick: 'اختر الفئات', names_title: '👥 اللاعبون', names_assign: 'تعيين الأسماء', reveal_title: '🤫 الأدوار', reveal_secret: 'الهوية السرية', game_title: '⏳ النقاش', game_timer_label: 'المؤقت', game_starts_asking: 'يبدأ بالسؤال:', role_civil: 'أنت مدني', role_impostor: 'أنت المتسلل', civil_word_label: 'الكلمة السرية هي:', btn_understood: 'فهمت ✓', role_seen: 'انظر الدور', role_done: 'شوهد الدور ✓', cat_varied: '🎲 متنوع', cat_places: '✈️ أماكن', cat_food: '🍕 طعام', cat_animals: '🦁 حيوانات', cat_movies: '🎬 أفلام', cat_sports: '⚽ رياضة', cat_anime: '🎌 أنمي', cat_games: '🎮 ألعاب', cat_custom: '✏️ مخصص', player_default: 'لاعب', btn_close: 'إغلاق', vote_title: '🗳️ التصويت', vote_turn: 'دور:', vote_instruction: 'اضغط على من تظن أنه المتسلل', vote_registered: 'تم تسجيل الصوت!', vote_pass_next: 'مرر للتالي →', vote_expelled: 'مُستبعد:', vote_was_impostor: '✗ كان المتسلل', vote_was_civil: '✓ كان مدنياً', vote_civilians_win: 'فاز المدنيون!', vote_impostors_win: 'فاز المتسللون!', vote_tie_msg: 'تعادل. لم يُستبعد أحد. فاز المتسللون.', vote_btn_start: '🗳️ صوّت الآن', btn_next_round: '🔄 الجولة التالية' },
+  tr: { lang_pick: 'Dilinizi seçin', setup_title: '⚙️ Ayarlar', tagline: 'Ultimate Sürüm', label_players: 'Oyuncular', label_impostors: 'Sahtekârlar', label_time: 'Süre (dakika)', label_sound: 'Uyarı Sesi', sound_none: 'Sessiz', btn_test_sound: 'Test', btn_continue: 'Devam →', btn_help: 'Yardım', btn_next: 'İleri →', btn_back_main: '← Ana Menü', btn_back: '← Geri', btn_deal_roles: 'Rolleri Dağıt 🎲', btn_start_game: '🔥 Oyunu Başlat', btn_pause: '⏸ Duraklat', btn_resume: '▶ Devam', btn_new_game: '🔄 Yeni Oyun', btn_main_menu: '🏠 Menü', cats_title: '📂 Temalar', cats_pick: 'Tema Seç', names_title: '👥 Oyuncular', names_assign: 'İsimleri Atayın', reveal_title: '🤫 Roller', reveal_secret: 'Gizli Kimlik', game_title: '⏳ Tartışma', game_timer_label: 'Süre', game_starts_asking: 'İlk soru soran:', role_civil: 'Sivilsiniz', role_impostor: 'Sahtekârsınız', civil_word_label: 'Gizli kelime:', btn_understood: 'Anladım ✓', role_seen: 'Rolü Gör', role_done: 'Rol Görüldü ✓', cat_varied: '🎲 Karışık', cat_places: '✈️ Yerler', cat_food: '🍕 Yiyecekler', cat_animals: '🦁 Hayvanlar', cat_movies: '🎬 Filmler', cat_sports: '⚽ Spor', cat_anime: '🎌 Anime', cat_games: '🎮 Oyunlar', cat_custom: '✏️ Özel', player_default: 'Oyuncu', btn_close: 'Kapat', vote_title: '🗳️ Oylama', vote_turn: 'Sıra:', vote_instruction: 'Sahtekâr olduğunu düşündüğün kişiye dokun', vote_registered: 'Oy kaydedildi!', vote_pass_next: 'Sıradakine geç →', vote_expelled: 'Kovuldu:', vote_was_impostor: '✗ SAHTEKÂRDI', vote_was_civil: '✓ SİVİLDİ', vote_civilians_win: 'Siviller Kazandı!', vote_impostors_win: 'Sahtekârlar Kazandı!', vote_tie_msg: 'Berabere. Kimse kovulmadı. Sahtekârlar kazandı.', vote_btn_start: '🗳️ Şimdi Oy Ver', btn_next_round: '🔄 Sonraki Tur' },
 };
 
 Object.keys(I18N).forEach(code => {
@@ -1489,6 +1051,14 @@ const state = {
     alarmSound: 'none',
     usedWords: [],
     gameEnded: false,
+  },
+  vote: {
+    active: false,
+    voters: [],
+    currentIdx: 0,
+    votes: {},       // { voterIdx: votedIdx }
+    lastVotedFor: null,
+    showingResults: false,
   },
   rolesViewed: 0,
   openHelpId: null,
@@ -1711,13 +1281,14 @@ function getHistory() {
   catch { return []; }
 }
 
-function addGameToHistory() {
+function addGameToHistory(winner) {
   const history = getHistory();
   history.unshift({
     date: new Date().toLocaleString(),
     word: state.game.secretWord,
     impostors: state.game.impostorIndices.map(i => state.playerNames[i]).join(', '),
     players: state.playerNames.join(', '),
+    winner: winner || '—',
   });
   if (history.length > 20) history.length = 20;
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
@@ -1775,6 +1346,15 @@ function getSecretWord() {
   return word;
 }
 
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function assignRoles() {
   state.playerNames = state.playerNames.map(n => n.trim()).filter(Boolean);
 
@@ -1791,11 +1371,7 @@ function assignRoles() {
   if (!word) return alert(t('err_no_words'));
   state.game.secretWord = word;
 
-  const indices = Array.from({ length: state.config.players }, (_, i) => i);
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
+  const indices = shuffle(Array.from({ length: state.config.players }, (_, i) => i));
   state.game.impostorIndices = indices.slice(0, state.config.impostors).sort((a, b) => a - b);
 
   state.rolesViewed = 0;
@@ -1868,11 +1444,8 @@ function startTimer() {
       state.game.timerId = null;
       SoundEngine.play(state.game.alarmSound);
       if (!state.game.gameEnded) {
-        state.game.gameEnded = true;
-        addGameToHistory();
-        releaseWakeLock();
-        alert(t('time_up_msg'));
-        softReset(true);
+        // Auto start voting when time runs out
+        setTimeout(() => startVoting(), 400);
       }
     }
   }, 1000);
@@ -1892,6 +1465,158 @@ function togglePause() {
   $('btn-pause').textContent = state.game.paused ? t('btn_resume') : t('btn_pause');
 }
 
+/* ============================================================
+   VOTING
+   ============================================================ */
+function startVoting() {
+  clearInterval(state.game.timerId);
+  state.game.timerId = null;
+  state.game.paused = true;
+  releaseWakeLock();
+
+  // Shuffle the voting order so it's not obvious who's first
+  const voters = shuffle(Array.from({ length: state.playerNames.length }, (_, i) => i));
+
+  state.vote = {
+    active: true,
+    voters,
+    currentIdx: 0,
+    votes: {},
+    lastVotedFor: null,
+    showingResults: false,
+  };
+
+  showScreen('screen-vote');
+  renderVoteTurn();
+  requestWakeLock();
+}
+
+function renderVoteTurn() {
+  const voterIdx = state.vote.voters[state.vote.currentIdx];
+  const voterName = state.playerNames[voterIdx];
+
+  $('vote-turn-name').textContent = voterName;
+  $('vote-progress').textContent = `${state.vote.currentIdx + 1} / ${state.vote.voters.length}`;
+
+  // Build voting options (exclude self)
+  $('vote-options').innerHTML = state.playerNames.map((name, i) => {
+    if (i === voterIdx) return '';
+    return `<button type="button" class="vote-option" data-vote-for="${i}">
+      <span class="vote-option-num">${i + 1}.</span>
+      <span class="vote-option-name">${escapeHtml(name)}</span>
+    </button>`;
+  }).join('');
+
+  $('vote-turn-card').classList.remove('hidden');
+  $('vote-confirm-card').classList.add('hidden');
+}
+
+function castVote(votedIdx) {
+  const voterIdx = state.vote.voters[state.vote.currentIdx];
+  if (votedIdx === voterIdx) return; // can't vote for self
+
+  state.vote.votes[voterIdx] = votedIdx;
+  state.vote.lastVotedFor = votedIdx;
+
+  // Show confirmation
+  $('vote-turn-card').classList.add('hidden');
+  $('vote-confirm-card').classList.remove('hidden');
+  $('vote-confirm-who').innerHTML = `<strong>${escapeHtml(state.playerNames[votedIdx])}</strong>`;
+}
+
+function advanceVote() {
+  state.vote.currentIdx++;
+  if (state.vote.currentIdx >= state.vote.voters.length) {
+    showVoteResults();
+  } else {
+    renderVoteTurn();
+  }
+}
+
+function showVoteResults() {
+  state.vote.showingResults = true;
+  state.game.gameEnded = true;
+
+  // Tally
+  const counts = {};
+  Object.values(state.vote.votes).forEach(v => { counts[v] = (counts[v] || 0) + 1; });
+
+  let maxCount = 0;
+  let leaders = [];
+  Object.entries(counts).forEach(([idx, count]) => {
+    const i = parseInt(idx, 10);
+    if (count > maxCount) { maxCount = count; leaders = [i]; }
+    else if (count === maxCount) leaders.push(i);
+  });
+
+  const isTie = leaders.length !== 1;
+  const expelledIdx = isTie ? null : leaders[0];
+  const wasImpostor = !isTie && state.game.impostorIndices.includes(expelledIdx);
+  const civiliansWin = !isTie && wasImpostor;
+  const winnerKey = civiliansWin ? 'civilians' : 'impostors';
+
+  addGameToHistory(winnerKey);
+  releaseWakeLock();
+
+  const impostorNames = state.game.impostorIndices.map(i => state.playerNames[i]).join(', ');
+
+  // Build vote summary
+  const voteSummary = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([idx, count]) => `${escapeHtml(state.playerNames[+idx])} — ${count}`)
+    .join(' · ');
+
+  const modal = $('role-modal');
+  modal.innerHTML = `
+    <div class="role-card ${civiliansWin ? 'win' : 'impostor'}">
+      <div class="role-emoji">${civiliansWin ? '🏆' : '💀'}</div>
+      <div class="role-title">${civiliansWin ? t('vote_civilians_win') : t('vote_impostors_win')}</div>
+
+      ${isTie ? `
+        <p class="role-hint" style="margin-bottom: 18px;">${t('vote_tie_msg')}</p>
+      ` : `
+        <div style="font-family: var(--font-marker); font-size:0.8rem; margin-bottom:6px; ${civiliansWin ? 'color: var(--ink);' : ''}">${t('vote_expelled')}</div>
+        <div class="word-box">${escapeHtml(state.playerNames[expelledIdx])}</div>
+        <p class="role-hint" style="font-family: var(--font-display); font-weight: 700; letter-spacing: 1.5px; font-size: 1rem; margin-bottom: 16px; ${civiliansWin ? 'color: var(--ink);' : 'color: var(--yellow);'}">
+          ${wasImpostor ? t('vote_was_impostor') : t('vote_was_civil')}
+        </p>
+      `}
+
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 12px 0 6px; ${civiliansWin ? 'color: var(--ink);' : ''}">${t('label_word')}</div>
+      <div class="word-box">${escapeHtml(state.game.secretWord)}</div>
+
+      <div style="font-family: var(--font-marker); font-size:0.8rem; margin: 14px 0 6px; ${civiliansWin ? 'color: var(--ink);' : ''}">${t('label_impostor_was')}</div>
+      <div class="word-box" style="background: var(--ink); color: var(--red);">${escapeHtml(impostorNames)}</div>
+
+      ${voteSummary ? `
+        <div style="font-family: var(--font-marker); font-size:0.72rem; margin-top: 14px; opacity: 0.85; line-height: 1.6; ${civiliansWin ? 'color: var(--ink);' : 'color: var(--white);'}">
+          📊 ${voteSummary}
+        </div>
+      ` : ''}
+
+      <div class="btn-row" style="margin-top: 22px;">
+        <button type="button" class="btn btn-primary" data-vote-next-round>${t('btn_next_round')}</button>
+        <button type="button" class="btn btn-ghost" data-vote-menu>${t('btn_main_menu')}</button>
+      </div>
+    </div>`;
+  modal.classList.add('visible');
+}
+
+function handleVoteNextRound() {
+  $('role-modal').classList.remove('visible');
+  state.vote.showingResults = false;
+  softReset(true);
+}
+
+function handleVoteBackToMenu() {
+  $('role-modal').classList.remove('visible');
+  state.vote.showingResults = false;
+  fullReset(true);
+}
+
+/* ============================================================
+   REVEAL & END (emergency skip)
+   ============================================================ */
 function revealAndEndGame() {
   if (!confirm(t('confirm_reveal'))) return;
 
@@ -1899,7 +1624,7 @@ function revealAndEndGame() {
   state.game.timerId = null;
   state.game.paused = true;
   state.game.gameEnded = true;
-  addGameToHistory();
+  addGameToHistory('impostors');
   releaseWakeLock();
 
   const impostorNames = state.game.impostorIndices.map(i => state.playerNames[i]).join(', ');
@@ -2077,6 +1802,10 @@ function bindEvents() {
   $('btn-begin-debate').addEventListener('click', startDebate);
 
   $('btn-pause').addEventListener('click', togglePause);
+  $('btn-vote-now').addEventListener('click', () => {
+    if (state.game.gameEnded) return;
+    startVoting();
+  });
   $('btn-reveal-end').addEventListener('click', revealAndEndGame);
   $('btn-manage').addEventListener('click', openManagePlayers);
   $('btn-new-game').addEventListener('click', () => softReset(false));
@@ -2106,12 +1835,27 @@ function bindEvents() {
     if (item) showRole(+item.dataset.reveal);
   });
 
+  // Voting options
+  $('vote-options').addEventListener('click', e => {
+    const opt = e.target.closest('[data-vote-for]');
+    if (opt) castVote(+opt.dataset.voteFor);
+  });
+  $('btn-vote-next').addEventListener('click', advanceVote);
+
+  // Modal delegation
   $('role-modal').addEventListener('click', e => {
     const closeRoleBtn = e.target.closest('[data-close-role]');
     if (closeRoleBtn) return closeRole(closeRoleBtn.dataset.closeRole);
     const endBtn = e.target.closest('[data-end-game]');
     if (endBtn) return closeEndGameModal();
-    if (e.target === $('role-modal')) $('role-modal').classList.remove('visible');
+    const nextRoundBtn = e.target.closest('[data-vote-next-round]');
+    if (nextRoundBtn) return handleVoteNextRound();
+    const menuBtn = e.target.closest('[data-vote-menu]');
+    if (menuBtn) return handleVoteBackToMenu();
+    // Prevent accidental close during vote results
+    if (e.target === $('role-modal') && !state.vote.showingResults) {
+      $('role-modal').classList.remove('visible');
+    }
   });
 
   $('btn-add-mid').addEventListener('click', addPlayerMidGame);
